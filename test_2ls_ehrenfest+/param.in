@@ -1,6 +1,4 @@
 #!/usr/bin/python
-import sys
-sys.path.append("/home/theta/sync/tdsh/EM/Tao")
 from units import AtomicUnit
 from utility import *
 AU = AtomicUnit()
@@ -10,6 +8,7 @@ AU = AtomicUnit()
 ShowAnimation = True
 AveragePeriod = 10
 UseInitialRandomPhase = False
+NumberTrajectories = 2
 
 # Set up time steps
 T0 = 0.0
@@ -44,7 +43,7 @@ param_TLS={
     'VP':       np.array([[0.0,1.0],\
                           [1.0,0.0]]),
     # initial diabatic state vector
-    'C0':				np.sqrt(np.array([[0.5],[0.5]],complex)),
+    'C0':				np.sqrt(np.array([[0.0],[1.0]],complex)),
     # polarization
     'Mu':       0.0,
     #'Sigma':    0.0556*(AU.nm**2),
