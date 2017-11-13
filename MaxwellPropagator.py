@@ -414,11 +414,11 @@ class AugmentedEhrenfestMaxwellPropagator_1D(object):
 
 
     def ContinuousEmission_E(self,deltaE,intDE,intDD,Dx):
-        absEx = np.sum(self.EB[self._Ex:self._Ex+self.NZgrid]**2)*self.dZ
         if intDE==0.0:
             self.EB[self._Ex:self._Ex+self.NZgrid] = np.random.choice([1, -1])*Dx * np.sqrt(deltaE/intDD)
         else:
-            Kappa = [(-intDE + np.sqrt(intDE**2+2*intDD*deltaE) )/intDD, (-intDE - np.sqrt(intDE**2+2*intDD*deltaE) )/intDD]
+            Kappa = [(-intDE + np.sqrt(intDE**2+2*intDD*deltaE) )/intDD, \
+                     (-intDE - np.sqrt(intDE**2+2*intDD*deltaE) )/intDD]
             if np.abs(Kappa[0])<np.abs(Kappa[1]):
                 Kappa = Kappa[0]
             else:
@@ -426,18 +426,14 @@ class AugmentedEhrenfestMaxwellPropagator_1D(object):
             self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + Kappa* Dx[:]
 
 
-    def ContinuousEmission_B(self,deltaE,intDE,intDD,Dx):
-        absEx = np.sum(self.EB[self._Ex:self._Ex+self.NZgrid]**2)*self.dZ
-        #if absEx==0.0:
-            #pass
-        if intDE==0.0:
-            #self.EB[self._Ex:self._Ex+self.NZgrid] = Dx * np.sqrt(deltaE/intDD)
-            self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*Dx * np.sqrt(1*deltaE/intDD)
-			#pass
+    def ContinuousEmission_B(self,deltaE,intdDdzB,intdDdzdDdz,dDxdz):
+        if intdDdzB==0.0:
+            self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*dDxdz * np.sqrt(deltaE/intdDdzdDdz)
         else:
-            Kappa = [(-intDE + np.sqrt(intDE**2+2*intDD*deltaE) )/intDD, (-intDE - np.sqrt(intDE**2+2*intDD*deltaE) )/intDD]
+            Kappa = [(-intdDdzB + np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz, \
+                     (-intdDdzB - np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz]
             if np.abs(Kappa[0])<np.abs(Kappa[1]):
                 Kappa = Kappa[0]
             else:
                 Kappa = Kappa[1]
-            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + Kappa* Dx[:]
+            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + Kappa* dDxdz[:]
