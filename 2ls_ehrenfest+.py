@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys
+from sys import argv
 #sys.path.append("/home/theta/sync/tdsh/EM/Tao")
 import numpy as np
 from scipy.integrate import ode
@@ -19,7 +19,7 @@ ShowAnimation = False
 AveragePeriod = 10
 UseInitialRandomPhase = True
 
-if (len(sys.argv) == 1):
+if (len(argv) == 1):
     execfile('param.in')
     outfile = 'data.pkl'
 elif (len(argv) == 2):
