@@ -236,4 +236,4 @@ for i in range(NumberTrajectories):
     output = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
     data.append(output)
 with open(outfile, 'wb') as f:
-    pickle.dump(output,f)
+    pickle.dump(data,f)
