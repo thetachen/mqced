@@ -67,19 +67,20 @@ class ThreeLevelSystemPropagator(object):
             self.C[1,0] = np.sqrt(np.abs(self.C[1,0])**2 - dE)
 
     def rescale(self,ii,jj,drho):
-		"""
-		rescale the state vector from ii to jj by drho
-		"""
-		if self.C[ii,0] == 0.0:
-			pass
-		elif self.C[jj,0] == 0.0:
-			self.C[jj,0] = np.sqrt(drho)
-			self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0])*np.sqrt(np.abs(self.C[ii,0])**2-drho)
+        """
+        rescale the state vector from ii to jj by drho
+        """
+        if self.C[ii,0] == 0.0:
+            pass
+        elif self.C[jj,0] == 0.0:
+            self.C[jj,0] = np.sqrt(drho)
+            self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0])*np.sqrt(np.abs(self.C[ii,0])**2-drho)
 			#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
 			#TLSP.C[0,0] = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
-		else:
-			self.C[jj,0] = self.C[jj,0]/np.abs(self.C[jj,0]) * np.sqrt(np.abs(self.C[jj,0])**2 + drho)
-			self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0]) * np.sqrt(np.abs(self.C[ii,0])**2 - drho)
+		#else:
+        elif np.abs(self.C[ii,0])**2 - drho > 0.0:
+            self.C[jj,0] = self.C[jj,0]/np.abs(self.C[jj,0]) * np.sqrt(np.abs(self.C[jj,0])**2 + drho)
+            self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0]) * np.sqrt(np.abs(self.C[ii,0])**2 - drho)
         	#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
         	#C0 = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
         	#TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
