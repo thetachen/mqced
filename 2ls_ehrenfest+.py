@@ -19,6 +19,7 @@ ShowAnimation = False
 AveragePeriod = 10
 UseInitialRandomPhase = True
 NumberTrajectories = 1
+UsePlusEmission = True
 
 if (len(argv) == 1):
     execfile('param.in')
@@ -114,21 +115,23 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         EMP.propagate(dt)
         EB = EMP.EB
 
-        #4. Implement additional population relaxation (1->0)
-        gamma = TLSP.FGR[1,0]*np.abs(TLSP.C[1,0])**2
-        drho = gamma*dt * np.abs(TLSP.C[1,0])**2
-        dE = (TLSP.H0[1,1]-TLSP.H0[0,0])*gamma*dt * np.abs(TLSP.C[1,0])**2
-        TLSP.rescale(1,0,drho)
+        if UsePlusEmission:
+            #4. Implement additional population relaxation (1->0)
+            gamma = TLSP.FGR[1,0]*np.abs(TLSP.C[1,0])**2
+            drho = gamma*dt * np.abs(TLSP.C[1,0])**2
+            dE = (TLSP.H0[1,1]-TLSP.H0[0,0])*gamma*dt * np.abs(TLSP.C[1,0])**2
+            TLSP.rescale(1,0,drho)
 
-        theta = random()*2*np.pi
-        cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
-        EMP.ContinuousEmission_E(dE*cos2,intDE,intDD,Dx)
-        EMP.ContinuousEmission_B(dE*sin2,intdDdzB,intdDdzdDdz,dDxdz)
-        #EMP.ContinuousEmission_B(dE,intdDdzB,intdDdzdDdz,dDxdz)
-        EB = EMP.EB
+            theta = random()*2*np.pi
+            cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
+            EMP.ContinuousEmission_E(dE*cos2,intDE,intDD,Dx)
+            EMP.ContinuousEmission_B(dE*sin2,intdDdzB,intdDdzdDdz,dDxdz)
+            #EMP.ContinuousEmission_B(dE,intdDdzB,intdDdzdDdz,dDxdz)
+            EB = EMP.EB
 
         #5. Apply absorption boundary condition 
         EMP.applyAbsorptionBoundaryCondition()
+        EB = EMP.EB
 
         """
         output:
