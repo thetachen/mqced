@@ -20,6 +20,7 @@ AveragePeriod = 10
 UseInitialRandomPhase = True
 NumberTrajectories = 1
 UsePlusEmission = True
+UseRandomEB = True
 
 if (len(argv) == 1):
     execfile('param.in')
@@ -122,11 +123,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             dE = (TLSP.H0[1,1]-TLSP.H0[0,0])*gamma*dt * np.abs(TLSP.C[1,0])**2
             TLSP.rescale(1,0,drho)
 
-            theta = random()*2*np.pi
-            cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
-            EMP.ContinuousEmission_E(dE*cos2,intDE,intDD,Dx)
-            EMP.ContinuousEmission_B(dE*sin2,intdDdzB,intdDdzdDdz,dDxdz)
-            #EMP.ContinuousEmission_B(dE,intdDdzB,intdDdzdDdz,dDxdz)
+            if UseRandomEB:
+                theta = random()*2*np.pi
+                cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
+                EMP.ContinuousEmission_E(dE*cos2,intDE,intDD,Dx)
+                EMP.ContinuousEmission_B(dE*sin2,intdDdzB,intdDdzdDdz,dDxdz)
+            else:
+                EMP.ContinuousEmission_B(dE,intdDdzB,intdDdzdDdz,dDxdz)
             EB = EMP.EB
 
         #5. Apply absorption boundary condition 
