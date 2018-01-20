@@ -1,6 +1,5 @@
 #!/usr/bin/python
 from sys import argv
-#sys.path.append("/home/theta/sync/tdsh/EM/Tao")
 import numpy as np
 from scipy.integrate import ode
 from utility import *
@@ -67,14 +66,15 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         dDydz[iz] = 0.0
 
     # create EM object
-    EMP = AugmentedEhrenfestMaxwellPropagator_1D(param_EM)
+    EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
     EMP.initializeODEsolver(EB,T0)
     EMP.applyAbsorptionBoundaryCondition()
 
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
-    TLSP = ThreeLevelSystemPropagator(param_TLS)
+    TLSP = PureStatePropagator(param_TLS)
+    #TLSP = DensityMatrixPropagator(param_TLS)
 
     # generate FGR rate 
     TLSP.FGR = np.zeros((TLSP.nstates,TLSP.nstates))

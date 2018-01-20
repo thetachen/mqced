@@ -4,9 +4,9 @@ from scipy.integrate import ode
 from units import AtomicUnit
 AU = AtomicUnit()
 
-class ThreeLevelSystemPropagator(object):
+class PureStatePropagator(object):
     """
-    simple three level system propagator
+    system propagator in terms of pure state wavefunction
     """
     def __init__(self, param):
         self.param = param
@@ -52,20 +52,6 @@ class ThreeLevelSystemPropagator(object):
             Esys += self.H0[n,n]*np.abs(self.C[n,0])**2
         return Esys
 
-    def rescaleState(self,dE):
-        if self.C[0,0] == 0.0:
-            self.C[0,0] = np.sqrt(dE)
-            self.C[1,0] = np.sqrt(1.0-dE)
-        elif self.C[1,0] == 0.0:
-            pass
-        #elif np.abs(self.C[1,0])**2 > dE:
-        else:
-            #self.C[0,0] = self.C[0,0]/np.abs(self.C[0,0]) * np.sqrt(np.abs(self.C[0,0])**2 + dE)
-            #self.C[1,0] = self.C[1,0]/np.abs(self.C[1,0]) * np.sqrt(np.abs(self.C[1,0])**2 - dE)
-
-            self.C[0,0] = np.sqrt(np.abs(self.C[0,0])**2 + dE)
-            self.C[1,0] = np.sqrt(np.abs(self.C[1,0])**2 - dE)
-
     def rescale(self,ii,jj,drho):
         """
         rescale the state vector from ii to jj by drho
@@ -85,7 +71,7 @@ class ThreeLevelSystemPropagator(object):
         	#C0 = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
         	#TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
 
-class TwoLevelDensityMatrixPropagator(object):
+class DensityMatrixPropagator(object):
     """
     two level system propagator using density matrix
 	can involve population relaxation and dephasing
@@ -95,8 +81,8 @@ class TwoLevelDensityMatrixPropagator(object):
         self.param = param
         self.nstates = 2
         self.Ht = np.zeros((self.nstates,self.nstates))
-        self.Gamma_r = param.Gamma_r
-        self.Gamma_d = param.Gamma_d
+        #self.Gamma_r = param.Gamma_r
+        #self.Gamma_d = param.Gamma_d
 
         #Set up density matrix
         self.rhomatrix = param.rho0

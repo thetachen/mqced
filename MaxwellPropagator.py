@@ -262,9 +262,9 @@ class SurfaceHoppingMaxwellPropagator_1D(object):
             ##except:
                 ##pass
 
-class AugmentedEhrenfestMaxwellPropagator_1D(object):
+class EhrenfestPlusREB_MaxwellPropagator_1D(object):
     """
-    EM field propagator using Augmented Ehrenfest in 1-D grid (z)
+    EM field propagator using Ehrenfest+REB in 1-D grid (z)
     """
     def __init__(self, param):
         self.param = param

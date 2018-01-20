@@ -63,12 +63,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         dDydz[iz] = 0.0
 
     # create EM object
-    EMP = AugmentedEhrenfestMaxwellPropagator_1D(param_EM)
+    EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
     EMP.initializeODEsolver(EB,T0)
     EMP.applyAbsorptionBoundaryCondition()
 
 	# create TLS object
-    TLSP = ThreeLevelSystemPropagator(param_TLS)
+    TLSP = PureStatePropagator(param_TLS)
 
 	# generate FGR rate 
     TLSP.FGR = np.zeros((TLSP.nstates,TLSP.nstates))
