@@ -543,11 +543,14 @@ class EhrenfestPlusRDB_MaxwellPropagator_1D(object):
     def ContinuousEmission_B(self,deltaE,intdPdzB,intdPdzdPdz,dPxdz):
         if intdPdzB==0.0:
             self.DB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*dPxdz * np.sqrt(deltaE/intdPdzdPdz)
+            return [0,0]
         else:
-            Kappa = [(-intdPdzB + np.sqrt(intdPdzB**2+2*intdPdzdPdz*deltaE) )/intdPdzdPdz, \
-                     (-intdPdzB - np.sqrt(intdPdzB**2+2*intdPdzdPdz*deltaE) )/intdPdzdPdz]
-            if np.abs(Kappa[0])<np.abs(Kappa[1]):
-                Kappa = Kappa[0]
+            alphas = [(-intdPdzB + np.sqrt(intdPdzB**2+2*intdPdzdPdz*deltaE) )/intdPdzdPdz, \
+                      (-intdPdzB - np.sqrt(intdPdzB**2+2*intdPdzdPdz*deltaE) )/intdPdzdPdz]
+            if np.abs(alphas[0])<np.abs(alphas[1]):
+                alpha_min = alphas[0]
             else:
-                Kappa = Kappa[1]
-            self.DB[self._By:self._By+self.NZgrid] = self.DB[self._By:self._By+self.NZgrid] + Kappa* dPxdz[:]
+                alpha_min = alphas[1]
+            alpha = alphas[1]
+            self.DB[self._By:self._By+self.NZgrid] = self.DB[self._By:self._By+self.NZgrid] + alpha* dPxdz[:]
+            return alphas
