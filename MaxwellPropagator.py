@@ -311,7 +311,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         dvdt[self._By+1:self._By+self.NZgrid-1] = -( vec[self._Ex+2:self._Ex+self.NZgrid] - vec[self._Ex:self._Ex+self.NZgrid-2] )/self.dZ/2
 
         dvdt[self._Ex] = -( vec[self._By+1] - vec[self._By+0] )/self.dZ * self.unit.C**2  - self.Jx[0]/self.unit.E0
-        dvdt[self._Ey] =  ( vec[self._Bx+1] - vec[self._Bx+0] )/self.dZ * self.unit.C**2  - self.Jx[0]/self.unit.E0
+        dvdt[self._Ey] =  ( vec[self._Bx+1] - vec[self._Bx+0] )/self.dZ * self.unit.C**2  - self.Jy[0]/self.unit.E0
         dvdt[self._Bx] =  ( vec[self._Ey+1] - vec[self._Ey+0] )/self.dZ
         dvdt[self._By] = -( vec[self._Ex+1] - vec[self._Ex+0] )/self.dZ
 
@@ -437,3 +437,117 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             else:
                 Kappa = Kappa[1]
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + Kappa* dDxdz[:]
+
+
+class EhrenfestPlusRDB_MaxwellPropagator_1D(object):
+    """
+    EM field propagator using Ehrenfest+RDB in 1-D grid (z)
+    """
+    def __init__(self, param):
+        self.param = param
+        self.NZgrid = self.param.NZgrid
+        self.Zgrid = self.param.Zgrid
+        self.dZ = self.param.dZ
+        self._Dx = self.param._Ex
+        self._Dy = self.param._Ey
+        self._Bx = self.param._Bx
+        self._By = self.param._By
+
+        # current flux
+        self.curlPx = np.zeros(self.NZgrid)
+        self.curlPy = np.zeros(self.NZgrid)
+
+        # a long vector [Dx,Dy,Bx,By]
+        self.DB = np.zeros(4*self.NZgrid)
+
+        # vector potential 
+        self.Ax = np.zeros(self.NZgrid)
+        self.Ay = np.zeros(self.NZgrid)
+
+        # unit constats:
+        self.unit = AU
+        
+        self.dAxdZ = np.zeros(self.NZgrid)
+        self.dAydZ = np.zeros(self.NZgrid)
+
+
+    def initializeODEsolver(self,DB,T0):
+        # EM ode solver
+        self.solver = ode(self.f)
+        self.solver.set_integrator('dopri5')
+        self.solver.set_initial_value(DB, T0)
+        self.DB = self.solver.y
+
+    def f(self,t,vec):
+        dvdt = np.zeros(4*self.NZgrid)
+        dvdt[self._Dx+1:self._Dx+self.NZgrid-1] = -( vec[self._By+2:self._By+self.NZgrid] - vec[self._By:self._By+self.NZgrid-2] )/self.dZ/2 / self.unit.M0
+        dvdt[self._Dy+1:self._Dy+self.NZgrid-1] =  ( vec[self._Bx+2:self._Bx+self.NZgrid] - vec[self._Bx:self._Bx+self.NZgrid-2] )/self.dZ/2 / self.unit.M0
+        dvdt[self._Bx+1:self._Bx+self.NZgrid-1] =  ( vec[self._Dy+2:self._Dy+self.NZgrid] - vec[self._Dy:self._Dy+self.NZgrid-2] )/self.dZ/2 / self.unit.E0\
+                                                  + self.curlPx[1:self.NZgrid-1] / self.unit.E0
+        dvdt[self._By+1:self._By+self.NZgrid-1] = -( vec[self._Dx+2:self._Dx+self.NZgrid] - vec[self._Dx:self._Dx+self.NZgrid-2] )/self.dZ/2 / self.unit.E0\
+                                                  + self.curlPy[1:self.NZgrid-1] / self.unit.E0
+
+        dvdt[self._Dx] = -( vec[self._By+1] - vec[self._By+0] )/self.dZ / self.unit.M0
+        dvdt[self._Dy] =  ( vec[self._Bx+1] - vec[self._Bx+0] )/self.dZ / self.unit.M0
+        dvdt[self._Bx] =  ( vec[self._Dy+1] - vec[self._Dy+0] )/self.dZ / self.unit.E0 + self.curlPx[0] / self.unit.E0
+        dvdt[self._By] = -( vec[self._Dx+1] - vec[self._Dx+0] )/self.dZ / self.unit.E0 + self.curlPy[0] / self.unit.E0
+
+        dvdt[self._Dx+self.NZgrid-1] = -( vec[self._By+self.NZgrid-1] - vec[self._By+self.NZgrid-2] )/self.dZ / self.unit.M0
+        dvdt[self._Dy+self.NZgrid-1] =  ( vec[self._Bx+self.NZgrid-1] - vec[self._Bx+self.NZgrid-2] )/self.dZ / self.unit.M0
+        dvdt[self._Bx+self.NZgrid-1] =  ( vec[self._Dy+self.NZgrid-1] - vec[self._Dy+self.NZgrid-2] )/self.dZ / self.unit.E0 + self.curlPx[self.NZgrid-1] / self.unit.E0
+        dvdt[self._By+self.NZgrid-1] = -( vec[self._Dx+self.NZgrid-1] - vec[self._Dx+self.NZgrid-2] )/self.dZ / self.unit.E0 + self.curlPy[self.NZgrid-1] / self.unit.E0
+
+        return dvdt
+
+    def update_curlP(self,curlPx,curlPy):
+        self.curlPx = curlPx
+        self.curlPy = curlPy
+
+    def propagate(self,dt):
+        self.solver.integrate(self.solver.t+dt)
+        self.DB = self.solver.y
+
+
+    def getEnergyDensity(self,Pxt,Pyt):
+        U = np.zeros(self.NZgrid)
+        for n in range(self.NZgrid):
+            U[n] = 0.5/AU.E0*( (self.DB[self._Dx + n]-Pxt[n])**2 + (self.DB[self._Dy + n]-Pyt[n])**2 ) \
+                 + 0.5/AU.M0*( self.DB[self._Bx + n]**2 + self.DB[self._By + n]**2 )
+        return U
+
+    def applyAbsorptionBoundaryCondition(self):
+        for iz in range(self.NZgrid):
+            Z = np.abs(self.Zgrid[iz])
+            S = 1*(Z<self.param.Z0) + \
+                (Z<=self.param.Z1 and Z>=self.param.Z0)/(1.0+np.exp(-(self.param.Z0-self.param.Z1)/(self.param.Z0-Z)-(self.param.Z1-self.param.Z0)/(Z-self.param.Z1))) + \
+                0*(Z>self.param.Z1)
+
+            self.DB[self._Dx+iz] = self.DB[self._Dx+iz]*S
+            self.DB[self._Dy+iz] = self.DB[self._Dy+iz]*S
+            self.DB[self._Bx+iz] = self.DB[self._Bx+iz]*S
+            self.DB[self._By+iz] = self.DB[self._By+iz]*S
+
+    def ContinuousEmission_D(self,deltaE,intPD,intPP,Px):
+        if intPD==0.0:
+            self.DB[self._Dx:self._Dx+self.NZgrid] = np.random.choice([1, -1])*Px * np.sqrt(deltaE/intPP)
+        else:
+            Kappa = [(-intPD + np.sqrt(intPD**2+2*intPP*deltaE) )/intPP, \
+                     (-intPD - np.sqrt(intPD**2+2*intPP*deltaE) )/intPP]
+            if np.abs(Kappa[0])<np.abs(Kappa[1]):
+                Kappa = Kappa[0]
+            else:
+                Kappa = Kappa[1]
+            self.DB[self._Dx:self._Dx+self.NZgrid] = self.DB[self._Dx:self._Dx+self.NZgrid] + Kappa* Px[:]
+
+
+    def ContinuousEmission_B(self,deltaE,intdPdzB,intdPdzdPdz,dPxdz):
+        if intdPdzB==0.0:
+            self.DB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*dPxdz * np.sqrt(deltaE/intdPdzdPdz)
+        else:
+            Kappa = [(-intdPdzB + np.sqrt(intdPdzB**2+2*intdPdzdPdz*deltaE) )/intdPdzdPdz, \
+                     (-intdPdzB - np.sqrt(intdPdzB**2+2*intdPdzdPdz*deltaE) )/intdPdzdPdz]
+            if np.abs(Kappa[0])<np.abs(Kappa[1]):
+                Kappa = Kappa[0]
+            else:
+                Kappa = Kappa[1]
+            self.DB[self._By:self._By+self.NZgrid] = self.DB[self._By:self._By+self.NZgrid] + Kappa* dPxdz[:]
