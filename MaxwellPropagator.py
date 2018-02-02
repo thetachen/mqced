@@ -417,26 +417,28 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         if intDE==0.0:
             self.EB[self._Ex:self._Ex+self.NZgrid] = np.random.choice([1, -1])*Dx * np.sqrt(deltaE/intDD)
         else:
-            Kappa = [(-intDE + np.sqrt(intDE**2+2*intDD*deltaE) )/intDD, \
+            alphas = [(-intDE + np.sqrt(intDE**2+2*intDD*deltaE) )/intDD, \
                      (-intDE - np.sqrt(intDE**2+2*intDD*deltaE) )/intDD]
-            if np.abs(Kappa[0])<np.abs(Kappa[1]):
-                Kappa = Kappa[0]
+            if np.abs(alphas[0])<np.abs(alphas[1]):
+                alpha = alphas[0]
             else:
-                Kappa = Kappa[1]
-            self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + Kappa* Dx[:]
+                alpha = alphas[1]
+            #alpha = alphas[0]
+            self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* Dx[:]
 
 
     def ContinuousEmission_B(self,deltaE,intdDdzB,intdDdzdDdz,dDxdz):
         if intdDdzB==0.0:
             self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*dDxdz * np.sqrt(deltaE/intdDdzdDdz)
         else:
-            Kappa = [(-intdDdzB + np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz, \
-                     (-intdDdzB - np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz]
-            if np.abs(Kappa[0])<np.abs(Kappa[1]):
-                Kappa = Kappa[0]
+            alphas = [(-intdDdzB + np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz, \
+                      (-intdDdzB - np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz]
+            if np.abs(alphas[0])<np.abs(alphas[1]):
+                alpha = alphas[0]
             else:
-                Kappa = Kappa[1]
-            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + Kappa* dDxdz[:]
+                alpha = alphas[1]
+            #alpha = alphas[0]
+            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + alpha* dDxdz[:]
 
 
 class EhrenfestPlusRDB_MaxwellPropagator_1D(object):

@@ -57,6 +57,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # total energy
     Ut = np.zeros((2,len(times)))
 
+    # energy change
+    dEnergy = np.zeros((2,len(times)))
+
     # initialize Px,Py,dPxdz, dPydz
     for iz in range(param_EM.NZgrid):
         Z = param_EM.Zgrid[iz]    
@@ -99,10 +102,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         intdPdzdPdz = EMP.dZ*np.dot(dPxdz, dPxdz) \
                     + EMP.dZ*np.dot(dPydz, dPydz)
 
+        dEnergy[0,it] = TLSP.getEnergy()
         #1. Propagate the wave function
         TLSP.update_coupling(intPE)
         TLSP.propagate(dt)
-    
+        dEnergy[0,it] = dEnergy[0,it]-TLSP.getEnergy()
+
         #2. Compute Current: J
         dPdt = 0.0
         for i in range(param_TLS.nstates):
@@ -121,6 +126,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             gamma = TLSP.FGR[1,0]*np.abs(TLSP.C[1,0])**2
             drho = gamma*dt * np.abs(TLSP.C[1,0])**2
             dE = (TLSP.H0[1,1]-TLSP.H0[0,0])*gamma*dt * np.abs(TLSP.C[1,0])**2
+            dEnergy[1,it] = dE
             TLSP.rescale(1,0,drho)
 
             if UseRandomEB:
@@ -169,13 +175,17 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             plt.cla()
             ax[0].fill_between(EMP.Zgrid,0.0,EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid],alpha=0.5,color='blue',label='$B_x$')
             ax[0].fill_between(EMP.Zgrid,0.0,EMP.EB[EMP._By:EMP._By+EMP.NZgrid],alpha=0.5,color='green',label='$B_y$')
+            ax[0].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
+            ax[0].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
             ax[0].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[0].legend()
 
             plt.sca(ax[1])
             plt.cla()
-            ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
-            ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
+            #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
+            #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
+            ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
+            ax[1].set_ylim([0,0.0001])
             ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[1].legend()
 
@@ -190,8 +200,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
             plt.sca(ax[3])
             plt.cla()
-            ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
-            ax[3].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
+            #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
+            #ax[3].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
+            ax[3].plot(times[:it]*AU.fs,dEnergy[0,:it], lw=2, label='coherent')
+            ax[3].plot(times[:it]*AU.fs,dEnergy[1,:it], lw=2, label='incoherent')
+            #ax[3].plot(times[:it]*AU.fs,(-np.log(dEnergy[1,:it])+np.log(dEnergy[1,0]))/times[:it], lw=2, label='incoherent')
+            #ax[3].axhline(y=TLSP.FGR[1,0]*2, color='k', linestyle='--', lw=2)
             #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it]-Ut[1,0],lw=2,label='energy diff')
             ax[3].legend(loc='best')
             ax[3].set_xlim([0,Tmax*AU.fs])
@@ -214,8 +228,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
                 'Zgrid':EMP.Zgrid,
                 'times':times,
                 'Ex':   EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
+                'By':   EMP.EB[EMP._By:EMP._By+EMP.NZgrid],
                 'UEB':  UEB,
-                'Ct':  Ct,
+                'dE':   dEnergy,
+                'Ct':   Ct,
                 'fft_Ex':   fft_Ex,
                 'fft_Freq': fft_Freq,
                 'ave_fft_Ex':   ave_fft_Ex/rolling,
