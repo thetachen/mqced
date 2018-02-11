@@ -68,6 +68,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     EMP.applyAbsorptionBoundaryCondition()
 
 	# create TLS object
+    if UseInitialRandomPhase:
+        param_TLS.C0[0,0] = param_TLS.C0[0,0]*np.exp(1j*2*np.pi*random())
     TLSP = PureStatePropagator(param_TLS)
 
 	# generate FGR rate 
@@ -150,9 +152,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 	    #5. Apply dissipative relaxation
     	#(1->0) Dissipative Relaxation
         gamma = param_TLS.gamma02
-        drho = -gamma*dt
-        #drho = gamma*dt *( np.abs(TLSP.C[0,0])**2 * np.exp(-param_TLS.beta*TLSP.H0[1,1]) \
-	                      #-np.abs(TLSP.C[1,0])**2 * np.exp(-param_TLS.beta*TLSP.H0[0,0]) )
+        #drho = -gamma*dt
+        drho = gamma*dt *( np.abs(TLSP.C[0,0])**2 * np.exp(-param_TLS.beta*TLSP.H0[1,1]) \
+	                      -np.abs(TLSP.C[1,0])**2 * np.exp(-param_TLS.beta*TLSP.H0[0,0]) )
         if drho > 0.0:
             TLSP.rescale(0,1,np.abs(drho))
         elif drho < 0.0:
