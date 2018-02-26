@@ -441,6 +441,39 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + alpha* dDxdz[:]
 
 
+    def MakeTransition(self,deltaE,UseRandomEB=True):
+        if UseRandomEB:
+            dE_E = np.random.rand()*deltaE
+            dE_B = deltaE - dE_E
+            intTEE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
+    	           + self.dZ*np.dot(self.TEy, np.array(self.EB[self._Ey:self._Ey+self.NZgrid]))
+            intTBB = self.dZ*np.dot(self.TBx, np.array(self.EB[self._Bx:self._Bx+self.NZgrid])) \
+            	   + self.dZ*np.dot(self.TBy, np.array(self.EB[self._By:self._By+self.NZgrid]))
+            if intTEE==0.0:
+                self.EB[self._Ex:self._Ex+self.NZgrid] = np.random.choice([1, -1])*self.TEx * np.sqrt(2*dE_E/self.TE2)
+            else:
+                alphas = [(-intTEE + np.sqrt(intTEE**2+2*self.TE2*dE_E) )/self.TE2, \
+                     	  (-intTEE - np.sqrt(intTEE**2+2*self.TE2*dE_E) )/self.TE2]
+                if np.abs(alphas[0])<np.abs(alphas[1]):
+                    alpha = alphas[0]
+                else:
+                    alpha = alphas[1]
+                #alpha = alphas[0]
+                self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
+            if intTBB==0.0:
+                self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*self.TBx * np.sqrt(2*dE_B/self.TB2)
+            else:
+                alphas = [(-intTBB + np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2, \
+                         (-intTBB - np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2]
+                if np.abs(alphas[0])<np.abs(alphas[1]):
+                    alpha = alphas[0]
+                else:
+                    alpha = alphas[1]
+                #alpha = alphas[0]
+                self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + alpha* self.TEy[:]
+
+
+
 class EhrenfestPlusRDB_MaxwellPropagator_1D(object):
     """
     EM field propagator using Ehrenfest+RDB in 1-D grid (z)

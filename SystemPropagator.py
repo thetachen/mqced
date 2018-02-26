@@ -86,15 +86,6 @@ class DensityMatrixPropagator(object):
 
         #Set up density matrix
         self.rhomatrix = param.rho0
-        self.rhovec = np.zeros(3)
-        self.rhovec[0] = np.real(self.rhomatrix[1,1] - self.rhomatrix[0,0])
-        self.rhovec[1] = np.real(self.rhomatrix[0,1])
-        self.rhovec[2] = np.imag(self.rhomatrix[0,1])
-        #self.rhovec = np.zeros(4,complex)
-        #self.rhovec[0] = self.rhomatrix[0,0]
-        #self.rhovec[1] = self.rhomatrix[0,1]
-        #self.rhovec[2] = self.rhomatrix[1,0]
-        #self.rhovec[3] = self.rhomatrix[1,1]
 
         #Set up Hamiltonian
         self.H0 = param.H0
@@ -103,79 +94,22 @@ class DensityMatrixPropagator(object):
         #Set up Polarization Operator
         self.VP = param.VP
 
-    #def rho(self,i,j):
-        #self.rhomatrix[0,0] = (1.0+self.rhovec[0])/2
-        #self.rhomatrix[1,1] = (1.0-self.rhovec[0])/2
-        #self.rhomatrix[0,1] = self.rhovec[1] + 1j*self.rhovec[2]
-        #self.rhomatrix[1,0] = self.rhovec[1] - 1j*self.rhovec[2]
-        ##self.rhomatrix[0,0] = self.rhovec[0]
-        ##self.rhomatrix[0,1] = self.rhovec[1]
-        ##self.rhomatrix[1,0] = self.rhovec[2]
-        ##self.rhomatrix[1,1] = self.rhovec[3]
-#
-        #return self.rhomatrix[i,j]
-
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
 
-    def initializeODEsolver(self,T0):
-        # Density matrix ode solver
-        self.solver = ode(self.f)
-        self.solver.set_integrator('dop853')
-        self.solver.set_initial_value(self.rhovec, T0)
-        self.rhovec = self.solver.y
-
-    def f(self,t,vec):
-        V = self.Ht[0,1]
-        W = self.Ht[0,0]-self.Ht[1,1]
-        dvdt = np.zeros(3)
-        dvdt[0] = 4*V*self.rhovec[2] - self.Gamma_r*(self.rhovec[0]-(-1))
-        dvdt[1] = W*self.rhovec[2] - self.Gamma_d/2*self.rhovec[1]
-        dvdt[2] =-W*self.rhovec[1] - V*self.rhovec[0] - self.Gamma_d/2*self.rhovec[2]
-        #dvdt = np.zeros(4,complex)
-        #dvdt[0] = (self.Ht[0,1]*self.rhovec[2] - self.Ht[1,0]*self.rhovec[1])/1j
-        #dvdt[1] = ((self.Ht[0,0]-self.Ht[1,1])*self.rhovec[1] + self.Ht[0,1]*(self.rhovec[3]-self.rhovec[1]))/1j
-        #dvdt[2] = np.conj(dvdt[1])
-        #dvdt[3] =-dvdt[0]
-        return dvdt
-
-
     def propagate(self,dt):
         """
-        propagate density matrix by Ht for dt  
+        propagate density matrix by Ht for dt
         """
-        self.solver.integrate(self.solver.t+dt)
-        self.rhovec = self.solver.y
-        self.rhomatrix[0,0] = (1.0-self.rhovec[0])/2
-        self.rhomatrix[1,1] = (1.0+self.rhovec[0])/2
-        self.rhomatrix[0,1] = self.rhovec[1] + 1j*self.rhovec[2]
-        self.rhomatrix[1,0] = self.rhovec[1] - 1j*self.rhovec[2]
+        W, U = np.linalg.eig(self.Ht)
+        expiHt = np.dot(U,np.dot(np.diag(np.exp(1j*W*dt)),np.conj(U).T))
+        self.rhomatrix = np.dot(np.conj(expiHt).T,np.dot(self.rhomatrix,expiHt))
 
-    def makePure(self):
-        c = self.rhomatrix[0,0]*self.rhomatrix[1,1]
-        d = self.rhovec[1]**2 + self.rhovec[2]**2
-        self.rhomatrix[0,1] = self.rhomatrix[0,1] *c/d
-        self.rhomatrix[1,0] = self.rhomatrix[1,0] *c/d
-
-    #def propagate(self,dt): BUGGY!
-        #"""
-        #propagate wave vector C by Ht   
-        #"""
-        #V = self.Ht[0,1]*np.sqrt(2.0)
-        #W = self.Ht[0,0]-self.Ht[1,1]  
-        #Hmat = np.array([[ 0.0,   V,  -V],\
-                         #[   V,  -W, 0.0],\
-                         #[  -V, 0.0,   W]])
-#
-        #W, U = np.linalg.eig(Hmat)
-        #expiHt = np.dot(U,np.dot(np.diag(np.exp(1j*W*dt)),np.conj(U).T))
-        #self.rhovec = np.dot(expiHt,self.rhovec)
-#
-        #self.rhomatrix[0,0] = (1.0+self.rhovec[0])/2
-        #self.rhomatrix[1,1] = (1.0-self.rhovec[0])/2
-        #self.rhomatrix[0,1] = self.rhovec[1] + 1j*self.rhovec[2]
-        #self.rhomatrix[1,0] = self.rhovec[1] - 1j*self.rhovec[2]
-
+    def LindbladDecay(self,K,dt):
+		self.rhomatrix[0,0] = self.rhomatrix[0,0]+K*dt*self.rhomatrix[1,1]
+		self.rhomatrix[1,1] = self.rhomatrix[1,1]-K*dt*self.rhomatrix[1,1]
+		self.rhomatrix[0,1] = self.rhomatrix[0,1]-K*dt/2*self.rhomatrix[0,1]
+		self.rhomatrix[1,0] = self.rhomatrix[1,0]-K*dt/2*self.rhomatrix[1,0]
 
     def getEnergy(self):
         Esys = 0.0

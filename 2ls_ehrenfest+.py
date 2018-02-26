@@ -44,6 +44,17 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     dPxdz = np.zeros(param_EM.NZgrid)
     dPydz = np.zeros(param_EM.NZgrid)
 
+    # curl (curl P) (for rescale E)
+    ddPxddz = np.zeros(param_EM.NZgrid)
+    ddPyddz = np.zeros(param_EM.NZgrid)
+
+    # TE and TB
+    TEx = np.zeros(param_EM.NZgrid)
+    TEy = np.zeros(param_EM.NZgrid)
+    TBx = np.zeros(param_EM.NZgrid)
+    TBy = np.zeros(param_EM.NZgrid)
+
+
     # current: Jx, Jy
     Jx = np.zeros(param_EM.NZgrid)
     Jy = np.zeros(param_EM.NZgrid)
@@ -60,18 +71,42 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # energy change
     dEnergy = np.zeros((2,len(times)))
 
-    # initialize Px,Py,dPxdz, dPydz
+    # initialize Px,Py,dPxdz, dPydz, ddPxddz, ddPyddz
     for iz in range(param_EM.NZgrid):
         Z = param_EM.Zgrid[iz]    
         Px[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 )
         Py[iz] = 0.0
         dPxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * -param_TLS.Sigma * (Z-param_TLS.Mu)*2
         dPydz[iz] = 0.0
+        ddPxddz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+					  (-param_TLS.Sigma *2) \
+					+ param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+					  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2) * \
+					  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2)
+        ddPyddz[iz] = 0.0
+
+	#TEx = Px
+	TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px  
+	TBy = dPxdz
 
     # create EM object
     EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
     EMP.initializeODEsolver(EB,T0)
     EMP.applyAbsorptionBoundaryCondition()
+    
+    # initialize some integrals
+    #EMP.P2 = EMP.dZ*np.dot(Px, Px) \
+		   #+ EMP.dZ*np.dot(Py, Py)
+	#EMP.dPdz2 = EMP.dZ*np.dot(dPxdz, dPxdz) \
+			  #+ EMP.dZ*np.dot(dPydz, dPydz)
+    #EMP.ddPddz2 = EMP.dZ*np.dot(ddPxddz, ddPxddz) \
+            	#+ EMP.dZ*np.dot(ddPyddz, ddPyddz)
+    EMP.TEx = TEx
+    EMP.TEy = TEy
+    EMP.TBx = TBx
+    EMP.TBy = TBy
+    EMP.TE2 = EMP.dZ*np.dot(TEx, TEx) + EMP.dZ*np.dot(TEy, TEy)
+    EMP.TB2 = EMP.dZ*np.dot(TBx, TBx) + EMP.dZ*np.dot(TBy, TBy)
 
     # create TLS object
     if UseInitialRandomPhase:
@@ -95,12 +130,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         #0 Compute All integrals
         intPE = EMP.dZ*np.dot(Px, np.array(EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
               + EMP.dZ*np.dot(Py, np.array(EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
-        intPP = EMP.dZ*np.dot(Px, Px) \
-              + EMP.dZ*np.dot(Py, Py)
+        #intPP = EMP.dZ*np.dot(Px, Px) \
+              #+ EMP.dZ*np.dot(Py, Py)
         intdPdzB = EMP.dZ*np.dot(-dPydz, np.array(EB[EMP._Bx:EMP._Bx+EMP.NZgrid])) \
                  + EMP.dZ*np.dot( dPxdz, np.array(EB[EMP._By:EMP._By+EMP.NZgrid]))
-        intdPdzdPdz = EMP.dZ*np.dot(dPxdz, dPxdz) \
-                    + EMP.dZ*np.dot(dPydz, dPydz)
+        #intdPdzdPdz = EMP.dZ*np.dot(dPxdz, dPxdz) \
+                    #+ EMP.dZ*np.dot(dPydz, dPydz)
 
         dEnergy[0,it] = TLSP.getEnergy()
         #1. Propagate the wave function
@@ -129,14 +164,15 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             dEnergy[1,it] = dE
             TLSP.rescale(1,0,drho)
 
-            if UseRandomEB:
-                theta = random()*2*np.pi
-                cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
-                EMP.ContinuousEmission_E(dE*cos2,intPE,intPP,Px)
-                EMP.ContinuousEmission_B(dE*sin2,intdPdzB,intdPdzdPdz,dPxdz)
-            else:
-                EMP.ContinuousEmission_B(dE,intdPdzB,intdPdzdPdz,dPxdz)
-            EB = EMP.EB
+            #if UseRandomEB:
+                #theta = random()*2*np.pi
+                #cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
+                #EMP.ContinuousEmission_E(dE*cos2,intPE,intPP,Px)
+                #EMP.ContinuousEmission_B(dE*sin2,intdPdzB,intdPdzdPdz,dPxdz)
+            #else:
+                #EMP.ContinuousEmission_B(dE,intdPdzB,intdPdzdPdz,dPxdz)
+            #EB = EMP.EB
+            EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
 
         #5. Apply absorption boundary condition 
         EMP.applyAbsorptionBoundaryCondition()
@@ -191,8 +227,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
             plt.sca(ax[2])
             plt.cla()
+            KFGR = TLSP.FGR[1,0]
             for n in range(param_TLS.nstates):
                 ax[2].plot(times[:it]*AU.fs,np.abs(Ct[n,:it])**2,'-',lw=2,label='$C_{d'+str(n)+'}(t)$')
+            ax[2].plot(times[:it]*AU.fs,param_TLS.C0[1,0]*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             ax[2].set_xlim([0,Tmax*AU.fs])
             ax[2].set_xlabel('t [a.u.]')
             ax[2].legend(loc='best')
