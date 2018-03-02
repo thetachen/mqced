@@ -158,7 +158,6 @@ class SurfaceHoppingMaxwellPropagator_1D(object):
         self.dAxdZ = np.zeros(self.NZgrid)
         self.dAydZ = np.zeros(self.NZgrid)
 
-
     def initializeODEsolver(self,EB,T0):
         # EM ode solver
         self.solver = ode(self.f)
@@ -293,7 +292,37 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         self.dAxdZ = np.zeros(self.NZgrid)
         self.dAydZ = np.zeros(self.NZgrid)
 
+        # total alpha and beta 
+        self.ALPHA = 0.0
+        self.BETA = 0.0
 
+        # save Scattering field out of the box
+        self.Es = []
+        self.Bs = []
+        self.Xs = []
+
+        # absoprtion boundary condition
+        self.ABC = np.zeros(4*self.NZgrid)
+        self.S = np.zeros(self.NZgrid)
+        i_min,i_max = np.argmin(np.abs(self.Zgrid+self.param.Z0)),np.argmin(np.abs(self.Zgrid-self.param.Z0))
+        self.i_min,self.i_max = i_min,i_max
+        for iz in range(self.NZgrid):
+            Z = np.abs(self.Zgrid[iz])
+            S = 1*(Z<self.param.Z0) + \
+                (Z<=self.param.Z1 and Z>=self.param.Z0)/(1.0+np.exp(-(self.param.Z0-self.param.Z1)/(self.param.Z0-Z)-(self.param.Z1-self.param.Z0)/(Z-self.param.Z1))) + \
+                0*(Z>self.param.Z1)
+            self.ABC[self._Ex+iz] = S
+            self.ABC[self._Ey+iz] = S
+            self.ABC[self._Bx+iz] = S
+            self.ABC[self._By+iz] = S
+            self.S[iz] = S
+        #for i in range(i_min+1):
+            #print self.S[i],self.S[-1-i]
+        #print self.S[:i_min+1]
+        #print self.S[i_max:]
+        #print self.S[i_min-1],self.S[i_min]  
+        #print self.S[i_max],self.S[i_max+1]
+        
     def initializeODEsolver(self,EB,T0):
         # EM ode solver
         self.solver = ode(self.f)
@@ -378,24 +407,35 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         return U
 
     def applyAbsorptionBoundaryCondition(self):
-        for iz in range(self.NZgrid):
-            Z = np.abs(self.Zgrid[iz])
-            S = 1*(Z<self.param.Z0) + \
-                (Z<=self.param.Z1 and Z>=self.param.Z0)/(1.0+np.exp(-(self.param.Z0-self.param.Z1)/(self.param.Z0-Z)-(self.param.Z1-self.param.Z0)/(Z-self.param.Z1))) + \
-                0*(Z>self.param.Z1)
+        #self.EB =  self.EB * self.ABC
+        #for iz in range(self.NZgrid):
+            #Z = np.abs(self.Zgrid[iz])
+            #S = 1*(Z<self.param.Z0) + \
+                #(Z<=self.param.Z1 and Z>=self.param.Z0)/(1.0+np.exp(-(self.param.Z0-self.param.Z1)/(self.param.Z0-Z)-(self.param.Z1-self.param.Z0)/(Z-self.param.Z1))) + \
+                #0*(Z>self.param.Z1)
+#
+            #self.EB[self._Ex+iz] = self.EB[self._Ex+iz]*self.ABC[self._Ex+iz]
+            #self.EB[self._Ey+iz] = self.EB[self._Ey+iz]*self.ABC[self._Ey+iz]
+            #self.EB[self._Bx+iz] = self.EB[self._Bx+iz]*self.ABC[self._Bx+iz]
+            #self.EB[self._By+iz] = self.EB[self._By+iz]*self.ABC[self._By+iz]
+        for iz in range(self.i_min+1):
+            S = self.S[iz]
+            self.EB[self._Ex+iz] *= S
+            self.EB[self._Ey+iz] *= S #self.EB[self._Ey+iz]*self.S[iz]
+            self.EB[self._Bx+iz] *= S #self.EB[self._Bx+iz]*self.S[iz]
+            self.EB[self._By+iz] *= S #self.EB[self._By+iz]*self.S[iz]
 
-            self.EB[self._Ex+iz] = self.EB[self._Ex+iz]*S
-            self.EB[self._Ey+iz] = self.EB[self._Ey+iz]*S
-            self.EB[self._Bx+iz] = self.EB[self._Bx+iz]*S
-            self.EB[self._By+iz] = self.EB[self._By+iz]*S
-            if True:
-            ##try:
-                self.Ax[iz] = self.Ax[iz]*S
-                self.Ay[iz] = self.Ay[iz]*S
-                self.dAxdZ[iz] = self.dAxdZ[iz]*S
-                self.dAydZ[iz] = self.dAydZ[iz]*S
-            ##except:
-                ##pass
+            self.EB[self._Ex+self.NZgrid-1-iz] *= S #= self.EB[self._Ex+self.NZgrid-1-iz]*self.S[-1-iz]	
+            self.EB[self._Ey+self.NZgrid-1-iz] *= S #= self.EB[self._Ey+self.NZgrid-1-iz]*self.S[-1-iz]
+            self.EB[self._Bx+self.NZgrid-1-iz] *= S #= self.EB[self._Bx+self.NZgrid-1-iz]*self.S[-1-iz]
+            self.EB[self._By+self.NZgrid-1-iz] *= S #= self.EB[self._By+self.NZgrid-1-iz]*self.S[-1-iz]
+            #print self.S[i],self.S[-1-i]
+
+    def saveScatterField(self,time,Tmax):
+        self.Es.append(self.EB[self._Ex+self.i_max])
+        self.Bs.append(self.EB[self._By+self.i_max])
+        Xs = self.param.Z0 + (Tmax-time)
+        self.Xs.append(Xs)
 
     def randomEmit_byE(self,deltaE, intDD, Dx):
         absEx = np.sum(self.EB[self._Ex:self._Ex+self.NZgrid]**2)*self.dZ
@@ -419,10 +459,12 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         else:
             alphas = [(-intDE + np.sqrt(intDE**2+2*intDD*deltaE) )/intDD, \
                      (-intDE - np.sqrt(intDE**2+2*intDD*deltaE) )/intDD]
-            if np.abs(alphas[0])<np.abs(alphas[1]):
+            #if np.abs(alphas[0])<np.abs(alphas[1]):
+            if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
                 alpha = alphas[0]
             else:
                 alpha = alphas[1]
+            self.ALPHA += alpha
             #alpha = alphas[0]
             self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* Dx[:]
 
@@ -431,15 +473,24 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         if intdDdzB==0.0:
             self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*dDxdz * np.sqrt(deltaE/intdDdzdDdz)
         else:
-            alphas = [(-intdDdzB + np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz, \
+            betas = [(-intdDdzB + np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz, \
                       (-intdDdzB - np.sqrt(intdDdzB**2+2*intdDdzdDdz*deltaE) )/intdDdzdDdz]
-            if np.abs(alphas[0])<np.abs(alphas[1]):
-                alpha = alphas[0]
+            #if np.abs(betas[0])<np.abs(betas[1]):
+            if np.abs(betas[0]+self.BETA) <np.abs(betas[1]+self.BETA):
+                beta = betas[0]
             else:
-                alpha = alphas[1]
-            #alpha = alphas[0]
-            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + alpha* dDxdz[:]
+                beta = betas[1]
+            self.BETA += beta
+            #beta = betas[0]
+            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* dDxdz[:]
 
+    def update_TETB(self,TEx,TEy,TBx,TBy):
+		self.TEx = TEx
+		self.TEy = TEy
+		self.TBx = TBx
+		self.TBy = TBy
+		self.TE2 = self.dZ*(np.dot(TEx, TEx) + np.dot(TEy, TEy))
+		self.TB2 = self.dZ*(np.dot(TBx, TBx) + np.dot(TBy, TBy))
 
     def MakeTransition(self,deltaE,UseRandomEB=True):
         if UseRandomEB:
@@ -454,21 +505,23 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             else:
                 alphas = [(-intTEE + np.sqrt(intTEE**2+2*self.TE2*dE_E) )/self.TE2, \
                      	  (-intTEE - np.sqrt(intTEE**2+2*self.TE2*dE_E) )/self.TE2]
-                if np.abs(alphas[0])<np.abs(alphas[1]):
+                if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
                     alpha = alphas[0]
                 else:
                     alpha = alphas[1]
+                self.ALPHA += alpha
                 #alpha = alphas[0]
                 self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
             if intTBB==0.0:
                 self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*self.TBx * np.sqrt(2*dE_B/self.TB2)
             else:
-                alphas = [(-intTBB + np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2, \
+                betas = [(-intTBB + np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2, \
                          (-intTBB - np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2]
-                if np.abs(alphas[0])<np.abs(alphas[1]):
-                    alpha = alphas[0]
+                if np.abs(betas[0]+self.BETA)<np.abs(betas[1]+self.BETA):
+                    beta = betas[0]
                 else:
-                    alpha = alphas[1]
+                    beta = betas[1]
+                self.BETA += beta
                 #alpha = alphas[0]
                 self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + alpha* self.TEy[:]
 

@@ -41,9 +41,19 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     Px = np.zeros(param_EM.NZgrid)
     Py = np.zeros(param_EM.NZgrid)
 
-    # curl D (for rescale B and keep div B =0)
+    # curl P (for rescale B and keep div B =0)
     dPxdz = np.zeros(param_EM.NZgrid)
     dPydz = np.zeros(param_EM.NZgrid)
+
+    # curl (curl P) (for rescale E)
+    ddPxddz = np.zeros(param_EM.NZgrid)
+    ddPyddz = np.zeros(param_EM.NZgrid)
+
+    # TE and TB
+    TEx = np.zeros(param_EM.NZgrid)
+    TEy = np.zeros(param_EM.NZgrid)
+    TBx = np.zeros(param_EM.NZgrid)
+    TBy = np.zeros(param_EM.NZgrid)
 
     # current: Jx, Jy
     Jx = np.zeros(param_EM.NZgrid)
@@ -52,23 +62,38 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # a long vector [Ex,Ey,Bx,By]
     EB = np.zeros(4*param_EM.NZgrid)
 
-    # wave vector
-    Ct = np.zeros((param_TLS.nstates,len(times)),complex)
+    # density matrix 
+    rhot = np.zeros((param_TLS.nstates,param_TLS.nstates,len(times)),complex)
 
     # total energy
     Ut = np.zeros((2,len(times)))
 
-    # initialize Px,Py,dPxdz, dPydz
+    # initialize Px,Py,dPxdz, dPydz, ddPxddz, ddPyddz
     for iz in range(param_EM.NZgrid):
-    	Z = param_EM.Zgrid[iz]    
+        Z = param_EM.Zgrid[iz]
         Px[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 )
         Py[iz] = 0.0
         dPxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * -param_TLS.Sigma * (Z-param_TLS.Mu)*2
         dPydz[iz] = 0.0
+        ddPxddz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+                      (-param_TLS.Sigma *2) \
+                    + param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+                      (-param_TLS.Sigma * (Z-param_TLS.Mu)*2) * \
+                      (-param_TLS.Sigma * (Z-param_TLS.Mu)*2)
+        ddPyddz[iz] = 0.0
+
+    # Just rescale on Px
+    TEx = Px
+    # Make intTEE zero
+    #TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px  
+    #make Poynting vector zero
+    #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
+    TBy = dPxdz
 
     # create EM object
     EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
     EMP.initializeODEsolver(EB,T0)
+    EMP.update_TETB(TEx,TEy,TBx,TBy)
     EMP.applyAbsorptionBoundaryCondition()
 
 	# create TLS object
@@ -86,18 +111,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 	"""
 	Start Time Evolution
 	"""
-    ave_fft_Ex = None
     for it in range(len(times)):
 
 	    #0 Compute Polarization:
-    	intPE = EMP.dZ*np.dot(Px, np.array(EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
-        	  + EMP.dZ*np.dot(Py, np.array(EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
-        intPP = EMP.dZ*np.dot(Px, Px) \
-                + EMP.dZ*np.dot(Py, Py)
-        intdPdzB = EMP.dZ*np.dot(-dPydz, np.array(EB[EMP._Bx:EMP._Bx+EMP.NZgrid])) \
-                 + EMP.dZ*np.dot( dPxdz, np.array(EB[EMP._By:EMP._By+EMP.NZgrid]))
-        intdPdzdPdz = EMP.dZ*np.dot(dPxdz, dPxdz) \
-                    + EMP.dZ*np.dot(dPydz, dPydz)
+        intPE = EMP.dZ*np.dot(Px, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
+                + EMP.dZ*np.dot(Py, np.array(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
+        intdPdzB = EMP.dZ*np.dot(-dPydz, np.array(EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid])) \
+                 + EMP.dZ*np.dot( dPxdz, np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid]))
 
         #0.5 polarization interact with CW
         ECWx = param_EM.A_CW*np.cos(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
@@ -117,71 +137,49 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         dPdt = 0.0
         for i in range(param_TLS.nstates):
             for j in range(i+1,param_TLS.nstates):
-                dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.C[i,0]*np.conj(TLSP.C[j,0])) * TLSP.VP[i,j]
+                dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.rho[i,j]) * TLSP.VP[i,j]
         Jx = dPdt * Px
         Jy = dPdt * Py
      
 	    #3. Evolve the field
         EMP.update_JxJy(Jx,Jy)
         EMP.propagate(dt)
-        EB = EMP.EB
 
         if UsePlusEmission:
     	    #4. Implement additional population relaxation 
         	#(2->0)
-            gamma = TLSP.FGR[2,0]*(np.abs(TLSP.C[1,0])**2 + np.abs(TLSP.C[2,0])**2)
-            drho = gamma*dt * np.abs(TLSP.C[2,0])**2
-            dE = (TLSP.H0[2,2]-TLSP.H0[0,0])*gamma*dt * np.abs(TLSP.C[2,0])**2
+            gamma = TLSP.FGR[2,0]*(1.0-np.abs(TLSP.rho[0,0]))
+            drho = gamma*dt * np.abs(TLSP.rho[2,2])
+            dE = (TLSP.H0[2,2]-TLSP.H0[0,0])*drho
             TLSP.rescale(2,0,drho)
-            
-            if UseRandomEB:
-                theta = random()*2*np.pi
-                cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
-                EMP.ContinuousEmission_E(dE*cos2,intPE,intPP,Px)
-                EMP.ContinuousEmission_B(dE*sin2,intdPdzB,intdPdzdPdz,dPxdz)
-            else:
-                EMP.ContinuousEmission_B(dE,intdPdzB,intdPdzdPdz,dPxdz)
-            EB = EMP.EB
-
+            #EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
     	    #(2->1)
-            gamma = TLSP.FGR[2,1]*(np.abs(TLSP.C[0,0])**2 + np.abs(TLSP.C[2,0])**2)
-            drho = gamma*dt * np.abs(TLSP.C[2,0])**2
-            dE = (TLSP.H0[2,2]-TLSP.H0[1,1])*gamma*dt * np.abs(TLSP.C[2,0])**2
+            gamma = TLSP.FGR[2,1]*(1.0-np.abs(TLSP.rho[1,1]))
+            drho = gamma*dt * np.abs(TLSP.rho[2,2])
+            dE += (TLSP.H0[2,2]-TLSP.H0[1,1])*drho
             TLSP.rescale(2,1,drho)
 
-            if UseRandomEB:
-                theta = random()*2*np.pi
-                cos2, sin2  = np.cos(theta)**2, np.sin(theta)**2
-                EMP.ContinuousEmission_E(dE*cos2,intPE,intPP,Px)
-                EMP.ContinuousEmission_B(dE*sin2,intdPdzB,intdPdzdPdz,dPxdz)
-            else:
-                EMP.ContinuousEmission_B(dE,intdPdzB,intdPdzdPdz,dPxdz)
-            EB = EMP.EB
+            EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
 
         if UseThermalRelax:
-    	    #5. Apply dissipative relaxation
-        	#(1->0) Dissipative Relaxation
-            gamma = param_TLS.gamma02
-            #drho = -gamma*dt
-            drho = gamma*dt *( np.abs(TLSP.C[0,0])**2 * np.exp(-param_TLS.beta*TLSP.H0[1,1]) \
-	                          -np.abs(TLSP.C[1,0])**2 * np.exp(-param_TLS.beta*TLSP.H0[0,0]) )
-            if drho > 0.0:
-                TLSP.rescale(0,1,np.abs(drho))
-            elif drho < 0.0:
-                TLSP.rescale(1,0,np.abs(drho))
-            else:
-                pass
-
+            #4.5. Apply non-radiative thermal equlibration
+            #(1->0) 
+            TLSP.equilibrate(0,1,dt)
         
         #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()
 	
+        # save scattering field out of the box
+        EMP.saveScatterField(times[it],Tmax)
+
     	"""
 	    output:    
 	    """
-		#population
-        for n in range(param_TLS.nstates):
-            Ct[n,it] = TLSP.C[n,0]
+        # density matrix
+        for i in range(param_TLS.nstates):
+            for j in range(param_TLS.nstates):
+                rhot[i,j,it]=TLSP.rho[i,j]
+
 		#energy
         UEB = EMP.getEnergyDensity()
         Uele = TLSP.getEnergy()
@@ -189,22 +187,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Ut[0,it] = Uele
         Ut[1,it] = Uemf
 
-	    #spectrum 
-    	Ex= EMP.EB[EMP._Ex+(EMP.NZgrid-1)/2:EMP._Ex+(EMP.NZgrid-1)]
-        fft_Ex = np.fft.rfft(Ex, n=len(Ex) *10)
-        fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi/max(param_EM.Zlim) / 10
-        if ave_fft_Ex is None:
-            ave_fft_Ex = np.abs(fft_Ex)
-            rolling = 1
-        else:
-            ave_fft_Ex = np.abs(fft_Ex)+ave_fft_Ex
-            rolling += 1
-
         """
         Plot
         """
 	    # Plot
-        if it%10==0 and ShowAnimation:
+        if it%AveragePeriod==0 and ShowAnimation:
             plt.sca(ax[0])
             plt.cla()
             ax[0].fill_between(EMP.Zgrid,0.0,BCWy,alpha=0.5,color='cyan',label='$B_{CW,y}$')
@@ -227,7 +214,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             plt.sca(ax[2])
             plt.cla()
             for n in range(param_TLS.nstates):
-                ax[2].plot(times[:it]*AU.fs,np.abs(Ct[n,:it])**2,'-',lw=2,label='$C_{d'+str(n)+'}(t)$')
+                ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$C_{d'+str(n)+'}(t)$')
             ax[2].set_xlim([0,Tmax*AU.fs])
             ax[2].set_xlabel('t [a.u.]')
             ax[2].legend(loc='best')
@@ -237,35 +224,42 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         	#ax[3].plot(times[:it]*AU.fs,PESt[0,:it],lw=2,label='$\lambda_-$')
 	        #ax[3].plot(times[:it]*AU.fs,PESt[1,:it],lw=2,label='$\lambda_+$')
     	    #ax[3].plot(times[:it]*AU.fs,Probt[:it],lw=2,label='Prob')
-            ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
-            ax[3].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
+            #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
+            #ax[3].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
+            #ax[3].legend(loc='best')
+            #ax[3].set_xlim([0,Tmax*AU.fs])
+            ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1)
             ax[3].legend(loc='best')
             ax[3].set_xlim([0,Tmax*AU.fs])
 
 
             plt.sca(ax[4])
             plt.cla()
-            ax[4].plot(fft_Freq*AU.C,np.abs(fft_Ex)**2,lw=2,color='b')
+            #ax[4].plot(fft_Freq*AU.C,np.abs(fft_Ex)**2,lw=2,color='b')
+            ax[4].axvline(x=param_TLS.H0[2,2]-param_TLS.H0[1,1], color='k', linestyle='--')
             ax[4].axvline(x=param_TLS.H0[2,2]-param_TLS.H0[0,0], color='k', linestyle='--')
-            ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
-            ax[4].set_xlim([0,2])
-            ax[4].set_xlabel('$ck$')
+            #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
+            ax[4].set_xlim([0,0.5])
+            #ax[4].set_xlabel('$ck$')
+            fft_Ex = np.fft.rfft(EMP.Es[::-1])
+            fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
+            ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b')
 
             fig.canvas.draw()
 
 		#data dictionaray
-    	if it%AveragePeriod==0:
-	        output={
-    	        'Zgrid':EMP.Zgrid,
-        	    'times':times,
-            	'Ex':   EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
-	            'UEB':  UEB,
-    	        'Ct':  Ct,
-        	    'fft_Ex':   fft_Ex,
-            	'fft_Freq': fft_Freq,
-	            'ave_fft_Ex':   ave_fft_Ex/rolling,
-    	    }
-        	ave_fft_Ex = None
+        if it%AveragePeriod==0 or it==len(times)-1:
+            output={
+                'Zgrid':EMP.Zgrid,
+                'times':times,
+                'Ex':   EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
+                'By':   EMP.EB[EMP._By:EMP._By+EMP.NZgrid],
+                'Es':   EMP.Es,
+                'Bs':   EMP.Bs,
+                'Xs':   EMP.Xs,
+                'UEB':  UEB,
+                'rhot':   rhot,
+            }
 
     """
     End of Time Evolution

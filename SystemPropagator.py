@@ -1,4 +1,6 @@
 import numpy as np
+import copy
+from random import random
 from scipy.integrate import ode
 #execfile('atomic.unit')
 from units import AtomicUnit
@@ -13,9 +15,10 @@ class PureStatePropagator(object):
         self.nstates = param.nstates
         self.Ht = np.zeros((self.nstates,self.nstates),complex)
         self.C = np.zeros((self.nstates,1),complex)
+        self.rho = np.zeros((self.nstates,self.nstates),complex)
 
         #Set up wave vector
-        self.C = param.C0
+        self.C = copy.copy(param.C0)
 
         #Set up Hamiltonian
         #self.H0 = np.diag(param.levels)
@@ -45,12 +48,19 @@ class PureStatePropagator(object):
         W, U = np.linalg.eig(self.Ht)
         expiHt = np.dot(U,np.dot(np.diag(np.exp(-1j*W*dt)),np.conj(U).T))
         self.C = np.dot(expiHt,self.C)
+        self.getrho()
 
     def getEnergy(self):
         Esys = 0.0
         for n in range(self.nstates):
             Esys += self.H0[n,n]*np.abs(self.C[n,0])**2
         return Esys
+
+    def getrho(self):
+        for i in range(self.nstates):
+            for j in range(self.nstates):
+                self.rho[i,j] = self.C[i,0]*np.conj(self.C[j,0])
+        return self.rho
 
     def rescale(self,ii,jj,drho):
         """
@@ -60,7 +70,9 @@ class PureStatePropagator(object):
             pass
         elif self.C[jj,0] == 0.0:
             self.C[jj,0] = np.sqrt(drho)
+			#TODO: there should be a random phase here!!!
             self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0])*np.sqrt(np.abs(self.C[ii,0])**2-drho)
+            self.C[ii,0] *= np.exp(1j*2*np.pi*random())
 			#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
 			#TLSP.C[0,0] = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
 		#else:
@@ -70,6 +82,21 @@ class PureStatePropagator(object):
         	#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
         	#C0 = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
         	#TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
+        self.getrho()
+
+    def equilibrate(self,ii,jj,dt):
+        """
+        equilibrate state ii and jj according to Boltzmann distribution
+        """
+        drho = self.param.gamma_vib*dt *( np.abs(self.C[ii,0])**2 * np.exp(-self.param.beta*self.H0[jj,jj]) \
+                              -np.abs(self.C[jj,0])**2 * np.exp(-self.param.beta*self.H0[ii,ii]) )
+        if drho > 0.0:
+            self.rescale(ii,jj,np.abs(drho))
+        elif drho < 0.0:
+            self.rescale(jj,ii,np.abs(drho))
+        else:
+            pass
+
 
 class DensityMatrixPropagator(object):
     """
@@ -81,11 +108,16 @@ class DensityMatrixPropagator(object):
         self.param = param
         self.nstates = 2
         self.Ht = np.zeros((self.nstates,self.nstates))
-        #self.Gamma_r = param.Gamma_r
-        #self.Gamma_d = param.Gamma_d
+        self.rho = np.zeros((self.nstates,self.nstates),complex)
 
         #Set up density matrix
-        self.rhomatrix = param.rho0
+        try:
+            self.rho = param.rho0
+        except:
+			for i in range(self.nstates):
+				for j in range(self.nstates):
+					self.rho[i,j] = param.C0[i,0]*np.conj(param.C0[j,0])
+
 
         #Set up Hamiltonian
         self.H0 = param.H0
@@ -103,19 +135,148 @@ class DensityMatrixPropagator(object):
         """
         W, U = np.linalg.eig(self.Ht)
         expiHt = np.dot(U,np.dot(np.diag(np.exp(1j*W*dt)),np.conj(U).T))
-        self.rhomatrix = np.dot(np.conj(expiHt).T,np.dot(self.rhomatrix,expiHt))
+        self.rho = np.dot(np.conj(expiHt).T,np.dot(self.rho,expiHt))
 
-    def LindbladDecay(self,K,dt):
-		self.rhomatrix[0,0] = self.rhomatrix[0,0]+K*dt*self.rhomatrix[1,1]
-		self.rhomatrix[1,1] = self.rhomatrix[1,1]-K*dt*self.rhomatrix[1,1]
-		self.rhomatrix[0,1] = self.rhomatrix[0,1]-K*dt/2*self.rhomatrix[0,1]
-		self.rhomatrix[1,0] = self.rhomatrix[1,0]-K*dt/2*self.rhomatrix[1,0]
+    def rescale(self,K,dt):
+		self.rho[0,0] = self.rho[0,0]+K*dt*self.rho[1,1]
+		self.rho[1,1] = self.rho[1,1]-K*dt*self.rho[1,1]
+		self.rho[0,1] = self.rho[0,1]-K*dt/2*self.rho[0,1]
+		self.rho[1,0] = self.rho[1,0]-K*dt/2*self.rho[1,0]
 
     def getEnergy(self):
         Esys = 0.0
         for n in range(self.nstates):
-            Esys += self.H0[n,n]*np.real(self.rhomatrix[n,n])
+            Esys += self.H0[n,n]*np.real(self.rho[n,n])
         return Esys
+
+    def LindbladDecay(self,ii,jj,drho):
+        """
+        rescale the density matrix by a Lindblad operator
+        """
+        drho12 = 0.5*drho*self.rho[0,1]/self.rho[1,1]
+        self.rho[0,0] = self.rho[0,0]+drho
+        self.rho[1,1] = self.rho[1,1]-drho
+        self.rho[0,1] = self.rho[0,1]-drho12
+        self.rho[1,0] = self.rho[1,0]-np.conj(drho12)
+
+
+    def _rescale(self,ii,jj,drho):
+        """
+        rescale the density matrix from ii to jj by drho
+        """
+        if self.rho[ii,ii] == 0.0:
+            pass
+        elif self.rho[jj,jj] == 0.0:
+            self.rho[jj,jj] = drho
+            #TODO: there should be a random phase here!!!
+            self.rho[ii,ii] = 1.0-drho
+            self.rho[ii,jj] = np.sqrt(drho*(1.0-drho))
+            self.rho[jj,ii] = np.sqrt(drho*(1.0-drho))
+        #else:
+        elif np.abs(self.rho[ii,ii]) - drho > 0.0:
+            self.rho[jj,jj] += drho
+            self.rho[ii,ii] -= drho
+            self.rho[jj,ii] = self.rho[jj,ii]/np.abs(self.rho[jj,ii]) * np.sqrt(self.rho[0,0]*self.rho[1,1])
+            self.rho[ii,jj] = self.rho[ii,jj]/np.abs(self.rho[ii,jj]) * np.sqrt(self.rho[0,0]*self.rho[1,1])
+            #TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
+            #C0 = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
+            #TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
+
+            #rho(0,0) += additional_population_loss;
+            #rho(1,1) -= additional_population_loss;
+            #rho(0,1) = rho(0,1) / abs(rho(0,1)) * sqrt(rho(0,0) * rho(1,1));
+            #rho(1,0) = rho(1,0) / abs(rho(1,0)) * sqrt(rho(0,0) * rho(1,1));
+
+
+class FloquetStatePropagator(object):
+    """
+    system propagator using Floquet state wavefunction
+    """
+    def __init__(self, param_TLS, param_EM,dt,NPMAX=100):
+        self.NPMAX = NPMAX
+        self.nstates = param_TLS.nstates
+        self.C = np.zeros((self.nstates,1),complex)
+        self.rho = np.zeros((self.nstates,self.nstates),complex)
+
+        #Set up wave vector
+        self.C = copy.copy(param_TLS.C0)
+
+        #Set up Hamiltonian
+        #self.H0 = np.diag(param.levels)
+        self.H0 = param_TLS.H0
+        #for n in range(self.nstates):
+            #self.Ht[n,n] = self.H0[n,n]
+
+        #Set up Polarization Operator
+        self.VP = param_TLS.VP
+        self.Pmax = param_TLS.Pmax
+
+        # external field
+        self.A_CW = param_EM.A_CW
+        self.K_CW = param_EM.K_CW
+
+        # construct Floquet Hamiltonian
+        NFLOQUET = (2*self.NPMAX+1)*self.nstates
+        self.HF = np.zeros((NFLOQUET,NFLOQUET))
+        self.CF = np.zeros((NFLOQUET,1),complex)
+        for n in range(-self.NPMAX,self.NPMAX+1):
+            nb = self.nstates*(n+self.NPMAX)
+            for i in range(self.nstates):
+                self.HF[nb+i,nb+i]= self.H0[i,i] - n*self.K_CW
+			
+            if n!=self.NPMAX:
+                self.HF[nb+1,nb+self.nstates]=-self.A_CW*self.Pmax/2
+                self.HF[nb,nb+self.nstates+1]=-self.A_CW*self.Pmax/2
+                self.HF[nb+self.nstates,nb+1]=-self.A_CW*self.Pmax/2
+                self.HF[nb+self.nstates+1,nb]=-self.A_CW*self.Pmax/2
+
+        # initialize CF
+        for i in range(self.nstates):
+            self.CF[self.nstates*(0+self.NPMAX)+i] = self.C[i,0]
+
+    #def MakePropagator(self,dt):
+        WF, UF = np.linalg.eig(self.HF)
+        self.expiHFdt = np.dot(UF,np.dot(np.diag(np.exp(-1j*WF*dt)),np.conj(UF).T))
+
+    def CFtoCt(self,time):
+        for i in range(self.nstates):
+            self.C[i,0] = 0.0
+            for n in range(-self.NPMAX,self.NPMAX+1):
+                nb = self.nstates*(n+self.NPMAX)
+                self.C[i,0] += self.CF[nb+i,0]*np.exp(-1j*n*self.K_CW*time)
+
+    def propagate(self,time):
+        self.CF = np.dot(self.expiHFdt,self.CF)
+        self.CFtoCt(time)
+        self.getrho()
+
+    def decay(self,gamma,dt,time):	
+        if np.abs(self.C[0,0])!=0.0 and gamma>1E-8:
+            for n in range(-self.NPMAX,self.NPMAX+1):
+                nb = self.nstates*(n+self.NPMAX)
+                self.CF[nb+0,0] = self.CF[nb+0,0]*np.sqrt((1.0-np.exp(-gamma*dt)*np.abs(self.C[1,0])**2)/np.abs(self.C[0,0])**2)
+                self.CF[nb+1,0] = self.CF[nb+1,0]*np.exp(-0.5*gamma*dt)
+        self.CFtoCt(time)
+        self.getrho()
+
+    def getrho(self):
+        for i in range(self.nstates):
+            for j in range(self.nstates):
+                self.rho[i,j] = self.C[i,0]*np.conj(self.C[j,0])
+        return self.rho
+
+    def update_coupling(self,intPE):
+        pass
+
+    def rescale(self,ii,jj,drho):
+        pass
+
+    def getEnergy(self):
+        Esys = 0.0
+        for n in range(self.nstates):
+            Esys += self.H0[n,n]*np.real(self.rho[n,n])
+        return Esys
+
 
 class TwoLevelSurfaceHoppingPropagator(object):
     """
