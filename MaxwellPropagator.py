@@ -523,7 +523,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
                     beta = betas[1]
                 self.BETA += beta
                 #alpha = alphas[0]
-                self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + alpha* self.TEy[:]
+                self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
 
 
 
