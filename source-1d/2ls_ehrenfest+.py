@@ -106,13 +106,6 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     #TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
-    # generate FGR rate
-    TLSP.FGR = np.zeros((TLSP.nstates,TLSP.nstates))
-    for i in range(TLSP.nstates):
-        for j in range(TLSP.nstates):
-            TLSP.FGR[i,j] = (TLSP.H0[i,i]-TLSP.H0[j,j])*param_TLS.Pmax**2/AU.C/AU.E0 / AU.fs
-
-
     """
     Start Time Evolution
     """
@@ -156,18 +149,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
         if UsePlusEmission:
             #4. Implement additional population relaxation (1->0)
-            gamma = TLSP.FGR[1,0]*np.abs(TLSP.rho[1,1])
-            if np.abs(TLSP.rho[0,1])!=0.0:
-                drho = gamma*dt * np.abs(TLSP.rho[1,1])\
-                     * 2*(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))**2
-            else:
-                drho = gamma*dt * np.abs(TLSP.rho[1,1])
-            # drho = gamma*dt * np.abs(TLSP.rho[1,1])
-            dE = (TLSP.H0[1,1]-TLSP.H0[0,0])*drho
-            dEnergy[1,it] = dE
+            drho, dE = TLSP.getComplement(1,0,dt)
             TLSP.rescale(1,0,drho)
-
             EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
+            dEnergy[1,it] = dE
 
         #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()

@@ -27,7 +27,13 @@ class PureStatePropagator(object):
             self.Ht[n,n] = self.H0[n,n]
 
         #Set up Polarization Operator
-        self.VP = param.VP 
+        self.VP = param.VP
+
+        # generate FGR rate
+        self.FGR = np.zeros((self.nstates,self.nstates))
+        for i in range(self.nstates):
+            for j in range(self.nstates):
+                self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
 
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
@@ -43,7 +49,7 @@ class PureStatePropagator(object):
 
     def propagate(self,dt):
         """
-        propagate wave vector C by Ht   
+        propagate wave vector C by Ht
         """
         W, U = np.linalg.eig(self.Ht)
         expiHt = np.dot(U,np.dot(np.diag(np.exp(-1j*W*dt)),np.conj(U).T))
@@ -84,18 +90,33 @@ class PureStatePropagator(object):
         	#TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
         self.getrho()
 
-    def equilibrate(self,ii,jj,dt):
+    def equilibrate(self,ii,jj,dt,transition=[1,1]):
         """
         equilibrate state ii and jj according to Boltzmann distribution
+        transition = [up, down]
         """
         drho = self.param.gamma_vib*dt *( np.abs(self.C[ii,0])**2 * np.exp(-self.param.beta*self.H0[jj,jj]) \
                               -np.abs(self.C[jj,0])**2 * np.exp(-self.param.beta*self.H0[ii,ii]) )
         if drho > 0.0:
-            self.rescale(ii,jj,np.abs(drho))
+            # ii->jj
+            self.rescale(ii,jj,np.abs(drho)*transition[0])
         elif drho < 0.0:
-            self.rescale(jj,ii,np.abs(drho))
+            # jj->ii
+            self.rescale(jj,ii,np.abs(drho)*transition[1])
         else:
             pass
+
+    def getComplement(self,ii,ff,dt):
+        """
+        calcualte complementary from ii --> ff state
+        """
+        gamma = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
+        drho = gamma*dt * np.abs(self.rho[ii,ii])
+        if np.abs(self.rho[ff,ii])!=0.0:
+            drho *= 2*(np.imag(self.rho[ff,ii])/np.abs(self.rho[ff,ii]))**2
+
+        dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+        return drho, dE
 
 
 class DensityMatrixPropagator(object):
@@ -223,7 +244,7 @@ class FloquetStatePropagator(object):
             nb = self.nstates*(n+self.NPMAX)
             for i in range(self.nstates):
                 self.HF[nb+i,nb+i]= self.H0[i,i] - n*self.K_CW
-			
+
             if n!=self.NPMAX:
                 self.HF[nb+1,nb+self.nstates]=-self.A_CW*self.Pmax/2
                 self.HF[nb,nb+self.nstates+1]=-self.A_CW*self.Pmax/2
@@ -250,7 +271,7 @@ class FloquetStatePropagator(object):
         self.CFtoCt(time)
         self.getrho()
 
-    def decay(self,gamma,dt,time):	
+    def decay(self,gamma,dt,time):
         if np.abs(self.C[0,0])!=0.0 and gamma>1E-8:
             for n in range(-self.NPMAX,self.NPMAX+1):
                 nb = self.nstates*(n+self.NPMAX)
@@ -322,10 +343,10 @@ class TwoLevelSurfaceHoppingPropagator(object):
         _sin = 2.0*intDA/_norm
         self.U = np.array([[    _cos,   _sin],\
                            [-1j*_sin,1j*_cos]],complex)
-        
+
     def propagate(self,dt):
         """
-        propagate adiabatic wave vector Ca by Ha   
+        propagate adiabatic wave vector Ca by Ha
         """
 		# Ca = exp(-iHat)*Ca
         W, U = np.linalg.eig(self.Ha)
@@ -376,7 +397,7 @@ class HarmonicOscillationPropagator(object):
         H0[1,1] = 0.5*self.param.mass*(self.param.Wc**2)* R**2 - self.param.Gc*R + self.param.epsilon
         H0[0,1] = self.param.coupling
         H0[1,0] = self.param.coupling
-		
+
         return H0+self.Vt
 
     def initializeGaussianWavePacket(self,sigma,R0,P0):
@@ -397,7 +418,7 @@ class HarmonicOscillationPropagator(object):
         #    T[i+self.N,i+1+self.N] = 1.0
         #    T[i+1+self.N,i+self.N] = 1.0
         # Central Finite difference coefficient:
-        # http://en.wikipedia.org/wiki/Finite_difference_coefficients 
+        # http://en.wikipedia.org/wiki/Finite_difference_coefficients
         T = np.diag((-49.0/18.0)*np.ones(self.N))
         for i in range(self.N):
             T[i,(i+1)%self.N] =  3.0/2.0  if i+1 in range(self.N) else T[i,(i+1)%self.N]
@@ -442,7 +463,7 @@ class HarmonicOscillationPropagator(object):
 
     def propagate(self,dt):
         """
-        propagate wave vector C by Ht   
+        propagate wave vector C by Ht
         """
         self.C = np.dot(self.expV,np.dot(self.expT,np.dot(self.expV,self.C)))
 
@@ -463,4 +484,3 @@ class HarmonicOscillationPropagator(object):
             wf[1,i]=np.abs(self.C[i+self.N,0])**2
 
         return wf
-

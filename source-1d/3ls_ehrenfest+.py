@@ -102,14 +102,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         param_TLS.C0[0,0] = param_TLS.C0[0,0]*np.exp(1j*2*np.pi*random())
     TLSP = PureStatePropagator(param_TLS)
 
-	# generate FGR rate
-    TLSP.FGR = np.zeros((TLSP.nstates,TLSP.nstates))
-    for i in range(TLSP.nstates):
-        for j in range(TLSP.nstates):
-            TLSP.FGR[i,j] = (TLSP.H0[i,i]-TLSP.H0[j,j])*param_TLS.Pmax**2/AU.C/AU.E0 / AU.fs
-
-
-	"""
+    """
 	Start Time Evolution
 	"""
     for it in range(len(times)):
@@ -149,23 +142,21 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         if UsePlusEmission:
     	    #4. Implement additional population relaxation
         	#(2->0)
-            gamma = TLSP.FGR[2,0]*(1.0-np.abs(TLSP.rho[0,0]))
-            drho = gamma*dt * np.abs(TLSP.rho[2,2])
-            dE = (TLSP.H0[2,2]-TLSP.H0[0,0])*drho
-            TLSP.rescale(2,0,drho)
-            #EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
-    	    #(2->1)
-            gamma = TLSP.FGR[2,1]*(1.0-np.abs(TLSP.rho[1,1]))
-            drho = gamma*dt * np.abs(TLSP.rho[2,2])
-            dE += (TLSP.H0[2,2]-TLSP.H0[1,1])*drho
-            TLSP.rescale(2,1,drho)
+            drho20, dE20 = TLSP.getComplement(2,0,dt)
+            TLSP.rescale(2,0,drho20)
 
+    	    #(2->1)
+            drho21, dE21 = TLSP.getComplement(2,1,dt)
+            TLSP.rescale(2,1,drho21)
+
+            dE = dE20 + dE21
             EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
 
         if UseThermalRelax:
             #4.5. Apply non-radiative thermal equlibration
             #(1->0)
-            TLSP.equilibrate(0,1,dt)
+            # transition=[0,1] --> only downward transistion
+            TLSP.equilibrate(0,1,dt,transition=[0,1])
 
         #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()
@@ -242,8 +233,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
             ax[4].set_xlim([0,0.5])
             #ax[4].set_xlabel('$ck$')
-            fft_Ex = np.fft.rfft(EMP.Es[::-1])
-            fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
+            if len(EMP.Es)<10005:
+                fft_Ex = np.fft.rfft(EMP.Es[::-1])
+                fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
+            else:
+                fft_Ex = np.fft.rfft(EMP.Es[-10000:-1])
+                fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[-10000]-EMP.Xs[-1])
+
             ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b')
 
             fig.canvas.draw()
