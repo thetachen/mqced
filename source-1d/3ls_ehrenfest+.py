@@ -62,7 +62,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # a long vector [Ex,Ey,Bx,By]
     EB = np.zeros(4*param_EM.NZgrid)
 
-    # density matrix 
+    # density matrix
     rhot = np.zeros((param_TLS.nstates,param_TLS.nstates,len(times)),complex)
 
     # total energy
@@ -83,9 +83,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         ddPyddz[iz] = 0.0
 
     # Just rescale on Px
-    TEx = Px
+    # TEx = Px
     # Make intTEE zero
-    #TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px  
+    #TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
+    TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
     #make Poynting vector zero
     #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
     TBy = dPxdz
@@ -101,7 +102,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         param_TLS.C0[0,0] = param_TLS.C0[0,0]*np.exp(1j*2*np.pi*random())
     TLSP = PureStatePropagator(param_TLS)
 
-	# generate FGR rate 
+	# generate FGR rate
     TLSP.FGR = np.zeros((TLSP.nstates,TLSP.nstates))
     for i in range(TLSP.nstates):
         for j in range(TLSP.nstates):
@@ -132,7 +133,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 	    #1 Propagate the wave function
         TLSP.update_coupling(intPE)
         TLSP.propagate(dt)
-    
+
     	#2 Compute Current: J
         dPdt = 0.0
         for i in range(param_TLS.nstates):
@@ -140,13 +141,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
                 dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.rho[i,j]) * TLSP.VP[i,j]
         Jx = dPdt * Px
         Jy = dPdt * Py
-     
+
 	    #3. Evolve the field
         EMP.update_JxJy(Jx,Jy)
         EMP.propagate(dt)
 
         if UsePlusEmission:
-    	    #4. Implement additional population relaxation 
+    	    #4. Implement additional population relaxation
         	#(2->0)
             gamma = TLSP.FGR[2,0]*(1.0-np.abs(TLSP.rho[0,0]))
             drho = gamma*dt * np.abs(TLSP.rho[2,2])
@@ -163,17 +164,17 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
         if UseThermalRelax:
             #4.5. Apply non-radiative thermal equlibration
-            #(1->0) 
+            #(1->0)
             TLSP.equilibrate(0,1,dt)
-        
+
         #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()
-	
+
         # save scattering field out of the box
         EMP.saveScatterField(times[it],Tmax)
 
     	"""
-	    output:    
+	    output:
 	    """
         # density matrix
         for i in range(param_TLS.nstates):
@@ -284,4 +285,3 @@ for i in range(NumberTrajectories):
     data.append(output)
 with open(outfile, 'wb') as f:
     pickle.dump(data,f)
-
