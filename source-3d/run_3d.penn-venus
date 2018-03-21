@@ -1,0 +1,4 @@
+echo $1
+g++-7.1 -fopenmp -std=c++0x ../ehrenfest-3d-abc-cubic-gaussian-openmp-update-check-em+r.cpp -o $1/temp.exe -I $1 -I /home/theta/boost_1_66_0 -Wl,-rpath,/usr/local/lib64
+cd $1
+qsub runfile

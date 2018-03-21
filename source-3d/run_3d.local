@@ -1,0 +1,4 @@
+#g++ -fopenmp ehrenfest-3d-abc-cubic-gaussian-openmp-update.cpp -o temp.exe -std=c++11 -I /home/theta/boost_1_66_0
+g++ -fopenmp ehrenfest-3d-abc-cubic-gaussian-openmp-update-check-em+r.cpp -o temp.exe -std=c++11 -I /home/theta/boost_1_66_0
+./temp.exe > out
+rm temp.exe
