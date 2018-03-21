@@ -61,7 +61,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # a long vector [Ex,Ey,Bx,By]
     EB = np.zeros(4*param_EM.NZgrid)
 
-    # density matrix 
+    # density matrix
     rhot = np.zeros((param_TLS.nstates,param_TLS.nstates,len(times)),complex)
 
     # total energy
@@ -72,7 +72,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
     # initialize Px,Py,dPxdz, dPydz, ddPxddz, ddPyddz
     for iz in range(param_EM.NZgrid):
-        Z = param_EM.Zgrid[iz]    
+        Z = param_EM.Zgrid[iz]
         Px[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 )
         Py[iz] = 0.0
         dPxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * -param_TLS.Sigma * (Z-param_TLS.Mu)*2
@@ -85,9 +85,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         ddPyddz[iz] = 0.0
 
     # Just rescale on Px
-	TEx = Px
+	# TEx = Px
     # Make intTEE zero
-	#TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px  
+	# TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
+    TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
 	#make Poynting vector zero
     #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
     TBy = dPxdz
@@ -97,7 +98,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     EMP.initializeODEsolver(EB,T0)
     EMP.update_TETB(TEx,TEy,TBx,TBy)
     EMP.applyAbsorptionBoundaryCondition()
-    
+
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
@@ -105,7 +106,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     #TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
-    # generate FGR rate 
+    # generate FGR rate
     TLSP.FGR = np.zeros((TLSP.nstates,TLSP.nstates))
     for i in range(TLSP.nstates):
         for j in range(TLSP.nstates):
@@ -116,7 +117,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     Start Time Evolution
     """
     for it in range(len(times)):
-    
+
         #0 Compute All integrals
         intPE = EMP.dZ*np.dot(Px, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
               + EMP.dZ*np.dot(Py, np.array(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
@@ -147,7 +148,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
                 dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.rho[i,j]) * TLSP.VP[i,j]
         Jx = dPdt * Px
         Jy = dPdt * Py
-     
+
         #3. Evolve the field
         EMP.update_JxJy(Jx,Jy)
         EMP.propagate(dt)
@@ -156,19 +157,19 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         if UsePlusEmission:
             #4. Implement additional population relaxation (1->0)
             gamma = TLSP.FGR[1,0]*np.abs(TLSP.rho[1,1])
-            #if np.abs(TLSP.rho[0,1])!=0.0:
-                #drho = gamma*dt * np.abs(TLSP.rho[1,1])\
-                     #* 2*(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))**2
-            #else:
-                #drho = gamma*dt * np.abs(TLSP.rho[1,1])
-            drho = gamma*dt * np.abs(TLSP.rho[1,1])
+            if np.abs(TLSP.rho[0,1])!=0.0:
+                drho = gamma*dt * np.abs(TLSP.rho[1,1])\
+                     * 2*(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))**2
+            else:
+                drho = gamma*dt * np.abs(TLSP.rho[1,1])
+            # drho = gamma*dt * np.abs(TLSP.rho[1,1])
             dE = (TLSP.H0[1,1]-TLSP.H0[0,0])*drho
             dEnergy[1,it] = dE
             TLSP.rescale(1,0,drho)
 
             EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
 
-        #5. Apply absorption boundary condition 
+        #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()
         #EB = EMP.EB
 
@@ -177,7 +178,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
         """
         output:
-        
+
         """
         # density matrix
         for i in range(param_TLS.nstates):
@@ -236,7 +237,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1)
             ax[3].legend(loc='best')
             ax[3].set_xlim([0,Tmax*AU.fs])
-    
+
 
             plt.sca(ax[4])
             plt.cla()
@@ -277,7 +278,7 @@ if ShowAnimation:
 	from matplotlib.ticker import MultipleLocator, AutoLocator, MaxNLocator
 	import matplotlib.gridspec as gridspec
 	plt.rc('text', usetex=True)
-	plt.rc('font', family='Times New Roman', size='12')	
+	plt.rc('font', family='Times New Roman', size='12')
 	plt.ion()
 	fig, ax= plt.subplots(5,figsize=(10.0,12.0))
 

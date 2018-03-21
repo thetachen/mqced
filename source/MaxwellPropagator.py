@@ -5,30 +5,6 @@ from scipy.interpolate import interp1d
 from units import AtomicUnit
 AU = AtomicUnit()
 
-#import numba as nb
-#@nb.jit(nopython=True)
-#def rhs(t,vec, arg, dz):
-    #dvdt = np.zeros(4*arg[0])
-    #dvdt[arg[1]+1:arg[1]+arg[0]-1] = -( vec[arg[4]+2:arg[4]+arg[0]] - vec[arg[4]:arg[4]+arg[0]-2] )/dz/2# * self.unit.C**2 \
-                                                  #- self.Jx[1:self.NZgrid-1]/self.unit.E0
-	#dvdt[_Ey+1:self._Ey+self.NZgrid-1] =  ( vec[self._Bx+2:self._Bx+self.NZgrid] - vec[self._Bx:self._Bx+self.NZgrid-2] )/self.dZ/2 * self.unit.C**2 \
-                                                  #- self.Jy[1:self.NZgrid-1]/self.unit.E0
-	#dvdt[self._Bx+1:self._Bx+self.NZgrid-1] =  ( vec[self._Ey+2:self._Ey+self.NZgrid] - vec[self._Ey:self._Ey+self.NZgrid-2] )/self.dZ/2
-	#dvdt[self._By+1:self._By+self.NZgrid-1] = -( vec[self._Ex+2:self._Ex+self.NZgrid] - vec[self._Ex:self._Ex+self.NZgrid-2] )/self.dZ/2
-#
-	#dvdt[self._Ex] = -( vec[self._By+1] - vec[self._By+0] )/self.dZ * self.unit.C**2  - self.Jx[0]/self.unit.E0
- 	#dvdt[self._Ey] =  ( vec[self._Bx+1] - vec[self._Bx+0] )/self.dZ * self.unit.C**2  - self.Jx[0]/self.unit.E0
-	#dvdt[self._Bx] =  ( vec[self._Ey+1] - vec[self._Ey+0] )/self.dZ
-	#dvdt[self._By] = -( vec[self._Ex+1] - vec[self._Ex+0] )/self.dZ
-#
-	#dvdt[self._Ex+self.NZgrid-1] = -( vec[self._By+self.NZgrid-1] - vec[self._By+self.NZgrid-2] )/self.dZ * self.unit.C**2 - self.Jx[self.NZgrid-1]/self.unit.E0
-	#dvdt[self._Ey+self.NZgrid-1] =  ( vec[self._Bx+self.NZgrid-1] - vec[self._Bx+self.NZgrid-2] )/self.dZ * self.unit.C**2 - self.Jy[self.NZgrid-1]/self.unit.E0
-	#dvdt[self._Bx+self.NZgrid-1] =  ( vec[self._Ey+self.NZgrid-1] - vec[self._Ey+self.NZgrid-2] )/self.dZ
-	#dvdt[self._By+self.NZgrid-1] = -( vec[self._Ex+self.NZgrid-1] - vec[self._Ex+self.NZgrid-2] )/self.dZ
-
-    #return dvdt
-
-
 class MaxwellPropagator_1D(object):
     """
     EM field propagator for 1D grid
@@ -50,7 +26,7 @@ class MaxwellPropagator_1D(object):
         # a long vector [Ex,Ey,Bx,By]
         self.EB = np.zeros(4*self.NZgrid)
 
-        # vector potential 
+        # vector potential
         self.Ax = np.zeros(self.NZgrid)
         self.Ay = np.zeros(self.NZgrid)
 
@@ -92,7 +68,7 @@ class MaxwellPropagator_1D(object):
 
         # Just for checking if B = curl A
         self.dAxdZ = np.zeros(self.NZgrid)
-        self.dAydZ = np.zeros(self.NZgrid)  
+        self.dAydZ = np.zeros(self.NZgrid)
         for n in range(1,self.NZgrid-1):
             self.dAxdZ[n] = (self.Ax[n+1]-self.Ax[n-1])/self.dZ/2
             self.dAydZ[n] = (self.Ay[n+1]-self.Ay[n-1])/self.dZ/2
@@ -148,13 +124,13 @@ class SurfaceHoppingMaxwellPropagator_1D(object):
         # a long vector [Ex,Ey,Bx,By]
         self.EB = np.zeros(4*self.NZgrid)
 
-        # vector potential 
+        # vector potential
         self.Ax = np.zeros(self.NZgrid)
         self.Ay = np.zeros(self.NZgrid)
 
         # unit constats:
         self.unit = AU
-        
+
         self.dAxdZ = np.zeros(self.NZgrid)
         self.dAydZ = np.zeros(self.NZgrid)
 
@@ -282,17 +258,17 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         # a long vector [Ex,Ey,Bx,By]
         self.EB = np.zeros(4*self.NZgrid)
 
-        # vector potential 
+        # vector potential
         self.Ax = np.zeros(self.NZgrid)
         self.Ay = np.zeros(self.NZgrid)
 
         # unit constats:
         self.unit = AU
-        
+
         self.dAxdZ = np.zeros(self.NZgrid)
         self.dAydZ = np.zeros(self.NZgrid)
 
-        # total alpha and beta 
+        # total alpha and beta
         self.ALPHA = 0.0
         self.BETA = 0.0
 
@@ -320,9 +296,9 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             #print self.S[i],self.S[-1-i]
         #print self.S[:i_min+1]
         #print self.S[i_max:]
-        #print self.S[i_min-1],self.S[i_min]  
+        #print self.S[i_min-1],self.S[i_min]
         #print self.S[i_max],self.S[i_max+1]
-        
+
     def initializeODEsolver(self,EB,T0):
         # EM ode solver
         self.solver = ode(self.f)
@@ -425,7 +401,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             self.EB[self._Bx+iz] *= S #self.EB[self._Bx+iz]*self.S[iz]
             self.EB[self._By+iz] *= S #self.EB[self._By+iz]*self.S[iz]
 
-            self.EB[self._Ex+self.NZgrid-1-iz] *= S #= self.EB[self._Ex+self.NZgrid-1-iz]*self.S[-1-iz]	
+            self.EB[self._Ex+self.NZgrid-1-iz] *= S #= self.EB[self._Ex+self.NZgrid-1-iz]*self.S[-1-iz]
             self.EB[self._Ey+self.NZgrid-1-iz] *= S #= self.EB[self._Ey+self.NZgrid-1-iz]*self.S[-1-iz]
             self.EB[self._Bx+self.NZgrid-1-iz] *= S #= self.EB[self._Bx+self.NZgrid-1-iz]*self.S[-1-iz]
             self.EB[self._By+self.NZgrid-1-iz] *= S #= self.EB[self._By+self.NZgrid-1-iz]*self.S[-1-iz]
@@ -447,7 +423,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
     def randomEmit_byD(self,deltaE,intDE,intDD,Dx):
         absEx = np.sum(self.EB[self._Ex:self._Ex+self.NZgrid]**2)*self.dZ
         if absEx==0.0:
-            self.EB[self._Ex:self._Ex+self.NZgrid] = Dx * np.sqrt(deltaE/intDD)     
+            self.EB[self._Ex:self._Ex+self.NZgrid] = Dx * np.sqrt(deltaE/intDD)
         else:
             K = ( -2*intDE+np.sqrt(4*intDE**2+4*deltaE*intDD) )/2/intDD
             self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + K * Dx[:]
@@ -496,36 +472,49 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         if UseRandomEB:
             dE_E = np.random.rand()*deltaE
             dE_B = deltaE - dE_E
-            intTEE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
-    	           + self.dZ*np.dot(self.TEy, np.array(self.EB[self._Ey:self._Ey+self.NZgrid]))
-            intTBB = self.dZ*np.dot(self.TBx, np.array(self.EB[self._Bx:self._Bx+self.NZgrid])) \
-            	   + self.dZ*np.dot(self.TBy, np.array(self.EB[self._By:self._By+self.NZgrid]))
-            if intTEE==0.0:
-                self.EB[self._Ex:self._Ex+self.NZgrid] = np.random.choice([1, -1])*self.TEx * np.sqrt(2*dE_E/self.TE2)
-            else:
-                alphas = [(-intTEE + np.sqrt(intTEE**2+2*self.TE2*dE_E) )/self.TE2, \
-                     	  (-intTEE - np.sqrt(intTEE**2+2*self.TE2*dE_E) )/self.TE2]
-                if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
-                    alpha = alphas[0]
-                else:
-                    alpha = alphas[1]
-                self.ALPHA += alpha
-                #alpha = alphas[0]
-                self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
-            if intTBB==0.0:
-                self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*self.TBx * np.sqrt(2*dE_B/self.TB2)
-            else:
-                betas = [(-intTBB + np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2, \
-                         (-intTBB - np.sqrt(intTBB**2+2*self.TB2*dE_B) )/self.TB2]
-                if np.abs(betas[0]+self.BETA)<np.abs(betas[1]+self.BETA):
-                    beta = betas[0]
-                else:
-                    beta = betas[1]
-                self.BETA += beta
-                #alpha = alphas[0]
-                self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
+        else:
+            dE_E = 0.5 * deltaE
+            dE_B = 0.5 * deltaE
 
-
+        # calculate int(E*TE) and int(B*TB)
+        intETE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
+	           + self.dZ*np.dot(self.TEy, np.array(self.EB[self._Ey:self._Ey+self.NZgrid]))
+        intBTB = self.dZ*np.dot(self.TBx, np.array(self.EB[self._Bx:self._Bx+self.NZgrid])) \
+        	   + self.dZ*np.dot(self.TBy, np.array(self.EB[self._By:self._By+self.NZgrid]))
+        if intETE==0.0:
+            # self.EB[self._Ex:self._Ex+self.NZgrid] = np.random.choice([1, -1])*self.TEx * np.sqrt(2*dE_E/self.TE2)
+            self.EB[self._Ex:self._Ex+self.NZgrid] = 1*self.TEx * np.sqrt(2*dE_E/self.TE2)
+        else:
+            alphas = [(-intETE + np.sqrt(intETE**2+2*self.TE2*dE_E) )/self.TE2, \
+                 	  (-intETE - np.sqrt(intETE**2+2*self.TE2*dE_E) )/self.TE2]
+            if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
+            # if alphas[0] > 0.0:
+            # if np.abs(alphas[0]) <np.abs(alphas[1]):
+                alpha = alphas[0]
+            else:
+                alpha = alphas[1]
+            self.ALPHA += alpha
+            #alpha = alphas[0]
+            self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
+        if intBTB==0.0:
+            # self.EB[self._By:self._By+self.NZgrid] = np.random.choice([1, -1])*self.TBx * np.sqrt(2*dE_B/self.TB2)
+            self.EB[self._By:self._By+self.NZgrid] = 1*self.TBx * np.sqrt(2*dE_B/self.TB2)
+        else:
+            betas = [(-intBTB + np.sqrt(intBTB**2+2*self.TB2*dE_B) )/self.TB2, \
+                     (-intBTB - np.sqrt(intBTB**2+2*self.TB2*dE_B) )/self.TB2]
+            # if np.abs(betas[0]+self.BETA)<np.abs(betas[1]+self.BETA):
+            if alpha*betas[0] > 0.0: # alpha and beta have the same sign
+            # if betas[0] > 0.0:
+                beta = betas[0]
+            else:
+                beta = betas[1]
+            self.BETA += beta
+            #alpha = alphas[0]
+            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
+        # try:
+        #     print alpha*beta>0.0
+        # except:
+        #     pass
 
 class EhrenfestPlusRDB_MaxwellPropagator_1D(object):
     """
@@ -548,13 +537,13 @@ class EhrenfestPlusRDB_MaxwellPropagator_1D(object):
         # a long vector [Dx,Dy,Bx,By]
         self.DB = np.zeros(4*self.NZgrid)
 
-        # vector potential 
+        # vector potential
         self.Ax = np.zeros(self.NZgrid)
         self.Ay = np.zeros(self.NZgrid)
 
         # unit constats:
         self.unit = AU
-        
+
         self.dAxdZ = np.zeros(self.NZgrid)
         self.dAydZ = np.zeros(self.NZgrid)
 
