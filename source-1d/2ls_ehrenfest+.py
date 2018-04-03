@@ -86,8 +86,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
     # Just rescale on Px
 	# TEx = Px
+    # Transverse
+    # TEx =-ddPxddz
     # Make intTEE zero
-	# TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
+	# TEx = -ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
+    # Match far field radiation:
     TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
 	#make Poynting vector zero
     #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
@@ -127,7 +130,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         intdPdzB += EMP.dZ*np.dot(-dPydz, BCWx ) \
                   + EMP.dZ*np.dot( dPxdz, BCWy )
 
-
+        Imrho12 = np.imag(TLSP.rho[0,1])
+        # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
+              # 'Imrho/absrho=',(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))
         dEnergy[0,it] = TLSP.getEnergy()
         #1. Propagate the wave function
         TLSP.update_coupling(intPE)
@@ -146,12 +151,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         EMP.update_JxJy(Jx,Jy)
         EMP.propagate(dt)
         #EB = EMP.EB
-
         if UsePlusEmission:
             #4. Implement additional population relaxation (1->0)
             drho, dE = TLSP.getComplement(1,0,dt)
             TLSP.rescale(1,0,drho)
-            EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
+            # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
+            EMP.MakeTransition_Imrho(dE,-Imrho12,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
 
         #5. Apply absorption boundary condition
@@ -180,7 +185,6 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Plot
         """
         if it%AveragePeriod==0 and ShowAnimation:
-
             plt.sca(ax[0])
             plt.cla()
             ax[0].fill_between(EMP.Zgrid,0.0,EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid],alpha=0.5,color='blue',label='$B_x$')
@@ -195,7 +199,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
             #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
             ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
-            ax[1].set_ylim([0,0.0001])
+            # ax[1].set_ylim([0,0.0001])
             ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[1].legend()
 
@@ -203,10 +207,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             plt.cla()
             KFGR = TLSP.FGR[1,0]
             for n in range(param_TLS.nstates):
-                ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$C_{d'+str(n)+'}(t)$')
+                ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
             ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             ax[2].set_xlim([0,Tmax*AU.fs])
-            ax[2].set_xlabel('t [a.u.]')
+            ax[2].set_xlabel('t')
             ax[2].legend(loc='best')
 
 
@@ -219,21 +223,28 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[3].plot(times[:it]*AU.fs,(-np.log(dEnergy[1,:it])+np.log(dEnergy[1,0]))/times[:it], lw=2, label='incoherent')
             #ax[3].axhline(y=TLSP.FGR[1,0]*2, color='k', linestyle='--', lw=2)
             #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it]-Ut[1,0],lw=2,label='energy diff')
-            ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1)
+            ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
+            ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1,label='$E^2$')
             ax[3].legend(loc='best')
-            ax[3].set_xlim([0,Tmax*AU.fs])
-
+            # ax[3].set_xlim([0,Tmax*AU.fs])
+            # ax[3].set_ylim([-max(EMP.Es),max(EMP.Es)])
+            ax[3].set_xlabel('x')
+            ax[3].legend()
 
             plt.sca(ax[4])
             plt.cla()
             #ax[4].plot(fft_Freq*AU.C,np.abs(fft_Ex)**2,lw=2,color='b')
             ax[4].axvline(x=param_TLS.H0[1,1]-param_TLS.H0[0,0], color='k', linestyle='--')
             #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
-            ax[4].set_xlim([0.0,0.5])
+            ax[4].set_xlim([0.0,1.0])
             #ax[4].set_xlabel('$ck$')
             fft_Ex = np.fft.rfft(EMP.Es[::-1])
             fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
-            ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b')
+            ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b',label='fft($E$)')
+            ax[4].set_xlabel('$\omega$')
+            ax[4].legend()
+            # fig.savefig('test_plot.pdf')
             fig.canvas.draw()
 
 

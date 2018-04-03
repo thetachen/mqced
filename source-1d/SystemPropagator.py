@@ -35,6 +35,8 @@ class PureStatePropagator(object):
             for j in range(self.nstates):
                 self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
 
+        self.getrho()
+
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
 
