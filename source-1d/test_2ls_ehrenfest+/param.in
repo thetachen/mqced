@@ -5,6 +5,7 @@ AU = AtomicUnit()
 
 
 #Options:
+# ShowAnimation = False
 ShowAnimation = True
 AveragePeriod = 1000
 UseInitialRandomPhase = False
@@ -60,3 +61,5 @@ param_TLS={
     'Pmax':     0.025*np.sqrt(2.0),
 }
 param_TLS=Struct(**param_TLS)
+
+phase_shift = -0.5*np.pi

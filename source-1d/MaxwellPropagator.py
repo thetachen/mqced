@@ -389,7 +389,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             #S = 1*(Z<self.param.Z0) + \
                 #(Z<=self.param.Z1 and Z>=self.param.Z0)/(1.0+np.exp(-(self.param.Z0-self.param.Z1)/(self.param.Z0-Z)-(self.param.Z1-self.param.Z0)/(Z-self.param.Z1))) + \
                 #0*(Z>self.param.Z1)
-#
+
             #self.EB[self._Ex+iz] = self.EB[self._Ex+iz]*self.ABC[self._Ex+iz]
             #self.EB[self._Ey+iz] = self.EB[self._Ey+iz]*self.ABC[self._Ey+iz]
             #self.EB[self._Bx+iz] = self.EB[self._Bx+iz]*self.ABC[self._Bx+iz]
@@ -473,11 +473,11 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         Make a quantum transition of the EM field
         """
         if UseRandomEB:
-            dE_E = np.random.rand()*deltaE
-            dE_B = deltaE - dE_E
+            dU_E = np.random.rand()*deltaE
+            dU_B = deltaE - dU_E
         else:
-            dE_E = 0.5 * deltaE
-            dE_B = 0.5 * deltaE
+            dU_E = 0.5 * deltaE
+            dU_B = 0.5 * deltaE
 
         # calculate int(E*TE) and int(B*TB)
         intETE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
@@ -487,11 +487,11 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         if intETE==0.0:
             alpha = 1.0
             # alpha = np.random.choice([1, -1])
-            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx * np.sqrt(2*dE_E/self.TE2)
-            # self.EB[self._Ex:self._Ex+self.NZgrid] = 1*self.TEx * np.sqrt(2*dE_E/self.TE2)
+            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx * np.sqrt(2*dU_E/self.TE2)
+            # self.EB[self._Ex:self._Ex+self.NZgrid] = 1*self.TEx * np.sqrt(2*dU_E/self.TE2)
         else:
-            alphas = [(-intETE - np.sqrt(intETE**2+2*self.TE2*dE_E) )/self.TE2, \
-                 	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dE_E) )/self.TE2]
+            alphas = [(-intETE - np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2, \
+                 	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2]
             if np.abs(alphas[0]) <np.abs(alphas[1]):
             # if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
             # if alphas[0] < 0.0:
@@ -505,11 +505,11 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         if intBTB==0.0:
             beta = 1.0
             # beta = np.random.choice([1, -1])
-            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBx * np.sqrt(2*dE_B/self.TB2)
-            # self.EB[self._By:self._By+self.NZgrid] = 1*self.TBx * np.sqrt(2*dE_B/self.TB2)
+            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBy * np.sqrt(2*dU_B/self.TB2)
+            # self.EB[self._By:self._By+self.NZgrid] = 1*self.TBy * np.sqrt(2*dU_B/self.TB2)
         else:
-            betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dE_B) )/self.TB2, \
-                     (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dE_B) )/self.TB2]
+            betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2, \
+                     (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2]
             if np.abs(betas[0])<np.abs(betas[1]):
             # if np.abs(betas[0]+self.BETA)<np.abs(betas[1]+self.BETA):
             # if alpha*betas[0] > 0.0: # alpha and beta have the same sign
@@ -521,13 +521,13 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             #alpha = alphas[0]
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
 
-    def MakeTransition_Imrho(self,deltaE,Imrho,UseRandomEB=True):
+    def MakeTransition_sign(self,deltaE,sign,UseRandomEB=True):
         if UseRandomEB:
-            dE_E = np.random.rand()*deltaE
-            dE_B = deltaE - dE_E
+            dU_E = np.random.rand()*deltaE
+            dU_B = deltaE - dU_E
         else:
-            dE_E = 0.5 * deltaE
-            dE_B = 0.5 * deltaE
+            dU_E = 0.5 * deltaE
+            dU_B = 0.5 * deltaE
 
         # calculate int(E*TE) and int(B*TB)
         intETE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
@@ -535,32 +535,47 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
         intBTB = self.dZ*np.dot(self.TBx, np.array(self.EB[self._Bx:self._Bx+self.NZgrid])) \
         	   + self.dZ*np.dot(self.TBy, np.array(self.EB[self._By:self._By+self.NZgrid]))
 
+        def choose_small(list):
+            if np.abs(list[0]) <np.abs(list[1]):
+            # if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
+            # if alphas[0] < 0.0:
+            # if np.abs(alphas[0]) <np.abs(alphas[1]):
+                return list[0]
+            else:
+                return list[1]
         def choose_sign(list):
-            new_list = filter(lambda x: x*Imrho >0, list)
+            new_list = filter(lambda x: x*sign >0, list)
             if len(new_list)==1:
                 return new_list[0]
             else:
                 print "something wrong"
                 exit()
-        if intETE==0.0 or Imrho==0.0:
+        if intETE==0.0 or sign==0.0:
             # alpha = choose_sign([1, -1])
             alpha = np.random.choice([1, -1])
-            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx * np.sqrt(2*dE_E/self.TE2)
+            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx * np.sqrt(2*dU_E/self.TE2)
         else:
-            alphas = [(-intETE - np.sqrt(intETE**2+2*self.TE2*dE_E) )/self.TE2, \
-                 	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dE_E) )/self.TE2]
+            # maintain energy conservation
+            # alphas = [(-intETE - np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2, \
+            #      	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2]
+            # drop the cross term, i.e. dump the energy into a separated EM field
+            alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
             alpha = choose_sign(alphas)
             self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
             # print 'alpha=',alpha, alphas
-        if intBTB==0.0 or Imrho==0.0:
+        if intBTB==0.0 or sign==0.0:
             # beta = choose_sign([1, -1])
             beta = np.random.choice([1, -1])
-            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBx * np.sqrt(2*dE_B/self.TB2)
+            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBy * np.sqrt(2*dU_B/self.TB2)
         else:
-            betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dE_B) )/self.TB2, \
-                     (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dE_B) )/self.TB2]
+            # maintain energy conservation
+            # betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2, \
+            #          (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2]
+            # drop the cross term, i.e. dump the energy into a separated EM field
+            betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TE2)]
             beta = choose_sign(betas)
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
+            # print 'beta=',beta, betas
 
 class EhrenfestPlusRDB_MaxwellPropagator_1D(object):
     """

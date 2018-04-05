@@ -85,16 +85,20 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         ddPyddz[iz] = 0.0
 
     # Just rescale on Px
-	# TEx = Px
+	# TEx =-Px
     # Transverse
     # TEx =-ddPxddz
+    # TEx = ddPxddz
     # Make intTEE zero
 	# TEx = -ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
     # Match far field radiation:
-    TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
+    # TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
+    TEx = ddPxddz - (-param_TLS.Sigma *2)*Px
 	#make Poynting vector zero
     #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
-    TBy = dPxdz
+
+    # TBy = dPxdz
+    TBy = -dPxdz
 
     # create EM object
     EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
@@ -133,6 +137,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Imrho12 = np.imag(TLSP.rho[0,1])
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
               # 'Imrho/absrho=',(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))
+        angle = np.angle(TLSP.rho[0,1]/np.abs(TLSP.rho[0,1])) + phase_shift
+        sign = np.sin(angle)
+        # sign = np.imag(np.exp(1j*shift))
         dEnergy[0,it] = TLSP.getEnergy()
         #1. Propagate the wave function
         TLSP.update_coupling(intPE)
@@ -153,10 +160,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         #EB = EMP.EB
         if UsePlusEmission:
             #4. Implement additional population relaxation (1->0)
-            drho, dE = TLSP.getComplement(1,0,dt)
+            # drho, dE = TLSP.getComplement(1,0,dt)
+            drho, dE = TLSP.getComplement_angle(1,0,dt,angle)
             TLSP.rescale(1,0,drho)
             # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
-            EMP.MakeTransition_Imrho(dE,-Imrho12,UseRandomEB=UseRandomEB)
+            # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
+            EMP.MakeTransition_sign(dE,sign,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
 
         #5. Apply absorption boundary condition
@@ -223,9 +232,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[3].plot(times[:it]*AU.fs,(-np.log(dEnergy[1,:it])+np.log(dEnergy[1,0]))/times[:it], lw=2, label='incoherent')
             #ax[3].axhline(y=TLSP.FGR[1,0]*2, color='k', linestyle='--', lw=2)
             #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it]-Ut[1,0],lw=2,label='energy diff')
-            ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
-            ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
-            # ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1,label='$E^2$')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
+            ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1,label='$E^2$')
+            ax[3].plot(EMP.Xs,np.array(EMP.Bs)**2,lw=1,label='$B^2$')
             ax[3].legend(loc='best')
             # ax[3].set_xlim([0,Tmax*AU.fs])
             # ax[3].set_ylim([-max(EMP.Es),max(EMP.Es)])

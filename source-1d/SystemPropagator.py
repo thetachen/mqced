@@ -120,6 +120,17 @@ class PureStatePropagator(object):
         dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
         return drho, dE
 
+    def getComplement_angle(self,ii,ff,dt,angle):
+        """
+        calcualte complementary from ii --> ff state
+        """
+        gamma = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
+        drho = gamma*dt * np.abs(self.rho[ii,ii])
+        if np.abs(self.rho[ff,ii])!=0.0:
+            drho *= 2*(np.sin(angle))**2
+
+        dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+        return drho, dE
 
 class DensityMatrixPropagator(object):
     """
