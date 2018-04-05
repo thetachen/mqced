@@ -144,15 +144,37 @@ public:
                 //TEy[ijk] = Py[ijk];
                 //TEz[ijk] = Pz[ijk];
 
-                //TE = del X del X P - g P
+                //TE = del X del X P
                 TEx[ijk] = 4.0*sigma*sigma*coeff*Rz[ijk]*Rx[ijk];
                 TEy[ijk] = 4.0*sigma*sigma*coeff*Rz[ijk]*Ry[ijk];
-                TEz[ijk] =-4.0*sigma*sigma*coeff*( Rx[ijk]*Rx[ijk]+Ry[ijk]*Ry[ijk] );
+                TEz[ijk] =-4.0*sigma*sigma*coeff*( Rx[ijk]*Rx[ijk]+Ry[ijk]*Ry[ijk] ) + 4.0*sigma*coeff;
+
+                //TE =-del X del X P
+                //TEx[ijk] =-4.0*sigma*sigma*coeff*Rz[ijk]*Rx[ijk];
+                //TEy[ijk] =-4.0*sigma*sigma*coeff*Rz[ijk]*Ry[ijk];
+                //TEz[ijk] = 4.0*sigma*sigma*coeff*( Rx[ijk]*Rx[ijk]+Ry[ijk]*Ry[ijk] ) - 4.0*sigma*coeff;
+
+                //TE = del X del X P + g P
+                //TEx[ijk] = 4.0*sigma*sigma*coeff*Rz[ijk]*Rx[ijk];
+                //TEy[ijk] = 4.0*sigma*sigma*coeff*Rz[ijk]*Ry[ijk];
+                //TEz[ijk] =-4.0*sigma*sigma*coeff*( Rx[ijk]*Rx[ijk]+Ry[ijk]*Ry[ijk] );
+
+                //TE = transverse near field
+                //TEx[ijk] = sigma*sigma*coeff*(3.0*Rz[ijk]*Rx[ijk]);
+                //TEy[ijk] = sigma*sigma*coeff*(3.0*Rz[ijk]*Ry[ijk]);
+                //TEz[ijk] = sigma*sigma*coeff*(2.0*Rz[ijk]*Rz[ijk] - Rx[ijk]*Rx[ijk]+Ry[ijk]*Ry[ijk] );
+
 
                 //TB = del X P
-                TBx[ijk] = -2.0*sigma*coeff*Ry[ijk];
-                TBy[ijk] =  2.0*sigma*coeff*Rx[ijk];
+                //TBx[ijk] = -2.0*sigma*coeff*Ry[ijk];
+                //TBy[ijk] =  2.0*sigma*coeff*Rx[ijk];
+                //TBz[ijk] =  0.0;
+
+                //TB = -del X P
+                TBx[ijk] =  2.0*sigma*coeff*Ry[ijk];
+                TBy[ijk] = -2.0*sigma*coeff*Rx[ijk];
                 TBz[ijk] =  0.0;
+
 
                 //TE = far-field radiation 
                 //TEx[ijk] =-sigma*sigma*coeff*Rz[ijk]*Rx[ijk];
@@ -185,7 +207,7 @@ public:
 
             // Calculate intTE2 and intTB2
             intTE2 = 0.0;
-            //#pragma omp parallel for reduction(+:intPP) schedule(runtime)
+            //#pragma omp parallel for reduction(+:intTE2) schedule(runtime)
             for(size_t tt=0; tt<N_GRIDS_3D; tt++)
             {
                 intTE2 += TEx[tt]*TEx[tt] + TEy[tt]*TEy[tt] + TEz[tt]*TEz[tt];
@@ -193,7 +215,7 @@ public:
             intTE2 *= dR*dR*dR;
 
             intTB2 = 0.0;
-            //#pragma omp parallel for reduction(+:intTT) schedule(runtime)
+            //#pragma omp parallel for reduction(+:intTB2) schedule(runtime)
             for(size_t tt=0; tt<N_GRIDS_3D; tt++)
             {
                 intTB2 += TBx[tt]*TBx[tt] + TBy[tt]*TBy[tt] + TBz[tt]*TBz[tt];
@@ -438,11 +460,19 @@ public:
         // calculate coefficients and add to EM field
         //double de_check = 0.0;
         //double dh_check = 0.0;
+        ImRho12 = -ImRho12;
         if ( abs(intETE) == 0.0 )
         {
             //int random_number = get_plus_or_minus_one();
             int random_number = 1;
-            //Ez += (random_number * Pz * sqrt(2.0 * de_Ez / intPP) );
+            if (ImRho12>0.0)
+            {
+                random_number = -1;
+            }
+            else
+            {
+                random_number = 1;
+            }
             #pragma omp parallel for schedule(runtime)
             for(size_t tt=0; tt < N_GRIDS_3D; tt++)
             {
@@ -459,11 +489,12 @@ public:
         }
         else
         {
-            double root1_E = (-intETE + sqrt(intETE*intETE + 2.0 * dU_E * intTE2) ) / intTE2;
-            double root2_E = (-intETE - sqrt(intETE*intETE + 2.0 * dU_E * intTE2) ) / intTE2;
+            double root1_E = (-intETE - sqrt(intETE*intETE + 2.0 * dU_E * intTE2) ) / intTE2;
+            double root2_E = (-intETE + sqrt(intETE*intETE + 2.0 * dU_E * intTE2) ) / intTE2;
             //if( abs(root1_E) < abs(root2_E))
-            if (abs(root1_E + KAPPA_E)<abs(root2_E + KAPPA_E))
-                //if (root1_E > 0.0)
+            //if (abs(root1_E + KAPPA_E)<abs(root2_E + KAPPA_E))
+            //if (root1_E > 0.0)
+            if (root1_E*(-ImRho12) > 0.0)
                 kappa_E = root1_E;
             else
                 kappa_E = root2_E;
@@ -492,6 +523,14 @@ public:
         {
             //int random_number = get_plus_or_minus_one() ;
             int random_number = 1;
+            if (ImRho12>0.0)
+            {
+                random_number = -1;
+            }
+            else
+            {
+                random_number = 1;
+            }
             //Hy += (random_number1 * dPzdx * sqrt( 2.0 * de_Hy / intdPzdxdPzdx)) ;
             #pragma omp parallel for schedule(runtime)
             for(size_t tt=0; tt < N_GRIDS_3D; tt++)
@@ -507,12 +546,13 @@ public:
         }
         else
         {
-            double root1_B = (-intBTB + sqrt(intBTB*intBTB + 2.0 * dU_B * intTB2) )/ intTB2;
-            double root2_B = (-intBTB - sqrt(intBTB*intBTB + 2.0 * dU_B * intTB2) )/ intTB2;
+            double root1_B = (-intBTB - sqrt(intBTB*intBTB + 2.0 * dU_B * intTB2) )/ intTB2;
+            double root2_B = (-intBTB + sqrt(intBTB*intBTB + 2.0 * dU_B * intTB2) )/ intTB2;
             //if (abs(root1_B) < abs(root2_B))
             //if (abs(root1_B + KAPPA_B)<abs(root2_B + KAPPA_B))
             //if (root1_B > 0.0)
-            if (root1_B*kappa_E>0.0)
+            //if (root1_B*kappa_E>0.0)
+            if (root1_B*(-ImRho12) > 0.0)
                 kappa_B = root1_B;
             else
                 kappa_B = root2_B;
@@ -608,7 +648,8 @@ void EhrenfestDynamics(double c1_real, double c1_imag, double c2_real, double c2
         integrate_runge_kutta4(my_model, x, N_VARIABLES, start_time[count], end_time[count], dt);
         // output Electric field at the end_time
         ofstream myfile;
-        myfile.open("field+EB_t_"+to_string(end_time[count])+".txt");
+        myfile.open("field-rho12xEB_ddP-dP_t_"+to_string(end_time[count])+".txt");
+        //myfile.open("field+1EB_ddP+gP_t_"+to_string(end_time[count])+".txt");
         for(int i=0; i<N_GRIDS_3D;i++)
         {
             myfile <<setprecision(7)<<scientific  << x[Ex_START+i]<<" "<<x[Ey_START+i]<<" "<<x[Ez_START+i]<<" "<< x[Bx_START+i]<<" "<<x[By_START+i]<<" "<<x[Bz_START+i] <<"\n";
