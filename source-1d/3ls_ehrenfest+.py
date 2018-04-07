@@ -86,10 +86,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # TEx = Px
     # Make intTEE zero
     #TEx = ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
-    TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
+    # TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
+    TEx = ddPxddz - (-param_TLS.Sigma *2)*Px
     #make Poynting vector zero
     #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
-    TBy = dPxdz
+
+    # TBy = dPxdz
+    TBy = -dPxdz
 
     # create EM object
     EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
@@ -142,15 +145,24 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         if UsePlusEmission:
     	    #4. Implement additional population relaxation
         	#(2->0)
-            drho20, dE20 = TLSP.getComplement(2,0,dt)
+            angle = np.angle(TLSP.rho[0,2]/np.abs(TLSP.rho[0,2])) + phase_shift
+            sign = np.sin(angle)
+            # drho20, dE20 = TLSP.getComplement(2,0,dt)
+            drho20, dE20 = TLSP.getComplement_angle(2,0,dt,angle)
             TLSP.rescale(2,0,drho20)
+            EMP.MakeTransition_sign(dE20,sign,UseRandomEB=UseRandomEB)
 
     	    #(2->1)
-            drho21, dE21 = TLSP.getComplement(2,1,dt)
+            angle = np.angle(TLSP.rho[1,2]/np.abs(TLSP.rho[1,2])) + phase_shift
+            sign = np.sin(angle)
+            # drho21, dE21 = TLSP.getComplement(2,1,dt)
+            drho21, dE21 = TLSP.getComplement_angle(2,1,dt,angle)
             TLSP.rescale(2,1,drho21)
+            EMP.MakeTransition_sign(dE21,sign,UseRandomEB=UseRandomEB)
 
-            dE = dE20 + dE21
-            EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
+            # print dE20, dE21
+            # dE = dE20 + dE21
+            # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
 
         if UseThermalRelax:
             #4.5. Apply non-radiative thermal equlibration

@@ -6,7 +6,7 @@ AU = AtomicUnit()
 
 #Options:
 ShowAnimation = True
-AveragePeriod = 100
+AveragePeriod = 1000
 UseInitialRandomPhase = False
 UsePlusEmission = True
 UseRandomEB = False
@@ -62,3 +62,5 @@ param_TLS={
     'beta':         50.0,
 }
 param_TLS=Struct(**param_TLS)
+
+phase_shift = 0.5*np.pi
