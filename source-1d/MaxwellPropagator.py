@@ -572,7 +572,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             # betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2, \
             #          (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2]
             # drop the cross term, i.e. dump the energy into a separated EM field
-            betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TE2)]
+            betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
             beta = choose_sign(betas)
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
             # print 'beta=',beta, betas
