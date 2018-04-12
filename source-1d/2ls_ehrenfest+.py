@@ -15,11 +15,11 @@ from SystemPropagator import *
 
 #Default Options:
 ShowAnimation = False
-AveragePeriod = 10
+AveragePeriod = 1
 UseInitialRandomPhase = True
 NumberTrajectories = 1
 UsePlusEmission = True
-UseRandomEB = True
+UseRandomEB = False
 
 if (len(argv) == 1):
     execfile('param.in')
@@ -45,8 +45,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     dPydz = np.zeros(param_EM.NZgrid)
 
     # curl (curl P) (for rescale E)
-    ddPxddz = np.zeros(param_EM.NZgrid)
-    ddPyddz = np.zeros(param_EM.NZgrid)
+    d2Pxdz = np.zeros(param_EM.NZgrid)
+    d2Pydz = np.zeros(param_EM.NZgrid)
+
+    d3Pxdz = np.zeros(param_EM.NZgrid)
+    d3Pydz = np.zeros(param_EM.NZgrid)
+    d4Pxdz = np.zeros(param_EM.NZgrid)
+    d4Pydz = np.zeros(param_EM.NZgrid)
 
     # TE and TB
     TEx = np.zeros(param_EM.NZgrid)
@@ -70,19 +75,35 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # energy change
     dEnergy = np.zeros((2,len(times)))
 
-    # initialize Px,Py,dPxdz, dPydz, ddPxddz, ddPyddz
+    # initialize Px,Py,dPxdz, dPydz, d2Pxdz, d2Pydz
     for iz in range(param_EM.NZgrid):
         Z = param_EM.Zgrid[iz]
         Px[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 )
         Py[iz] = 0.0
         dPxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * -param_TLS.Sigma * (Z-param_TLS.Mu)*2
         dPydz[iz] = 0.0
-        ddPxddz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+        d2Pxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
 					  (-param_TLS.Sigma *2) \
 					+ param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
 					  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2) * \
 					  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2)
-        ddPyddz[iz] = 0.0
+        d2Pydz[iz] = 0.0
+        # d3Pxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+		# 			  (-param_TLS.Sigma *2) * \
+        #               (-param_TLS.Sigma * (Z-param_TLS.Mu)*2)\
+		# 			+ param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+        #               (-param_TLS.Sigma * (Z-param_TLS.Mu)*2) * \
+		# 			  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2) * \
+		# 			  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2)\
+		# 			+ param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+		# 			  (-param_TLS.Sigma *2) * \
+		# 			  (-param_TLS.Sigma * (Z-param_TLS.Mu)*2) *2
+        d3Pxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+					  (12*(param_TLS.Sigma**2)*Z -8*(param_TLS.Sigma**3)*Z**3)
+        d3Pydz[iz] = 0.0
+        d4Pxdz[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 ) * \
+					  (12*(param_TLS.Sigma**2) -48*(param_TLS.Sigma**3)*Z**2 +16*(param_TLS.Sigma**4)*Z**4)
+        d4Pydz[iz] = 0.0
 
     # Just rescale on Px
 	# TEx =-Px
@@ -91,14 +112,17 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # TEx = ddPxddz
     # Make intTEE zero
 	# TEx = -ddPxddz + np.dot(ddPxddz, Px)/np.dot(Px, Px)*Px
-    # Match far field radiation:
-    # TEx =-ddPxddz + (-param_TLS.Sigma *2)*Px
-    TEx = ddPxddz - (-param_TLS.Sigma *2)*Px
-	#make Poynting vector zero
-    #TEx = ddPxddz + np.dot(Px, dPxdz)/np.dot(ddPxddz, dPxdz)*Px
-
-    # TBy = dPxdz
-    TBy = -dPxdz
+    """
+    Direction of rescaling in E and B
+    we add additional term to minimize the interference
+    1. E filed: let TE(0)=0
+        TE = -curl^2(P) + 2a*P
+    2. B field: let dTBdz(0) = 0 (flat near the center)
+        TB = -curl(P) + (1/6a)*curl^3(P)
+    """
+    TEx = d2Pxdz + (2*param_TLS.Sigma)*Px
+    # TEx = d2Pxdz + d4Pxdz *(1.0/6/param_TLS.Sigma)
+    TBy = -dPxdz - (1.0/6/param_TLS.Sigma)*d3Pxdz
 
     # create EM object
     EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
@@ -172,9 +196,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         EMP.applyAbsorptionBoundaryCondition()
         #EB = EMP.EB
 
-        # save scattering field out of the box
-        EMP.saveScatterField(times[it],Tmax)
-
+        # save far field out of the box
+        EMP.saveFarField(times[it],Tmax)
         """
         output:
 
@@ -184,9 +207,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             for j in range(param_TLS.nstates):
                 rhot[i,j,it]=TLSP.rho[i,j]
         #energy
-        UEB = EMP.getEnergyDensity()
+        # UEB = EMP.getEnergyDensity()
+        # Uemf = np.sum(UEB)*param_EM.dZ
+        Uemf = EMP.getTotalEnergy(dt)
         Uele = TLSP.getEnergy()
-        Uemf = np.sum(UEB)*param_EM.dZ
         Ut[0,it] = Uele
         Ut[1,it] = Uemf
 
@@ -207,7 +231,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             plt.cla()
             #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
             #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
-            ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
+            # ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
+            # ax[1].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
+            # ax[1].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
+            ax[1].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it],lw=2,label='Uele+Uemf')
             # ax[1].set_ylim([0,0.0001])
             ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[1].legend()
@@ -268,7 +295,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
                 'Es':   EMP.Es,
                 'Bs':   EMP.Bs,
                 'Xs':   EMP.Xs,
-                'UEB':  UEB,
+                'Ut':   Ut,
                 'dE':   dEnergy,
                 'rhot':   rhot,
             }

@@ -407,11 +407,17 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             self.EB[self._By+self.NZgrid-1-iz] *= S #= self.EB[self._By+self.NZgrid-1-iz]*self.S[-1-iz]
             #print self.S[i],self.S[-1-i]
 
-    def saveScatterField(self,time,Tmax):
+    def saveFarField(self,time,Tmax):
         self.Es.append(self.EB[self._Ex+self.i_max])
         self.Bs.append(self.EB[self._By+self.i_max])
         Xs = self.param.Z0 + (Tmax-time)
         self.Xs.append(Xs)
+
+    def getTotalEnergy(self,dt):
+        U =( np.sum(np.array(self.Es)**2)+np.sum(np.array(self.Bs)**2) )*dt/2 *2 #*2 is because we only save one side
+        for iz in range(self.i_min,self.i_max+1):
+            U += (self.EB[self._Ex+iz]**2 + self.EB[self._By+iz]**2)*self.dZ/2
+        return U
 
     def randomEmit_byE(self,deltaE, intDD, Dx):
         absEx = np.sum(self.EB[self._Ex:self._Ex+self.NZgrid]**2)*self.dZ
@@ -552,27 +558,41 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
                 exit()
         if intETE==0.0 or sign==0.0:
             # alpha = choose_sign([1, -1])
-            alpha = np.random.choice([1, -1])
-            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx * np.sqrt(2*dU_E/self.TE2)
+            alpha = np.random.choice([1, -1])* np.sqrt(2*dU_E/self.TE2)
+            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx
+        # elif np.abs(intETE/self.TE2)<0.05:
+        #     alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
+        #     alpha = choose_sign(alphas)
+        #     self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
         else:
             # maintain energy conservation
             # alphas = [(-intETE - np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2, \
             #      	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2]
+            # alpha = choose_sign(alphas)
             # drop the cross term, i.e. dump the energy into a separated EM field
-            alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
+            # alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
+            alphas = [(2*dU_E/self.TE2),-(2*dU_E/self.TE2)]
+            # alphas = [(dU_E/intETE),-(dU_E/intETE)]
             alpha = choose_sign(alphas)
             self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
             # print 'alpha=',alpha, alphas
         if intBTB==0.0 or sign==0.0:
             # beta = choose_sign([1, -1])
-            beta = np.random.choice([1, -1])
-            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBy * np.sqrt(2*dU_B/self.TB2)
+            beta = np.random.choice([1, -1])* np.sqrt(2*dU_B/self.TB2)
+            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBy
+        # elif np.abs(intBTB/self.TB2)<0.05:
+        #     betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
+        #     beta = choose_sign(betas)
+        #     self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
         else:
             # maintain energy conservation
             # betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2, \
             #          (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2]
+            # beta = choose_sign(betas)
             # drop the cross term, i.e. dump the energy into a separated EM field
-            betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
+            # betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
+            betas = [(2*dU_B/self.TB2),-(2*dU_B/self.TB2)]
+            # betas = [(dU_B/intBTB),-(dU_B/intBTB)]
             beta = choose_sign(betas)
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
             # print 'beta=',beta, betas
