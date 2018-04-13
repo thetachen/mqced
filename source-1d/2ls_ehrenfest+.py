@@ -189,7 +189,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             TLSP.rescale(1,0,drho)
             # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
             # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
-            EMP.MakeTransition_sign(dE,sign,UseRandomEB=UseRandomEB)
+            EMP.MakeTransition_sign(dE,dt,sign,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
 
         #5. Apply absorption boundary condition

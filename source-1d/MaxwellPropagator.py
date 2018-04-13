@@ -527,13 +527,13 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             #alpha = alphas[0]
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
 
-    def MakeTransition_sign(self,deltaE,sign,UseRandomEB=True):
+    def MakeTransition_sign(self,deltaE,dt,sign,UseRandomEB=True):
         if UseRandomEB:
             dU_E = np.random.rand()*deltaE
             dU_B = deltaE - dU_E
         else:
-            dU_E = 0.5 * deltaE
-            dU_B = 0.5 * deltaE
+            dU_E = 0.5 * deltaE/dt
+            dU_B = 0.5 * deltaE/dt
 
         # calculate int(E*TE) and int(B*TB)
         intETE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
@@ -570,10 +570,10 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             #      	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2]
             # alpha = choose_sign(alphas)
             # drop the cross term, i.e. dump the energy into a separated EM field
-            # alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
-            alphas = [(2*dU_E/self.TE2),-(2*dU_E/self.TE2)]
+            alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
+            # alphas = [(2*dU_E/self.TE2),-(2*dU_E/self.TE2)]
             # alphas = [(dU_E/intETE),-(dU_E/intETE)]
-            alpha = choose_sign(alphas)
+            alpha = choose_sign(alphas)*dt
             self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
             # print 'alpha=',alpha, alphas
         if intBTB==0.0 or sign==0.0:
@@ -590,10 +590,10 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             #          (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2]
             # beta = choose_sign(betas)
             # drop the cross term, i.e. dump the energy into a separated EM field
-            # betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
-            betas = [(2*dU_B/self.TB2),-(2*dU_B/self.TB2)]
+            betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
+            # betas = [(2*dU_B/self.TB2),-(2*dU_B/self.TB2)]
             # betas = [(dU_B/intBTB),-(dU_B/intBTB)]
-            beta = choose_sign(betas)
+            beta = choose_sign(betas)*dt
             self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
             # print 'beta=',beta, betas
 
