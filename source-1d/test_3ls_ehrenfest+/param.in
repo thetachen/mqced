@@ -63,4 +63,5 @@ param_TLS={
 }
 param_TLS=Struct(**param_TLS)
 
-phase_shift = 0.5*np.pi
+phase_shift = 0.0*np.pi
+Lambda = 1.0/0.56

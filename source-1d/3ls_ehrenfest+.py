@@ -150,7 +150,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             # drho20, dE20 = TLSP.getComplement(2,0,dt)
             drho20, dE20 = TLSP.getComplement_angle(2,0,dt,angle)
             TLSP.rescale(2,0,drho20)
-            EMP.MakeTransition_sign(dE20,sign,UseRandomEB=UseRandomEB)
+            EMP.MakeTransition_sign(dE20*dt/Lambda,sign,UseRandomEB=UseRandomEB)
 
     	    #(2->1)
             angle = np.angle(TLSP.rho[1,2]/np.abs(TLSP.rho[1,2])) + phase_shift
@@ -158,7 +158,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             # drho21, dE21 = TLSP.getComplement(2,1,dt)
             drho21, dE21 = TLSP.getComplement_angle(2,1,dt,angle)
             TLSP.rescale(2,1,drho21)
-            EMP.MakeTransition_sign(dE21,sign,UseRandomEB=UseRandomEB)
+            EMP.MakeTransition_sign(dE21*dt/Lambda,sign,UseRandomEB=UseRandomEB)
 
             # print dE20, dE21
             # dE = dE20 + dE21
@@ -173,8 +173,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()
 
-        # save scattering field out of the box
-        EMP.saveScatterField(times[it],Tmax)
+        # save far field out of the box
+        EMP.saveFarField(times[it],Tmax)
 
     	"""
 	    output:
