@@ -161,7 +161,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Imrho12 = np.imag(TLSP.rho[0,1])
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
               # 'Imrho/absrho=',(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))
-        angle = np.angle(TLSP.rho[0,1]/np.abs(TLSP.rho[0,1])) + phase_shift
+        if np.abs(TLSP.rho[0,1])==0.0:
+            angle = phase_shift
+        else:
+            angle = np.angle(TLSP.rho[0,1]/np.abs(TLSP.rho[0,1])) + phase_shift
         sign = np.sin(angle)
         # sign = np.imag(np.exp(1j*shift))
         dEnergy[0,it] = TLSP.getEnergy()

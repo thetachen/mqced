@@ -145,7 +145,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         if UsePlusEmission:
     	    #4. Implement additional population relaxation
         	#(2->0)
-            angle = np.angle(TLSP.rho[0,2]/np.abs(TLSP.rho[0,2])) + phase_shift
+            if np.abs(TLSP.rho[0,2])==0.0:
+                angle = phase_shift
+            else:
+                angle = np.angle(TLSP.rho[0,2]/np.abs(TLSP.rho[0,2])) + phase_shift
             sign = np.sin(angle)
             # drho20, dE20 = TLSP.getComplement(2,0,dt)
             drho20, dE20 = TLSP.getComplement_angle(2,0,dt,angle)
@@ -153,7 +156,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             EMP.MakeTransition_sign(dE20*dt/Lambda,sign,UseRandomEB=UseRandomEB)
 
     	    #(2->1)
-            angle = np.angle(TLSP.rho[1,2]/np.abs(TLSP.rho[1,2])) + phase_shift
+            if np.abs(TLSP.rho[1,2])==0.0:
+                angle = phase_shift
+            else:
+                angle = np.angle(TLSP.rho[1,2]/np.abs(TLSP.rho[1,2])) + phase_shift
             sign = np.sin(angle)
             # drho21, dE21 = TLSP.getComplement(2,1,dt)
             drho21, dE21 = TLSP.getComplement_angle(2,1,dt,angle)
