@@ -16,7 +16,7 @@ NumberTrajectories = 1
 # Set up time steps
 T0 = 0.0
 Tmax = 100.0/AU.fs * 100
-dt = 5E-3/2/AU.fs * 100
+dt = 8.0/80
 # Tmax = 1.0/AU.fs * 100
 # dt = 0.05
 times = np.arange(T0, Tmax, dt)
@@ -24,7 +24,7 @@ times = np.arange(T0, Tmax, dt)
 param_EM={
     # Z coordinate grid parameters
     'Zlim':     [-8.0/AU.nm,8.0/AU.nm],
-    'NZgrid':   160*4,
+    'NZgrid':   80*2,
     # ABC pararmeters
     'Zo':       0.0/AU.nm,
     'Z0':       6.5/AU.nm,
@@ -51,8 +51,8 @@ param_TLS={
     'VP':       np.array([[0.0,1.0],\
                           [1.0,0.0]]),
     # initial diabatic state vector
-    'C0':				np.sqrt(np.array([[0.0],[1.0]],complex))*np.exp(1j*np.pi*-0.5),
-    # 'C0':              np.sqrt(np.array([[0.5],[0.5]],complex))*1,
+    # 'C0':				np.sqrt(np.array([[0.0],[1.0]],complex))*np.exp(1j*np.pi*-0.5),
+    'C0':              np.sqrt(np.array([[0.5],[0.5]],complex)),#*np.exp(1j*np.pi*0.5),
     # polarization
     'Mu':       0.0,
     #'Sigma':    0.0556*(AU.nm**2),
@@ -62,4 +62,5 @@ param_TLS={
 }
 param_TLS=Struct(**param_TLS)
 
-phase_shift = -0.5*np.pi
+phase_shift = 1.9 *np.pi
+Lambda = 1.0/0.56

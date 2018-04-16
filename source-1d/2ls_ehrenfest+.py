@@ -189,7 +189,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             TLSP.rescale(1,0,drho)
             # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
             # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
-            EMP.MakeTransition_sign(dE,dt,sign,UseRandomEB=UseRandomEB)
+            EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
 
         #5. Apply absorption boundary condition
@@ -234,7 +234,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             # ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
             # ax[1].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
             # ax[1].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
-            ax[1].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it],lw=2,label='Uele+Uemf')
+            ax[1].plot(times[:it]*AU.fs,Ut[0,:it]+Ut[1,:it],lw=2,label='Uele+Uemf')
             # ax[1].set_ylim([0,0.0001])
             ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[1].legend()
