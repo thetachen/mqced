@@ -29,3 +29,20 @@ def moving_average(a, n=500):
     ret = np.cumsum(a, dtype=float)
     ret[n:] = ret[n:] - ret[:-n]
     return ret[n - 1:] / n
+
+
+def find_peak(x,y,x0,dx):
+    ix_min,ix_max = np.argmin(np.abs(x-(x0-dx))),np.argmin(np.abs(x-(x0+dx)))
+    y_max = max(y[ix_min:ix_max])
+    x_max = x[np.argmin(np.abs(y-y_max))]
+    return x_max,y_max
+
+def window_fft(t,ft,tmin,tmax):
+    dt = t[1]-t[0]
+    itmin, itmax = np.argmin(np.abs(t-tmin)),np.argmin(np.abs(t-tmax))
+    fftw = np.fft.rfft(ft[itmin:itmax])/(t[itmax]-t[itmin])
+    freq = np.array(range(len(fftw))) * 2*np.pi/(t[itmax]-t[itmin])
+    #fft_Ex = np.fft.rfft(Es)
+    #fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(Xs[-1]-Xs[0])
+
+    return freq,fftw
