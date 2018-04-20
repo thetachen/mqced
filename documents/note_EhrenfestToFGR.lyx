@@ -1,0 +1,1200 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\options twocolumn,reprint,jcp
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Instantanous Expnential Decay Rate from Ehrenfest Dynamics
+\end_layout
+
+\begin_layout Subsection
+Spontaneous Emission
+\end_layout
+
+\begin_layout Standard
+Here we show that time-local behavior of Ehrenfest dynamics in the 
+\emph on
+weak coupling limit
+\emph default
+ can be approximated by an exponential decay with a time-dependent instantaneous
+ decay rate.
+ We can also derive an analytical expression of Ehrenfest dynamics for spontaneo
+us emission in 1D.
+\end_layout
+
+\begin_layout Subsubsection
+Impose raadaition E field solution
+\end_layout
+
+\begin_layout Standard
+From Maxwell equations and the current density, we can write down the formal
+ solution for the electric field
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\text{\mathbf{E}}\left(x,t\right)= & \frac{\omega_{0}}{c\epsilon_{0}}\left\{ \mathrm{Im}\rho_{12}\left(0\right)\int_{x-ct}^{x+ct}dx^{\prime}\text{\mathbf{P}}\left(x^{\prime}\right)\right.\\
+ & \left.+\int_{0}^{t}dt^{\prime}\mathrm{Im}\dot{\rho}_{12}\left(t^{\prime}\right)\int_{x-c\left(t-t^{\prime}\right)}^{x+c\left(t-t^{\prime}\right)}dx^{\prime}\text{\mathbf{P}}\left(x^{\prime}\right)\right\} 
+\end{split}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\dot{\rho}_{12}$
+\end_inset
+
+ denotes the time derivative of the electronic coherence 
+\begin_inset Formula $\rho_{12}$
+\end_inset
+
+.
+ We assume that the initial state vector has 
+\begin_inset Formula $\mathrm{Im}\rho_{12}\left(0\right)=0$
+\end_inset
+
+ and drop the first term.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+H_{12}^{el}=-\frac{\omega_{0}}{c\epsilon_{0}}\int dx\vec{\xi}\left(x\right)\cdot\int_{0}^{t}dt^{\prime}\mathrm{Im}\dot{\rho}_{12}\left(t^{\prime}\right)\int_{x-c\left(t-t^{\prime}\right)}^{x+c\left(t-t^{\prime}\right)}dx^{\prime}\vec{\xi}\left(x^{\prime}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Suppose the molecule is localized at 
+\begin_inset Formula $x=0$
+\end_inset
+
+ in real space, we can use the point-dipole approximation, 
+\begin_inset Formula $\text{\mathbf{P}}\left(x\right)\approx\mu_{12}\delta\left(x\right)\text{\mathbf{e}}_{z}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\text{\mathbf{E}}\left(x,t\right)= & \frac{\omega_{0}\mu_{12}}{c\epsilon_{0}}\text{\mathbf{e}}_{z}\left\{ \mathrm{Im}\rho_{12}\left(0\right)+\int_{0}^{t}dt^{\prime}\mathrm{Im}\dot{\rho}_{12}\left(t^{\prime}\right)\right\} \\
+= & \frac{\omega_{0}\mu_{12}}{c\epsilon_{0}}\text{\mathbf{e}}_{z}\mathrm{Im}\rho_{12}\left(t\right)
+\end{split}
+\end{equation}
+
+\end_inset
+
+Therefore we can write the interaction Hamiltonian as
+\begin_inset Formula 
+\begin{equation}
+\begin{split}H_{12}^{el} & =-\int dx\text{\mathbf{P}}\left(x\right)\cdot\text{\mathbf{E}}\left(x,t\right)\\
+ & =-\frac{\omega_{0}}{c\epsilon_{0}}\mu_{12}^{2}\mathrm{Im}\rho_{12}\left(t\right)\\
+ & =-\hbar\kappa\mathrm{Im}\rho_{12}\left(t\right)
+\end{split}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\kappa=\frac{\omega_{0}}{\hbar c\epsilon_{0}}\mu_{12}^{2}$
+\end_inset
+
+ is the FGR spontaneous decay rate in 1D.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+If in a CW field,
+\begin_inset Formula 
+\[
+\begin{split}H_{12}^{el} & =-\int dx\text{\mathbf{P}}\left(x\right)\cdot\left[\text{\mathbf{E}}\left(x,t\right)+\text{\mathbf{E}}_{I}\cos\Omega t\right]\\
+ & =-\frac{\omega_{0}}{c\epsilon_{0}}\mu_{12}^{2}\mathrm{Im}\rho_{12}\left(t\right)-\mu_{12}\text{\mathbf{E}}_{I}\cos\Omega t\\
+ & =-\hbar\kappa\mathrm{Im}\rho_{12}\left(t\right)-\mu_{12}\text{\mathbf{E}}_{I}\cos\Omega t
+\end{split}
+\]
+
+\end_inset
+
+EOM:
+\begin_inset Formula 
+\[
+\begin{split}\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt} & =\frac{2}{\hbar}H_{12}^{el}\mathrm{Im}\rho_{12}\left(t\right)\\
+ & =-2\kappa\left[\mathrm{Im}\rho_{12}\left(t\right)\right]^{2}-\frac{2}{\hbar}\mu_{12}\text{\mathbf{E}}_{I}\cos\Omega t,
+\end{split}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{split}\frac{d}{dt}\rho_{12} & =i\omega_{0}\rho_{12}+\frac{i}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\\
+ & =i\omega_{0}\rho_{12}-i\kappa\mathrm{Im}\rho_{12}\left(t\right)\left(P_{2}-P_{1}\right)-\frac{i}{\hbar}\mu_{12}\text{\mathbf{E}}_{I}\cos\Omega t\left(P_{2}-P_{1}\right)\\
+ & =i\omega_{0}\rho_{12}-i\kappa\mathrm{Im}\rho_{12}\left(t\right)\left(P_{2}-P_{1}\right)-\frac{i}{\hbar}\mu_{12}\text{\mathbf{E}}_{I}\cos\Omega t\left(P_{2}-P_{1}\right)
+\end{split}
+.
+\]
+
+\end_inset
+
+drop 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ and let 
+\begin_inset Formula $\mu_{12}\text{\mathbf{E}}_{I}/\hbar=A$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}\approx-2A\cos\Omega t
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{d}{dt}\rho_{12}\approx i\omega_{0}\rho_{12}-iA\cos\Omega t\left(P_{2}-P_{1}\right)
+\]
+
+\end_inset
+
+Approximate 
+\begin_inset Formula $P_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $P_{2}$
+\end_inset
+
+ within short time:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+P_{2}\approx P_{2}-2\frac{A}{\Omega}\sin\Omega t
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+P_{1}\approx P_{1}+2\frac{A}{\Omega}\sin\Omega t
+\]
+
+\end_inset
+
+Let 
+\begin_inset Formula $\rho_{12}=e^{i\omega_{0}t}\rho_{12}^{\prime}$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\begin{split}e^{i\omega_{0}t}\frac{d}{dt}\rho_{12}^{\prime}+i\omega_{0}e^{i\omega_{0}t}\rho_{12}^{\prime} & =i\omega_{0}e^{i\omega_{0}t}\rho_{12}^{\prime}-iA\cos\Omega t\left(P_{2}-P_{1}\right)\\
+\frac{d}{dt}\rho_{12}^{\prime} & =-ie^{-i\omega_{0}t}A\cos\Omega t\left(P_{2}-P_{1}\right)\\
+ & =-ie^{-i\omega_{0}t}A\cos\Omega t\left(-4\frac{A}{\Omega}\sin\Omega t\right)\\
+ & =i2e^{-i\omega_{0}t}\frac{A^{2}}{\Omega}\sin2\Omega t\\
+ & =e^{-i\omega_{0}t}\frac{A^{2}}{\Omega}\left(e^{i2\Omega t}-e^{-i2\Omega t}\right)\\
+ & =\frac{A^{2}}{\Omega}\left(e^{i2\Omega t-i\omega_{0}t}-e^{-i2\Omega t-i\omega_{0}t}\right)
+\end{split}
+.
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\rho_{12}^{\prime}=\rho_{12}^{\prime}+\frac{A^{2}}{\Omega}\left(-i\frac{e^{i2\Omega t-i\omega_{0}t}}{2\Omega-\omega_{0}}-i\frac{e^{-i2\Omega t-i\omega_{0}t}}{2\Omega+\omega_{0}}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\rho_{12} & = & \rho_{12}^{\prime}e^{i\omega_{0}t}+\frac{A^{2}}{\Omega}\left(-i\frac{e^{i2\Omega t}}{2\Omega-\omega_{0}}-i\frac{e^{-i2\Omega t}}{2\Omega+\omega_{0}}\right)\\
+ & = & \rho_{12}^{\prime}e^{i\omega_{0}t}-i\frac{A^{2}}{\Omega}\left(\frac{e^{i2\Omega t}}{2\Omega-\omega_{0}}+\frac{e^{-i2\Omega t}}{2\Omega+\omega_{0}}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathrm{Im}\left[\rho_{12}\right] & = & \sqrt{P_{1}P_{2}}\sin\omega_{0}t-\frac{4A^{2}}{4\Omega^{2}-\omega_{0}^{2}}\cos2\Omega t\\
+ & =
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+write down EOM
+\end_layout
+
+\begin_layout Standard
+By the equation of motion for the density matrix, the electronic populations
+ (
+\begin_inset Formula $P_{1}=\rho_{11}$
+\end_inset
+
+, 
+\begin_inset Formula $P_{2}=\rho_{22}$
+\end_inset
+
+) obey
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt} & =\frac{2}{\hbar}H_{12}^{el}\mathrm{Im}\rho_{12}\left(t\right)\\
+ & =-2\kappa\left[\mathrm{Im}\rho_{12}\left(t\right)\right]^{2},
+\end{split}
+\label{eq:EOM_pop}
+\end{equation}
+
+\end_inset
+
+ and the cohererce satisfies
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{d}{dt}\rho_{12} & =i\omega_{0}\rho_{12}+\frac{i}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\\
+ & =i\omega_{0}\rho_{12}-i\kappa\mathrm{Im}\rho_{12}\left(t\right)\left(P_{2}-P_{1}\right)
+\end{split}
+.\label{eq:EOM_coh}
+\end{equation}
+
+\end_inset
+
+Now we assume weak coupling approximation, 
+\begin_inset Formula 
+\begin{equation}
+\kappa\ll\omega_{0}\rightarrow\frac{\mu_{12}^{2}}{\hbar c\epsilon_{0}}\ll1,
+\end{equation}
+
+\end_inset
+
+so that the solution of Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_coh"
+
+\end_inset
+
+ can be expressed in the form of 
+\begin_inset Formula 
+\[
+\frac{d}{dt}\rho_{12}\approx i\omega_{0}\rho_{12}\rightarrow\rho_{12}\approx\sqrt{P_{1}P_{2}}e^{i\omega_{0}t}.
+\]
+
+\end_inset
+
+Then we re-write Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_pop"
+
+\end_inset
+
+ as
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-\frac{2\omega_{0}}{c\epsilon_{0}}\left|\vec{\mu}_{12}\right|^{2}P_{1}P_{2}\sin^{2}\omega_{0}t
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}=-2k_{\mathrm{FGR}}P_{1}P_{2}\sin^{2}\omega_{0}t\label{eq:EOM_pop2}
+\end{equation}
+
+\end_inset
+
+From Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_pop2"
+
+\end_inset
+
+, we derive the instantaneous transfer rate and an analytical solution in
+ the following.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+If we didn't assume the system stay in pure state, say 
+\begin_inset Formula $\rho_{12}\approx\sqrt{P_{1}P_{2}}e^{i\omega_{0}t}$
+\end_inset
+
+ does not hold, then
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}=-2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\left(t\right)\right]^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{d}{dt}\left|\rho_{12}\right|^{2}=\rho_{12}^{*}\frac{d}{dt}\rho_{12}+\rho_{12}\frac{d}{dt}\rho_{12}^{*} & = & H_{12}^{el}\left(P_{2}-P_{1}\right)\left[\frac{i}{\hbar}\rho_{12}^{*}-\frac{i}{\hbar}\rho_{12}\right]\\
+ & = & \frac{2}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\text{Im}\rho_{12}\\
+ & = & -\frac{2}{\hbar}\frac{\omega_{0}}{c\epsilon_{0}}\left|\mu_{12}\right|^{2}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)\\
+ & = & -2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)
+\end{eqnarray*}
+
+\end_inset
+
+But we still have, by EOM of 
+\begin_inset Formula $\rho_{12}$
+\end_inset
+
+, 
+\begin_inset Formula $\left|\rho_{12}\right|$
+\end_inset
+
+ does not decay (within 
+\begin_inset Formula $\tau$
+\end_inset
+
+) and 
+\begin_inset Formula 
+\[
+\rho_{12}\left(t\right)=\left|\rho_{12}\right|e^{i\omega_{0}t}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Perform the following instantaneous behavior analysis, we have 
+\begin_inset Formula 
+\[
+\ln\frac{P_{2}\left(t+\tau\right)}{P_{2}\left(t\right)}=-k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{2}}\tau
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\ln\frac{P_{1}\left(t+\tau\right)}{P_{1}\left(t\right)}=k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{1}}\tau
+\]
+
+\end_inset
+
+imply
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{2}}P_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{dP_{1}}{dt}=k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{1}}P_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+On the other hand, we also have
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+P_{2}\left(t+\tau\right)-P_{2}\left(t\right)=-P_{1}\left(t+\tau\right)+P_{1}\left(t\right)=-k_{\mathrm{FGR}}\left|\rho_{12}\right|^{2}\tau
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{P_{2}\left(t+\tau\right)-P_{2}\left(t\right)}{\tau}=-\frac{P_{1}\left(t+\tau\right)-P_{1}\left(t\right)}{\tau}=-k_{\mathrm{FGR}}\left|\rho_{12}\right|^{2}
+\]
+
+\end_inset
+
+which also imply 
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{2}}P_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{dP_{1}}{dt}=k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{1}}P_{1}
+\]
+
+\end_inset
+
+But a more general expression is 
+\begin_inset Formula 
+\begin{equation}
+\boxed{\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}=-k_{\mathrm{FGR}}\left|\rho_{12}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+To recover FGR rate, the complementary term should be 
+\begin_inset Formula 
+\[
+-k_{R}P_{2}=-k_{\mathrm{FGR}}P_{2}+k_{\mathrm{FGR}}\left|\rho_{12}\right|^{2}
+\]
+
+\end_inset
+
+and the complementary rate is 
+\begin_inset Formula 
+\[
+k_{R}=k_{\mathrm{FGR}}-k_{\mathrm{FGR}}\frac{\left|\rho_{12}\right|^{2}}{P_{2}}
+\]
+
+\end_inset
+
+which make 
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-k_{\mathrm{FGR}}P_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{dP_{1}}{dt}=k_{\mathrm{FGR}}P_{2}=k_{\mathrm{FGR}}\left(1-P_{1}\right)
+\]
+
+\end_inset
+
+It will go back to the following result by taking pure state
+\begin_inset Formula 
+\[
+\left|\rho_{12}\right|^{2}=P_{1}P_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+First, we consider the instantaneous behavior of Ehrenfest dynamics for
+ 
+\begin_inset Formula $P_{2}$
+\end_inset
+
+ within the time scale 
+\begin_inset Formula $\tau$
+\end_inset
+
+ by integrating Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_pop2"
+
+\end_inset
+
+ over the time interval 
+\begin_inset Formula $\left[t,t+\tau\right]$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{equation}
+\ln\frac{P_{2}\left(t+\tau\right)}{P_{2}\left(t\right)}=-2k_{\mathrm{FGR}}\int_{t}^{t+\tau}dt^{\prime}P_{1}\left(t^{\prime}\right)\sin^{2}\omega_{0}t^{\prime}
+\end{equation}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{equation}
+\ln\frac{P_{1}\left(t+\tau\right)}{P_{1}\left(t\right)}=2k_{\mathrm{FGR}}\int_{t}^{t+\tau}dt^{\prime}P_{2}\left(t^{\prime}\right)\sin^{2}\omega_{0}t^{\prime}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/k_{FGR}$
+\end_inset
+
+.
+ The time scale 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is taken to be much smaller the time scale of spontaneous decay (
+\begin_inset Formula $\tau\ll1/k_{FGR}$
+\end_inset
+
+), so that 
+\begin_inset Formula $P_{1}\left(t^{\prime}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $P_{2}\left(t^{\prime}\right)$
+\end_inset
+
+ does not change much and 
+\begin_inset Formula $P_{1}\left(t^{\prime}\right)\approx P_{1}\left(t\right)$
+\end_inset
+
+, 
+\begin_inset Formula $P_{2}\left(t^{\prime}\right)\approx P_{2}\left(t\right)$
+\end_inset
+
+.
+ Also, 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is much larger than the phase oscillating period (
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau$
+\end_inset
+
+), therefore 
+\begin_inset Formula $\sin^{2}\omega_{0}t^{\prime}$
+\end_inset
+
+ can be viewed as a rapid oscillation and we approximate the integral by
+ 
+\begin_inset Formula 
+\begin{equation}
+\int_{t}^{t+\tau}dt^{\prime}\sin^{2}\omega_{0}t^{\prime}=\left[\frac{t^{\prime}}{2}-\frac{\sin2\omega_{0}t^{\prime}}{4\omega_{0}}\right]_{t}^{t+\tau}\approx\frac{\tau}{2}.
+\end{equation}
+
+\end_inset
+
+Then we have 
+\begin_inset Formula 
+\begin{equation}
+\ln\frac{P_{2}\left(t+\tau\right)}{P_{2}\left(t\right)}\approx-k_{\mathrm{FGR}}P_{1}\left(t\right)\tau,
+\end{equation}
+
+\end_inset
+
+and
+\begin_inset Formula 
+\begin{equation}
+\ln\frac{P_{1}\left(t+\tau\right)}{P_{1}\left(t\right)}\approx k_{\mathrm{FGR}}P_{2}\left(t\right)\tau.
+\end{equation}
+
+\end_inset
+
+As a result, we write Ehrenfest dynamics for 
+\begin_inset Formula $P_{2}$
+\end_inset
+
+ in the form of an exponential decay
+\begin_inset Formula 
+\begin{equation}
+P_{2}\left(t\right)=P_{2}\left(0\right)e^{-\kappa\left(t\right)t},
+\end{equation}
+
+\end_inset
+
+where the instantaneous decay rate is time-dependent
+\begin_inset Formula 
+\begin{equation}
+\kappa\left(t\right)=k_{\mathrm{FGR}}P_{1}\left(t\right).
+\end{equation}
+
+\end_inset
+
+For a short time, the decay rate is proportional to the intial population
+ 
+\begin_inset Formula $k_{\mathrm{FGR}}P_{1}\left(0\right)$
+\end_inset
+
+ as shown in Fig.
+\begin_inset space ~
+\end_inset
+
+4b, and we can conclude that Ehrenfest dynamics recovers the FGR rate when
+ 
+\begin_inset Formula $P_{1}\left(0\right)\rightarrow1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+On the other hand, we may recast Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_pop2"
+
+\end_inset
+
+ in terms of the population difference, 
+\begin_inset Formula $\Delta P=P_{2}-P_{1}$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{equation}
+\frac{d\Delta P}{dt}=-k_{\mathrm{FGR}}\left(1-\Delta P^{2}\right)\sin^{2}\omega_{0}t.
+\end{equation}
+
+\end_inset
+
+With the same consideration as above, the instantaneous behavior within
+ the time scale 
+\begin_inset Formula $\tau$
+\end_inset
+
+ can be obtained by 
+\begin_inset Formula 
+\begin{equation}
+\left[\frac{1}{2}\ln\left(1+\Delta P\right)-\frac{1}{2}\ln\left(1-\Delta P\right)\right]_{t}^{t+\tau}\approx-k_{\mathrm{FGR}}\frac{\tau}{2}.
+\end{equation}
+
+\end_inset
+
+ Hence, we conclude an analytical form of Ehrenfest dynamics for 
+\begin_inset Formula $P_{2}$
+\end_inset
+
+,
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\left[\ln\frac{P_{2}}{P_{1}}\right]_{t}^{t+\tau}=-k_{\mathrm{FGR}}\tau
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{P_{2}}{P_{1}}\approx\exp\left(-k_{\mathrm{FGR}}t\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+P_{2}\left(t\right)=\frac{e^{-k_{\mathrm{FGR}}t}}{\frac{P_{1}\left(0\right)}{P_{2}\left(0\right)}+e^{-k_{\mathrm{FGR}}t}}.
+\end{equation}
+
+\end_inset
+
+For a short time, we take 
+\begin_inset Formula $t\rightarrow0$
+\end_inset
+
+ and find that the instantaneous decay rate is also proportional to 
+\begin_inset Formula $P_{1}\left(0\right)$
+\end_inset
+
+.
+ For the initial population 
+\begin_inset Formula $P_{1}\left(0\right)=P_{2}\left(0\right)=0.5$
+\end_inset
+
+ as we considered in Fig.
+\begin_inset space ~
+\end_inset
+
+2, the analytical solution becomes 
+\begin_inset Formula $P_{2}\left(t\right)=\frac{e^{-k_{\mathrm{FGR}}t/2}}{2\cosh\left(k_{\mathrm{FGR}}t/2\right)}$
+\end_inset
+
+ and agrees with the numerical result very well.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+How do we keep the purity of a mixed state?
+\end_layout
+
+\begin_layout Plain Layout
+Purity can be measured as a function of 
+\begin_inset Formula $t$
+\end_inset
+
+ by 
+\begin_inset Formula 
+\begin{eqnarray*}
+p\left(t\right) & = & \text{Tr}\rho^{2}\\
+ & = & \rho_{11}^{2}+\rho_{22}^{2}+2\left|\rho_{12}\right|^{2}\\
+ & = & 1-2\rho_{11}\rho_{22}+2\left|\rho_{12}\right|^{2}
+\end{eqnarray*}
+
+\end_inset
+
+To keep the purity, we need 
+\begin_inset Formula 
+\[
+\frac{d}{dt}p\left(t\right)=\frac{d}{dt}\left(\rho_{11}\rho_{22}-\left|\rho_{12}\right|^{2}\right)=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+For Ehrenfest, this is always true.
+ Check:
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}=-2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{dP_{1}}{dt}P_{2}+P_{1}\frac{dP_{2}}{dt} & = & k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}P_{2}-P_{1}k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\\
+ & = & k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\rho_{12}^{*}\frac{d}{dt}\rho_{12}+\rho_{12}\frac{d}{dt}\rho_{12}^{*} & = & H_{12}^{el}\left(P_{2}-P_{1}\right)\left[\frac{i}{\hbar}\rho_{12}^{*}-\frac{i}{\hbar}\rho_{12}\right]\\
+ & = & \frac{2}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\text{Im}\rho_{12}\\
+ & = & -\frac{2}{\hbar}\frac{\omega_{0}}{c\epsilon_{0}}\left|\mu_{12}\right|^{2}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)\\
+ & = & -2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)
+\end{eqnarray*}
+
+\end_inset
+
+where 
+\begin_inset Formula $H_{12}^{el}=-\frac{\omega_{0}}{c\epsilon_{0}}\left|\mu_{12}\right|^{2}\mathrm{Im}\rho_{12}\left(t\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{\mathrm{FGR}}=\frac{\omega_{0}}{\hbar c\epsilon_{0}}\left|\vec{\mu}_{12}\right|^{2}$
+\end_inset
+
+.
+ ok!
+\end_layout
+
+\begin_layout Plain Layout
+For Ehrenfest+R: we plug in 
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}=-k_{\mathrm{FGR}}P_{2}
+\]
+
+\end_inset
+
+and get 
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{dP_{1}}{dt}P_{2}+P_{1}\frac{dP_{2}}{dt} & = & k_{\mathrm{FGR}}P_{2}P_{2}-P_{1}k_{\mathrm{FGR}}P_{2}\\
+ & = & k_{\mathrm{FGR}}P_{2}\left(P_{2}-P_{1}\right)
+\end{eqnarray*}
+
+\end_inset
+
+Then we write the equation of motion for 
+\begin_inset Formula $\rho_{12}$
+\end_inset
+
+ with an additional term to account for 
+\begin_inset Formula 
+\[
+\frac{d}{dt}\rho_{12}=i\omega_{0}\rho_{12}+\frac{i}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)+\Gamma
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{d}{dt}\rho_{12}^{*}=-i\omega_{0}\rho_{12}^{*}-\frac{i}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)+\Gamma^{*}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\rho_{12}^{*}\frac{d}{dt}\rho_{12}+\rho_{12}\frac{d}{dt}\rho_{12}^{*}=\frac{2}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\text{Im}\rho_{12}+\Gamma\rho_{12}^{*}+\Gamma^{*}\rho_{12}
+\]
+
+\end_inset
+
+or use the approximation 
+\begin_inset Formula $H_{12}^{el}=-\frac{\omega_{0}}{c\epsilon_{0}}\left|\mu_{12}\right|^{2}\mathrm{Im}\rho_{12}\left(t\right)$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\rho_{12}^{*}\frac{d}{dt}\rho_{12}+\rho_{12}\frac{d}{dt}\rho_{12}^{*}=-2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)+\Gamma\rho_{12}^{*}+\rho_{12}\Gamma^{*}
+\]
+
+\end_inset
+
+As we keep the purity of the density matrix, we require 
+\begin_inset Formula 
+\[
+k_{\mathrm{FGR}}P_{2}\left(P_{2}-P_{1}\right)+\frac{2}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\text{Im}\rho_{12}+\Gamma\rho_{12}^{*}+\Gamma^{*}\rho_{12}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+k_{\mathrm{FGR}}P_{2}\left(P_{2}-P_{1}\right)-2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)+\Gamma\rho_{12}^{*}+\rho_{12}\Gamma^{*}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $P_{2}=1$
+\end_inset
+
+, 
+\begin_inset Formula $P_{1}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{12}=0$
+\end_inset
+
+ back to 
+\begin_inset Formula 
+\[
+\frac{d}{dt}\left(\rho_{11}\rho_{22}-\left|\rho_{12}\right|^{2}\right)=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{d}{dt}\left|\rho_{12}\right|^{2}=\frac{d}{dt}\rho_{11}\rho_{22}+\rho_{11}\frac{d}{dt}\rho_{22}=\frac{d}{dt}\rho_{11}
+\]
+
+\end_inset
+
+by
+\begin_inset Formula 
+\[
+\frac{dP_{2}}{dt}=-\frac{dP_{1}}{dt}=-k_{\mathrm{FGR}}P_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{d}{dt}\left|\rho_{12}\right|^{2}=k_{\mathrm{FGR}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Assume
+\begin_inset Formula $\Gamma=\gamma\rho_{12}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+k_{\mathrm{FGR}}P_{2}\left(P_{2}-P_{1}\right)+\frac{2}{\hbar}H_{12}^{el}\left(P_{2}-P_{1}\right)\text{Im}\rho_{12}+2\gamma\left|\rho_{12}\right|^{2}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+k_{\mathrm{FGR}}P_{2}\left(P_{2}-P_{1}\right)-2k_{\mathrm{FGR}}\left[\mathrm{Im}\rho_{12}\right]^{2}\left(P_{2}-P_{1}\right)+2\gamma\left|\rho_{12}\right|^{2}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\gamma=-\frac{1}{2\left|\rho_{12}\right|^{2}}\left(P_{2}-P_{1}\right)\left(k_{\mathrm{FGR}}P_{2}+\frac{2}{\hbar}H_{12}^{el}\text{Im}\rho_{12}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\gamma=-\frac{k_{\mathrm{FGR}}}{2\left|\rho_{12}\right|^{2}}\left(P_{2}-2\left[\mathrm{Im}\rho_{12}\right]^{2}\right)\left(P_{2}-P_{1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if pure state, 
+\begin_inset Formula $\left|\rho_{12}\right|^{2}=P_{1}P_{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\gamma=-\frac{k_{\mathrm{FGR}}}{2P_{1}P_{2}}\left(P_{2}-2P_{1}P_{2}\sin^{2}\omega_{0}t\right)\left(P_{2}-P_{1}\right)
+\]
+
+\end_inset
+
+do the same time average:
+\begin_inset Formula 
+\begin{eqnarray*}
+\gamma & = & -\frac{k_{\mathrm{FGR}}}{2P_{1}P_{2}}\left(P_{2}-P_{1}P_{2}\right)\left(P_{2}-P_{1}\right)\\
+ & = & -\frac{k_{\mathrm{FGR}}}{2P_{1}P_{2}}P_{2}\left(1-P_{1}\right)\left(P_{2}-P_{1}\right)\\
+ & = & -\frac{k_{\mathrm{FGR}}}{2}\frac{P_{2}}{P_{1}}\left(P_{2}-P_{1}\right)
+\end{eqnarray*}
+
+\end_inset
+
+which agree with what we get from Ehrenfest+R with c\SpecialChar endofsentence
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Assume
+\begin_inset Formula $\Gamma=a+ib$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{eqnarray*}
+-k_{\mathrm{FGR}}\left(P_{2}-2\left[\mathrm{Im}\rho_{12}\right]^{2}\right)\left(P_{2}-P_{1}\right) & = & (a+ib)\rho_{12}^{*}+\rho_{12}(a-ib)\\
+ & = & a\left(\rho_{12}^{*}+\rho_{12}\right)+ib\left(\rho_{12}^{*}-\rho_{12}\right)\\
+ & = & 2a\text{Re}\rho_{12}+2b\text{Im}\rho_{12}
+\end{eqnarray*}
+
+\end_inset
+
+There are two simple solutions:
+\begin_inset Newline newline
+\end_inset
+
+1.
+ 
+\begin_inset Formula $a=0$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-k_{\mathrm{FGR}}\left(P_{2}-2\left[\mathrm{Im}\rho_{12}\right]^{2}\right)\left(P_{2}-P_{1}\right)=2b\text{Im}\rho_{12}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+b=-\frac{k_{\mathrm{FGR}}}{2}\left(\frac{P_{2}}{\text{Im}\rho_{12}}-2\mathrm{Im}\rho_{12}\right)\left(P_{2}-P_{1}\right)
+\]
+
+\end_inset
+
+2.
+ 
+\begin_inset Formula $b=0$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+-k_{\mathrm{FGR}}\left(P_{2}-2\left[\mathrm{Im}\rho_{12}\right]^{2}\right)\left(P_{2}-P_{1}\right)=2a\text{Re}\rho_{12}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+a=-\frac{k_{\mathrm{FGR}}}{2}\left(\frac{P_{2}}{\text{Re}\rho_{12}}-2\frac{\left[\mathrm{Im}\rho_{12}\right]^{2}}{\text{Re}\rho_{12}}\right)\left(P_{2}-P_{1}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

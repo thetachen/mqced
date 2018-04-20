@@ -1,0 +1,2022 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Quantum Sub-system and Classical Field in Mean-Field Approximation
+\end_layout
+
+\begin_layout Author
+Hsing-Ta (Theta) Chen
+\end_layout
+
+\begin_layout Abstract
+We study a quantum sub-system interacting with a classical electromagnetic
+ field within mean-field approximation.
+ The sub-system could be a simple 
+\begin_inset Formula $n$
+\end_inset
+
+-level atomic system or a molecular system composed of potential energy
+ surfaces.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+reference:
+\end_layout
+
+\begin_layout Plain Layout
+Miller The Journal of Chemical Physics 69 , 2188 (1978)
+\end_layout
+
+\begin_layout Plain Layout
+Maxim's PHYSICAL REVIEW A 84, 043802 (2011)
+\end_layout
+
+\begin_layout Plain Layout
+Tao's draft
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Quantum Sub-System
+\end_layout
+
+\begin_layout Standard
+We consider a generic quantum system with time–independent Hamiltonian 
+\begin_inset Formula $\hat{H}$
+\end_inset
+
+.
+ The configuration of the system can be decribed by its wavefunction 
+\begin_inset Formula $\left|\Psi\left(t\right)\right\rangle $
+\end_inset
+
+ or its density operator 
+\begin_inset Formula $\hat{\rho}\left(t\right)$
+\end_inset
+
+.
+ Time evolution of the wavefunction 
+\begin_inset Formula $\left|\Psi\left(t\right)\right\rangle $
+\end_inset
+
+ is governed by Schrodinger equation:
+\begin_inset Formula 
+\begin{equation}
+i\hbar\frac{\mathrm{d}}{\mathrm{d}t}\left|\Psi\left(t\right)\right\rangle =\hat{H}\left|\Psi\left(t\right)\right\rangle .\label{eq:Schrodinger}
+\end{equation}
+
+\end_inset
+
+Time evolution of the density operator 
+\begin_inset Formula $\hat{\rho}\left(t\right)$
+\end_inset
+
+ is described by von Neumann equation
+\begin_inset Formula 
+\begin{equation}
+i\hbar\frac{\mathrm{d}}{\mathrm{d}t}\hat{\rho}\left(t\right)=\left[\hat{H},\hat{\rho}\left(t\right)\right]\label{eq:vonNeumann}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Atomic 
+\begin_inset Formula $n$
+\end_inset
+
+-level system
+\end_layout
+
+\begin_layout Standard
+Given the diabatic basis 
+\begin_inset Formula $\langle\{\vec{r}_{\alpha}\}|\mathrm{i}\rangle=\phi_{\mathrm{i}}\left(\{\vec{r}_{\alpha}\}\right)$
+\end_inset
+
+, a sub-system can be expressed as a 
+\begin_inset Formula $n$
+\end_inset
+
+-level Hamiltonian 
+\begin_inset Formula 
+\begin{equation}
+H_{\mathrm{e}}=\sum_{\mathrm{i}=1}^{n}\varepsilon_{\mathrm{i}}\left|\mathrm{i}\right\rangle \left\langle \mathrm{i}\right|+\sum_{\mathrm{i}\neq\mathrm{j}}^{n}v_{\mathrm{ij}}\left|\mathrm{i}\right\rangle \left\langle \mathrm{j}\right|.
+\end{equation}
+
+\end_inset
+
+The state of the sub-system can be respresented by its wavefunction:
+\begin_inset Formula 
+\begin{equation}
+\left|\Psi_{\mathrm{e}}\left(t\right)\right\rangle =\sum_{\mathrm{i}=1}^{n}c_{\mathrm{i}}\left(t\right)\left|\mathrm{i}\right\rangle 
+\end{equation}
+
+\end_inset
+
+or the density matrix:
+\begin_inset Formula 
+\begin{equation}
+\rho_{\mathrm{e}}=\sum_{\mathrm{i},\mathrm{j}}^{n}\rho_{\mathrm{ij}}\left|\mathrm{i}\right\rangle \left\langle \mathrm{j}\right|
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Molecular system
+\end_layout
+
+\begin_layout Standard
+A molecular system contain electronic and nuclear degrees of freedom.
+ The nuclear coordinate and momentum are 
+\begin_inset Formula $\{\vec{R}_{\alpha}\}$
+\end_inset
+
+, 
+\begin_inset Formula $\{\vec{P}_{\alpha}\}$
+\end_inset
+
+.
+ The full Hamiltonian can be written as
+\begin_inset Formula 
+\begin{equation}
+H_{M}\left(\{\vec{R}_{\alpha}\},\{\vec{P}_{\alpha}\}\right)=T_{\mathrm{nuc}}+H_{\mathrm{ele}}\left(\{\vec{R}_{\alpha}\}\right).
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset Formula 
+\begin{equation}
+T_{\mathrm{nuc}}=\sum_{\alpha=1}^{N_{\text{nuc}}}\frac{\vec{P}_{\alpha}^{2}}{2M_{\alpha}}=-\sum_{\alpha=1}^{N_{\text{nuc}}}\frac{\hbar^{2}}{2M_{\alpha}}\frac{\partial^{2}}{\partial\vec{R}_{\alpha}^{2}}
+\end{equation}
+
+\end_inset
+
+Given the electroinc diabatic basis 
+\begin_inset Formula $\left|\mathrm{i}\right\rangle $
+\end_inset
+
+, the total wavefunction can be expressed as 
+\begin_inset Formula 
+\begin{equation}
+\langle\{\vec{R}_{\alpha}\}\left|\Psi_{M}\left(t\right)\right\rangle =\sum_{\mathrm{i}=1}^{n}\Phi_{\mathrm{i}}\left(\{\vec{R}_{\alpha}\},t\right)\left|\mathrm{i}\right\rangle 
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\Phi_{\mathrm{i}}\left(\left\{ \vec{R}_{\alpha}\right\} ,t\right)$
+\end_inset
+
+ is the nuclear wavefunction associated with 
+\begin_inset Formula $\mathrm{i}$
+\end_inset
+
+-th electronic states.
+ The electronic wavefunction can be obtained by the integration over the
+ nuclear degrees of freedom 
+\begin_inset Formula 
+\begin{equation}
+\int\mathrm{d}\{\vec{R}_{\alpha}\}\langle\{\vec{R}_{\alpha}\}\left|\Psi_{M}\left(t\right)\right\rangle =\sum_{\mathrm{i}=1}^{n}\int\mathrm{d}\{\vec{R}_{\alpha}\}\Phi_{\mathrm{i}}\left(\{\vec{R}_{\alpha}\},t\right)\left|\mathrm{i}\right\rangle =\sum_{\mathrm{i}}c_{\mathrm{i}}\left(t\right)\left|\mathrm{i}\right\rangle .
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Interaction with Electric field– Dipole approximation
+\end_layout
+
+\begin_layout Standard
+For a sub-system in an electric field, 
+\begin_inset Formula $\vec{E}\left(\vec{r},t\right)$
+\end_inset
+
+, we simply use the dipole moment interaction approximation:
+\begin_inset Formula 
+\[
+V_{\mathrm{int}}=-\int d\vec{r}\vec{E}\left(\vec{r},t\right)\cdot\vec{\mu}\left(\vec{r}\right),
+\]
+
+\end_inset
+
+where the dipole moment of the electronic sub-system is
+\begin_inset Formula 
+\[
+\vec{\mu}\left(\vec{r}\right)=\sum_{\alpha}^{N_{\mathrm{ele}}}q_{\alpha}\vec{r}\delta\left(\vec{r}-\vec{r}_{\alpha}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Electromagnetic Field
+\end_layout
+
+\begin_layout Subsection
+Classical Electromagnetic field
+\end_layout
+
+\begin_layout Standard
+Generally, classical electromagnetic fields satisfy Maxwell's equations:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla\cdot\vec{B}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\nabla\times\vec{E}+\frac{\partial\vec{B}}{\partial t}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\nabla\cdot\vec{E}=\frac{\rho}{\epsilon_{0}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\nabla\times\vec{B}-\frac{1}{c^{2}}\frac{\partial\vec{E}}{\partial t}=\mu_{0}\vec{J}
+\]
+
+\end_inset
+
+Therefore, time evolution of the field is governed by
+\begin_inset Formula 
+\[
+\frac{\partial\vec{B}}{\partial t}=-\nabla\times\vec{E}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\vec{E}}{\partial t}=c^{2}\nabla\times\vec{B}-\frac{\vec{J}}{\epsilon_{0}}
+\]
+
+\end_inset
+
+For the field interacting with a sub-system, the current 
+\begin_inset Formula $\vec{J}$
+\end_inset
+
+ is generated by,
+\begin_inset Formula 
+\[
+\vec{J}=\sum_{\alpha=1}^{N_{\mathrm{ele}}}q_{\alpha}\frac{\partial\vec{r}_{\alpha}}{\partial t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mean Field Approximation (MFA)
+\end_layout
+
+\begin_layout Standard
+We can define the current density in mean field approximation 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ehrenfest dynamics
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{J}\approx\left\langle \vec{J}\right\rangle =\frac{\partial}{\partial t}\mathrm{tr}\left[\rho\sum_{\alpha=1}^{N_{\mathrm{ele}}}q_{\alpha}\vec{r}_{\alpha}\right]=\frac{\partial}{\partial t}\mathrm{tr}\left[\rho\vec{\mu}\left(\vec{r}\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+atomic sub-system
+\begin_inset Formula 
+\[
+\left\langle \vec{J}\right\rangle =\sum_{\mathrm{i}\neq\mathrm{j}}\frac{i}{\hbar}\vec{\mu}_{\mathrm{ij}}\left(\vec{r}\right)\left(\varepsilon_{\mathrm{i}}-\varepsilon_{\mathrm{j}}\right)c_{\mathrm{i}}^{*}c_{\mathrm{j}}
+\]
+
+\end_inset
+
+for 2 level system:
+\begin_inset Formula 
+\[
+\left\langle \vec{J}\right\rangle =\frac{2}{\hbar}\vec{\mu}_{12}\left(\vec{r}\right)\left(\varepsilon_{1}-\varepsilon_{2}\right)\text{Im}\left[c_{1}c_{2}^{*}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray*}
+\vec{J} & = & \frac{d}{dt}\text{Tr}\left\{ \left(\begin{array}{cc}
+\left|c_{1}\right|^{2} & c_{1}c_{2}^{*}\\
+c_{2}c_{1}^{*} & \left|c_{2}\right|^{2}
+\end{array}\right)\left(\begin{array}{cc}
+0 & \vec{\mu}_{12}\left(\vec{r}\right)\\
+\vec{\mu}_{21}\left(\vec{r}\right) & 0
+\end{array}\right)\right\} \\
+ & = & \frac{d}{dt}\text{Tr}\left\{ \left(\begin{array}{cc}
+c_{1}c_{2}^{*}\vec{\mu}_{21}\left(\vec{r}\right) & \left|c_{1}\right|^{2}\vec{\mu}_{12}\left(\vec{r}\right)\\
+\left|c_{2}\right|^{2}\vec{\mu}_{21}\left(\vec{r}\right) & c_{2}c_{1}^{*}\vec{\mu}_{12}\left(\vec{r}\right)
+\end{array}\right)\right\} \\
+ & = & \frac{d}{dt}\left(c_{1}c_{2}^{*}\vec{\mu}_{21}\left(\vec{r}\right)+c_{2}c_{1}^{*}\vec{\mu}_{12}\left(\vec{r}\right)\right)\\
+ & = & \frac{1}{i\hbar}\left\{ \left(\varepsilon_{1}c_{1}-V_{12}c_{2}\right)c_{2}^{*}\vec{\mu}_{21}\left(\vec{r}\right)+c_{1}\left(-\varepsilon_{2}c_{2}^{*}+V_{21}^{*}c_{1}^{*}\right)\vec{\mu}_{21}\left(\vec{r}\right)+\left(\varepsilon_{2}c_{2}-V_{21}c_{1}\right)c_{1}^{*}\vec{\mu}_{12}\left(\vec{r}\right)+c_{2}\left(-\varepsilon_{1}c_{1}^{*}+V_{12}^{*}c_{2}^{*}\right)\vec{\mu}_{12}\left(\vec{r}\right)\right\} \\
+ & = & \frac{1}{i\hbar}\left\{ \varepsilon_{1}c_{1}c_{2}^{*}\vec{\mu}_{21}\left(\vec{r}\right)-V_{12}c_{2}c_{2}^{*}\vec{\mu}_{21}\left(\vec{r}\right)-\varepsilon_{2}c_{1}c_{2}^{*}\vec{\mu}_{21}\left(\vec{r}\right)+V_{21}^{*}c_{1}c_{1}^{*}\vec{\mu}_{21}\left(\vec{r}\right)+\varepsilon_{2}c_{2}c_{1}^{*}\vec{\mu}_{12}\left(\vec{r}\right)-V_{21}c_{1}c_{1}^{*}\vec{\mu}_{12}\left(\vec{r}\right)-\varepsilon_{1}c_{2}c_{1}^{*}\vec{\mu}_{12}\left(\vec{r}\right)+V_{12}^{*}c_{2}c_{2}^{*}\vec{\mu}_{12}\left(\vec{r}\right)\right\} \\
+ & = & \frac{1}{i\hbar}\left\{ \left(\varepsilon_{1}-\varepsilon_{2}\right)\vec{\mu}_{21}\left(\vec{r}\right)c_{1}c_{2}^{*}+\left(\varepsilon_{2}-\varepsilon_{1}\right)\vec{\mu}_{12}\left(\vec{r}\right)c_{2}c_{1}^{*}+\left(V_{21}^{*}\vec{\mu}_{21}\left(\vec{r}\right)-V_{21}\vec{\mu}_{12}\left(\vec{r}\right)\right)c_{1}c_{1}^{*}+\left(V_{12}^{*}\vec{\mu}_{12}\left(\vec{r}\right)-V_{12}\vec{\mu}_{21}\left(\vec{r}\right)\right)c_{2}c_{2}^{*}\right\} 
+\end{eqnarray*}
+
+\end_inset
+
+Assume 
+\begin_inset Formula $\vec{\mu}_{21}\left(\vec{r}\right)=\vec{\mu}_{12}\left(\vec{r}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{21}^{*}=V_{21}$
+\end_inset
+
+ and 
+\begin_inset Formula $V_{12}^{*}=V_{12}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+J=\frac{1}{i\hbar}\left\{ \left(\varepsilon_{1}-\varepsilon_{2}\right)\vec{\mu}_{21}\left(\vec{r}\right)c_{1}c_{2}^{*}+\left(\varepsilon_{2}-\varepsilon_{1}\right)\vec{\mu}_{12}\left(\vec{r}\right)c_{2}c_{1}^{*}\right\} 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\langle \vec{J}\right\rangle =\frac{2}{\hbar}\vec{\mu}_{12}\left(\vec{r}\right)\left(\varepsilon_{1}-\varepsilon_{2}\right)\text{Im}\left[c_{1}c_{2}^{*}\right]
+\]
+
+\end_inset
+
+MEAN-FIELD DIOPLE:
+\begin_inset Formula 
+\[
+\left\langle \vec{\mu}\right\rangle =\text{Tr}\left\{ \left(\begin{array}{cc}
+\left|c_{1}\right|^{2} & c_{1}c_{2}^{*}\\
+c_{2}c_{1}^{*} & \left|c_{2}\right|^{2}
+\end{array}\right)\left(\begin{array}{cc}
+0 & \vec{\mu}_{12}\left(\vec{r}\right)\\
+\vec{\mu}_{21}\left(\vec{r}\right) & 0
+\end{array}\right)\right\} =\text{Tr}\left\{ \left(\begin{array}{cc}
+\vec{\mu}_{21}\left(\vec{r}\right)c_{1}c_{2}^{*} & \vec{\mu}_{12}\left(\vec{r}\right)\left|c_{1}\right|^{2}\\
+\vec{\mu}_{21}\left(\vec{r}\right)\left|c_{2}\right|^{2} & \vec{\mu}_{12}\left(\vec{r}\right)c_{2}c_{1}^{*}
+\end{array}\right)\right\} =\vec{\mu}_{12}\left(\vec{r}\right)\left(c_{1}c_{2}^{*}+c_{2}c_{1}^{*}\right)=2\vec{\mu}_{12}\left(\vec{r}\right)\mathrm{Re}\left[c_{1}c_{2}^{*}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+From 
+\begin_inset Formula $\rho$
+\end_inset
+
+ to 
+\begin_inset Formula $J$
+\end_inset
+
+ (with nuclear dof.)
+\begin_inset Formula 
+\[
+\vec{J}=\frac{d}{dt}\int d\vec{R}\text{Tr}\left\{ \hat{\rho}\hat{\vec{P}}\left(\vec{r}\right)\right\} 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}c_{1}\left(\vec{R}\right)=E_{1}\left(\vec{R}\right)c_{1}\left(\vec{R}\right)-V_{12}c_{2}\left(\vec{R}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}c_{2}\left(\vec{R}\right)=E_{2}\left(\vec{R}\right)c_{2}\left(\vec{R}\right)-V_{21}c_{1}\left(\vec{R}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\vec{J} & = & \frac{d}{dt}\int d\vec{R}\text{Tr}\left\{ \left(\begin{array}{cc}
+\left|c_{1}\right|^{2} & c_{1}c_{2}^{*}\\
+c_{2}c_{1}^{*} & \left|c_{2}\right|^{2}
+\end{array}\right)\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right)\vec{\xi}\left(\vec{r}\right)\right\} \\
+ & = & \frac{d}{dt}\int d\vec{R}\text{Tr}\left\{ \left(\begin{array}{cc}
+c_{1}c_{2}^{*} & \left|c_{1}\right|^{2}\\
+\left|c_{2}\right|^{2} & c_{2}c_{1}^{*}
+\end{array}\right)\vec{\xi}\left(\vec{r}\right)\right\} \\
+ & = & \vec{\xi}\left(\vec{r}\right)\frac{d}{dt}\int d\vec{R}\left(c_{1}c_{2}^{*}+c_{2}c_{1}^{*}\right)\\
+ & = & \vec{\xi}\left(\vec{r}\right)\int d\vec{R}\frac{1}{i\hbar}\left\{ \left(E_{1}c_{1}-V_{12}c_{2}\right)c_{2}^{*}+c_{1}\left(-E_{2}c_{2}^{*}+V_{21}^{*}c_{1}^{*}\right)+\left(E_{2}c_{2}-V_{21}c_{1}\right)c_{1}^{*}+c_{2}\left(-E_{1}c_{1}^{*}+V_{12}^{*}c_{2}^{*}\right)\right\} \\
+ & = & \vec{\xi}\left(\vec{r}\right)\int d\vec{R}\frac{1}{i\hbar}\left(E_{1}\left(\vec{R}\right)-E_{2}\left(\vec{R}\right)\right)\left(c_{1}c_{2}^{*}-c_{1}^{*}c_{2}\right)\\
+ & = & \frac{2}{\hbar}\vec{\xi}\left(\vec{r}\right)\int d\vec{R}\left(E_{1}\left(\vec{R}\right)-E_{2}\left(\vec{R}\right)\right)\text{Im}\left[c_{1}\left(\vec{R}\right)c_{2}^{*}\left(\vec{R}\right)\right]
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+EM field to Quantum system
+\end_layout
+
+\begin_layout Subsubsection
+Classical Hamiltonian for EM field interacting with charged particle
+\end_layout
+
+\begin_layout Subsubsection
+Quantum mechanical Hamiltonian 
+\end_layout
+
+\begin_layout Itemize
+By substituting 
+\begin_inset Formula $\vec{p}\rightarrow\hat{p}=-i\hbar\nabla$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\hat{V}_{\mathrm{int}}=\frac{\vec{p}^{2}}{2m}-\frac{q}{2m}\left[\hat{p}\cdot\vec{A}\left(\vec{r},t\right)+\vec{A}\left(\vec{r},t\right)\cdot\hat{p}\right]+\frac{q^{2}}{2m}\left|\vec{A}\left(\vec{r},t\right)\right|^{2}
+\]
+
+\end_inset
+
+we can show that since we chose Coulomb gauge,
+\begin_inset Formula 
+\[
+\nabla\cdot\vec{A}=\vec{A}\cdot\nabla
+\]
+
+\end_inset
+
+then we have
+\begin_inset Formula 
+\[
+\hat{V}_{\mathrm{int}}=\frac{\vec{p}^{2}}{2m}-\frac{q}{m}\vec{A}\left(\vec{r},t\right)\cdot\hat{p}+\frac{q^{2}}{2m}\left|\vec{A}\left(\vec{r},t\right)\right|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We neglect the high order term: 
+\begin_inset Formula $\frac{q^{2}}{2m}\left|\vec{A}\left(\vec{r},t\right)\right|^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Fourier expansion of the vector potential:
+\begin_inset Formula 
+\[
+\vec{A}\left(\vec{r},t\right)=\sum_{\lambda}\sum_{\vec{k}}\left[\vec{e}_{\lambda}\left(\vec{k}\right)a_{\lambda}\left(\vec{k},t\right)e^{i\vec{k}\cdot\vec{r}}+\vec{e}_{\lambda}^{*}\left(\vec{k}\right)a_{\lambda}^{*}\left(\vec{k},t\right)e^{-i\vec{k}\cdot\vec{r}}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{A}\left(\vec{r},t\right)=\sum_{\lambda}\sum_{\vec{k}}e^{i\vec{k}\cdot\vec{r}}\left[\vec{e}_{\lambda}\left(\vec{k}\right)a_{\lambda}\left(\vec{k},t\right)+\vec{e}_{\lambda}^{*}\left(-\vec{k}\right)a_{\lambda}^{*}\left(-\vec{k},t\right)\right]
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\vec{e}_{\lambda}\left(\vec{k}\right)$
+\end_inset
+
+ is a unit polarization vector associated with one of the two independent
+ polarizations 
+\begin_inset Formula $\lambda=\pm1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Assume only one polarization:
+\begin_inset Formula 
+\[
+\vec{A}\left(\vec{r},t\right)=\sum_{\vec{k}}\left[\vec{e}\left(\vec{k}\right)a\left(\vec{k},t\right)e^{i\vec{k}\cdot\vec{r}}+\vec{e}^{*}\left(\vec{k}\right)a^{*}\left(\vec{k},t\right)e^{-i\vec{k}\cdot\vec{r}}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{A}\left(\vec{r},t\right)=\sum_{\vec{k}}e^{i\vec{k}\cdot\vec{r}}\left[\vec{e}\left(\vec{k}\right)a\left(\vec{k},t\right)+\vec{e}^{*}\left(-\vec{k}\right)a^{*}\left(-\vec{k},t\right)\right]
+\]
+
+\end_inset
+
+which has the spatial period 
+\begin_inset Formula $2\pi/\left|\vec{k}\right|$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Dipole approximation
+\end_layout
+
+\begin_layout Itemize
+If the wavelength of the field is much larger than the molecular dimension:
+ 
+\begin_inset Formula $2\pi/\left|\vec{k}\right|\gg\left|\vec{r}\right|$
+\end_inset
+
+, we can eliminate the spatial dependence of the electronic system and approxima
+te 
+\begin_inset Formula 
+\[
+e^{i\vec{k}\cdot\vec{r}}\approx1
+\]
+
+\end_inset
+
+so that 
+\begin_inset Formula 
+\[
+\hat{V}_{\mathrm{int}}=\frac{\vec{p}^{2}}{2m}-\frac{q}{m}\sum_{\vec{k}}\left[\vec{e}\left(\vec{k}\right)a\left(\vec{k},t\right)+\vec{e}^{*}\left(-\vec{k}\right)a^{*}\left(-\vec{k},t\right)\right]\cdot\hat{p}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We use the relation:
+\begin_inset Formula 
+\[
+i\hbar\frac{\partial\hat{r}}{\partial t}=i\hbar\frac{\hat{p}}{m}=\left[\hat{r},\hat{H}\right]
+\]
+
+\end_inset
+
+and write in diabatic basis 
+\begin_inset Formula $\hat{H}\left|\mathrm{k}\right\rangle =\varepsilon_{\mathrm{k}}\left|\mathrm{k}\right\rangle $
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{p}\left|\mathrm{k}\right\rangle =i\frac{m}{\hbar}\left[\varepsilon_{\mathrm{j}}-\varepsilon_{\mathrm{k}}\right]\left\langle \mathrm{j}\right|\hat{r}\left|\mathrm{k}\right\rangle 
+\]
+
+\end_inset
+
+so that 
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{V}_{\mathrm{int}}\left|\mathrm{k}\right\rangle =-\frac{i}{\hbar}\left(\varepsilon_{\mathrm{j}}-\varepsilon_{\mathrm{k}}\right)\sum_{\vec{k}}\left[\vec{e}\left(\vec{k}\right)a\left(\vec{k},t\right)+\vec{e}^{*}\left(-\vec{k}\right)a^{*}\left(-\vec{k},t\right)\right]\cdot\left\langle \mathrm{j}\right|q\hat{r}\left|\mathrm{k}\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Define the transition dipole moment of the eletronic system
+\begin_inset Formula 
+\[
+\vec{\mu}_{\mathrm{jk}}=\left\langle \mathrm{j}\right|q\hat{r}\left|\mathrm{k}\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Assume the EM field is free plan wave:
+\begin_inset Formula 
+\[
+\vec{A}\left(\vec{r},t\right)=\sum_{k}\left[\vec{e}\left(\vec{k}\right)a\left(\vec{k}\right)e^{i\vec{k}\cdot\left(\vec{r}-ct\right)}+c.c.\right]
+\]
+
+\end_inset
+
+then the electric field is 
+\begin_inset Formula 
+\[
+\vec{E}\left(\vec{r},t\right)=\sum_{k}\left[ic\left|\vec{k}\right|\vec{e}\left(\vec{k}\right)a\left(\vec{k}\right)e^{i\vec{k}\cdot\left(\vec{r}-ct\right)}+c.c\right]
+\]
+
+\end_inset
+
+then use the same approximation 
+\begin_inset Formula $e^{i\vec{k}\cdot\vec{r}}\approx1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\vec{E}\left(t\right)=\sum_{k}\left[i\omega_{k}\vec{e}\left(\vec{k}\right)a\left(\vec{k}\right)e^{-i\omega_{k}t}+c.c\right]
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\omega_{k}=c\left|\vec{k}\right|$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+If there is only one mode and 
+\begin_inset Formula $\omega_{k}=\frac{1}{\hbar}\left(\varepsilon_{\mathrm{j}}-\varepsilon_{\mathrm{k}}\right)$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+I can only show the dipole approx works for resonance case....
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{V}_{\mathrm{int}}\left|\mathrm{k}\right\rangle =-i\omega_{k}\left[\vec{e}\left(\vec{k}\right)a\left(\vec{k}\right)e^{-i\omega_{k}t}+c.c\right]\cdot\vec{\mu}_{\mathrm{jk}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{V}_{\mathrm{int}}\left|\mathrm{k}\right\rangle =-\vec{E}\left(t\right)\cdot\vec{\mu}_{\mathrm{jk}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Tao's way to include the spatial dependence of the dipole moment by simply
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{V}_{\mathrm{int}}\left|\mathrm{k}\right\rangle =-\int d\vec{r}\vec{E}\left(\vec{r},t\right)\cdot\vec{\mu}_{\mathrm{jk}}\left(\vec{r}\right)
+\]
+
+\end_inset
+
+may not work....
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+IDEA: Actaully, we can get the time evolution of the vector potential by:
+\begin_inset Formula 
+\[
+\vec{E}=-\nabla\varphi-\frac{\partial}{\partial t}\vec{A}
+\]
+
+\end_inset
+
+and use 
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{p}\left|\mathrm{k}\right\rangle =i\frac{m}{\hbar}\left[\varepsilon_{\mathrm{j}}-\varepsilon_{\mathrm{k}}\right]\left\langle \mathrm{j}\right|\hat{r}\left|\mathrm{k}\right\rangle 
+\]
+
+\end_inset
+
+into
+\begin_inset Formula 
+\[
+\hat{V}_{\mathrm{int}}=\frac{\vec{p}^{2}}{2m}-\frac{q}{m}\vec{A}\left(\vec{r},t\right)\cdot\hat{p}
+\]
+
+\end_inset
+
+then we can do better than dipole approximation
+\begin_inset Formula 
+\[
+\left\langle \mathrm{j}\right|\hat{V}_{\mathrm{int}}\left|\mathrm{k}\right\rangle =-\frac{i}{\hbar}\left[\varepsilon_{\mathrm{j}}-\varepsilon_{\mathrm{k}}\right]\int d\vec{r}\vec{A}\left(\vec{r},t\right)\cdot\left\langle \mathrm{j}\right|q\hat{r}\left|\mathrm{k}\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+No feedback – Classical Path Approximation (CPA)
+\end_layout
+
+\begin_layout Itemize
+Write 
+\begin_inset Formula 
+\[
+\vec{E}\left(\vec{r},t\right)=\vec{E}_{\mathrm{ext}}\left(\vec{r},t\right)+\vec{E}_{\mathrm{ind}}\left(\vec{r},t\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula $\vec{E}_{\mathrm{ext}}$
+\end_inset
+
+: external field and 
+\begin_inset Formula $\vec{E}_{\mathrm{ind}}$
+\end_inset
+
+: induced field.
+\end_layout
+
+\begin_layout Itemize
+assume 
+\begin_inset Formula $\vec{E}_{\mathrm{ext}}$
+\end_inset
+
+ is a freely propagating EM wave, so that 
+\begin_inset Formula 
+\[
+\vec{E}_{\mathrm{ext}}\left(\vec{r},t\right)=\vec{E}_{\mathrm{ext}}\left(\vec{r}-ct\right)
+\]
+
+\end_inset
+
+just shift the EM field in time.
+\end_layout
+
+\begin_layout Itemize
+CPA neglect the feedback of the induced field to the system:
+\begin_inset Formula 
+\[
+\hat{H}-\int d\vec{r}\vec{E}\left(\vec{r},t\right)\cdot\widehat{\vec{\mathbf{\mathrm{P}}}}\left(\vec{r}\right)\longrightarrow\hat{H}-\int d\vec{r}\vec{E}_{\mathrm{ext}}\left(\vec{r}-ct\right)\cdot\widehat{\vec{\mathbf{\mathrm{P}}}}\left(\vec{r}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Franck-Condon Principle and Factor
+\end_layout
+
+\begin_layout Section
+Simulation Detail:
+\end_layout
+
+\begin_layout Itemize
+For a regular molecule, electronic dipole moment 
+\begin_inset Formula $\mu_{12}$
+\end_inset
+
+ should be around 0 ∼ 10 Debye (0-20000 C·nm/mol).
+ chosen in the range of 2000 ∼ 40000 C·nm/mol.
+\end_layout
+
+\begin_layout Itemize
+[a.u.] electric dipole moment 
+\begin_inset Formula $ea_{0}$
+\end_inset
+
+: 
+\begin_inset Formula $8.47835326(19)×10^{\text{−}30}$
+\end_inset
+
+ C·m=
+\begin_inset Formula $8.47835326(19)×10^{\text{−}30}\times10^{9}\times6\times10^{23}=5087.011956$
+\end_inset
+
+ C·nm/mol=
+\begin_inset Formula $2.541746$
+\end_inset
+
+ Debye
+\end_layout
+
+\begin_layout Itemize
+The typical energy gap between electronic states is ∼ 10 eV.
+\end_layout
+
+\begin_layout Itemize
+[a.u.] energy hartree 
+\begin_inset Formula $E_{h}$
+\end_inset
+
+ 
+\begin_inset Formula $4.35974417(75)×10^{\text{−}18}$
+\end_inset
+
+ J=
+\begin_inset Formula $27.211385$
+\end_inset
+
+ eV =
+\begin_inset Formula $627.509$
+\end_inset
+
+ kcal·mol−1
+\end_layout
+
+\begin_layout Itemize
+[a.u.] length bohr 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ 
+\begin_inset Formula $5.2917721092(17)×10^{\text{−}11}$
+\end_inset
+
+ m = 
+\begin_inset Formula $0.052917721092(17)$
+\end_inset
+
+ nm = 
+\begin_inset Formula $0.52917721092(17)$
+\end_inset
+
+ Å
+\end_layout
+
+\begin_layout Itemize
+[a.u.] time 
+\begin_inset Formula $2.418884326505(16)×10^{\text{−}17}$
+\end_inset
+
+ s = 
+\begin_inset Formula $0.02418884326505(16)$
+\end_inset
+
+ fs
+\end_layout
+
+\begin_layout Itemize
+[a.u.] speed of light 
+\begin_inset Formula $c$
+\end_inset
+
+ = 
+\begin_inset Formula $1/α$
+\end_inset
+
+ ≈ 
+\begin_inset Formula $137$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+[a.u.] classical electron radius 
+\begin_inset Formula $r_{e}$
+\end_inset
+
+ 
+\begin_inset Formula $α^{2}$
+\end_inset
+
+ ≈ 
+\begin_inset Formula $5.32×10^{\text{−}5}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+[a.u.] proton mass 
+\begin_inset Formula $m_{p}$
+\end_inset
+
+ 
+\begin_inset Formula $m_{p}/m_{e}$
+\end_inset
+
+ ≈ 
+\begin_inset Formula $1836$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+dieletric constant: 
+\begin_inset Formula $\epsilon_{0}=\frac{1}{\mu_{0}c}=\frac{e^{2}}{2\alpha hc}=\frac{1}{4\pi}$
+\end_inset
+
+= 
+\begin_inset Formula $0.31830988618$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mu_{0}=4\pi\alpha^{2}=235858.210061$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="3">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="0pt">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="0pt">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+qunatity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+in Tao's unit
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+in atomic unit
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16.46 eV
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.6048938707
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mu_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+23917 C·nm/mol
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4.70158124393
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $a$
+\end_inset
+
+ (Sigma)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0556 nm
+\begin_inset Formula $^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.00015569585
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Z_{max}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90 nm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1700.75351211
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Z_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+50 nm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+944.863062283
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $Z_{1}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+84 nm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1587.36994463
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $b$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0556 nm
+\begin_inset Formula $^{-2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.00015569585
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $U_{0}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6.58 keV
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+241.810550988
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Model:
+\end_layout
+
+\begin_layout Itemize
+Maxwell's equations:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\vec{H}\rightarrow\vec{B}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mu_{0}\frac{\partial\vec{B}}{\partial t}=-\nabla\times\vec{E}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\epsilon_{0}\frac{\partial\vec{E}}{\partial t}=\nabla\times\vec{B}-\vec{J}
+\]
+
+\end_inset
+
+In metal NP region: dieletric constant (Drude model)
+\begin_inset Formula 
+\[
+\epsilon\left(\omega\right)=\epsilon_{r}-\frac{\omega_{p}^{2}}{\omega^{2}-i\gamma\omega}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\epsilon_{r}$
+\end_inset
+
+: media dieletric constant.
+\end_layout
+
+\begin_layout Itemize
+The current density
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+time evolution:
+\begin_inset Formula 
+\[
+\frac{\partial\vec{J}}{\partial t}=a\vec{J}+b\vec{E}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $a=-\gamma$
+\end_inset
+
+, 
+\begin_inset Formula $b=\epsilon_{0}\omega_{p}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+mean field approximation in macroscopic polarization:
+\begin_inset Formula 
+\[
+\vec{J}=\frac{\partial\vec{P}}{\partial t}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\vec{P}=n_{a}\text{Tr}\left\{ \hat{\rho}\vec{\mu}\right\} 
+\]
+
+\end_inset
+
+
+\begin_inset Formula $n_{a}$
+\end_inset
+
+: atomic density
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+What is non-MFA? 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+atomic/molecular system: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Hamiltonian: three state in angular momentum wave function basis
+\begin_inset Formula 
+\[
+\left|1\right\rangle =\left|s\right\rangle ,\ \left|2\right\rangle =\frac{1}{\sqrt{2}}\left(\left|p_{x}\right\rangle +i\left|p_{y}\right\rangle \right),\ \left|3\right\rangle =\frac{1}{\sqrt{2}}\left(\left|p_{x}\right\rangle -i\left|p_{y}\right\rangle \right)
+\]
+
+\end_inset
+
+with the Hamiltonian:
+\begin_inset Formula 
+\[
+\hat{H}=\hat{H}_{0}-\vec{\mu}\cdot\vec{E}\left(t\right)=\left(\begin{array}{ccc}
+0 & \Omega_{-}\left(t\right) & -\Omega_{+}\left(t\right)\\
+\Omega_{+}\left(t\right) & \hbar\omega_{a} & 0\\
+-\Omega_{-}\left(t\right) & 0 & \hbar\omega_{a}
+\end{array}\right)
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+\Omega_{\pm}\left(t\right)=\frac{\mu_{sp}}{\sqrt{6}}\left(E_{x}\left(t\right)\pm iE_{y}\left(t\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+time evolution: MFA allows us to do 
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}\hat{\rho}\left(t\right)=\left[\hat{H},\hat{\rho}\left(t\right)\right]-i\hbar\hat{\Gamma}\hat{\rho}
+\]
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[\hat{H},\hat{\rho}\left(t\right)\right]=\left[\hat{H}_{0}-\vec{\mu}\cdot\vec{E}\left(t\right),\hat{\rho}\left(t\right)\right]=$
+\end_inset
+
+???
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+To Tao: What do you mean by Ehrenfest dynamics? I think you mean MFA....
+\end_layout
+
+\begin_layout Plain Layout
+Classical Path Approximation CPA in literature?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+two level system: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Hamiltonian:
+\begin_inset Formula 
+\[
+\hat{H}_{0}=\left(\begin{array}{cc}
+\varepsilon_{1} & 0\\
+0 & \varepsilon_{2}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Polarization:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+MFA
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\hat{\vec{P}}\left(\vec{r}\right)=\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right)\vec{\xi}\left(\vec{r}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{\mu}_{12}=\left|\left\langle 1\right|q\hat{\vec{r}}\left|2\right\rangle \right|=\int d\vec{r}q\vec{r}\psi_{1}^{*}\left(\vec{r}\right)\psi_{2}\left(\vec{r}\right)=\int d\vec{r}\vec{\xi}\left(\vec{r}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{\xi}\left(\vec{r}\right)=q\vec{r}\psi_{1}^{*}\left(\vec{r}\right)\psi_{2}\left(\vec{r}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Approximation:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+1D: a gaussian
+\begin_inset Formula 
+\[
+\xi\left(z\right)=\mu_{0}\sqrt{\frac{a}{\pi}}e^{-az^{2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mu_{12}=\int dz\vec{\xi}\left(z\right)=\mu_{0}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+3D: 
+\begin_inset Formula 
+\[
+\xi\left(\vec{r}\right)=\sqrt{\frac{4a^{5}}{\pi^{3}}}\mu ze^{-ar^{2}}\vec{r}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+EM–system coupling: 
+\begin_inset Formula 
+\[
+\hat{V}\left(t\right)=\int d\vec{r}\vec{E}\left(\vec{r}\right)\cdot\hat{\vec{P}}\left(\vec{r}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}\hat{\rho}\left(t\right)=\left[\hat{H}_{0}-\hat{V}\left(t\right),\hat{\rho}\left(t\right)\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}\left(\begin{array}{c}
+c_{1}\\
+c_{2}
+\end{array}\right)=\left(\hat{H}_{0}-\hat{V}\left(t\right)\right)\left(\begin{array}{c}
+c_{1}\\
+c_{2}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}c_{1}=\varepsilon_{1}c_{1}-V_{12}c_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{d}{dt}c_{2}=\varepsilon_{2}c_{2}-V_{21}c_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+SURFACE HOPPING ELECTRODYNAMICS 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Maxwell equations are
+\begin_inset Formula 
+\[
+\frac{\partial\vec{B}}{\partial t}=-\nabla\times\vec{E}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\vec{E}}{\partial t}=c^{2}\nabla\times\vec{B}-\frac{\vec{J}}{\epsilon_{0}}
+\]
+
+\end_inset
+
+Schrodinger equation of quantum mechanical sub-system is
+\begin_inset Formula 
+\[
+i\hbar\frac{\mathrm{d}}{\mathrm{d}t}\left|\Psi\left(t\right)\right\rangle =\left(\widehat{H}_{s}-\int d\vec{r}\vec{E}\left(\vec{r},t\right)\cdot\widehat{\vec{P}}\left(\vec{r}\right)\right)\left|\Psi\left(t\right)\right\rangle 
+\]
+
+\end_inset
+
+Let the eigenvalues and eigenvectors of the sub-system be labeled by 
+\begin_inset Formula $\left|\mathrm{j}\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\langle\vec{r}|\mathrm{j}\rangle=\phi_{\mathrm{j}}\left(\vec{r}\right)$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\widehat{H}_{s}\left|\mathrm{j}\right\rangle =\varepsilon_{\mathrm{j}}\left|\mathrm{j}\right\rangle 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+i\hbar\frac{\mathrm{d}}{\mathrm{d}t}c_{\mathrm{j}}\left(t\right)=\varepsilon_{\mathrm{j}}c_{\mathrm{j}}\left(t\right)-\sum_{\mathrm{k}}\int d\vec{r}\vec{E}\left(\vec{r},t\right)\cdot\vec{P}_{\mathrm{jk}}\left(\vec{r}\right)c_{\mathrm{k}}\left(t\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\vec{P}_{\mathrm{jk}}\left(\vec{r}\right)=\left\langle \mathrm{j}\right|\widehat{\vec{P}}\left(\vec{r}\right)\left|\mathrm{k}\right\rangle =q\vec{r}\phi_{\mathrm{j}}^{*}\left(\vec{r}\right)\phi_{\mathrm{k}}\left(\vec{r}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For surface hopping dynamics, we define an active state 
+\begin_inset Formula $\mathrm{a}$
+\end_inset
+
+ and the current is zero.
+ Therefore, 
+\begin_inset Formula $\vec{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{B}$
+\end_inset
+
+ are freely propagate.
+ 
+\end_layout
+
+\begin_layout Standard
+The energy conservation is given by
+\begin_inset Formula 
+\[
+U\left(t\right)=\int d\vec{r}\left[\frac{\epsilon_{0}}{2}\left|\vec{E}\left(\vec{r},t\right)\right|^{2}+\frac{1}{2\mu_{0}}\left|\vec{B}\left(\vec{r},t\right)\right|^{2}\right]+\varepsilon_{\mathrm{a}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{d}{dt}U\left(t\right)=\int d\vec{r}\left[\epsilon_{0}\vec{E}\cdot\left(c^{2}\nabla\times\vec{B}-\frac{\vec{J}}{\epsilon_{0}}\right)-\frac{1}{\mu_{0}}\vec{B}\cdot\nabla\times\vec{E}\right]+\frac{d\varepsilon_{\mathrm{a}}}{dt}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+0=dt\int d\vec{r}\left[\epsilon_{0}\vec{E}\cdot\left(c^{2}\nabla\times\vec{B}-\frac{\vec{J}}{\epsilon_{0}}\right)-\frac{1}{\mu_{0}}\vec{B}\cdot\nabla\times\vec{E}\right]+d\varepsilon_{\mathrm{a}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+dt\int d\vec{r}\vec{E}\cdot\vec{J}-d\varepsilon_{\mathrm{a}}=dt\frac{1}{\mu_{0}}\int d\vec{r}\left[\vec{E}\cdot\nabla\times\vec{B}-\vec{B}\cdot\nabla\times\vec{E}\right]
+\]
+
+\end_inset
+
+since free propagation:
+\end_layout
+
+\begin_layout Standard
+if 
+\begin_inset Formula $d\varepsilon_{\mathrm{a}}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{J}=0$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{E}\cdot\nabla\times\vec{B}-\vec{B}\cdot\nabla\times\vec{E}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+if hopping 
+\begin_inset Formula $d\varepsilon_{\mathrm{a}}=\varepsilon_{\mathrm{a^{\prime}}}-\varepsilon_{\mathrm{a}}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\varepsilon_{\mathrm{a^{\prime}}}-\varepsilon_{\mathrm{a}}=dt\int d\vec{r}\vec{E}\cdot\vec{J}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{B}\left(t+dt\right)-\vec{B}\left(t\right)=-dt\nabla\times\vec{E}\left(t\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{E}\left(t+dt\right)-\vec{E}\left(t\right)=dtc^{2}\nabla\times\vec{B}\left(t\right)-dt\frac{\vec{J}}{\epsilon_{0}}
+\]
+
+\end_inset
+
+Assume 
+\begin_inset Formula $\vec{J}\left(\vec{r}\right)=J_{h}\vec{\xi}\left(r\right)$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\frac{\varepsilon_{\mathrm{a^{\prime}}}-\varepsilon_{\mathrm{a}}}{\int d\vec{r}\vec{E}\cdot\vec{\xi}}=dtJ_{h}
+\]
+
+\end_inset
+
+so that 
+\begin_inset Formula 
+\[
+dt\frac{\vec{J}}{\epsilon_{0}}=\frac{\varepsilon_{\mathrm{a^{\prime}}}-\varepsilon_{\mathrm{a}}}{\epsilon_{0}\int d\vec{r}\vec{E}\cdot\vec{\xi}}\vec{\xi}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Define the total electronic semiclassical Hamiltonian:
+\end_layout
+
+\begin_layout Standard
+What is the current in each PES?
+\end_layout
+
+\begin_layout Standard
+In Heisenburg:
+\begin_inset Formula 
+\[
+\left[H,P\right]=\left(\begin{array}{cc}
+\omega_{1} & \Delta\\
+\Delta & \omega_{2}
+\end{array}\right)\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right)-\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right)\left(\begin{array}{cc}
+\omega_{1} & \Delta\\
+\Delta & \omega_{2}
+\end{array}\right)=\left(\begin{array}{cc}
+\Delta & \omega_{1}\\
+\omega_{2} & \Delta
+\end{array}\right)-\left(\begin{array}{cc}
+\Delta & \omega_{2}\\
+\omega_{1} & \Delta
+\end{array}\right)=\left(\begin{array}{cc}
+0 & \omega_{1}-\omega_{2}\\
+\omega_{2}-\omega_{1} & 0
+\end{array}\right)
+\]
+
+\end_inset
+
+In Schrodinger:
+\begin_inset Formula 
+\[
+\vec{J}=\frac{d}{dt}\text{Tr}\left\{ \hat{\rho}\hat{\vec{P}}\left(\vec{r}\right)\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

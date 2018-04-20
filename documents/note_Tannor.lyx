@@ -1,0 +1,880 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\options aps,reprint,onecolumn
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Subsection
+Resonance Raman Spectroscopy in 1D
+\end_layout
+
+\begin_layout Subsection
+Resonance Raman Spectroscopy by Time-depdenet Perturbation Theory
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ref: Tannor's QM in TD persective: chap 14
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\omega_{I}$
+\end_inset
+
+ : incident light frequency
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\omega_{S}:$
+\end_inset
+
+ scattering light frequency
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\rho,\lambda$
+\end_inset
+
+: 
+\begin_inset Formula $x$
+\end_inset
+
+, 
+\begin_inset Formula $y$
+\end_inset
+
+, 
+\begin_inset Formula $z$
+\end_inset
+
+ components of the vector 
+\begin_inset Formula $\vec{\mu}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k$
+\end_inset
+
+: electonic states
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $n$
+\end_inset
+
+: vibrational states within a particular electronic states
+\end_layout
+
+\begin_layout Standard
+The Krammers-Heisenberg-Driac (KHD) formula for Raman scattering cross section:
+ (energy domain)
+\begin_inset Formula 
+\[
+\sigma_{fi}\left(\omega_{I}\right)=\frac{8\pi\omega_{I}\omega_{S}^{3}}{9c^{4}}\sum_{\rho,\lambda}\left|\left[\alpha_{fi}\left(\omega_{I}\right)\right]_{\rho\lambda}\right|^{2}
+\]
+
+\end_inset
+
+where the polarizability is given by (sum-over-states)
+\begin_inset Formula 
+\[
+\left[\alpha_{fi}\left(\omega_{I}\right)\right]_{\rho\lambda}=-\sum_{k}\sum_{n}\left[\frac{\left\langle \psi_{f}\right|\mu_{ik,\rho}\left|\psi_{k,n}\right\rangle \left\langle \psi_{k,n}\right|\mu_{ki,\lambda}\left|\psi_{i}\right\rangle }{\varepsilon_{i}+\hbar\omega_{I}-\varepsilon_{kn}+i\hbar\gamma}+\frac{\left\langle \psi_{f}\right|\mu_{ik,\lambda}\left|\psi_{k,n}\right\rangle \left\langle \psi_{n}\right|\mu_{ki,\rho}\left|\psi_{i}\right\rangle }{\varepsilon_{i}-\hbar\omega_{S}-\varepsilon_{kn}+i\hbar\gamma}\right].
+\]
+
+\end_inset
+
+We deinfe the the absorption spectrum as the ratio of number of photons
+ absorbed at each frequency to the number of incident photons per unit area
+ at that frequency.
+\end_layout
+
+\begin_layout Subsubsection
+Derive the in
+\end_layout
+
+\begin_layout Standard
+We now turn to the time-domain formulation of one-photon and two-photon
+ spectroscopies.
+ Consider a CW field given by 
+\begin_inset Formula $\vec{E}=\vec{E}_{0}\cos\left(\omega_{0}t\right)$
+\end_inset
+
+, and use rotating wave approximation (RWA):
+\begin_inset Formula 
+\[
+H_{I}\left(t\right)=\begin{cases}
+-\frac{1}{2}\widehat{\vec{\mu}}\cdot\vec{E}_{I}e^{-i\omega_{I}t} & \text{absorption}\\
+-\frac{1}{2}\vec{\mu}\cdot\vec{E}_{S}e^{i\omega_{S}t} & \text{emission }
+\end{cases}
+\]
+
+\end_inset
+
+By second order time-dependent perturbation theory, the wavefunction after
+ two interaction can be written as 
+\begin_inset Formula 
+\[
+\left|\psi^{\left(2\right)}\left(t\right)\right\rangle =-\frac{1}{4\hbar^{2}}\int_{-\infty}^{t}dt_{2}\int_{-\infty}^{t_{2}}dt_{1}e^{-\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{S}e^{i\omega_{S}t_{2}}\right\} e^{-\frac{i}{\hbar}H_{b}\left(t_{2}-t_{1}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{I}e^{-i\omega_{I}t_{1}}\right\} e^{-\frac{i}{\hbar}H_{i}t_{1}}\left|\psi\left(-\infty\right)\right\rangle .
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Assume that 
+\begin_inset Formula $\left|\psi\left(-\infty\right)\right\rangle $
+\end_inset
+
+ is an eigenstate of 
+\begin_inset Formula $H_{i}$
+\end_inset
+
+, so that 
+\begin_inset Formula 
+\[
+e^{-\frac{i}{\hbar}H_{i}t_{1}}\left|\psi\left(-\infty\right)\right\rangle =e^{-i\omega_{i}t_{1}}\left|\psi\left(-\infty\right)\right\rangle \equiv e^{-i\omega_{i}t_{1}}\left|\psi_{i}\right\rangle .
+\]
+
+\end_inset
+
+Then 
+\begin_inset Formula 
+\[
+\left|\psi^{\left(2\right)}\left(t\right)\right\rangle =-\frac{1}{4\hbar^{2}}\int_{-\infty}^{t}dt_{2}\int_{-\infty}^{t_{2}}dt_{1}e^{-\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{S}e^{i\omega_{S}t_{2}}\right\} e^{-\frac{i}{\hbar}H_{b}\left(t_{2}-t_{1}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{I}e^{-i\left(\omega_{I}+\omega_{i}\right)t_{1}}\right\} \left|\psi_{i}\right\rangle .
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Use first order wavefunction: 
+\begin_inset Formula $\omega_{I}+\omega_{i}=\widetilde{\omega}_{I}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\left|\psi^{\left(1\right)}\left(t_{2}\right)\right\rangle  & = & \frac{i}{2\hbar}\int_{-\infty}^{t_{2}}dt_{1}e^{-\frac{i}{\hbar}H_{b}\left(t_{2}-t_{1}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{I}e^{-i\widetilde{\omega}_{I}t_{1}}\right\} \left|\psi_{i}\right\rangle .\\
+ & = & \frac{i}{2\hbar}e^{-i\widetilde{\omega}_{I}t_{2}}\int_{-\infty}^{t_{2}}dt_{1}e^{-\frac{i}{\hbar}H_{b}\left(t_{2}-t_{1}\right)}\vec{\mu}\cdot\vec{E}_{I}e^{i\widetilde{\omega}_{I}\left(t_{2}-t_{1}\right)}\left|\psi_{i}\right\rangle \\
+ & = & \frac{i}{2\hbar}e^{-i\widetilde{\omega}_{I}t_{2}}\int_{0}^{\infty}d\tau e^{-\frac{i}{\hbar}H_{b}\tau}\vec{\mu}\cdot\vec{E}_{I}e^{i\widetilde{\omega}_{I}\tau}\left|\psi_{i}\right\rangle \\
+ & = & \frac{iE_{I}}{2\hbar}e^{-i\widetilde{\omega}_{I}t_{2}}\left|R_{\widetilde{\omega}_{I}}\right\rangle 
+\end{eqnarray*}
+
+\end_inset
+
+where we define the Raman wavefunction (Heller, 1982) that does not depend
+ on time:
+\begin_inset Formula 
+\[
+\left|R_{\widetilde{\omega}_{I}}\right\rangle =\int_{0}^{\infty}d\tau e^{-\frac{i}{\hbar}H_{b}\tau}\vec{\mu}\hat{E}_{I}e^{i\widetilde{\omega}_{I}\tau}\left|\psi_{i}\right\rangle 
+\]
+
+\end_inset
+
+Then
+\begin_inset Formula 
+\begin{eqnarray*}
+\left|\psi^{\left(2\right)}\left(t\right)\right\rangle  & = & \frac{i}{2\hbar}\int_{-\infty}^{t}dt_{2}e^{-\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{S}e^{i\omega_{S}t_{2}}\right\} \left|\psi^{\left(1\right)}\left(t_{2}\right)\right\rangle \\
+ & = & -\frac{1}{4\hbar^{2}}\int_{-\infty}^{t}dt_{2}e^{-\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\left\{ \vec{\mu}\cdot\vec{E}_{S}e^{i\omega_{S}t_{2}}\right\} E_{I}e^{-i\widetilde{\omega}_{I}t_{2}}\left|R_{\widetilde{\omega}_{I}}\right\rangle \\
+ & = & -\frac{E_{S}E_{I}}{4\hbar^{2}}e^{-\frac{i}{\hbar}H_{a}t}\int_{-\infty}^{t}dt_{2}e^{\frac{i}{\hbar}H_{a}t_{2}}\vec{\mu}\cdot\hat{E}_{S}e^{i\left(\omega_{S}-\widetilde{\omega}_{I}\right)t_{2}}\left|R_{\widetilde{\omega}_{I}}\right\rangle 
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Compute 
+\begin_inset Formula $\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2}=\left\langle \psi^{\left(2\right)}\left(t\right)\left|\psi^{\left(2\right)}\left(t\right)\right\rangle \right.$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2}=\frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}\int_{-\infty}^{t}dt_{2}^{\prime}\int_{-\infty}^{t}dt_{2}e^{-i\left(\omega_{S}-\widetilde{\omega}_{I}\right)\left(t_{2}^{\prime}-t_{2}\right)}\left\langle R_{\widetilde{\omega}_{I}}\right|\vec{\mu}\cdot\hat{E}_{S}e^{-\frac{i}{\hbar}H_{a}\left(t_{2}^{\prime}-t_{2}\right)}\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle 
+\]
+
+\end_inset
+
+Then the flux is (
+\begin_inset Formula $\widetilde{\omega}_{S}=\omega_{S}-\widetilde{\omega}_{I}$
+\end_inset
+
+)
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}t}\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2}=\frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}\int_{-\infty}^{\infty}dt_{2}e^{i\widetilde{\omega}_{S}t_{2}}\left\langle R_{\widetilde{\omega}_{I}}\right|\vec{\mu}\cdot\hat{E}_{S}e^{-\frac{i}{\hbar}H_{a}t_{2}}\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Insert eigenstates resolution: 
+\begin_inset Formula $I=\sum_{f}\left|\psi_{f}\right\rangle \left\langle \psi_{f}\right|$
+\end_inset
+
+ and 
+\begin_inset Formula $H_{a}\left|\psi_{f}\right\rangle =\hbar\omega_{f}\left|\psi_{f}\right\rangle $
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}}{\mathrm{d}t}\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2} & = & \frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}\sum_{f}\int_{-\infty}^{\infty}dt_{2}e^{i\widetilde{\omega}_{S}t_{2}}\left\langle R_{\widetilde{\omega}_{I}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|\psi_{f}\right\rangle \left\langle \psi_{f}\right|e^{-\frac{i}{\hbar}H_{a}t_{2}}\left|\psi_{f}\right\rangle \left\langle \psi_{f}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \\
+ & = & \frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}\sum_{f}\int_{-\infty}^{\infty}dt_{2}e^{i\left(\widetilde{\omega}_{S}-\omega_{f}\right)t_{2}}\left\langle R_{\widetilde{\omega}_{I}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|\psi_{f}\right\rangle \left\langle \psi_{f}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \\
+ & = & \frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}\sum_{f}\int_{-\infty}^{\infty}dt_{2}e^{i\left(\widetilde{\omega}_{S}-\omega_{f}\right)t_{2}}\left\Vert \left\langle \psi_{f}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}
+\end{eqnarray*}
+
+\end_inset
+
+Carry out the integral and give delta function
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}t}\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2}=\frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}\sum_{f}2\pi\delta\left(\widetilde{\omega}_{S}-\omega_{f}\right)\left\Vert \left\langle \psi_{f}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To put spontaneous emission into we need to:
+\end_layout
+
+\begin_layout Enumerate
+Take DOS of photon into account
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $\left|\psi_{f}\right\rangle $
+\end_inset
+
+ is a dressed state 
+\begin_inset Formula $\left|\psi_{f}\right\rangle =\left|g\nu\right\rangle +\left|k\right\rangle $
+\end_inset
+
+: 
+\begin_inset Formula 
+\[
+\sum_{f}=\sum_{k}\rightarrow\int k^{n-1}dk\int d\Omega^{n}\left(\frac{L}{2\pi}\right)^{n}=\begin{cases}
+\frac{L^{3}}{2\pi^{2}}\int k^{2}dk & n=3\\
+\frac{L^{2}}{2\pi}\int kdk & n=2\\
+\frac{L}{2\pi}\int dk & n=1
+\end{cases}.
+\]
+
+\end_inset
+
+By 
+\begin_inset Formula $\varepsilon=\hbar\omega=\hbar ck$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int\rho_{nD}\left(\varepsilon\right)d\varepsilon=\int\varepsilon^{n-1}d\varepsilon\int d\Omega^{n}\left(\frac{L}{2\pi\hbar c}\right)^{n}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\rho_{nD}\left(\varepsilon\right)=\varepsilon^{n-1}d\Omega^{n}\left(\frac{L}{2\pi\hbar c}\right)^{n}=\begin{cases}
+\frac{1}{2\pi^{2}}\left(\frac{L}{\hbar c}\right)^{3}\varepsilon^{2} & n=3\\
+\frac{1}{2\pi}\left(\frac{L}{\hbar c}\right)^{2}\varepsilon & n=2\\
+\frac{1}{2\pi}\left(\frac{L}{\hbar c}\right) & n=1
+\end{cases}
+\]
+
+\end_inset
+
+Then
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}}{\mathrm{d}t}\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2} & = & \frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{4}}2\pi\int\rho_{nD}\left(\varepsilon\right)d\varepsilon\delta\left(\widetilde{\omega}_{S}-\frac{\varepsilon}{\hbar}\right)\left\Vert \left\langle \psi_{\varepsilon}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}\\
+ & = & \frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{3}}2\pi\rho_{nD}\left(\hbar\widetilde{\omega}_{S}\right)\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Suitable choice of 
+\begin_inset Formula $E_{S}$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Consider the average energy
+\begin_inset Formula 
+\[
+U=\int dr^{n}\left(\frac{\epsilon_{0}}{2}E^{2}+\frac{1}{2\mu_{0}}B^{2}\right)
+\]
+
+\end_inset
+
+and RWA: 
+\begin_inset Formula 
+\[
+\vec{E}_{S}\left(t\right)=\frac{1}{2}\vec{E}_{S}e^{i\omega_{S}t}\rightarrow\vec{E}_{S}\left(t\right)=\vec{E}_{S}\cos\left(\omega_{S}t\right)=\frac{1}{2}\vec{E}_{S}e^{i\omega_{S}t}+\frac{1}{2}\vec{E}_{S}e^{-i\omega_{S}t}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left|\vec{E}_{S}\left(t\right)\right|^{2}=\frac{E_{S}^{2}}{2}\left(1+\cos\left(2\omega_{S}t\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Taking the average over space gives 
+\begin_inset Formula 
+\[
+E^{2}=\frac{E_{S}^{2}}{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+U=\xi L^{n}\frac{E_{S}^{2}}{2}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\xi=1$
+\end_inset
+
+ or 
+\begin_inset Formula $\xi=1/4\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Use Einstein relation: 
+\begin_inset Formula $U=N_{\text{photon}}\hbar\omega$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+U=\xi L^{n}\frac{E_{S}^{2}}{2}=N_{S}\hbar\omega_{S}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+N_{S}=\frac{\xi L^{n}E_{S}^{2}}{2\hbar\omega_{S}}\ \text{and}\ N_{I}=\frac{\xi L^{n}E_{I}^{2}}{2\hbar\omega_{I}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Take 
+\begin_inset Formula $N_{S}=1$
+\end_inset
+
+ for spontaneous emission
+\begin_inset Formula 
+\[
+1=\frac{\xi L^{n}E_{S}^{2}}{2\hbar\omega_{S}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+E_{S}^{2}=\frac{2\hbar\omega_{S}}{\xi L^{n}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}}{\mathrm{d}t}\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2} & = & \frac{E_{S}^{2}E_{I}^{2}}{16\hbar^{3}}2\pi\rho_{nD}\left(\hbar\widetilde{\omega}_{S}\right)\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}\\
+ & = & \frac{E_{I}^{2}}{16\hbar^{3}}\frac{2\hbar\omega_{S}}{\xi L^{n}}2\pi\rho_{nD}\left(\hbar\widetilde{\omega}_{S}\right)\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Now, let's look at cross section:
+\begin_inset Formula 
+\[
+d\sigma_{1D}\left(\omega_{I}\right)=\frac{\text{number of photon scattered per unit time}}{\text{number of incident photon per unit time}}\rightarrow\text{unitless}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+d\sigma_{3D}\left(\omega_{I},\Omega\right)=\frac{\text{number of photon scattered per unit time}}{\text{number of incident photon per unit area per unit time}}\rightarrow\text{area}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\text{number of photon scattered per unit time=\frac{\mathrm{d}}{\mathrm{d}t}\left\Vert \psi^{\left(2\right)}\left(t\right)\right\Vert ^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\text{number of incident photon per unit time (1D)} & = & \frac{N_{I}c}{L}\\
+\text{number of incident photon per unit area per unit time (3D)} & = & \frac{N_{I}c}{L^{3}}\\
+ & = & \frac{N_{I}c}{L^{n}}=\frac{\xi E_{I}^{2}c}{2\hbar\omega_{I}}
+\end{eqnarray*}
+
+\end_inset
+
+Therefore,
+\begin_inset Formula 
+\begin{eqnarray*}
+d\sigma_{nD}\left(\omega_{I}\right) & = & \frac{\frac{E_{I}^{2}}{16\hbar^{3}}\frac{2\hbar\omega_{S}}{\xi L^{n}}2\pi\rho_{nD}\left(\hbar\widetilde{\omega}_{S}\right)\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}}{\frac{\xi E_{I}^{2}c}{2\hbar\omega_{I}}}\\
+ & = & \frac{1}{4\hbar}\frac{\omega_{S}\omega_{I}}{c\xi^{2}L^{n}}2\pi\rho_{nD}\left(\hbar\widetilde{\omega}_{S}\right)\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}
+\end{eqnarray*}
+
+\end_inset
+
+Use the DOS
+\begin_inset Formula 
+\[
+\rho_{nD}\left(\varepsilon\right)=\varepsilon^{n-1}d\Omega^{n}\left(\frac{L}{2\pi\hbar c}\right)^{n}
+\]
+
+\end_inset
+
+and define the polarizability
+\begin_inset Formula 
+\[
+\text{\alpha}_{fi}\left(\omega_{I}\right)=\frac{i}{\hbar}\left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle 
+\]
+
+\end_inset
+
+then we have 
+\begin_inset Formula 
+\begin{eqnarray*}
+d\sigma_{nD}\left(\omega_{I}\right) & = & \frac{1}{4\hbar}\frac{\omega_{S}\omega_{I}}{c\xi^{2}L^{n}}2\pi\left(\hbar\omega_{S}\right)^{n-1}d\Omega^{n}\left(\frac{L}{2\pi\hbar c}\right)^{n}\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}\\
+ & = & \frac{1}{4\hbar^{2}}\frac{\omega_{S}^{n}\omega_{I}}{c\xi^{2}}2\pi d\Omega^{n}\frac{1}{\left(2\pi\right)^{n}c^{n}}\left\Vert \left\langle \psi_{\widetilde{\omega}_{S}}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle \right\Vert ^{2}\\
+ & = & \frac{1}{4}\frac{\omega_{S}^{n}\omega_{I}}{\xi^{2}}\frac{d\Omega^{n}}{\left(2\pi\right)^{n-1}c^{n+1}}\left\Vert \text{\alpha}_{fi}\left(\omega_{I}\right)\right\Vert ^{2}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+For 3D 
+\begin_inset Formula 
+\[
+d\sigma_{3D}\left(\omega_{I}\right)=\frac{1}{4}\frac{\omega_{S}^{3}\omega_{I}}{\xi^{2}}\frac{d\Omega^{3}}{\left(2\pi\right)^{2}c^{4}}\left\Vert \text{\alpha}_{fi}\left(\omega_{I}\right)\right\Vert ^{2}
+\]
+
+\end_inset
+
+In Tannor's book
+\begin_inset Formula 
+\[
+\xi=1/4\pi
+\]
+
+\end_inset
+
+then we can get Eq.
+\begin_inset space ~
+\end_inset
+
+(14.64-65)
+\begin_inset Formula 
+\[
+d\sigma_{3D}\left(\omega_{I}\right)=\frac{\omega_{S}^{3}\omega_{I}}{c^{4}}d\Omega\left\Vert \text{\alpha}_{fi}\left(\omega_{I}\right)\right\Vert ^{2}
+\]
+
+\end_inset
+
+Then 
+\begin_inset Quotes eld
+\end_inset
+
+Averaging over all molecular orientations, summing over all incident and
+ scattered polarizations, and integrating over an solid angle gives 
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sigma_{3D}\left(\omega_{I}\right)=\frac{8\pi}{9}\frac{\omega_{S}^{3}\omega_{I}}{c^{4}}\sum_{x,y,z}\left\Vert \text{\ensuremath{\alpha}}_{fi}\left(\omega_{I}\right)\right\Vert ^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+For 1D 
+\begin_inset Formula 
+\[
+\sigma_{1D}\left(\omega_{I}\right)=\frac{\omega_{S}\omega_{I}}{4\xi^{2}c^{2}}\left\Vert \text{\alpha}_{fi}\left(\omega_{I}\right)\right\Vert ^{2}
+\]
+
+\end_inset
+
+There is a factor of 
+\begin_inset Formula $4$
+\end_inset
+
+ discrepancy that can be fixed by saying 
+\begin_inset Formula $\xi=2$
+\end_inset
+
+...
+\end_layout
+
+\begin_layout Standard
+Let's say our calculation gives me:
+\begin_inset Formula 
+\[
+E_{Eh}\left(t\right)=A_{0}e^{i\omega_{0}t}+A_{1}e^{i\omega_{1}t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The cross section is also obtained by the scattering signal intensity 
+\begin_inset Formula 
+\begin{eqnarray*}
+\sigma_{f\leftarrow i}\left(\omega_{I},\omega_{S}\right) & = & \frac{\frac{N_{S}c}{L}}{\frac{N_{I}c}{L}}=\frac{\frac{\xi LE_{S}^{2}}{2\hbar\omega_{S}}\frac{c}{L}}{\frac{\xi LE_{I}^{2}}{2\hbar\omega_{I}}\frac{c}{L}}\\
+ & = & \frac{\frac{E_{S}^{2}}{\omega_{S}}}{\frac{E_{I}^{2}}{\omega_{I}}}\\
+ & = & \frac{I_{S}\omega_{I}}{I_{I}\omega_{S}}
+\end{eqnarray*}
+
+\end_inset
+
+For a given incident frequency 
+\begin_inset Formula $\omega_{I}$
+\end_inset
+
+, the intensity ratio of two modes (
+\begin_inset Formula $S_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $S_{2}$
+\end_inset
+
+) in resonant Raman spectra can be obtained by
+\begin_inset Formula 
+\[
+\frac{\frac{I_{S_{1}}\omega_{I}}{I_{I}\omega_{S_{1}}}}{\frac{I_{S_{2}}\omega_{I}}{I_{I}\omega_{S_{2}}}}=\frac{\frac{\omega_{I}\omega_{S_{1}}}{4\pi c^{2}}}{\frac{\omega_{I}\omega_{S_{2}}}{4\pi c^{2}}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{I_{S_{1}}}{I_{S_{2}}}=\frac{\omega_{S_{1}}^{2}}{\omega_{S_{2}}^{2}}
+\]
+
+\end_inset
+
+Also 
+\begin_inset Formula 
+\[
+I_{S}=\frac{c\epsilon_{0}}{2}E_{S}^{2}
+\]
+
+\end_inset
+
+then we have the ratio
+\begin_inset Formula 
+\[
+\frac{E_{S_{1}}}{E_{S_{2}}}=\frac{\omega_{S_{1}}}{\omega_{S_{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula 
+\[
+\alpha_{fi}\left(\omega_{I}\right)=\frac{i}{\hbar}\int_{0}^{\infty}d\tau\left\langle \psi_{f}\right|\mu_{S}e^{-\frac{i}{\hbar}H_{b}\tau}\mu_{I}e^{i\left(\omega_{I}+\omega_{i}\right)\tau}\left|\psi_{i}\right\rangle 
+\]
+
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\left\langle \psi^{\left(2\right)}\left(t\right)\left|\psi^{\left(2\right)}\left(t\right)\right\rangle \right.=\frac{1}{16\hbar^{4}}\int_{-\infty}^{t}dt_{2}^{\prime}\left\langle R_{\omega_{I}}\right|e^{-i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)t_{2}^{\prime}}\vec{\mu}\cdot\vec{E}_{S}e^{\frac{i}{\hbar}H_{a}\left(t-t_{2}^{\prime}\right)}\int_{-\infty}^{t}dt_{2}e^{-\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\vec{\mu}\cdot\vec{E}_{S}e^{i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)t_{2}}\left|R_{\omega_{I}}\right\rangle 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}}{\mathrm{d}t}\left\langle \psi^{\left(2\right)}\left(t\right)\left|\psi^{\left(2\right)}\left(t\right)\right\rangle \right. & = & \frac{1}{16\hbar^{4}}\left\{ \left\langle R_{\omega_{I}}\right|\vec{\mu}\cdot\vec{E}_{S}\int_{-\infty}^{t}dt_{2}e^{-\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\vec{\mu}\cdot\vec{E}_{S}e^{-i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)\left(t-t_{2}\right)}\left|R_{\omega_{I}}\right\rangle \right.\\
+ &  & \qquad\qquad\left.+\int_{-\infty}^{t}dt_{2}\left\langle R_{\omega_{I}}\right|\vec{\mu}\cdot\vec{E}_{S}e^{\frac{i}{\hbar}H_{a}\left(t-t_{2}\right)}\vec{\mu}\cdot\vec{E}_{S}e^{i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)\left(t-t_{2}\right)}\left|R_{\omega_{I}}\right\rangle \right\} \\
+ & = & \frac{1}{16\hbar^{4}}\left\{ \left\langle R_{\omega_{I}}\right|\int_{0}^{\infty}d\tau\vec{\mu}\cdot\vec{E}_{S}e^{-\frac{i}{\hbar}H_{a}\tau}\vec{\mu}\cdot\vec{E}_{S}e^{-i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)\tau}\left|R_{\omega_{I}}\right\rangle \right.\\
+ &  & \qquad\qquad\left.+\int_{0}^{\infty}d\tau\left\langle R_{\omega_{I}}\right|\vec{\mu}\cdot\vec{E}_{S}e^{\frac{i}{\hbar}H_{a}\tau}\vec{\mu}\cdot\vec{E}_{S}e^{i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)\tau}\left|R_{\omega_{I}}\right\rangle \right\} \\
+ & = & \frac{1}{16\hbar^{4}}\int_{-\infty}^{\infty}d\tau\left\langle R_{\omega_{I}}\right|\vec{\mu}\cdot\vec{E}_{S}e^{-\frac{i}{\hbar}H_{a}\tau}\vec{\mu}\cdot\vec{E}_{S}e^{-i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)\tau}\left|R_{\omega_{I}}\right\rangle \\
+ & = & \frac{1}{16\hbar^{4}}\int_{-\infty}^{\infty}d\tau\left\langle \tilde{R}_{\omega_{I}}\right|e^{-\frac{i}{\hbar}H_{a}\tau}\left|\tilde{R}_{\omega_{I}}\right\rangle e^{-i\left(\omega_{S}-\omega_{I}-\omega_{i}\right)\tau}
+\end{eqnarray*}
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+\left|\tilde{R}_{\omega_{I}}\right\rangle =\vec{\mu}\cdot\vec{E}_{S}\left|R_{\omega_{I}}\right\rangle =\int_{0}^{\infty}d\tau\vec{\mu}\cdot\vec{E}_{S}e^{-\frac{i}{\hbar}H_{b}\tau}\vec{\mu}\cdot\vec{E}_{I}e^{i\left(\omega_{I}+\omega_{i}\right)\tau}\left|\psi_{i}\right\rangle .
+\]
+
+\end_inset
+
+Now we insert the complete set of final states: 
+\begin_inset Formula $\sum_{f}\left|\psi_{f}\right\rangle \left\langle \psi_{f}\right|$
+\end_inset
+
+ and 
+\begin_inset Formula $H_{a}\left|\psi_{f}\right\rangle =\hbar\omega_{f}\left|\psi_{f}\right\rangle $
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}}{\mathrm{d}t}\left\langle \psi^{\left(2\right)}\left(t\right)\right.\left|\psi^{\left(2\right)}\left(t\right)\right\rangle  & = & \frac{1}{16\hbar^{4}}\sum_{f}\int_{-\infty}^{\infty}d\tau\left.\left\langle \tilde{R}_{\omega_{I}}\right|\psi_{f}\right\rangle \left\langle \psi_{f}\left|\tilde{R}_{\omega_{I}}\right\rangle \right.e^{-i\left(\omega_{f}+\omega_{S}-\omega_{I}-\omega_{i}\right)\tau}\\
+ & = & \frac{2\pi}{16\hbar^{4}}\sum_{f}\left|\left\langle \psi_{f}\left|\tilde{R}_{\omega_{I}}\right\rangle \right.\right|^{2}\delta\left(\omega_{f}+\omega_{S}-\omega_{I}-\omega_{i}\right)
+\end{eqnarray*}
+
+\end_inset
+
+Let 
+\begin_inset Formula 
+\[
+\vec{\mu}\cdot\vec{E}_{I}=\left|E_{I}\right|\vec{\mu}\cdot\hat{E}_{I}=\left|E_{I}\right|\mu_{I}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\vec{\mu}\cdot\vec{E}_{S}=\left|E_{S}\right|\vec{\mu}\cdot\hat{E}_{S}=\left|E_{S}\right|\mu_{S}
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula $\vec{\mu}\cdot\vec{E}_{I}=\left|E_{I}\right|\vec{\mu}\cdot\hat{E}_{I}$
+\end_inset
+
+, so that 
+\begin_inset Formula 
+\[
+\left\langle \psi_{f}\left|\tilde{R}_{\omega_{I}}\right\rangle \right.=\left|E_{S}\right|\left|E_{I}\right|\int_{0}^{\infty}d\tau\left\langle \psi_{f}\right|\mu_{S}e^{-\frac{i}{\hbar}H_{b}\tau}\mu_{I}e^{i\left(\omega_{I}+\omega_{i}\right)\tau}\left|\psi_{i}\right\rangle 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left\langle \psi_{f}\left|\tilde{R}_{\omega_{I}}\right\rangle \right.=\left|E_{S}\right|\left|E_{I}\right|\frac{\hbar}{i}\alpha_{fi}\left(\omega_{I}\right)
+\]
+
+\end_inset
+
+and we can define the freqency dependent polarizability
+\begin_inset Formula 
+\[
+\alpha_{fi}\left(\omega_{I}\right)=\frac{i}{\hbar}\int_{0}^{\infty}d\tau\left\langle \psi_{f}\right|\mu_{S}e^{-\frac{i}{\hbar}H_{b}\tau}\mu_{I}e^{i\left(\omega_{I}+\omega_{i}\right)\tau}\left|\psi_{i}\right\rangle 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}t}\left\langle \psi^{\left(2\right)}\left(t\right)\right.\left|\psi^{\left(2\right)}\left(t\right)\right\rangle =\frac{2\pi\left|E_{S}\right|^{2}\left|E_{I}\right|^{2}}{16\hbar^{2}}\sum_{f}\left|\alpha_{fi}\left(\omega_{I}\right)\right|^{2}\delta\left(\omega_{f}+\omega_{S}-\omega_{I}-\omega_{i}\right)
+\]
+
+\end_inset
+
+peak at 
+\begin_inset Formula 
+\[
+\omega_{f}=-\omega_{S}+\omega_{I}+\omega_{i}
+\]
+
+\end_inset
+
+the density of states of the radiation field enters by writing
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Define the freqency dependent polarizability
+\begin_inset Formula 
+\[
+\alpha_{fi}\left(\omega_{I}\right)=\frac{i}{\hbar}\left\langle \psi_{f}\right|\vec{\mu}\cdot\hat{E}_{S}\left|R_{\widetilde{\omega}_{I}}\right\rangle 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

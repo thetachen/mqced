@@ -1,0 +1,1431 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\options aps,reprint,onecolumn
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+In this note, we use the mixed quantum-classical Liouville equation (QCLE)
+ to account for the coupled evolution of the quantum subsystem and electromagner
+ic field.[Kapral, J.
+ Chem.
+ Phys.
+ 110, 8919 (1999)] With the QCLE formalism, we try to derive the Ehrenfest+R
+ method formallly.
+ 
+\end_layout
+
+\begin_layout Subsection
+Quantum-Classical Liouville Equation
+\end_layout
+
+\begin_layout Subsubsection
+Full Quantum Hamiltonian
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Good references to derive semiclassical approximation:
+\end_layout
+
+\begin_layout Itemize
+S.
+ Mukamel, 
+\emph on
+Principles of nonlinear optical spectroscopy
+\emph default
+, Chap.
+ 4
+\end_layout
+
+\begin_layout Itemize
+C.
+ Cohen-Tonnoudji, 
+\emph on
+Introduction to Quantum Electrodynamics
+\emph default
+, Chap.
+ III-IV
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We consider the total Hamiltonian of an electronic system in quantized electroma
+gnetic field given by (after Power-Zienau-Woolley transformation) [cf.
+ Cohen-Tonnoudji, IV.C.3 P.
+ 291]
+\begin_inset Formula 
+\[
+\widehat{H}\left(\widehat{\boldsymbol{D}},\widehat{\boldsymbol{A}}\right)=\widehat{H}_{s}+\int d\boldsymbol{r}\left\{ \frac{1}{2\epsilon_{0}}\widehat{\boldsymbol{D}}^{2}+\frac{1}{2\mu_{0}}\left(\nabla\times\widehat{\boldsymbol{A}}\right)^{2}\right\} +\frac{1}{2\epsilon_{0}}\int d\boldsymbol{r}\widehat{\boldsymbol{P}}^{2}-\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\widehat{\boldsymbol{D}}\widehat{\boldsymbol{P}}
+\]
+
+\end_inset
+
+where spatical functions: 
+\begin_inset Formula $\widehat{\boldsymbol{D}}=\widehat{\boldsymbol{D}}\left(\boldsymbol{r}\right)$
+\end_inset
+
+ is the transverse displacement operator and 
+\begin_inset Formula $\widehat{\boldsymbol{A}}=\widehat{\boldsymbol{A}}\left(\boldsymbol{r}\right)$
+\end_inset
+
+ is the magentc vector field operator.
+ 
+\begin_inset Formula $\widehat{H}_{s}$
+\end_inset
+
+ is the electronic system Hamiltonian and 
+\begin_inset Formula $\widehat{\boldsymbol{P}}=\widehat{\boldsymbol{P}}\left(\boldsymbol{r}\right)$
+\end_inset
+
+ is the polarization distribution operator of the system.
+ The displacement is the conjugated momentum of the vector potential within
+ the Hmailtonian.
+ The displacement 
+\begin_inset Formula $\widehat{\boldsymbol{D}}$
+\end_inset
+
+ is the conjugated momentum of the vector potential 
+\begin_inset Formula $\widehat{\boldsymbol{A}}$
+\end_inset
+
+.
+ Note that we only consider the transverse field here.
+ The bold letter represent a spatial vector.
+\end_layout
+
+\begin_layout Standard
+For convenience, we define a product of two spatial function as
+\begin_inset Formula 
+\[
+\boldsymbol{A}\circ\boldsymbol{B}=\sum_{i}\int d\boldsymbol{r}\boldsymbol{A}_{i}\left(\boldsymbol{r}\right)\boldsymbol{B}_{i}\left(\boldsymbol{r}\right).
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boldsymbol{A}^{\circ2}=\sum_{i}\int d\boldsymbol{r}\boldsymbol{A}_{i}\left(\boldsymbol{r}\right)\boldsymbol{A}_{i}\left(\boldsymbol{r}\right).
+\]
+
+\end_inset
+
+Then the Hamiltonian then become
+\begin_inset Formula 
+\[
+\widehat{H}\left(\widehat{\boldsymbol{D}},\widehat{\boldsymbol{A}}\right)=\widehat{H}_{s}+\frac{1}{2\epsilon_{0}}\widehat{\boldsymbol{D}}^{\circ2}+\frac{1}{2\mu_{0}}\left(\nabla\times\widehat{\boldsymbol{A}}\right)^{\circ2}+\frac{1}{2\epsilon_{0}}\widehat{\boldsymbol{P}}^{\circ2}-\frac{1}{\epsilon_{0}}\widehat{\boldsymbol{D}}\circ\widehat{\boldsymbol{P}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Other common physical operators of the EM field are defined as following.
+ The electric field 
+\begin_inset Formula 
+\[
+\widehat{\boldsymbol{E}}=\frac{1}{\epsilon_{0}}\left(\widehat{\boldsymbol{D}}-\widehat{\boldsymbol{P}}\right),
+\]
+
+\end_inset
+
+and the magnetic field is 
+\begin_inset Formula 
+\[
+\widehat{\boldsymbol{B}}=\nabla\times\widehat{\boldsymbol{A}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Partial Wignerize Liouville equation
+\end_layout
+
+\begin_layout Standard
+The evolution of density operator 
+\begin_inset Formula $\widehat{\rho}\left(t\right)$
+\end_inset
+
+ of the total system is governed by quantum Liouville equation
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H},\widehat{\rho}\left(t\right)\right].
+\]
+
+\end_inset
+
+Since we are interested in the limit where the radiation degrees of freedom
+ can be treated classically, we perform a partial Wigner transformation
+ with respect to the displacement 
+\begin_inset Formula $\boldsymbol{D}$
+\end_inset
+
+ and retain the system degrees of freedom as operators.
+ We denote 
+\begin_inset Formula $\left|\boldsymbol{D}\right\rangle $
+\end_inset
+
+ as quantum state within Wigner phase space.
+ The partial Wigner transform are defined as 
+\begin_inset Formula 
+\[
+\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)=\int d\boldsymbol{z}e^{i\boldsymbol{D}\cdot\boldsymbol{z}/\hbar}\left\langle \boldsymbol{A}-\frac{\boldsymbol{z}}{2}\right|\widehat{\rho}\left(t\right)\left|\boldsymbol{A}+\frac{\boldsymbol{z}}{2}\right\rangle .
+\]
+
+\end_inset
+
+Taking the partial Wigner transform of the Liouville equation, we can get
+ 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)=-\frac{i}{\hbar}\left[\widehat{H}_{W}\left(\boldsymbol{D},\boldsymbol{A}\right)e^{\hbar\overleftrightarrow{\Lambda}/2i}\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)-\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)e^{\hbar\overleftrightarrow{\Lambda}/2i}\widehat{H}_{W}\left(\boldsymbol{D},\boldsymbol{A}\right)\right]
+\]
+
+\end_inset
+
+where the partial Wigner transformed Hamiltonian is then given as a functional
+ of 
+\begin_inset Formula $\boldsymbol{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{A}$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\widehat{H}_{W}\left[\boldsymbol{D},\boldsymbol{A}\right]=\widehat{H}_{s}+\frac{1}{2\epsilon_{0}}\boldsymbol{D}^{\circ2}+\frac{1}{2\mu_{0}}\left(\nabla\times\boldsymbol{A}\right)^{\circ2}+\frac{1}{\epsilon_{0}}\widehat{\boldsymbol{P}}^{\circ2}-\frac{1}{\epsilon_{0}}\boldsymbol{D}\circ\widehat{\boldsymbol{P}}.
+\]
+
+\end_inset
+
+and the Poisson bracket super-operator is defined as 
+\begin_inset Formula 
+\[
+\overleftrightarrow{\Lambda}=\overleftarrow{\frac{\delta}{\delta\boldsymbol{D}}}\circ\overrightarrow{\frac{\delta}{\delta\boldsymbol{A}}}-\overleftarrow{\frac{\delta}{\delta\boldsymbol{A}}}\circ\overrightarrow{\frac{\delta}{\delta\boldsymbol{D}}},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\frac{\delta}{\delta\boldsymbol{A}}$
+\end_inset
+
+ denote functional derivative.
+ Note that the polarization distribution remains an operator of the system.
+\end_layout
+
+\begin_layout Standard
+In practice, we consider the equation of motion to linear terms 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}=-\frac{i}{\hbar}\left[\widehat{H}_{W},\widehat{\rho}_{W}\right]+\frac{1}{2}\left\{ \widehat{H}_{W}\overleftrightarrow{\Lambda}\widehat{\rho}_{W}-\widehat{\rho}_{W}\overleftrightarrow{\Lambda}\widehat{H}_{W}\right\} .
+\]
+
+\end_inset
+
+Explicitly, the Quantum-Classical Liouville equation (QCLE) turns out 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}=-\frac{i}{\hbar}\left[\widehat{H}_{W},\widehat{\rho}_{W}\right]+\frac{1}{2}\left\{ \frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{D}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{A}}-\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{A}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}-\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}\circ\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{A}}+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{A}}\circ\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{D}}\right\} 
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}=-\frac{i}{\hbar}\left[\widehat{H}_{W},\widehat{\rho}_{W}\right]+\frac{1}{2}\left\{ \text{(a)}-\text{(b)}-\text{(c)}+\text{(d)}\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Functional Derivatives:
+\end_layout
+
+\begin_layout Standard
+The functional derivative of 
+\begin_inset Formula $F\left[f\right]$
+\end_inset
+
+ is defined by 
+\begin_inset Formula 
+\[
+\int d\boldsymbol{r}\frac{\delta F}{\delta\boldsymbol{f}}\left(\boldsymbol{r}\right)\boldsymbol{\phi}\left(\boldsymbol{r}\right)=\lim_{\varepsilon\rightarrow0}\frac{F\left[\boldsymbol{f}+\varepsilon\boldsymbol{\phi}\right]-F\left[\boldsymbol{f}\right]}{\varepsilon}
+\]
+
+\end_inset
+
+where where 
+\begin_inset Formula $\phi$
+\end_inset
+
+ is an arbitrary function.
+\begin_inset Formula 
+\[
+\widehat{H}_{W}\left[\boldsymbol{D},\boldsymbol{A}\right]=\widehat{H}_{s}+\int d\boldsymbol{r}\left\{ \frac{1}{2\epsilon_{0}}\boldsymbol{D}^{2}+\frac{1}{2\mu_{0}}\left(\nabla\times\boldsymbol{A}\right)^{2}\right\} +\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\widehat{\boldsymbol{P}}^{2}-\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\boldsymbol{D}\cdot\widehat{\boldsymbol{P}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We need the following derivative from 
+\begin_inset Formula $\widehat{H}_{W}\left[\boldsymbol{D},\boldsymbol{A}\right]$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\delta}{\delta\boldsymbol{D}}\int d\boldsymbol{r}\frac{1}{2\epsilon_{0}}\boldsymbol{D}^{2}=\frac{1}{\epsilon_{0}}\boldsymbol{D}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{\delta}{\delta\boldsymbol{D}}\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\boldsymbol{D}\cdot\widehat{\boldsymbol{P}}=\frac{1}{\epsilon_{0}}\widehat{\boldsymbol{P}}
+\]
+
+\end_inset
+
+For a functional 
+\begin_inset Formula $G[\boldsymbol{A}]=\nabla\times\boldsymbol{A}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{eqnarray*}
+\int d\boldsymbol{r}\frac{\delta\nabla\times\boldsymbol{A}}{\delta\boldsymbol{A}}\left(\boldsymbol{r}\right)\boldsymbol{\phi}\left(\boldsymbol{r}\right) & = & \lim_{\varepsilon\rightarrow0}\frac{\nabla\times\left(\boldsymbol{A}+\varepsilon\boldsymbol{\phi}\right)-\nabla\times\boldsymbol{A}}{\varepsilon}\\
+\frac{\delta\nabla\times\boldsymbol{A}}{\delta\boldsymbol{A}}\circ\boldsymbol{\phi} & = & \nabla\times\boldsymbol{\phi}
+\end{eqnarray*}
+
+\end_inset
+
+For 
+\begin_inset Formula $F[G[\boldsymbol{A}]]=\frac{1}{2\mu_{0}}\int d\boldsymbol{r}\left(\nabla\times\boldsymbol{A}\right)^{2}$
+\end_inset
+
+ and we can use chain rule:
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\delta F[G[\boldsymbol{A}]]}{\delta\boldsymbol{A}\left(\boldsymbol{r}\right)} & = & \int d\boldsymbol{r}^{\prime}\left.\frac{\delta F[G]]}{\delta G\left(\boldsymbol{r}^{\prime}\right)}\right|_{G[\boldsymbol{A}]}\left.\frac{\delta G\left(\boldsymbol{r}^{\prime}\right)}{\delta\boldsymbol{A}\left(\boldsymbol{r}\right)}\right|\\
+\frac{\delta}{\delta\boldsymbol{A}}\frac{1}{2\mu_{0}}\int d\boldsymbol{r}\left(\nabla\times\boldsymbol{A}\right)^{2} & = & \frac{1}{2\mu_{0}}\int d\boldsymbol{r}^{\prime}2\nabla\times\boldsymbol{A}\left(\boldsymbol{r}^{\prime}\right)\frac{\delta\nabla\times\boldsymbol{A}}{\delta\boldsymbol{A}}\left(\boldsymbol{r}^{\prime}\right)\\
+ & = & \frac{1}{\mu_{0}}\nabla\times\left(\nabla\times\boldsymbol{A}\right)
+\end{eqnarray*}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\left.\frac{\delta F[G]]}{\delta G\left(\boldsymbol{r}^{\prime}\right)}\right|=2\nabla\times\boldsymbol{A}\left(\boldsymbol{r}^{\prime}\right)
+\]
+
+\end_inset
+
+Therefore, we can have
+\begin_inset Formula 
+\[
+\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{A}}=\frac{\delta}{\delta\boldsymbol{A}}\int d\boldsymbol{r}\frac{1}{2\mu_{0}}\left(\nabla\times\boldsymbol{A}\right)^{2}=\frac{1}{\mu_{0}}\nabla\times\left(\nabla\times\boldsymbol{A}\right)=\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{D}}=\frac{\delta}{\delta\boldsymbol{D}}\int d\boldsymbol{r}\frac{1}{2\epsilon_{0}}\boldsymbol{D}^{2}-\frac{1}{\epsilon_{0}}\frac{\delta}{\delta\boldsymbol{D}}\int d\boldsymbol{r}\boldsymbol{D}\cdot\widehat{\boldsymbol{P}}=\frac{1}{\epsilon_{0}}\left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{A}}=\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\frac{\delta\boldsymbol{B}}{\delta\boldsymbol{A}}=\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\frac{\delta\nabla\times\boldsymbol{A}}{\delta\boldsymbol{A}}
+\]
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}=\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{E}}\frac{\delta\boldsymbol{E}}{\delta\boldsymbol{D}}=\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{E}}\frac{1}{\epsilon_{0}}\frac{\delta\boldsymbol{D}-\boldsymbol{\overline{P}}}{\delta\boldsymbol{D}}=\frac{1}{\epsilon_{0}}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{E}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+so that 
+\begin_inset Formula 
+\[
+\text{(a)}=\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{D}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{A}}=\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\frac{\delta\nabla\times\boldsymbol{A}}{\delta\boldsymbol{A}}=\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\nabla\times\left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}=\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}-\frac{1}{\epsilon_{0}}\nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\text{(b)}=\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{A}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}=\frac{1}{\mu_{0}}\int d\boldsymbol{r}\nabla\times\boldsymbol{B}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}=\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\text{(c)}=\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}\circ\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{A}}=\frac{1}{\mu_{0}}\int d\boldsymbol{r}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}\nabla\times\boldsymbol{B}=\frac{1}{\mu_{0}}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}\circ\nabla\times\boldsymbol{B}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\text{(d)}=\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{A}}\circ\frac{\delta\widehat{H}_{W}}{\delta\boldsymbol{D}}=\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\frac{\delta\nabla\times\boldsymbol{A}}{\delta\boldsymbol{A}}\left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)=\frac{1}{\epsilon_{0}}\int d\boldsymbol{r}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\nabla\times\left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)=\frac{1}{\epsilon_{0}}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\boldsymbol{D}-\frac{1}{\epsilon_{0}}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\text{(a)}-\text{(b)}-\text{(c)}+\text{(d)}=-\frac{2}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}+\frac{2}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}-\frac{1}{\epsilon_{0}}\nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}-\frac{1}{\epsilon_{0}}\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finally, we derive the equation of motion for parital Wigner transform density
+ operator 
+\begin_inset Formula $\widehat{\rho}_{W}=\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{B},t\right)$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\boxed{\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]\\
+ & -\frac{i}{\hbar}\left[\frac{\widehat{\boldsymbol{P}}^{\circ2}}{2\epsilon_{0}},\widehat{\rho}_{W}\right]+\frac{i}{\hbar}\left[\frac{\boldsymbol{D}\circ\widehat{\boldsymbol{P}}}{\epsilon_{0}},\widehat{\rho}_{W}\right]\\
+ & -\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}+\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\\
+ & -\frac{1}{2\epsilon_{0}}\left\{ \nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}\right\} 
+\end{split}
+}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can use the identity
+\begin_inset Formula 
+\[
+\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]=\widehat{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]+\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\widehat{\boldsymbol{P}}
+\]
+
+\end_inset
+
+and rewrite the commutator in the form of
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{1}{2\epsilon_{0}}\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]-\frac{1}{\epsilon_{0}}\left[\boldsymbol{D}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right] & = & \frac{1}{2\epsilon_{0}}\widehat{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]+\frac{1}{2\epsilon_{0}}\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\widehat{\boldsymbol{P}}-\frac{1}{\epsilon_{0}}\left[\boldsymbol{D}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\\
+ & = & \frac{1}{2\epsilon_{0}}\widehat{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]+\frac{1}{2\epsilon_{0}}\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\widehat{\boldsymbol{P}}-\frac{1}{2\epsilon_{0}}\boldsymbol{D}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]-\frac{1}{2\epsilon_{0}}\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\boldsymbol{D}\\
+ & = & -\frac{1}{2\epsilon_{0}}\left\{ \left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]+\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\left(\boldsymbol{D}-\widehat{\boldsymbol{P}}\right)\right\} \\
+ & = & -\frac{1}{2}\left\{ \widehat{\boldsymbol{E}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]+\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\widehat{\boldsymbol{E}}\right\} 
+\end{eqnarray*}
+
+\end_inset
+
+where the electric field operator.
+ 
+\begin_inset Formula $\widehat{\boldsymbol{E}}$
+\end_inset
+
+ operator is defined as 
+\begin_inset Formula 
+\[
+\widehat{\boldsymbol{E}}=\frac{\boldsymbol{D}-\widehat{\boldsymbol{P}}}{\epsilon_{0}}.
+\]
+
+\end_inset
+
+Note that the 
+\begin_inset Formula $\widehat{\boldsymbol{E}}=\widehat{\boldsymbol{E}}\left(\boldsymbol{r}\right)$
+\end_inset
+
+ is still an system operator in phase space.
+ Finally, we have 
+\begin_inset Formula 
+\begin{equation}
+\boxed{\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]\\
+ & +\frac{i}{2\hbar}\left\{ \widehat{\boldsymbol{E}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]+\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\circ\widehat{\boldsymbol{E}}\right\} \\
+ & -\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}+\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\\
+ & -\frac{1}{2\epsilon_{0}}\left\{ \nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}\right\} 
+\end{split}
+}
+\end{equation}
+
+\end_inset
+
+This gives the direction of rescaling: 
+\begin_inset Formula $\nabla\times\boldsymbol{P}$
+\end_inset
+
+ for 
+\begin_inset Formula $\boldsymbol{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Mean Field Approximation
+\end_layout
+
+\begin_layout Standard
+Now we implement the Mean-field approximation (MFA) by letting the averaged
+ polarization for the EM field
+\begin_inset Formula 
+\[
+\widehat{\boldsymbol{P}}\rightarrow\text{Tr}_{s}\left\{ \widehat{\rho}_{W}\widehat{\boldsymbol{P}}\right\} \equiv\overline{\boldsymbol{P}}
+\]
+
+\end_inset
+
+but still keep it as an operator for the system.
+ This approximation also means
+\begin_inset Formula 
+\[
+\widehat{\boldsymbol{E}}\rightarrow\frac{1}{\epsilon_{0}}\left(\boldsymbol{D}-\overline{\boldsymbol{P}}\right)\equiv\overline{\boldsymbol{E}}
+\]
+
+\end_inset
+
+So the QCLE become:
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial}{\partial t}\widehat{\rho}_{W} & = & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]+\frac{i}{\hbar}\overline{\boldsymbol{E}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]\\
+ &  & -\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}+\nabla\times\overline{\boldsymbol{E}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}
+\end{eqnarray*}
+
+\end_inset
+
+Compare it the continuity equation of 
+\begin_inset Formula $\widehat{\rho}_{W}=\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)=\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{B},t\right)$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}=-\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}\circ\frac{\partial\boldsymbol{D}}{\partial t}-\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\frac{\partial\boldsymbol{B}}{\partial t}
+\]
+
+\end_inset
+
+ we derive Maxwell's equation
+\begin_inset Formula 
+\[
+\frac{\partial\boldsymbol{B}}{\partial t}=-\nabla\times\overline{\boldsymbol{E}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\boldsymbol{D}}{\partial t}=\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B} & \rightarrow & \frac{\partial\epsilon_{0}\overline{\boldsymbol{E}}+\overline{\boldsymbol{P}}}{\partial t}=\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\\
+ & \rightarrow & \frac{\partial\overline{\boldsymbol{E}}}{\partial t}+\frac{1}{\epsilon_{0}}\frac{\partial\overline{\boldsymbol{P}}}{\partial t}=\frac{1}{\epsilon_{0}\mu_{0}}\nabla\times\boldsymbol{B}\\
+ & \rightarrow & \frac{\partial\overline{\boldsymbol{E}}}{\partial t}=c^{2}\nabla\times\boldsymbol{B}-\frac{1}{\epsilon_{0}}\overline{\boldsymbol{J}}
+\end{eqnarray*}
+
+\end_inset
+
+where the averaged current
+\begin_inset Formula 
+\[
+\overline{\boldsymbol{J}}=\frac{\partial\overline{\boldsymbol{P}}}{\partial t}
+\]
+
+\end_inset
+
+Also, we have the equation of motion for the density matrix of the system
+ at a given phase space point
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}=-\frac{i}{\hbar}\left[\widehat{H}_{s}-\overline{\boldsymbol{E}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ehrenfest Dynamics in Phase Space
+\end_layout
+
+\begin_layout Standard
+Ehrenest dynamics provides an anstaz that describe the partial Wignerized
+ density as a swarm of trajectories distributed in phase space that propagate
+ following classical electrodynamics, 
+\begin_inset Formula 
+\[
+\frac{\partial\overline{\boldsymbol{B}}}{\partial t}=-\nabla\times\overline{\boldsymbol{E}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\overline{\boldsymbol{E}}}{\partial t}=c^{2}\nabla\times\overline{\boldsymbol{B}}-\frac{1}{\epsilon_{0}}\overline{\boldsymbol{J}}
+\]
+
+\end_inset
+
+aslong with the electronic density matrix evolving by Liouville equation.
+ 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\sigma}=-\frac{i}{\hbar}\left[\widehat{H}_{s}-\overline{\boldsymbol{E}}\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\right].
+\]
+
+\end_inset
+
+To be clear, we denote the classical field here as the averaged 
+\begin_inset Formula $\overline{\boldsymbol{E}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\overline{\boldsymbol{B}}$
+\end_inset
+
+, which indicate that the feedback from the electronic system is 
+\end_layout
+
+\begin_layout Subsubsection
+Unique pre-image assumption
+\end_layout
+
+\begin_layout Standard
+The joint electron–radiation probability density for the Ehrenfest dynamics
+ is defined as
+\begin_inset Formula 
+\[
+\widehat{\rho}_{Eh}\left(\boldsymbol{E},\boldsymbol{B},t\right)=\int d\boldsymbol{E}_{0}\int d\boldsymbol{B}_{0}\delta\left(\boldsymbol{E}\left(t;\boldsymbol{E}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}\right)-\boldsymbol{E}\right)\delta\left(\boldsymbol{B}\left(t;\boldsymbol{E}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}\right)-\boldsymbol{b}\right)\times\widehat{\sigma}\left(t;\boldsymbol{E}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}\right)
+\]
+
+\end_inset
+
+ We assume that each point in phase 
+\begin_inset Formula $\left(\boldsymbol{E},\boldsymbol{B}\right)$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ has a unique electroinc density matrix 
+\begin_inset Formula $\widehat{\sigma}_{0}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+.
+ We define at time 
+\begin_inset Formula $t$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\boldsymbol{f}\left(\boldsymbol{E},\boldsymbol{B},t\right)=\text{Tr}\left\{ \widehat{\rho}_{W}\left(\boldsymbol{E},\boldsymbol{B},t\right)\right\} 
+\]
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\[
+\widehat{\sigma}\left(\boldsymbol{E},\boldsymbol{B},t\right)=\widehat{\rho}_{Eh}\left(\boldsymbol{E},\boldsymbol{B},t\right)/\boldsymbol{f}\left(\boldsymbol{E},\boldsymbol{B},t\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\widehat{\rho}_{Eh}$
+\end_inset
+
+ is the Ehrenfest density matrix.
+ The pre-image trajectory assumption ensure that 
+\begin_inset Formula $\widehat{\sigma}\left(\boldsymbol{E},\boldsymbol{B},t\right)$
+\end_inset
+
+ is the 
+\emph on
+only
+\emph default
+ density matrix associated with the phase space point 
+\begin_inset Formula $\left(\boldsymbol{E},\boldsymbol{B}\right)$
+\end_inset
+
+ and following Eq.
+\begin_inset space ~
+\end_inset
+
+().
+ Now we want to construct the equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{Eh}=\widehat{\sigma}\boldsymbol{f}$
+\end_inset
+
+ by partial derivative
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{Eh}=\frac{\partial\widehat{\sigma}}{\partial t}\boldsymbol{f}+\widehat{\sigma}\frac{\partial\boldsymbol{f}}{\partial t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+partial derivatives
+\end_layout
+
+\begin_layout Standard
+The partial derivative of 
+\begin_inset Formula $\frac{\partial\widehat{\sigma}}{\partial t}$
+\end_inset
+
+ can be obtained by 
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}\widehat{\sigma}}{\mathrm{d}t} & = & \frac{\partial\widehat{\sigma}}{\partial t}+\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{E}}\frac{\partial\boldsymbol{E}}{\partial t}+\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{B}}\frac{\partial\boldsymbol{B}}{\partial t}\\
+-\frac{i}{\hbar}\left[\widehat{H}_{s}-\boldsymbol{E}\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\right] & = & \frac{\partial\widehat{\sigma}}{\partial t}+\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{E}}\left(c^{2}\nabla\times\boldsymbol{B}-\frac{1}{\epsilon_{0}}\boldsymbol{J}\right)-\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{B}}\nabla\times\boldsymbol{E}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\widehat{\sigma}}{\partial t}=-\frac{i}{\hbar}\left[\widehat{H}_{s}-\boldsymbol{E}\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\right]-c^{2}\nabla\times\boldsymbol{B}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{E}}+\frac{1}{\epsilon_{0}}\boldsymbol{J}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{E}}+\nabla\times\boldsymbol{E}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{B}}
+\]
+
+\end_inset
+
+The partial derivative of 
+\begin_inset Formula $\frac{\partial\boldsymbol{f}}{\partial t}$
+\end_inset
+
+ can be obtained by the continuity equation 
+\begin_inset Formula 
+\[
+\frac{\partial\boldsymbol{f}}{\partial t}+\frac{\delta}{\delta\boldsymbol{E}}\left(\boldsymbol{f}\frac{\partial\boldsymbol{E}}{\partial t}\right)+\frac{\delta}{\delta\boldsymbol{B}}\left(\boldsymbol{f}\frac{\partial\boldsymbol{B}}{\partial t}\right)=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\boldsymbol{f}}{\partial t} & = & -\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{E}}\frac{\partial\boldsymbol{E}}{\partial t}-\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{B}}\frac{\partial\boldsymbol{B}}{\partial t}\\
+ & = & -\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{E}}\left(c^{2}\nabla\times\boldsymbol{B}-\frac{1}{\epsilon_{0}}\boldsymbol{J}\right)+\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{B}}\nabla\times\boldsymbol{E}\\
+ & = & -c^{2}\nabla\times\boldsymbol{B}\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{E}}+\frac{1}{\epsilon_{0}}\boldsymbol{J}\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{E}}+\nabla\times\boldsymbol{E}\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{B}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial}{\partial t}\widehat{\rho}_{Eh} & = & -\frac{i}{\hbar}\left[\widehat{H}_{s}-\boldsymbol{E}\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\boldsymbol{f}\right]-c^{2}\nabla\times\boldsymbol{B}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{E}}\boldsymbol{f}+\frac{1}{\epsilon_{0}}\boldsymbol{J}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{E}}\boldsymbol{f}+\nabla\times\boldsymbol{E}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{B}}\boldsymbol{f}\\
+ &  & -c^{2}\nabla\times\boldsymbol{B}\widehat{\sigma}\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{E}}+\frac{1}{\epsilon_{0}}\boldsymbol{J}\widehat{\sigma}\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{E}}+\nabla\times\boldsymbol{E}\widehat{\sigma}\frac{\delta\boldsymbol{f}}{\delta\boldsymbol{B}}\\
+ & = & -\frac{i}{\hbar}\left[\widehat{H}_{s}-\boldsymbol{E}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]-c^{2}\nabla\times\boldsymbol{B}\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{E}}+\frac{1}{\epsilon_{0}}\boldsymbol{J}\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{E}}+\nabla\times\boldsymbol{E}\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{B}}
+\end{eqnarray*}
+
+\end_inset
+
+By 
+\begin_inset Formula $\boldsymbol{J}=\frac{d\boldsymbol{P}}{dt}$
+\end_inset
+
+ we can write the eqution of motion as 
+\begin_inset Formula 
+\begin{equation}
+\boxed{\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{Eh}= & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{Eh}\right]\\
+ & +\frac{i}{\hbar}\left[\boldsymbol{E}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]\\
+ & -c^{2}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{E}}+\frac{1}{\epsilon_{0}}\frac{d\overline{\boldsymbol{P}}}{dt}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{E}}\\
+ & +\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{B}}-\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{P}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{B}}
+\end{split}
+}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ehrenfest dynamics in 
+\begin_inset Formula $\boldsymbol{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ehrenest dynamics provides an anstaz that describe the partial Wignerized
+ density as a swarm of trajectories distributed in phase space that propagate
+ following classical electrodynamics,
+\begin_inset Formula 
+\[
+\frac{\partial\bar{\boldsymbol{B}}}{\partial t}=-\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{D}}+\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{P}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\bar{\boldsymbol{D}}}{\partial t}=\frac{1}{\mu_{0}}\nabla\times\bar{\boldsymbol{P}}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+\bar{\boldsymbol{P}}=\text{Tr}_{s}\left\{ \widehat{\rho}_{W}\widehat{\boldsymbol{P}}\right\} .
+\]
+
+\end_inset
+
+The 
+\begin_inset Quotes eld
+\end_inset
+
+Ehrenfest
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $\bar{\boldsymbol{D}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\boldsymbol{B}}$
+\end_inset
+
+ gives us a time-dependent trajectory in phase space: 
+\begin_inset Formula $\bar{\boldsymbol{D}}\left(t\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{\boldsymbol{B}}\left(t\right)$
+\end_inset
+
+ starting from a point in phase space 
+\begin_inset Formula $\boldsymbol{D}_{0},\boldsymbol{B}_{0}$
+\end_inset
+
+.
+ Along the trajectory, the electronic density matrix evolving by Liouville
+ equation.
+ 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\sigma}=-\frac{i}{\hbar}\left[\widehat{H}_{s}-\frac{1}{\epsilon_{0}}\left(\bar{\boldsymbol{D}}-\bar{\boldsymbol{P}}\right)\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\right].
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Unique pre-image assumption
+\end_layout
+
+\begin_layout Standard
+Given the initial condition: 
+\begin_inset Formula $\boldsymbol{D}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}$
+\end_inset
+
+ , the joint electron–radiation probability density for the Ehrenfest dynamics
+ is defined as
+\begin_inset Formula 
+\[
+\widehat{\rho}_{Eh}\left(\boldsymbol{D},\boldsymbol{B},t\right)=\int d\boldsymbol{D}_{0}\int d\boldsymbol{B}_{0}\delta\left(\bar{\boldsymbol{D}}\left(t;\boldsymbol{D}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}\right)-\boldsymbol{D}\right)\delta\left(\bar{\boldsymbol{B}}\left(t;\boldsymbol{E}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}\right)-\boldsymbol{B}\right)\times\widehat{\sigma}\left(t;\boldsymbol{D}_{0},\boldsymbol{B}_{0},\widehat{\sigma}_{0}\right)
+\]
+
+\end_inset
+
+We assume that each point in phase 
+\begin_inset Formula $\left(\boldsymbol{D},\boldsymbol{B}\right)$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ has a unique electroinc density matrix 
+\begin_inset Formula $\widehat{\sigma}_{0}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+.
+ We define at time 
+\begin_inset Formula $t$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\boldsymbol{f}\left(\boldsymbol{D},\boldsymbol{B},t\right)=\text{Tr}\left\{ \widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{B},t\right)\right\} 
+\]
+
+\end_inset
+
+and the reduced density is 
+\begin_inset Formula 
+\[
+\widehat{\sigma}\left(\boldsymbol{D},\boldsymbol{B},t\right)=\widehat{\rho}_{Eh}\left(\boldsymbol{D},\boldsymbol{B},t\right)/\boldsymbol{f}\left(\boldsymbol{E},\boldsymbol{B},t\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\widehat{\rho}_{Eh}$
+\end_inset
+
+ is the Ehrenfest density matrix.
+ The pre-image trajectory assumption ensure that 
+\begin_inset Formula $\widehat{\sigma}\left(\boldsymbol{D},\boldsymbol{B},t\right)$
+\end_inset
+
+ is the 
+\emph on
+only
+\emph default
+ density matrix associated with the phase space point 
+\begin_inset Formula $\left(\boldsymbol{D},\boldsymbol{B}\right)$
+\end_inset
+
+ and following Eq.
+\begin_inset space ~
+\end_inset
+
+().
+ Now we want to construct the equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{Eh}=\widehat{\sigma}\boldsymbol{f}$
+\end_inset
+
+ by partial derivative
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{Eh}=\frac{\partial\widehat{\sigma}}{\partial t}\boldsymbol{f}+\widehat{\sigma}\frac{\partial\boldsymbol{f}}{\partial t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+partial derivatives
+\end_layout
+
+\begin_layout Standard
+The partial derivative of 
+\begin_inset Formula $\frac{\partial\widehat{\sigma}}{\partial t}$
+\end_inset
+
+ can be obtained by 
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\mathrm{d}\widehat{\sigma}}{\mathrm{d}t} & = & \frac{\partial\widehat{\sigma}}{\partial t}+\frac{\delta\widehat{\sigma}}{\delta\bar{\boldsymbol{D}}}\frac{\partial\bar{\boldsymbol{D}}}{\partial t}+\frac{\delta\widehat{\sigma}}{\delta\bar{\boldsymbol{B}}}\frac{\partial\bar{\boldsymbol{B}}}{\partial t}\\
+-\frac{i}{\hbar}\left[\widehat{H}_{s}-\frac{\bar{\boldsymbol{D}}-\bar{\boldsymbol{P}}}{\epsilon_{0}}\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\right] & = & \frac{\partial\widehat{\sigma}}{\partial t}+\frac{1}{\mu_{0}}\nabla\times\bar{\boldsymbol{B}}\frac{\delta\widehat{\sigma}}{\delta\bar{\boldsymbol{D}}}-\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{D}}\frac{\delta\widehat{\sigma}}{\delta\bar{\boldsymbol{B}}}+\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{P}}\frac{\delta\widehat{\sigma}}{\delta\bar{\boldsymbol{B}}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\partial\widehat{\sigma}}{\partial t}=-\frac{i}{\hbar}\left[\widehat{H}_{s}-\frac{\bar{\boldsymbol{D}}-\bar{\boldsymbol{P}}}{\epsilon_{0}}\circ\widehat{\boldsymbol{P}},\widehat{\sigma}\right]-\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\frac{\delta\widehat{\sigma}}{\delta\overline{\boldsymbol{D}}}+\frac{1}{\epsilon_{0}}\nabla\times\overline{\boldsymbol{D}}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{B}}-\frac{1}{\epsilon_{0}}\nabla\times\overline{\boldsymbol{P}}\frac{\delta\widehat{\sigma}}{\delta\boldsymbol{B}}
+\]
+
+\end_inset
+
+The partial derivative of 
+\begin_inset Formula $\frac{\partial\boldsymbol{f}}{\partial t}$
+\end_inset
+
+ can be obtained by the continuity equation 
+\begin_inset Formula 
+\[
+\frac{\partial\boldsymbol{f}}{\partial t}+\frac{\delta}{\delta\bar{\boldsymbol{D}}}\left(\boldsymbol{f}\frac{\partial\bar{\boldsymbol{D}}}{\partial t}\right)+\frac{\delta}{\delta\bar{\boldsymbol{B}}}\left(\boldsymbol{f}\frac{\partial\bar{\boldsymbol{B}}}{\partial t}\right)=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial\boldsymbol{f}}{\partial t} & = & -\frac{\delta\boldsymbol{f}}{\delta\bar{\boldsymbol{D}}}\frac{\partial\bar{\boldsymbol{D}}}{\partial t}-\frac{\delta\boldsymbol{f}}{\delta\bar{\boldsymbol{B}}}\frac{\partial\bar{\boldsymbol{B}}}{\partial t}\\
+ & = & -\frac{1}{\mu_{0}}\nabla\times\bar{\boldsymbol{B}}\frac{\delta\boldsymbol{f}}{\delta\bar{\boldsymbol{D}}}+\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{B}}\frac{\delta\boldsymbol{f}}{\delta\bar{\boldsymbol{B}}}-\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{P}}\frac{\delta\boldsymbol{f}}{\delta\bar{\boldsymbol{B}}}
+\end{eqnarray*}
+
+\end_inset
+
+So, we can write the eqution of motion by 
+\begin_inset Formula 
+\begin{eqnarray*}
+\frac{\partial}{\partial t}\widehat{\rho}_{Eh} & = & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{Eh}\right]\\
+ &  & +\frac{i}{\hbar\epsilon_{0}}\left[\bar{\boldsymbol{D}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]-\frac{i}{\hbar\epsilon_{0}}\left[\bar{\boldsymbol{P}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]\\
+ &  & -\frac{1}{\mu_{0}}\nabla\times\bar{\boldsymbol{B}}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\boldsymbol{D}}}\\
+ &  & +\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{D}}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\boldsymbol{B}}}-\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\boldsymbol{B}}}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Compare with QCLE
+\end_layout
+
+\begin_layout Enumerate
+Suppose that at time 
+\begin_inset Formula $t$
+\end_inset
+
+ the Ehrenfest and partial Wigner probability densities is identical in
+ the phase space 
+\begin_inset Formula $\widehat{\rho}_{Eh}\left(\boldsymbol{D},\boldsymbol{A},t\right)=\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)$
+\end_inset
+
+.
+ Comparing EOMs gives s
+\end_layout
+
+\begin_layout Standard
+To compare with the equation of motion
+\begin_inset Formula 
+\[
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]\\
+ & +\frac{i}{\hbar\epsilon_{0}}\left[\boldsymbol{D}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]-\frac{i}{2\hbar\epsilon_{0}}\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]\\
+ & -\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}\\
+ & +\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}-\frac{1}{2\epsilon_{0}}\left\{ \nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}\right\} 
+\end{split}
+\]
+
+\end_inset
+
+We assume 
+\begin_inset Formula 
+\[
+\left[\widehat{H}_{s},\widehat{\rho}_{Eh}\right]=\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}-\frac{\partial}{\partial t}\widehat{\rho}_{Eh}= & +\frac{i}{\hbar\epsilon_{0}}\left[\boldsymbol{D}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]-\frac{i}{2\hbar\epsilon_{0}}\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]\\
+ & -\frac{i}{\hbar\epsilon_{0}}\left[\bar{\boldsymbol{D}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]+\frac{i}{\hbar\epsilon_{0}}\left[\bar{\boldsymbol{P}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]\\
+ & -\frac{1}{\mu_{0}}\nabla\times\boldsymbol{B}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{D}}+\frac{1}{\mu_{0}}\nabla\times\bar{\boldsymbol{B}}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\boldsymbol{D}}}\\
+ & +\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{D}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}-\frac{1}{2\epsilon_{0}}\left\{ \nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}\right\} \\
+ & -\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{D}}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\boldsymbol{B}}}+\frac{1}{\epsilon_{0}}\nabla\times\bar{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\boldsymbol{B}}}
+\end{split}
+\]
+
+\end_inset
+
+The diverging part gives different informations:
+\end_layout
+
+\begin_layout Standard
+Consider energy conservation, 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\left\langle \widehat{H}\right\rangle =\frac{\partial}{\partial t}\int d\boldsymbol{r}\mathrm{Tr}_{s}\left\{ \widehat{\rho}_{W}\widehat{H}_{W}\right\} =0
+\]
+
+\end_inset
+
+since Ehrenfest part aleady conserve energy, we just need to consider the
+ difference:
+\begin_inset Formula 
+\[
+\int d\boldsymbol{r}\mathrm{Tr}_{s}\left\{ \left(\frac{\partial\widehat{\rho}_{W}}{\partial t}-\frac{\partial\widehat{\rho}_{Eh}}{\partial t}\right)\widehat{H}_{W}\right\} =0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+commutators
+\begin_inset Formula 
+\[
++\frac{i}{\hbar\epsilon_{0}}\left[\boldsymbol{D}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{W}\right]-\frac{i}{2\hbar\epsilon_{0}}\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]-\frac{i}{\hbar\epsilon_{0}}\left[\bar{\boldsymbol{D}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]+\frac{i}{\hbar\epsilon_{0}}\left[\bar{\boldsymbol{P}}\circ\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]
+\]
+
+\end_inset
+
+assume 
+\begin_inset Formula $\boldsymbol{D}=\bar{\boldsymbol{D}}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-\frac{i}{2\hbar\epsilon_{0}}\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]+\frac{i}{\hbar\epsilon_{0}}\bar{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]
+\]
+
+\end_inset
+
+For two level system with 
+\begin_inset Formula 
+\[
+\widehat{\boldsymbol{P}}=\boldsymbol{\mu}\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right)
+\]
+
+\end_inset
+
+we can write explicitly that
+\begin_inset Formula 
+\[
+\left[\widehat{\boldsymbol{P}}^{\circ2},\widehat{\rho}_{W}\right]=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\overline{\boldsymbol{P}}=2\boldsymbol{\mu}\text{Re}\rho_{12}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left[\widehat{\boldsymbol{P}},\widehat{\rho}_{Eh}\right]=\boldsymbol{\mu}\left(\begin{array}{cc}
+-i2\text{Im}\rho_{12} & \rho_{22}-\rho_{11}\\
+\rho_{11}-\rho_{22} & i2\text{Im}\rho_{12}
+\end{array}\right)
+\]
+
+\end_inset
+
+so that 
+\begin_inset Formula 
+\[
+\frac{i}{\hbar\epsilon_{0}}\overline{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}\right]=2\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\text{Re}\rho_{12}\left(\begin{array}{cc}
+2\text{Im}\rho_{12} & i\left(\rho_{22}-\rho_{11}\right)\\
+i\left(\rho_{11}-\rho_{22}\right) & -2\text{Im}\rho_{12}
+\end{array}\right)
+\]
+
+\end_inset
+
+given that 
+\begin_inset Formula 
+\[
+\widehat{H}_{s}=\left(\begin{array}{cc}
+E_{1} & 0\\
+0 & E_{2}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{i}{\hbar\epsilon_{0}}\overline{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}\right]\widehat{H}_{s}=2\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\text{Re}\rho_{12}\left(\begin{array}{cc}
+2E_{1}\text{Im}\rho_{12} & iE_{2}\left(\rho_{22}-\rho_{11}\right)\\
+iE_{1}\left(\rho_{11}-\rho_{22}\right) & -2E_{2}\text{Im}\rho_{12}
+\end{array}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{Tr}_{s}\left\{ \frac{i}{\hbar\epsilon_{0}}\overline{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}\right]\widehat{H}_{s}\right\} =4\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\text{Re}\rho_{12}\text{Im}\rho_{12}\left(E_{1}-E_{2}\right)
+\]
+
+\end_inset
+
+Use the weak-coupling approximation 
+\begin_inset Formula $\rho_{01}\approx\left|\rho_{01}\right|e^{i\Omega t}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{Tr}_{s}\left\{ \frac{i}{\hbar\epsilon_{0}}\overline{\boldsymbol{P}}\circ\left[\widehat{\boldsymbol{P}},\widehat{\rho}\right]\widehat{H}_{s}\right\} =4\left(E_{1}-E_{2}\right)\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|^{2}\cos\left(\Omega t\right)\sin\left(\Omega t\right)
+\]
+
+\end_inset
+
+ the correction in 
+\begin_inset Formula $\rho_{22}$
+\end_inset
+
+ should be 
+\begin_inset Formula 
+\[
+d\rho_{22}=-4\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\text{Re}\rho_{12}\text{Im}\rho_{12}dt\approx-4\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|^{2}\cos\left(\Omega t\right)\sin\left(\Omega t\right)dt
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+d\rho_{22}\approx-2\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|^{2}\sin\left(2\Omega t\right)dt
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boxed{d\rho_{22}\propto-\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|^{2}dt}
+\]
+
+\end_inset
+
+unit:
+\begin_inset Formula 
+\[
+\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|^{2}dt=\frac{\epsilon_{0}}{\hbar}\int d\boldsymbol{r}\left(\frac{\boldsymbol{\mu}}{\epsilon_{0}}\right)^{2}\left|\rho_{12}\right|^{2}dt=\frac{[E][L]}{[ET]}[T]=1
+\]
+
+\end_inset
+
+the correction in 
+\begin_inset Formula $\rho_{12}$
+\end_inset
+
+ should be 
+\begin_inset Formula 
+\[
+d\rho_{12}=2i\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\text{Re}\rho_{12}\left(\rho_{22}-\rho_{11}\right)dt\approx2i\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|\cos\omega_{0}t\left(\rho_{22}-\rho_{11}\right)dt
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boxed{d\rho_{12}\propto i\frac{\boldsymbol{\mu}^{\circ2}}{\hbar\epsilon_{0}}\left|\rho_{12}\right|\left(\rho_{22}-\rho_{11}\right)dt}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{E}}$
+\end_inset
+
+ term
+\begin_inset Formula 
+\[
+\frac{1}{\epsilon_{0}}\frac{d\boldsymbol{P}}{dt}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{E}}
+\]
+
+\end_inset
+
+So electric field need to be rescale in direction of 
+\begin_inset Formula 
+\[
+\frac{d\boldsymbol{P}}{dt}=\frac{d\overline{\boldsymbol{P}}}{dt}\propto\overline{\boldsymbol{P}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boxed{\delta\boldsymbol{E}\propto\frac{1}{\epsilon_{0}}\overline{\boldsymbol{P}}dt}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{B}}$
+\end_inset
+
+ term
+\begin_inset Formula 
+\[
+-\frac{1}{2\epsilon_{0}}\left\{ \nabla\times\widehat{\boldsymbol{P}}\circ\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\boldsymbol{B}}\circ\nabla\times\widehat{\boldsymbol{P}}\right\} +\frac{1}{\epsilon_{0}}\nabla\times\boldsymbol{P}\circ\frac{\delta\widehat{\rho}_{Eh}}{\delta\boldsymbol{B}}
+\]
+
+\end_inset
+
+So magnetic field need to be rescale in direction of 
+\begin_inset Formula 
+\[
+\delta\boldsymbol{B}\propto\frac{1}{\epsilon_{0}}\nabla\times\overline{\boldsymbol{P}}dt
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

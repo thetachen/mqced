@@ -1,0 +1,1864 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\options aps,reprint,onecolumn
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 1
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+This note attempt to fomulate the Ehrenfest+R method explicitly.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Change everything to 0-base
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Two-Level System in 1D EM field
+\end_layout
+
+\begin_layout Subsection
+The Setting: Spontaneous Emission
+\end_layout
+
+\begin_layout Standard
+Let's consider a two leve electronic system with energy 
+\begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}$
+\end_inset
+
+ in diabatic basis: 
+\begin_inset Formula $\left\{ \left|0\right\rangle ,\left|1\right\rangle \right\} $
+\end_inset
+
+.
+ The system Hamiltonian is given by
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{s}=\varepsilon_{0}\left|0\right\rangle \left\langle 0\right|+\varepsilon_{1}\left|1\right\rangle \left\langle 1\right|,
+\end{equation}
+
+\end_inset
+
+and the electronic states are only coupled via the dipole–field interaction:
+ 
+\begin_inset Formula 
+\begin{equation}
+\widehat{V}=-\int dr^{3}\widehat{\vec{\mu}}\left(\vec{r}\right)\cdot\vec{E}\left(\vec{r},t\right)
+\end{equation}
+
+\end_inset
+
+where the transition dipole moment opeator can be written as
+\begin_inset Formula 
+\begin{equation}
+\widehat{\vec{\mu}}\left(\vec{r}\right)=\vec{\mu}_{01}\left(\vec{r}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right),
+\end{equation}
+
+\end_inset
+
+where the transition dipole moment is defined as 
+\begin_inset Formula $\vec{\mu}_{01}\left(\vec{r}\right)=\left\langle 0\right|q\widehat{r}\left|1\right\rangle $
+\end_inset
+
+.
+ The electronic Hamiltonian then becomes
+\begin_inset Formula 
+\[
+\widehat{H}^{\mathrm{el}}=\widehat{H}_{s}+\widehat{V}=\varepsilon_{0}\left|0\right\rangle \left\langle 0\right|+\varepsilon_{1}\left|1\right\rangle \left\langle 1\right|-\int\mathrm{d}r^{n}\vec{\mu}_{01}\left(\vec{r}\right)\cdot\vec{E}\left(\vec{r},t\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The initial environment does not have any electromagnetic field presented:
+ 
+\begin_inset Formula $\vec{E}\left(\vec{r},0\right)=\vec{B}\left(\vec{r},0\right)=0$
+\end_inset
+
+.
+ For 1D case, we set the longitudinal direction of the EM field to be 
+\begin_inset Formula $z$
+\end_inset
+
+ direction and the transverse field on the 
+\begin_inset Formula $x,y$
+\end_inset
+
+ plane.
+ We consider the radiation field restricted in one longitudinal direction,
+ say 
+\begin_inset Formula $\hat{z}$
+\end_inset
+
+, so that the transverse field is on the 
+\begin_inset Formula $x,y$
+\end_inset
+
+ plane,
+\begin_inset Formula 
+\begin{equation}
+\vec{E}\left(z\right)=E_{x}\left(z\right)\hat{x}+E_{y}\left(z\right)\hat{y},
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\vec{B}\left(z\right)=B_{x}\left(z\right)\hat{x}+B_{y}\left(z\right)\hat{y},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $\hat{y}$
+\end_inset
+
+ are the unit vectors.
+ Also, the dipole moment can be written as 
+\begin_inset Formula 
+\begin{equation}
+\vec{\mu}_{12}\left(\vec{r}\right)=\mu_{01,x}\left(z\right)\hat{x}+\mu_{01,y}\left(z\right)\hat{y}.
+\end{equation}
+
+\end_inset
+
+By applying Fermi's Golden Rule (FGR), we can derive the decay rate in 1D
+ as
+\begin_inset Formula 
+\begin{equation}
+k_{FGR}=\frac{\varepsilon_{1}-\varepsilon_{0}}{\hbar^{2}\epsilon_{0}c}\left|\vec{\mu}_{01}\left(0\right)\right|^{2}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ehrenfest Dynamics
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+electronic system
+\end_layout
+
+\end_inset
+
+Ehrenfest dynamics treat the radiation field classically and the molecule
+ by quantum mechanics.
+ The molecular density operator is propagated by von Neumann equation of
+ the density matrix 
+\begin_inset Formula $\widehat{\rho}\left(t\right)$
+\end_inset
+
+ given by
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d}t}\widehat{\rho}=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}},\widehat{\rho}\right]\label{eq:vonNeumann-Ehrenfest}
+\end{equation}
+
+\end_inset
+
+Since Ehrenfest dynamics does not include any dephasing or decoherence,
+ we can express the density of state in terms of pure state wavefuction
+ (if the initial state is pure state) 
+\begin_inset Formula $\widehat{\rho}=\left|\psi\right\rangle \left\langle \psi\right|$
+\end_inset
+
+ with 
+\begin_inset Formula $\left|\psi\right\rangle =c_{0}\left|0\right\rangle +c_{1}\left|1\right\rangle $
+\end_inset
+
+.
+ We can then write an equivalent equation of motion for the electronic wavefunct
+ion (Schrodinger equation): 
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d}t}\left|\psi\right\rangle =-\frac{i}{\hbar}\widehat{H}^{\mathrm{el}}\left|\psi\right\rangle \label{eq:Schrodinger-Ehrenfest}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+radiation field
+\end_layout
+
+\end_inset
+
+The time evolution of the radiation field is governed by Maxwell's equation:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vec{B}}{\partial t}=-\vec{\nabla}\times\vec{E}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vec{E}}{\partial t}=c^{2}\vec{\nabla}\times\vec{B}-\frac{\vec{J}}{\epsilon_{0}}.
+\end{equation}
+
+\end_inset
+
+The current density observable in Ehrenfest dynamics is given by averaged
+ over the current operator and obtain:
+\begin_inset Formula 
+\begin{equation}
+\vec{J}\left(\vec{r}\right)=2\left(\varepsilon_{0}-\varepsilon_{1}\right)\mathrm{Im}\left[\rho_{01}\left(t\right)\right]\vec{\mu}_{01}\left(\vec{r}\right).\label{eq:J_12}
+\end{equation}
+
+\end_inset
+
+Ehrenfest dynamics take into account the effect of quantum electronic system
+ toward classical radiation field in a mean–field approximation manner.
+ Note that the averaged current density is proportional to the electronic
+ coherence.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+problems
+\end_layout
+
+\end_inset
+
+Due to the mean–field nature of Ehrenfest dynamics, the method has the following
+ problem:
+\end_layout
+
+\begin_layout Itemize
+If the electronic state is initially in an eigenstate of the 
+\begin_inset Formula $\widehat{H}_{s}$
+\end_inset
+
+ (for example 
+\begin_inset Formula $c_{0}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{1}=1$
+\end_inset
+
+), the averaged current of the system is zero.
+ For stimulated emssion case where 
+\begin_inset Formula $\vec{E}\left(z,0\right)=\vec{B}\left(z,0\right)\neq0$
+\end_inset
+
+, Ehrenfest dynamics may capture correct physics since the dipole-field
+ interaction generate the elcetronic coherernce and leads to stimulated
+ emission.
+ However, for spontaneous emission where the radiation field is absent initallly
+, 
+\begin_inset Formula $\vec{E}\left(z,0\right)=\vec{B}\left(z,0\right)=0$
+\end_inset
+
+, the dipole-field interaction and the mean–field current density are both
+ zero.
+ Ehrenfest dynamics results in no decay in the system and no spontaneous
+ emission observed.
+\end_layout
+
+\begin_layout Itemize
+For a non-trivial superposition state initially (
+\begin_inset Formula $c_{0},c_{1}\neq0$
+\end_inset
+
+), Ehrenfest dynamics can predict qualitatively a decay corresponding to
+ spontaneous emission.
+ Quantitatively, however, the decay rate predict by Ehrenfest dynamics is
+ in general smaller than the Fermi's golden rule (FGR) rate and has a linear
+ dependence on the inital state.
+\end_layout
+
+\begin_layout Itemize
+not satisfy detail balance in finite temperature
+\end_layout
+
+\begin_layout Standard
+In fact, we can show that,
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(see EhrenfestToFGR note)
+\end_layout
+
+\end_inset
+
+ in the weak copling limit, Ehrenfest dynamics yields a decay rate that
+ depends on the electronic state: the population 
+\begin_inset Formula $\rho_{11}\left(t\right)$
+\end_inset
+
+ takes an exponential decay form
+\begin_inset Formula 
+\begin{equation}
+\rho_{11}\left(t\right)=\rho_{11}\left(0\right)e^{-\kappa\left(t\right)t},
+\end{equation}
+
+\end_inset
+
+where the decay rate is proportional to the ground state population instantaneou
+sly
+\begin_inset Formula 
+\begin{equation}
+\kappa\left(t\right)=k_{\mathrm{FGR}}\rho_{00}\left(t\right).\label{eq:instant_rate}
+\end{equation}
+
+\end_inset
+
+This finding gives us an idea of how we can modify Ehrenfest dynmics to
+ recover Fermi's golden rule rate.
+\end_layout
+
+\begin_layout Subsection
+Recovery of Fermi's Golden Rule
+\end_layout
+
+\begin_layout Standard
+Known that the Ehrenfest rate is proportional to the ground state population
+ on the fly, we consider part of the FGR decay rate is 
+\begin_inset Quotes eld
+\end_inset
+
+missed
+\begin_inset Quotes erd
+\end_inset
+
+ in Ehrenfest dynamics.
+ To recover FGR, we put the 
+\begin_inset Quotes eld
+\end_inset
+
+missing
+\begin_inset Quotes erd
+\end_inset
+
+ decay rate of Ehrenfest dynamics back in the algorithm by introducing an
+ additional population relaxation.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+How do we choose the additional rate?
+\end_layout
+
+\end_inset
+
+Formally, we append an additional term with super-operator 
+\begin_inset Formula ${\cal L}_{r}$
+\end_inset
+
+ that is reponsible for the additional relaxation: 
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}}{\mathrm{d}t}\widehat{\rho}=-\frac{i}{\hbar}\left[\widehat{H}_{\mathrm{ele}},\widehat{\rho}\right]+{\cal \widehat{\widehat{L}}}_{r}\widehat{\rho}
+\end{equation}
+
+\end_inset
+
+Then we can write the EOM for the population 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{11}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{00}}{\mathrm{d}t}=-\frac{\mathrm{d}\rho_{11}}{\mathrm{d}t}=-\frac{i}{\hbar}H_{01}^{\mathrm{el}}\left(\rho_{10}-\rho_{01}\right)+\left[{\cal L}_{r}\widehat{\rho}\right]_{00}=-\frac{2}{\hbar}H_{01}^{\mathrm{el}}\mathrm{Im}\left[\rho_{01}\right]+\left[{\cal L}_{r}\widehat{\rho}\right]_{00}
+\end{equation}
+
+\end_inset
+
+and for the coherence 
+\begin_inset Formula $\rho_{01}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{01}}{\mathrm{d}t}=-\frac{i}{\hbar}\left(E_{0}-E_{1}\right)\rho_{01}-\frac{i}{\hbar}H_{01}^{\mathrm{el}}\left(\rho_{11}-\rho_{00}\right)+\left[{\cal L}_{r}\widehat{\rho}\right]_{01}
+\end{equation}
+
+\end_inset
+
+Now we recast the super-operator term in terms of rate equation, so that
+ EOM takes the form:
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{00}}{\mathrm{d}t}=-\frac{\mathrm{d}\rho_{11}}{\mathrm{d}t}=-\frac{2}{\hbar}H_{01}^{\mathrm{el}}\mathrm{Im}\left[\rho_{01}\right]+k_{0\leftarrow1}\rho_{11}-k_{1\leftarrow0}\rho_{00}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $k_{0\leftarrow1}$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{1\leftarrow0}$
+\end_inset
+
+ are state-dependent rate that compensate Ehrenfest dynamics.
+ At zero temperature, we set 
+\begin_inset Formula 
+\begin{equation}
+k_{1\leftarrow0}=0.
+\end{equation}
+
+\end_inset
+
+To sum up with Ehrenfest rate given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:instant_rate"
+
+\end_inset
+
+ and recover 
+\begin_inset Formula $k_{\mathrm{FGR}}$
+\end_inset
+
+, the additional rate must be 
+\begin_inset Formula 
+\begin{equation}
+k_{0\leftarrow1}=k_{FGR}-\kappa\left(t\right)=k_{FGR}\left(1-\rho_{00}\right)=k_{FGR}\rho_{11}.
+\end{equation}
+
+\end_inset
+
+Hence, the EOM becomes a non-linear ODE
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{00}}{\mathrm{d}t}=-\frac{\mathrm{d}\rho_{11}}{\mathrm{d}t}=-\frac{2}{\hbar}H_{01}^{\mathrm{el}}\mathrm{Im}\left[\rho_{01}\right]+k_{FGR}\rho_{11}^{2}.
+\end{equation}
+
+\end_inset
+
+The non-linear EOM for population is simply Ehrenfest dynamics Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:vonNeumann-Ehrenfest"
+
+\end_inset
+
+ with an addiational population relaxation term determined by the FGR rate.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+What should we do about the coherence.
+\end_layout
+
+\end_inset
+
+We don't know the 
+\begin_inset Formula $\left[{\cal L}_{r}\widehat{\rho}\right]_{01}$
+\end_inset
+
+ in the coherence EOM yet since there is no available information that can
+ help us determine it.
+ But we know that the coherence must be increased when 
+\begin_inset Formula $c_{0}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $c_{1}=1$
+\end_inset
+
+, so that it can induce radiation emission.
+\end_layout
+
+\begin_layout Subsection
+Ehrefest+R method
+\end_layout
+
+\begin_layout Standard
+Here we propose an Ehrenfest+R method.
+ To implement the actual propagation of the electronic system by the non-linear
+ EOM, we need to do a wave function propgation by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Schrodinger-Ehrenfest"
+
+\end_inset
+
+ then perform the additional relaxation on top of it.
+ Also, we need to maintain energy conservation by rescaling the radiation
+ field with the energy change of the system
+\end_layout
+
+\begin_layout Subsubsection
+electronic system propagation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+How to propagate in pure state description?
+\end_layout
+
+\end_inset
+
+For every time step 
+\begin_inset Formula $dt$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Enumerate
+we first propagate the wave function by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Schrodinger-Ehrenfest"
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+c_{0}\rightarrow c_{0}-\frac{i}{\hbar}\varepsilon_{0}c_{0}dt-\frac{i}{\hbar}H_{01}^{\mathrm{el}}c_{1}dt
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+c_{1}\rightarrow c_{1}-\frac{i}{\hbar}\varepsilon_{1}c_{1}dt-\frac{i}{\hbar}H_{10}^{\mathrm{el}}c_{0}dt
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+we rescale the wave function by the population change 
+\begin_inset Formula 
+\[
+d\rho_{00}=-d\rho_{11}=k_{FGR}\rho_{11}^{2}dt
+\]
+
+\end_inset
+
+ and keep the phase of the wave vector by rescaling 
+\begin_inset Formula 
+\begin{equation}
+c_{0}\rightarrow c_{0}^{\prime}=\frac{c_{0}}{\left|c_{0}\right|}\sqrt{\rho_{00}+k_{FGR}\rho_{11}^{2}dt},
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{1}\rightarrow c_{1}^{\prime}=\frac{c_{1}}{\left|c_{1}\right|}\sqrt{\rho_{11}-k_{FGR}\rho_{11}^{2}dt}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+radiation field rescaling
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Rescale the EM field
+\end_layout
+
+\end_inset
+
+To maintain energy convervation, we have to rescale the radition filed according
+ly as we apply the additional population relaxation.
+ Since the energy loss of the system by 
+\begin_inset Formula ${\cal L}_{r}$
+\end_inset
+
+ is given by
+\begin_inset Formula 
+\begin{equation}
+d\varepsilon=dt\left(\varepsilon_{1}-\varepsilon_{0}\right)k_{FGR}\rho_{11}^{2},
+\end{equation}
+
+\end_inset
+
+we rescale the radition field by the same energy.
+ For spontaneous emssion, there is no specific diection or functonal shape
+ that an radiation should be emitted in the EM field.
+ So we design the following three mechanisms:
+\end_layout
+
+\begin_layout Itemize
+Induce electric filed in the direction of 
+\begin_inset Formula $\vec{p}=\vec{\mu}_{01}$
+\end_inset
+
+: We rescale only the electric filed by
+\begin_inset Formula 
+\begin{equation}
+\vec{E}\rightarrow\vec{E}^{\prime}=\vec{E}+\kappa_{E}\vec{p}
+\end{equation}
+
+\end_inset
+
+ To keep energy conservation, we have the relation 
+\begin_inset Formula $\frac{\epsilon_{0}}{2}\int\left|\vec{E}^{\prime}\right|^{2}=\frac{\epsilon_{0}}{2}\int\left|\vec{E}\right|^{2}+d\varepsilon$
+\end_inset
+
+ and we choose the scale 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ with minimal magnitude of 
+\begin_inset Formula 
+\begin{equation}
+\kappa_{E}\left(d\varepsilon\right)=\frac{-\int\vec{E}\cdot\vec{p}\pm\sqrt{\left|\int\vec{E}\cdot\vec{p}\right|^{2}+\frac{2}{\epsilon_{0}}d\varepsilon\int\left|\vec{p}\right|^{2}}}{\int\left|\vec{p}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Induce magnetic filed in the direction of 
+\begin_inset Formula $\vec{m}\equiv\nabla\times\vec{\mu}_{01}$
+\end_inset
+
+ (divergence-free vector to keep 
+\begin_inset Formula $\nabla\cdot\vec{B}=0$
+\end_inset
+
+) 
+\begin_inset Formula 
+\begin{equation}
+\vec{B}\rightarrow\vec{B}^{\prime}=\vec{B}+\kappa_{B}\vec{m}
+\end{equation}
+
+\end_inset
+
+to keep energy conservation:
+\begin_inset Formula $\frac{1}{2\mu_{0}}\int\left|\vec{B}^{\prime}\right|^{2}=\frac{1}{2\mu_{0}}\int\left|\vec{B}\right|^{2}+d\varepsilon$
+\end_inset
+
+.
+ We choose the scale 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ with minimal magnitude of 
+\begin_inset Formula 
+\begin{equation}
+\kappa_{B}\left(d\varepsilon\right)=\frac{-\int\vec{B}\cdot\vec{m}\pm\sqrt{\left|\int\vec{B}\cdot\vec{m}\right|^{2}+2\mu_{0}d\varepsilon\int\left|\vec{m}\right|^{2}}}{\int\left|\vec{m}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Induce a mixed rescaling both 
+\begin_inset Formula $E$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ direction: we randomly partition the energy shift into 
+\begin_inset Formula $d\varepsilon=d\varepsilon_{1}+d\varepsilon_{2}$
+\end_inset
+
+ simply by 
+\begin_inset Formula $d\varepsilon_{1}=\text{RN}\times d\varepsilon$
+\end_inset
+
+ and 
+\begin_inset Formula $d\varepsilon_{2}=\left(1-\text{RN}\right)\times d\varepsilon$
+\end_inset
+
+.
+ Then we shift the field by 
+\begin_inset Formula 
+\begin{equation}
+\vec{E}\rightarrow\vec{E}^{\prime}=\vec{E}+\kappa_{E}\left(d\varepsilon_{1}\right)\vec{p}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\vec{B}\rightarrow\vec{B}^{\prime}=\vec{B}+\kappa_{B}\left(d\varepsilon_{2}\right)\vec{m}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Actually, it will be more accurate to do:
+\begin_inset Formula 
+\[
+\frac{\epsilon_{0}}{2}\int\left|\vec{E}^{\prime}\right|^{2}+\frac{1}{2\mu_{0}}\int\left|\vec{B}^{\prime}\right|^{2}=\frac{\epsilon_{0}}{2}\int\left|\vec{E}\right|^{2}+\frac{1}{2\mu_{0}}\int\left|\vec{B}\right|^{2}+d\varepsilon
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Coherence changes
+\end_layout
+
+\begin_layout Standard
+With the pure state descriotion, we can actually derive what is the 
+\begin_inset Formula ${\cal L}_{r}$
+\end_inset
+
+ in the coherence EOM.
+ Since the density matrix keeps in pure state, the coherence is effectively
+ 
+\begin_inset Formula $\rho_{01}=c_{0}c_{1}^{*}$
+\end_inset
+
+.
+ We approximate the coherernce after two steps as
+\begin_inset Formula 
+\begin{eqnarray*}
+\rho_{01}^{\prime}=c_{0}^{\prime}c_{1}^{\prime*} & = & \frac{\rho_{01}}{\left|c_{0}\right|\left|c_{1}\right|}\sqrt{\left(\rho_{00}+k_{FGR}\rho_{11}^{2}dt\right)\left(\rho_{11}-k_{FGR}\rho_{11}^{2}dt\right)}\\
+ & \approx & \frac{\rho_{01}}{\sqrt{\rho_{00}\rho_{11}}}\sqrt{\rho_{00}\rho_{11}+k_{FGR}\rho_{11}^{3}dt-k_{FGR}\rho_{00}\rho_{11}^{2}dt}\\
+ & = & \rho_{01}\sqrt{1+k_{FGR}\frac{\rho_{11}^{2}}{\rho_{00}}dt-k_{FGR}\rho_{11}dt}\\
+ & = & \rho_{01}\sqrt{1+k_{FGR}\frac{\rho_{11}}{\rho_{00}}\left(\rho_{11}-\rho_{00}\right)dt}\\
+ & = & e^{i\phi}\sqrt{\left|\rho_{01}\right|^{2}+\left|\rho_{01}\right|^{2}k_{FGR}\frac{\rho_{11}}{\rho_{00}}\left(\rho_{11}-\rho_{00}\right)dt}\\
+ & = & e^{i\phi}\sqrt{\left|\rho_{01}\right|^{2}+k_{FGR}\rho_{11}^{2}\left(\rho_{11}-\rho_{00}\right)dt}
+\end{eqnarray*}
+
+\end_inset
+
+If 
+\begin_inset Formula $\rho_{00}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{11}=1$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\rho_{01}^{\prime}=\sqrt{k_{FGR}dt}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\rho_{01}^{\prime}-\rho_{01}=\sqrt{k_{FGR}dt}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}\rho_{01}}{\mathrm{d}t}=-\frac{i}{\hbar}\left(E_{0}-E_{1}\right)\rho_{01}-\frac{i}{\hbar}H_{01}^{\mathrm{el}}\left(\rho_{11}-\rho_{00}\right)+\sqrt{k_{FGR}}
+\]
+
+\end_inset
+
+If
+\begin_inset Formula $\rho_{00}\neq0$
+\end_inset
+
+: we can furthur approximate 
+\begin_inset Formula 
+\begin{eqnarray*}
+\rho_{01}^{\prime}=c_{0}^{\prime}c_{1}^{\prime*} & = & \rho_{01}\sqrt{1+k_{FGR}\frac{\rho_{11}^{2}}{\rho_{00}}dt-k_{FGR}\rho_{11}dt}\\
+ & = & \rho_{01}\sqrt{1+k_{FGR}\frac{\rho_{11}}{\rho_{00}}\left(\rho_{11}-\rho_{00}\right)dt}\\
+ & \approx & \rho_{01}+\rho_{01}\frac{k_{FGR}}{2}\frac{\rho_{11}}{\rho_{00}}\left(\rho_{11}-\rho_{00}\right)dt
+\end{eqnarray*}
+
+\end_inset
+
+coherence change rate is then obtained by
+\begin_inset Formula 
+\[
+\rho_{01}^{\prime}-\rho_{01}=d\rho_{01}=\rho_{01}\frac{k_{FGR}}{2}\frac{\rho_{11}}{\rho_{00}}\left(\rho_{11}-\rho_{00}\right)dt=\Gamma_{r}\rho_{01}dt
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Gamma_{r}=\frac{k_{FGR}}{2}\frac{\rho_{11}}{\rho_{00}}\left(\rho_{11}-\rho_{00}\right)=\frac{k_{FGR}}{2}\rho_{11}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)
+\]
+
+\end_inset
+
+so
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}\rho_{01}}{\mathrm{d}t}=-\frac{i}{\hbar}\left(E_{0}-E_{1}\right)\rho_{01}-\frac{i}{\hbar}H_{01}^{\mathrm{el}}\left(\rho_{11}-\rho_{00}\right)+\Gamma_{r}\rho_{01}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Gamma_{r}$
+\end_inset
+
+ is non-linear.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\Gamma_{r}$
+\end_inset
+
+ is not zero at 
+\begin_inset Formula $\rho_{00}=0$
+\end_inset
+
+.
+ The coherence initially build up by spontaneous emission
+\end_layout
+
+\begin_layout Itemize
+When 
+\begin_inset Formula $\frac{\rho_{11}}{\rho_{00}}>1$
+\end_inset
+
+, 
+\begin_inset Formula $\Gamma_{r}>0$
+\end_inset
+
+ means the coherence increase; when 
+\begin_inset Formula $\frac{\rho_{11}}{\rho_{00}}<1$
+\end_inset
+
+, 
+\begin_inset Formula $\Gamma_{r}<0$
+\end_inset
+
+ means the coherence decrease.
+\end_layout
+
+\begin_layout Section
+Three-Level System in 1D EM field
+\end_layout
+
+\begin_layout Subsection
+The Setting: Resonance Raman Scattering 
+\end_layout
+
+\begin_layout Standard
+We now consider a three level electronic system with energy: 
+\begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}<\varepsilon_{2}$
+\end_inset
+
+ in diabatic basis: 
+\begin_inset Formula $\left\{ \left|0\right\rangle ,\left|1\right\rangle ,\left|2\right\rangle \right\} $
+\end_inset
+
+.
+ The electronic system Hamiltonian is 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{s}=\varepsilon_{0}\left|0\right\rangle \left\langle 0\right|+\varepsilon_{1}\left|1\right\rangle \left\langle 1\right|+\varepsilon_{2}\left|2\right\rangle \left\langle 2\right|,
+\end{equation}
+
+\end_inset
+
+The electronic states are only coupled by the dipole–field interaction:
+ 
+\begin_inset Formula 
+\begin{equation}
+\widehat{V}=-\int dr^{3}\widehat{\vec{\mu}}\left(\vec{r}\right)\cdot\vec{E}\left(\vec{r},t\right),
+\end{equation}
+
+\end_inset
+
+where the transition dipole operator can be written as
+\begin_inset Formula 
+\begin{equation}
+\widehat{\vec{\mu}}\left(\vec{r}\right)=\sum_{i<j}\vec{\mu}_{ij}\left(\vec{r}\right)\left(\left|i\right\rangle \left\langle j\right|+\left|j\right\rangle \left\langle i\right|\right).
+\end{equation}
+
+\end_inset
+
+Assume that 
+\begin_inset Formula $\vec{\mu}_{01}=\vec{\mu}_{01}=0$
+\end_inset
+
+, so that the electronic system construct a 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+-shape transistion.
+ The current density observable in Ehrenfest dynamics is given by averaged
+ over the current operator:
+\begin_inset Formula 
+\begin{equation}
+\vec{J}\left(\vec{r}\right)=2\left(\varepsilon_{0}-\varepsilon_{2}\right)\mathrm{Im}\left[\rho_{02}\left(t\right)\right]\vec{\mu}_{02}\left(\vec{r}\right)+2\left(\varepsilon_{1}-\varepsilon_{2}\right)\mathrm{Im}\left[\rho_{12}\left(t\right)\right]\vec{\mu}_{12}\left(\vec{r}\right).
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The electronic system interacts with the incident light.
+ We assume the incident light is a continuous wave (CW) field whose longitudinal
+ direction is on the 
+\begin_inset Formula $z$
+\end_inset
+
+ direction:
+\begin_inset Formula 
+\begin{equation}
+E_{I,x}\left(z\right)=\frac{U_{I}}{\sqrt{\epsilon_{0}}}\cos\left(k_{I}z-\omega_{I}t\right),\ E_{I,y}\left(z\right)=0
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+B_{I,x}\left(z\right)=0,\ B_{I,y}\left(z\right)=\sqrt{\mu_{0}}U_{I}\sin\left(k_{I}z-\omega_{I}t\right)
+\end{equation}
+
+\end_inset
+
+ where 
+\begin_inset Formula $\omega_{I}=ck_{I}$
+\end_inset
+
+.
+ The incident light interacting with the electronic system will emit the
+ scattering light described as 
+\begin_inset Formula $\vec{E}_{S}\left(z\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{B}_{S}\left(z\right)$
+\end_inset
+
+ and the total field is 
+\begin_inset Formula 
+\begin{equation}
+\vec{E}_{tot}=\vec{E}_{I}+\vec{E}_{S},
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\vec{B}_{tot}=\vec{B}_{I}+\vec{B}_{S}.
+\end{equation}
+
+\end_inset
+
+We are interested in resonance Raman scattering, where the incident light
+ is on resonance with a particular excited state, say 
+\begin_inset Formula $\hbar\omega_{I}=\varepsilon_{2}-\varepsilon_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Ehrefest+R method
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+pairwise transition
+\end_layout
+
+\end_inset
+
+With the same idea as two level system in mind, we can add the comeplementary
+ relaxation to EOM:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{00}}{\mathrm{d}t}=-\frac{2}{\hbar}H_{02}^{\mathrm{el}}\mathrm{Im}\left[\rho_{02}\right]+k_{0\leftarrow2}\rho_{22}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{11}}{\mathrm{d}t}=-\frac{2}{\hbar}H_{12}^{\mathrm{el}}\mathrm{Im}\left[\rho_{12}\right]+k_{1\leftarrow2}\rho_{22}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{22}}{\mathrm{d}t}=\frac{2}{\hbar}H_{02}^{\mathrm{el}}\mathrm{Im}\left[\rho_{02}\right]+\frac{2}{\hbar}H_{12}^{\mathrm{el}}\mathrm{Im}\left[\rho_{12}\right]-k_{0\leftarrow2}\rho_{22}-k_{1\leftarrow2}\rho_{22}
+\end{equation}
+
+\end_inset
+
+Note that we consider only the first order pairwise transition (
+\begin_inset Formula $2\rightarrow0$
+\end_inset
+
+ and 
+\begin_inset Formula $2\rightarrow1$
+\end_inset
+
+) and 
+\begin_inset Formula $k_{2\leftarrow0}=0$
+\end_inset
+
+, 
+\begin_inset Formula $k_{2\leftarrow1}=0$
+\end_inset
+
+.
+ The transition rate is designed to recover the FGR rate respectively
+\begin_inset Formula 
+\begin{equation}
+k_{0\leftarrow2}=\frac{\varepsilon_{2}-\varepsilon_{0}}{\hbar^{2}\epsilon_{0}c}\left|\vec{\mu}_{02}\left(0\right)\right|^{2}\left(1-\rho_{00}\right),
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+k_{1\leftarrow2}=\frac{\varepsilon_{2}-\varepsilon_{1}}{\hbar^{2}\epsilon_{0}c}\left|\vec{\mu}_{12}\left(0\right)\right|^{2}\left(1-\rho_{11}\right).
+\end{equation}
+
+\end_inset
+
+Again, Ehrenfest+R method conserve the total energy, so that the radition
+ field has to be rescaled accordingly as in the two level syste case.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+the steady state will be all on 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Thermal Dissipation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For Raman scattering, the 
+\begin_inset Formula $0$
+\end_inset
+
+ and 
+\begin_inset Formula $1$
+\end_inset
+
+ states are usually vibrational states of electronic ground state.
+ Although we are considering a non-equilibrium situation, we have to take
+ nuclear dissipation into account.
+ The nuclear dissipation leads to equibriate between state 
+\begin_inset Formula $0$
+\end_inset
+
+ and 
+\begin_inset Formula $1$
+\end_inset
+
+, but without radiation field emission.
+ The EOM can be written as
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{00}}{\mathrm{d}t}=-\frac{2}{\hbar}H_{02}^{\mathrm{el}}\mathrm{Im}\left[\rho_{02}\right]+k_{0\leftarrow2}\rho_{22}+\gamma_{0\leftarrow1}\rho_{11}-\gamma_{1\leftarrow0}\rho_{00}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\mathrm{d}\rho_{11}}{\mathrm{d}t}=-\frac{2}{\hbar}H_{12}^{\mathrm{el}}\mathrm{Im}\left[\rho_{12}\right]+k_{1\leftarrow2}\rho_{22}-\gamma_{0\leftarrow1}\rho_{11}+\gamma_{1\leftarrow0}\rho_{00}
+\end{equation}
+
+\end_inset
+
+where the transition rate is determined equilibrium Boltzman distribution
+\begin_inset Formula 
+\begin{equation}
+\frac{\overline{\rho_{00}}}{\overline{\rho_{11}}}=\frac{\gamma_{0\leftarrow1}}{\gamma_{1\leftarrow0}}=\frac{e^{-\beta\varepsilon_{0}}}{e^{-\beta\varepsilon_{1}}}
+\end{equation}
+
+\end_inset
+
+Then we let the transistion rate takes the form 
+\begin_inset Formula 
+\[
+\gamma_{0\leftarrow1}=\gamma e^{-\beta\varepsilon_{1}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\gamma_{1\leftarrow0}=\gamma e^{-\beta\varepsilon_{2}}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ is a value to be determined.
+ To implement the thermal equilibriation in Ehrenfest+R method, we use the
+ same mechanism to rescale the wave function.
+ The population change is 
+\begin_inset Formula 
+\begin{equation}
+d\rho=dt\gamma\left(e^{-\beta\varepsilon_{1}}\left|c_{0}\right|^{2}-e^{-\beta\varepsilon_{0}}\left|c_{1}\right|^{2}\right)
+\end{equation}
+
+\end_inset
+
+and the wave function is 
+\begin_inset Formula 
+\begin{equation}
+c_{0}^{\prime}\rightarrow c_{0}^{\prime\prime}=\frac{c_{0}^{\prime}}{\left|c_{0}^{\prime}\right|}\sqrt{\left|c_{0}^{\prime}\right|^{2}-d\rho}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{1}^{\prime}\rightarrow c_{1}^{\prime\prime}=\frac{c_{1}^{\prime}}{\left|c_{1}^{\prime}\right|}\sqrt{\left|c_{1}^{\prime}\right|^{2}+d\rho}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Results
+\end_layout
+
+\begin_layout Subsection
+Two-Level System: Recover the Fermi's Golden Rule rate in 1D
+\end_layout
+
+\begin_layout Subsubsection
+The Algorithm
+\end_layout
+
+\begin_layout Standard
+For each time step 
+\begin_inset Formula $dt$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Enumerate
+Propagate the wavefunction 
+\begin_inset Formula $\left|\psi\left(t\right)\right\rangle =c_{1}\left(t\right)\left|1\right\rangle +c_{2}\left(t\right)\left|2\right\rangle $
+\end_inset
+
+ by Ehrenfest dynamics
+\begin_inset Formula 
+\begin{equation}
+i\hbar\frac{\mathrm{d}}{\mathrm{d}t}\left|\psi\left(t\right)\right\rangle =\widehat{H}\left(t\right)\left|\psi\left(t\right)\right\rangle 
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}\left(t\right)=H_{e}-\int\widehat{\vec{\mu}}\cdot\vec{E}\left(t\right)=\left(\begin{array}{cc}
+\varepsilon_{1} & -\int\vec{\mu}_{12}\cdot\vec{E}\left(t\right)\\
+-\int\vec{\mu}_{12}\cdot\vec{E}\left(t\right) & \varepsilon_{2}
+\end{array}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Compute the current 
+\begin_inset Formula 
+\begin{equation}
+\vec{J}=\frac{2}{\hbar}\vec{\mu}_{12}\left(\varepsilon_{1}-\varepsilon_{2}\right)\text{Im}\left[c_{1}c_{2}^{*}\right]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Evolve the EM field by Maxwell's equation:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vec{B}}{\partial t}=-\nabla\times\vec{E}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vec{E}}{\partial t}=c^{2}\nabla\times\vec{B}-\frac{\vec{J}}{\epsilon_{0}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Implement additional population relaxation
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Rescale the wavefunction by the complementary rate
+\begin_inset Formula 
+\begin{equation}
+\Gamma_{2\rightarrow1}=k_{FGR}\left(1-\left|c_{1}\right|^{2}\right)
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\begin{equation}
+c_{1}\rightarrow c_{1}^{\prime}=\frac{c_{1}}{\left|c_{1}\right|}\sqrt{\left|c_{1}\right|^{2}+dt\Gamma_{2\rightarrow1}\left|c_{2}\right|^{2}},
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{2}\rightarrow c_{2}^{\prime}=\frac{c_{2}}{\left|c_{2}\right|}\sqrt{\left|c_{2}\right|^{2}-dt\Gamma_{2\rightarrow1}\left|c_{2}\right|^{2}}.
+\end{equation}
+
+\end_inset
+
+The energy loss of the system is 
+\begin_inset Formula 
+\begin{equation}
+d\varepsilon=dt\left(\varepsilon_{2}-\varepsilon_{1}\right)\Gamma_{2\rightarrow1}\left|c_{2}\right|^{2}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Induce magnetic filed in the direction of 
+\begin_inset Formula $\vec{\eta}\equiv\nabla\times\vec{\mu}_{12}$
+\end_inset
+
+ (divergence-free vector to keep 
+\begin_inset Formula $\nabla\cdot\vec{B}=0$
+\end_inset
+
+) 
+\begin_inset Formula 
+\begin{equation}
+\vec{B}\rightarrow\vec{B}^{\prime}=\vec{B}+\kappa\vec{\eta}
+\end{equation}
+
+\end_inset
+
+to keep energy conservation:
+\begin_inset Formula $\frac{1}{2\mu}\int\left|\vec{B}^{\prime}\right|^{2}=\frac{1}{2\mu_{0}}\int\left|\vec{B}\right|^{2}+d\varepsilon$
+\end_inset
+
+.
+ We choose the scale 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ with minimal magnitude of 
+\begin_inset Formula 
+\begin{equation}
+\kappa_{\pm}=\frac{-\int\vec{B}\cdot\vec{\eta}\pm\sqrt{\left|\int\vec{B}\cdot\vec{\eta}\right|^{2}+2d\varepsilon\int\left|\vec{\eta}\right|^{2}}}{\int\left|\vec{\eta}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Apply absorption boundary condition to 
+\begin_inset Formula $\vec{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{B}$
+\end_inset
+
+.
+\begin_inset Formula 
+\[
+S\left(z\right)=\begin{cases}
+1 & z<z_{1}\\
+\left[1+\exp\left(-\frac{z_{2}-z_{1}}{\left|z\right|-z_{1}}-\frac{z_{1}-z_{0}}{\left|z\right|-z_{2}}\right)\right]^{-1} & z_{1}\le z\le z_{2}\\
+0 & z>z_{2}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Three-Level System: Raman Spectroscopy
+\end_layout
+
+\begin_layout Subsubsection
+Problems of Ehrenfest Dynamics.
+ What's not enough?
+\end_layout
+
+\begin_layout Standard
+The above algorithm can be easily generalized beyond two level system.
+ All the first order pairwise transition (
+\begin_inset Formula $2\rightarrow0$
+\end_inset
+
+ and 
+\begin_inset Formula $2\rightarrow1$
+\end_inset
+
+) by Ehrenfest dynamics can be recovered by additional population relaxation
+ with the complementary decay rate.
+ 
+\end_layout
+
+\begin_layout Itemize
+the steady state will be all on 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+need to take nuclear dissipation into account
+\end_layout
+
+\begin_layout Itemize
+The dissipative relaxation can be obtained by equilibrium Boltzman distribution.
+ If the incident field is not presented, equilibrium dynamics is governed
+ by master equations:
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}t}P_{1}=k_{2\rightarrow1}P_{2}-k_{1\rightarrow2}P_{1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\mathrm{d}}{\mathrm{d}t}P_{2}=k_{1\rightarrow2}P_{1}-k_{2\rightarrow1}P_{2}
+\]
+
+\end_inset
+
+and equilibrium populations is given by
+\begin_inset Formula 
+\[
+\frac{\bar{P}_{1}}{\bar{P}_{2}}=\frac{k_{2\rightarrow1}}{k_{1\rightarrow2}}=\frac{e^{-\beta\varepsilon_{1}}}{e^{-\beta\varepsilon_{2}}}
+\]
+
+\end_inset
+
+Let 
+\begin_inset Formula 
+\[
+k_{2\rightarrow1}=\gamma e^{-\beta\varepsilon_{1}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+k_{1\rightarrow2}=\gamma e^{-\beta\varepsilon_{2}}
+\]
+
+\end_inset
+
+But we don't know the value of 
+\begin_inset Formula $\gamma$
+\end_inset
+
+....
+\end_layout
+
+\begin_layout Subsubsection
+The Algorithm
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For each time step 
+\begin_inset Formula $dt$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Enumerate
+Propagate the wavefunction 
+\begin_inset Formula $\left|\psi\left(t\right)\right\rangle =c_{1}\left(t\right)\left|1\right\rangle +c_{2}\left(t\right)\left|2\right\rangle +c_{3}\left(t\right)\left|3\right\rangle $
+\end_inset
+
+ by Ehrenfest dynamics
+\begin_inset Formula 
+\begin{equation}
+i\hbar\frac{\mathrm{d}}{\mathrm{d}t}\left|\psi\left(t\right)\right\rangle =\widehat{H}\left(t\right)\left|\psi\left(t\right)\right\rangle 
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}\left(t\right)=H_{e}-\int\widehat{\vec{\mu}}\cdot\vec{E}\left(t\right)=\left(\begin{array}{ccc}
+\varepsilon_{1} & 0 & -\int\vec{\mu}_{13}\cdot\vec{E}_{tot}\\
+0 & \varepsilon_{2} & -\int\vec{\mu}_{23}\cdot\vec{E}_{tot}\\
+-\int\vec{\mu}_{13}\cdot\vec{E}_{tot} & -\int\vec{\mu}_{23}\cdot\vec{E}_{tot} & \varepsilon_{3}
+\end{array}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Compute the current by 
+\begin_inset Formula 
+\begin{equation}
+\vec{J}=\frac{2}{\hbar}\vec{\mu}_{13}\left(\varepsilon_{1}-\varepsilon_{3}\right)\text{Im}\left[c_{1}c_{3}^{*}\right]+\frac{2}{\hbar}\vec{\mu}_{23}\left(\varepsilon_{2}-\varepsilon_{3}\right)\text{Im}\left[c_{2}c_{3}^{*}\right]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Evolve the induced field by Maxwell's equation:
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vec{B}_{S}}{\partial t}=-\nabla\times\vec{E}_{S}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\vec{E}_{S}}{\partial t}=c^{2}\nabla\times\vec{B}_{S}-\frac{\vec{J}}{\epsilon_{0}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Implement additional population relaxation for 
+\begin_inset Formula $3\rightarrow1$
+\end_inset
+
+ and 
+\begin_inset Formula $3\rightarrow2$
+\end_inset
+
+ transitions by (order doesn't matter)
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+For 
+\begin_inset Formula $i\rightarrow f$
+\end_inset
+
+ tansitions, the complementary rates are
+\begin_inset Formula 
+\begin{equation}
+\Gamma_{i\rightarrow f}=k_{FGR}\left(1-\left|c_{f}\right|^{2}\right)
+\end{equation}
+
+\end_inset
+
+We rescale the wavefunction by
+\begin_inset Formula 
+\begin{equation}
+c_{i}\rightarrow c_{i}^{\prime}=\frac{c_{i}}{\left|c_{i}\right|}\sqrt{\left|c_{i}\right|^{2}-dt\Gamma_{i\rightarrow f}\left|c_{i}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{f}\rightarrow c_{f}^{\prime}=\frac{c_{f}}{\left|c_{f}\right|}\sqrt{\left|c_{f}\right|^{2}+dt\Gamma_{i\rightarrow f}\left|c_{f}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+The energy loss of the system is 
+\begin_inset Formula 
+\begin{equation}
+d\varepsilon_{i\rightarrow f}=\left(\varepsilon_{i}-\varepsilon_{f}\right)dt\Gamma_{i\rightarrow f}\left|c_{i}\right|^{2}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Induce magnetic filed in the direction of 
+\begin_inset Formula $\eta_{fi}=\nabla\times\vec{\mu}_{fi}$
+\end_inset
+
+ (divergence-free vector to keep 
+\begin_inset Formula $\nabla\cdot\vec{B}_{S}=0$
+\end_inset
+
+) 
+\begin_inset Formula 
+\begin{equation}
+\vec{B}_{S}\rightarrow\vec{B}_{S}^{\prime}=\vec{B}_{S}+\kappa_{fi}\vec{\eta}_{fi}
+\end{equation}
+
+\end_inset
+
+to keep energy conservation: 
+\begin_inset Formula $\frac{1}{2\mu}\int\left|\vec{B}_{S}^{\prime}\right|^{2}=\frac{1}{2\mu_{0}}\int\left|\vec{B}_{S}\right|^{2}+d\varepsilon_{fi}$
+\end_inset
+
+.
+ We choose the scale 
+\begin_inset Formula $\kappa_{fi}$
+\end_inset
+
+ with minimal magnitude of 
+\begin_inset Formula 
+\begin{equation}
+\kappa_{fi\pm}=\frac{-\int\vec{B}_{S}\cdot\vec{\eta}_{fi}\pm\sqrt{\left|\int\vec{B}_{S}\cdot\vec{\eta}_{fi}\right|^{2}+2d\varepsilon\int\left|\vec{\eta}_{fi}\right|^{2}}}{\int\left|\vec{\eta}_{fi}\right|^{2}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Apply dissipative relaxation: 
+\begin_inset Formula 
+\begin{equation}
+d\rho=dt\gamma\left(e^{-\beta\varepsilon_{2}}\left|c_{1}\right|^{2}-e^{-\beta\varepsilon_{1}}\left|c_{2}\right|^{2}\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+if 
+\begin_inset Formula $d\rho>0$
+\end_inset
+
+: 
+\begin_inset Formula $1\rightarrow2$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{1}^{\prime}\rightarrow c_{1}^{\prime\prime}=\frac{c_{1}^{\prime}}{\left|c_{1}^{\prime}\right|}\sqrt{\left|c_{1}^{\prime}\right|^{2}-\left|d\rho\right|}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{2}^{\prime}\rightarrow c_{2}^{\prime\prime}=\frac{c_{2}^{\prime}}{\left|c_{2}^{\prime}\right|}\sqrt{\left|c_{2}^{\prime}\right|^{2}+\left|d\rho\right|}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+if 
+\begin_inset Formula $d\rho<0$
+\end_inset
+
+: 
+\begin_inset Formula $2\rightarrow1$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{1}^{\prime}\rightarrow c_{1}^{\prime\prime}=\frac{c_{1}^{\prime}}{\left|c_{1}^{\prime}\right|}\sqrt{\left|c_{1}^{\prime}\right|^{2}+\left|d\rho\right|}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{2}^{\prime}\rightarrow c_{2}^{\prime\prime}=\frac{c_{2}^{\prime}}{\left|c_{2}^{\prime}\right|}\sqrt{\left|c_{2}^{\prime}\right|^{2}-\left|d\rho\right|}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Apply absorption boundary condition
+\begin_inset Formula 
+\[
+S\left(z\right)=\begin{cases}
+1 & z<z_{1}\\
+\left[1+\exp\left(-\frac{z_{2}-z_{1}}{\left|z\right|-z_{1}}-\frac{z_{1}-z_{0}}{\left|z\right|-z_{2}}\right)\right]^{-1} & z_{1}\le z\le z_{2}\\
+0 & z>z_{2}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
