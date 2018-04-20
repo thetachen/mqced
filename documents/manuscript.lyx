@@ -2395,37 +2395,14 @@ name "sec:Mixed-Quantum–Classical-Theory"
 \end_layout
 
 \begin_layout Standard
-To address this problem systematically, we compare Ehrenfest dynamics and
- exact quantum dynamics in the framework of mixed quantum–classical theory.
+To address this problem systematically, the section aims to compare Ehrenfest
+ dynamics and exact quantum dynamics in the framework of mixed quantum–classical
+ theory.
  First, we formulate the quantum-classical Liouville equations (QCLE) for
  quantum electrodynamics as formally exact equation of motion.
  Then, we approximate the probability density for Ehrenfest dynamics and
  derive the corresponding equation of motion.
  By comparing the equaions of motion, we shall discover the difference.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\series bold
-eidt till here!!!
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset line
-LatexCommand rule
-offset "0.5ex"
-width "100col%"
-height "1pt"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -2449,25 +2426,24 @@ Intro
 
 \end_inset
 
-Following Kapral 
+Following Kapral
 \begin_inset CommandInset citation
 LatexCommand cite
 key "kapral_mixed_1999"
 
 \end_inset
 
-, we derive the quantum–classical Liouville equation (QCLE) for electron–radiati
-on dynamics.
+, we derive the elctrodynamical QCLE for electron–radiation dynamics.
  It is an analogue to the QCLE for electron–nuclei dynamics.
  
 \end_layout
 
 \begin_layout Standard
-We denote the total density operator for electronic and EM field as 
+We denote the total density operator 
 \begin_inset Formula $\widehat{{\cal W}}\left(t\right)$
 \end_inset
 
-.
+ for the electronic system and the EM field.
  The evolution of total density operator is governed by the quantum Liouville
  equation
 \begin_inset Formula 
@@ -2478,17 +2454,18 @@ We denote the total density operator for electronic and EM field as
 \end_inset
 
 Since we want to treat the field degrees of freedom classically, we perform
- the partial Wigner transforms with respect to the field operators 
+ the partial Wigner transforms with respect to the vector filed operator,
+ 
 \begin_inset Formula $\widehat{\mathbf{A}}$
 \end_inset
 
- and its conjugate momentum, 
+, and its conjugate momentum, 
 \begin_inset Formula $\widehat{\mathbf{D}}$
 \end_inset
 
 .
- The partial Wigner transform of the density operator gives the probability
- density
+ Formally, the partial Wigner transform of the density operator gives the
+ probability density
 \end_layout
 
 \begin_layout Standard
@@ -2510,7 +2487,28 @@ where the bold symbol
 \end_inset
 
  without the hat refer to the coordinate representation of these quantities,
- not field operators.
+ not operators.
+ The coordinate representation 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are 
+\begin_inset Formula $c$
+\end_inset
+
+-number spatial functions satisfying 
+\begin_inset Formula $\widehat{\mathbf{D}}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle =\mathbf{D}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)\left|\mathbf{A}\right\rangle =\mathbf{A}\left(\mathbf{r}\right)\left|\mathbf{A}\right\rangle $
+\end_inset
+
+.
  The partial Wigner transform of the Hamiltonian is 
 \begin_inset Formula 
 \begin{equation}
@@ -2529,21 +2527,16 @@ After the partial Wigner transform, the quantum Liouville equation can be
 \end_inset
 
  and turns out to be
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
 \emph on
-Abe: why is small 
+ 
+\color red
+(Abe: why is small 
 \begin_inset Formula $\hbar$
 \end_inset
 
  expansion valid? what is the real small parameter?) 
-\end_layout
-
-\end_inset
-
+\emph default
+\color inherit
 
 \begin_inset Formula 
 \begin{equation}
@@ -2553,6 +2546,16 @@ Abe: why is small
 \end{split}
 \label{eq:EOM_Wigner_poisson}
 \end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+show that it is exact for quadratic?
+\end_layout
 
 \end_inset
 
@@ -2626,10 +2629,21 @@ reference "eq:EOM_Wigner_poisson"
 \begin_inset Formula $\mathbf{A}$
 \end_inset
 
- can be obtained
+ can be obtained as (see Appendix
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "sec:Functional-Derivative"
+
+\end_inset
+
+)
 \begin_inset Formula 
 \begin{eqnarray}
-\frac{\delta\widehat{H}_{W}}{\delta\mathbf{A}} & = & \frac{1}{\mu_{0}}\nabla\times\mathbf{B}\\
+\frac{\delta\widehat{H}_{W}}{\delta\mathbf{A}} & = & \frac{1}{\mu_{0}}\boldsymbol{\nabla}\times\mathbf{B}\\
 \frac{\delta\widehat{H}_{W}}{\delta\mathbf{D}} & = & \frac{1}{\epsilon_{0}}\left(\mathbf{D}-\widehat{\mathbf{P}}\right)
 \end{eqnarray}
 
@@ -2644,34 +2658,18 @@ using the identity
 \end_inset
 
 .
- Also, in order compare with Ehrenfest EOM, we change the phase space coordinate
- from 
+ We change the phase space coordinate from 
 \begin_inset Formula $\mathbf{A}$
 \end_inset
 
  to 
-\begin_inset Formula $\mathbf{B}=\nabla\times\mathbf{A}$
+\begin_inset Formula $\mathbf{B}=\boldsymbol{\nabla}\times\mathbf{A}$
 \end_inset
 
- by 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-appendix?
-\end_layout
-
+, then we obtain the explicit equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{W}\left(t,\mathbf{D},\mathbf{B}\right)$
 \end_inset
 
-
-\begin_inset Formula 
-\begin{equation}
-\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{A}}=\frac{\delta\nabla\times\mathbf{A}}{\delta\mathbf{A}}\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}.
-\end{equation}
-
-\end_inset
-
-Finally, we obtain the equation of motion for the probability density in
  terms of the displacement 
 \begin_inset Formula $\mathbf{D}$
 \end_inset
@@ -2718,7 +2716,7 @@ status open
 
 \end_inset
 
-which we refer to the electrodynamics QCLE.
+which we refer to the electrodynamical QCLE.
  Note that Eq.
 \begin_inset space ~
 \end_inset
@@ -2826,78 +2824,79 @@ Equation of motion for Ehrenfest joint probability density
 status open
 
 \begin_layout Plain Layout
-Phase space
-\end_layout
-
-\end_inset
-
-We consider a phase space in terms of the coordinates 
-\begin_inset Formula $\mathbf{D}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{B}$
-\end_inset
-
- where the coordinate representation 
-\begin_inset Formula $\mathbf{D}$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{B}$
-\end_inset
-
- are 
-\begin_inset Formula $c$
-\end_inset
-
--number satisfying 
-\begin_inset Formula $\widehat{\mathbf{D}}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle =\mathbf{D}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle $
-\end_inset
-
- and 
-\begin_inset Formula $\widehat{\mathbf{B}}\left(\mathbf{r}\right)\left|\mathbf{B}\right\rangle =\mathbf{B}\left(\mathbf{r}\right)\left|\mathbf{B}\right\rangle $
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 joint probability density
 \end_layout
 
 \end_inset
 
-Formally, we can construct the joint electronic–radiation probability density
- corresponding to a swarm of classical trajectories in phase space.
- Assume that the initial distribution in phase space 
-\begin_inset Formula $f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)$
+An Ehrenfest trajectory can be represented by a mixed quantum-classical
+ state (
+\begin_inset Formula $\mathbf{D},\mathbf{B},\widehat{\rho}$
 \end_inset
 
- and the initial density matrix is 
+) undergoing Ehrenfest dynamics, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+.
+ Suppose that at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+, the initial electronic density matrix is 
 \begin_inset Formula $\widehat{\rho}_{0}$
 \end_inset
 
-, we define the joint probability density for Ehrenfest dynamics as
+ and the field is represented by an initial distribution in phase space
+ 
+\begin_inset Formula $f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)$
+\end_inset
+
+.
+ Therefore, we can construct the joint electronic–radiation probability
+ density corresponding to a swarm of Ehrenfest trajectories starting from
+ 
+\begin_inset Formula $\left(\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+.
+ The joint probability density for Ehrenfest dynamics is then defined formally
+ as 
 \begin_inset Formula 
 \begin{equation}
 \begin{split}\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)\equiv & \int\mathrm{d}\mathbf{D}_{0}\int\mathrm{d}\mathbf{B}_{0}f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)\times\\
  & \widehat{\rho}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)\times\\
- & \delta\left(\bar{\mathbf{D}}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{D}\right)\times\\
- & \delta\left(\bar{\mathbf{B}}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{B}\right)
+ & \delta\left(\mathbf{D}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{D}\right)\times\\
+ & \delta\left(\mathbf{B}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{B}\right)
 \end{split}
 \end{equation}
 
 \end_inset
 
 where 
-\begin_inset Formula $\bar{\mathbf{D}}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\begin_inset Formula $\widehat{\rho}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{D}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
 \end_inset
 
  and 
-\begin_inset Formula $\bar{\mathbf{B}}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\begin_inset Formula $\mathbf{B}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
 \end_inset
 
  are the Ehrenfest trajectory starting from the initial condition 
@@ -2914,6 +2913,22 @@ key "subotnik_augmented_2010"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+Still need to clarify why preimage assumption could lead to (53)...
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2970,17 +2985,11 @@ Also, the swarm of trajectories is assumed to evolve such that no trajectories
  in phase space at the same time.
  With the above assumptions, we define the joint electron–radiation probability
  density in the form of
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
 \emph on
-Abe: How is this follows from the above assumptions?
-\end_layout
-
-\end_inset
-
+\color red
+ (Abe: How is this follows from the above assumptions?)
+\emph default
+\color inherit
 
 \begin_inset Formula 
 \begin{equation}
@@ -3367,7 +3376,7 @@ reference "sec:Ehrenfest+R-method"
 
 .
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Unfortunately, the implementation of trajectory-based propagation is usually
@@ -3380,6 +3389,30 @@ key "bellonzi_assessment_2016"
 
 .
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+edit till here!!!
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
 
 \end_inset
 
@@ -3407,13 +3440,15 @@ Intro
 
 \end_inset
 
-We propose 
+With the understanding of the difference between Ehrenfest EOM and electrodynami
+cal QCLE, we propose 
 \emph on
 Ehrenfest+R
 \emph default
  method to recover this discrepancy by appending complementary mechanisms
  on the top of Ehrenfest dynamics.
- For simplicity, we demostrate the +R using two-level system in 1D space.
+ For simplicity, we demostrate Ehrefest+R method in the context of two-level
+ system in 1D space.
  
 \end_layout
 
@@ -3433,13 +3468,89 @@ The proposed Ehrenfest+R method appends two quantum transitions in the following
 \end_layout
 
 \begin_layout Subsection
-Quantum transition of the system as additional population relaxation
+Population relaxation
+\end_layout
+
+\begin_layout Standard
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Say something about increasing of coherence
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 In order to recover the FGR rate of the population decay, a straightforward
  means is that, we design the quantum transition for the electronic system
- as a population relaxation at the decay rate 
+ as a population relaxation at the decay rate.
+ 
+\end_layout
+
+\begin_layout Standard
+formulate the complementary quantum transition formally, we write the equation
+ of motion for the density matrix 
+\begin_inset Formula $\rho\left(t\right)$
+\end_inset
+
+ in the form of 
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial}{\partial t}\rho\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}},\rho\left(t\right)\right]+{\cal L}_{R}\left(t\right)\rho\left(t\right),\label{eq:EOM_Ehrenfest+R}
+\end{equation}
+
+\end_inset
+
+with an additional super-operator term responsible for the complementary
+ transition.
+ The super-operator is given by
+\begin_inset Formula 
+\begin{equation}
+{\cal L}_{R}\rho=\left(\begin{array}{cc}
+k_{R}\rho_{11} & \frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\\
+\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right) & -k_{R}\rho_{11}
+\end{array}\right).
+\end{equation}
+
+\end_inset
+
+Since there is no decoherence introduced, the off-diagonal element of 
+\begin_inset Formula ${\cal L}_{R}\rho$
+\end_inset
+
+ is obtained by conversing the purity of density matrix.
+ i.e.
+ 
+\begin_inset Formula $\frac{d}{dt}(\tilde{\rho}_{11}\tilde{\rho}_{22}-\left|\tilde{\rho}_{12}\right|^{2})=0$
+\end_inset
+
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+some note about what if 
+\begin_inset Formula $\rho_{00}=0$
+\end_inset
+
+ and coherence increas.
+ coherence increase leads to more 
+\begin_inset Formula $\left\langle E\right\rangle ^{2}$
+\end_inset
+
+ emission.
+ v.s.
+ Ehrenfest only coherence decay...
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula 
 \begin{equation}
 k_{R}\left(t\right)\equiv\kappa\left(1-\rho_{00}\left(t\right)\right)
@@ -3450,7 +3561,7 @@ k_{R}\left(t\right)\equiv\kappa\left(1-\rho_{00}\left(t\right)\right)
 
 \begin_inset Formula 
 \begin{equation}
-k_{R}\left(t\right)\equiv\kappa\left(1-\rho_{00}\left(t\right)\right)\times2\text{Im}\left[\rho_{01}e^{i\phi}\right]^{2}
+k_{R}\equiv\kappa\left(1-\rho_{00}\right)\times2\text{Im}\left[\rho_{01}e^{i\phi}\right]^{2}
 \end{equation}
 
 \end_inset
@@ -3515,76 +3626,6 @@ At time
 status open
 
 \begin_layout Plain Layout
-formal EOM
-\end_layout
-
-\end_inset
-
-To formulate the complementary quantum transition formally, we write the
- equation of motion for the density matrix 
-\begin_inset Formula $\rho\left(t\right)$
-\end_inset
-
- in the form of 
-\begin_inset Formula 
-\begin{equation}
-\frac{\partial}{\partial t}\rho\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}},\rho\left(t\right)\right]+{\cal L}_{R}\left(t\right)\rho\left(t\right),\label{eq:EOM_Ehrenfest+R}
-\end{equation}
-
-\end_inset
-
-with an additional super-operator term responsible for the complementary
- transition.
- The super-operator is given by
-\begin_inset Formula 
-\begin{equation}
-{\cal L}_{R}\rho=\left(\begin{array}{cc}
-k_{R}\rho_{11} & \frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\\
-\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right) & -k_{R}\rho_{11}
-\end{array}\right).
-\end{equation}
-
-\end_inset
-
-Since there is no decoherence introduced, the off-diagonal element of 
-\begin_inset Formula ${\cal L}_{R}\rho$
-\end_inset
-
- is obtained by conversing the purity of density matrix.
- i.e.
- 
-\begin_inset Formula $\frac{d}{dt}(\tilde{\rho}_{11}\tilde{\rho}_{22}-\left|\tilde{\rho}_{12}\right|^{2})=0$
-\end_inset
-
- 
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-some note about what if 
-\begin_inset Formula $\rho_{00}=0$
-\end_inset
-
- and coherence increase.
-\end_layout
-
-\end_inset
-
-.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Say something about increasing of coherence
-\end_layout
-
-\end_inset
-
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 Note that the right-hand side of Eq.
 \begin_inset space ~
 \end_inset
@@ -3611,7 +3652,7 @@ reference "eq:EOM_Ehrenfest+R"
 status open
 
 \begin_layout Plain Layout
-implementation
+How to implement?
 \end_layout
 
 \end_inset
@@ -3711,7 +3752,7 @@ In the mean time, the quantum transition of the electronic system leads
  to the energy loss of the system per time step,
 \begin_inset Formula 
 \begin{equation}
-dE_{R}\equiv\omega_{0}k_{R}\left|c_{1}^{\prime}\right|^{2}dt.
+\delta U_{R}\equiv\omega_{0}k_{R}\left|c_{1}^{\prime}\right|^{2}dt.
 \end{equation}
 
 \end_inset
@@ -3723,6 +3764,37 @@ In order to maintain energy conservation, we want to introduce a prescription
 
 \begin_layout Subsection
 Quantum transition in phase space 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{E}=\mathbf{E}+\alpha\text{sign}\left(\text{Im}\left[\rho_{01}e^{i\phi}\right]\right)\times\delta\mathbf{E}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{B}=\mathbf{B}+\beta\text{sign}\left(\text{Im}\left[\rho_{01}e^{i\phi}\right]\right)\times\delta\mathbf{B}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+What is the direction?
+\end_layout
+
+\begin_layout Enumerate
+From
+\end_layout
+
+\begin_layout Enumerate
+Can not interference with self 
 \end_layout
 
 \begin_layout Standard
@@ -3841,7 +3913,7 @@ Here, we propose a prescription for the quantum transition of the EM field
  by 
 \begin_inset Formula 
 \[
-\mathbf{T}_{\mathbf{B}}=\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}
+\delta\mathbf{B}=\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}
 \]
 
 \end_inset
@@ -3849,7 +3921,7 @@ Here, we propose a prescription for the quantum transition of the EM field
 
 \begin_inset Formula 
 \[
-\mathbf{T}_{\mathbf{E}}=\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}+\frac{\int\boldsymbol{\nabla}^{2}\cdot\bar{\mathbf{P}}^{\prime}}{\int\left|\bar{\mathbf{P}}^{\prime}\right|}\bar{\mathbf{P}}^{\prime}
+\delta\mathbf{E}=\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}+\frac{\int\boldsymbol{\nabla}^{2}\cdot\bar{\mathbf{P}}^{\prime}}{\int\left|\bar{\mathbf{P}}^{\prime}\right|}\bar{\mathbf{P}}^{\prime}
 \]
 
 \end_inset
@@ -4083,6 +4155,26 @@ reference "eq:classical_Efield"
 
 \begin_layout Subsection
 Step-by-step Algorithm
+\end_layout
+
+\begin_layout Enumerate
+propagate 
+\begin_inset Formula $\rho$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+propagate 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -6066,6 +6158,39 @@ This work is supported by AAA.
 
 \begin_layout Section
 \start_of_appendix
+Functional Derivative
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Functional-Derivative"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+ by 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+appendix?
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{A}}=\frac{\delta\nabla\times\mathbf{A}}{\delta\mathbf{A}}\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Partial derivatives
 \begin_inset CommandInset label
 LatexCommand label
