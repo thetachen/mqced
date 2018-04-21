@@ -2209,7 +2209,7 @@ reference "eq:liouville_rho"
 , becomes non-linear differential equations
 \begin_inset Formula 
 \begin{eqnarray}
-\frac{\partial\rho_{11}}{\partial t} & = & -2\kappa\left(\mathrm{Im}\rho_{01}\right)^{2},\label{eq:rho_11}\\
+\frac{\partial\rho_{11}}{\partial t} & = & -2\kappa\mathrm{Im}\left[\rho_{01}\right]^{2},\label{eq:rho_11}\\
 \frac{\partial\rho_{01}}{\partial t} & = & i\omega_{0}\rho_{01}-i\kappa\mathrm{Im}\rho_{01}\left(\rho_{11}-\rho_{00}\right).
 \end{eqnarray}
 
@@ -2248,51 +2248,21 @@ averaged behvior
 
 \end_inset
 
-We further analyze Ehrenfest dynamics by looking at short-time averaged
- behavior of the density matrix.
- Since 
+Since 
 \begin_inset Formula $\kappa\ll\omega_{0}$
 \end_inset
 
  in the Fermi's golden rule region, we can approximate the coherence by
  
-\begin_inset Formula $\rho_{01}\approx\left|\rho_{01}\right|e^{i\omega_{0}t}$
+\begin_inset Formula $\rho_{01}\approx\left|\rho_{01}\right|e^{i\omega_{0}t+i\phi}$
 \end_inset
 
-.
- Here, we consider the averaged behavior within a time interval 
-\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
+ up to a phase and 
+\begin_inset Formula $\left|\rho_{01}\right|^{2}=\rho_{00}\rho_{11}$
 \end_inset
 
-.
- The coherence is considered rapid oscillation within 
-\begin_inset Formula $\tau$
-\end_inset
-
-.
- Also, since 
-\begin_inset Formula $\tau$
-\end_inset
-
- is much smaller the time scale of spontaneous decay, 
-\begin_inset Formula $\rho_{11}-\rho_{00}$
-\end_inset
-
- does not change much.
- The averaged decay within the time scale 
-\begin_inset Formula $\tau$
-\end_inset
-
- is
-\begin_inset Formula 
-\begin{equation}
-\frac{1}{\tau}\int_{t}^{t+\tau}dt^{\prime}\left(\mathrm{Im}\rho_{01}\right)^{2}\approx\frac{1}{2}\left|\rho_{01}\right|^{2}.\label{eq:tau_averaged}
-\end{equation}
-
-\end_inset
-
-Finally, we can derive a nonlinear equation for the time-averaged population
- from Eq.
+ if we consider a pure state.
+ Eq.
 \begin_inset space ~
 \end_inset
 
@@ -2303,19 +2273,55 @@ reference "eq:rho_11"
 
 \end_inset
 
- 
+ then becomes 
+\begin_inset Formula 
+\[
+\frac{\partial\rho_{11}}{\partial t}=-2\kappa\rho_{00}\rho_{11}\sin^{2}\left(\omega_{0}t+\phi\right),
+\]
+
+\end_inset
+
+ and we can define the Ehrenfest decay rate by 
+\begin_inset Formula $\frac{\partial\rho_{11}}{\partial t}=-k_{Eh}\rho_{11}$
+\end_inset
+
+ as 
 \begin_inset Formula 
 \begin{equation}
-\frac{\partial\overline{\rho_{11}}}{\partial t}\approx-\kappa\left|\rho_{01}\right|^{2},
+k_{Eh}=2\kappa\rho_{00}\sin^{2}\left(\omega_{0}t+\phi\right).\label{eq:Ehrenfest_rate}
 \end{equation}
 
 \end_inset
 
-where 
-\begin_inset Formula $\overline{\rho_{11}}=\frac{1}{\tau}\int_{t}^{t+\tau}dt^{\prime}\rho_{11}$
+
+\end_layout
+
+\begin_layout Standard
+We further analyze Ehrenfest dynamics by looking at short-time averaged
+ behavior of the density matrix.
+ Here, we consider the averaged behavior within a time interval 
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
 \end_inset
 
 .
+ The coherence is considered rapid oscillation within 
+\begin_inset Formula $\tau$
+\end_inset
+
+.
+ The averaged Ehrenfest decay rate within the time scale 
+\begin_inset Formula $\tau$
+\end_inset
+
+ is
+\begin_inset Formula 
+\begin{equation}
+\overline{k_{Eh}}=\frac{1}{\tau}\int_{t}^{t+\tau}dt^{\prime}k_{Eh}=\kappa\rho_{00}.\label{eq:tau_averaged}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2335,33 +2341,9 @@ status open
 
 \end_inset
 
-Since we consider a pure state, 
-\begin_inset Formula $\left|\rho_{01}\right|^{2}=\rho_{00}\rho_{11}$
-\end_inset
-
-, the equation of motion for 
-\begin_inset Formula $\rho_{11}$
-\end_inset
-
- can be written in the form of an exponential decay
-\begin_inset Formula 
-\begin{equation}
-\frac{\partial\overline{\rho_{11}}}{\partial t}\approx-k_{Eh}\rho_{11},\label{eq:EOM_population_Ehrenfest}
-\end{equation}
-
-\end_inset
-
 We find the decay rate of Ehrenfest depends on the instantaneous population
- of the ground state
-\begin_inset Formula 
-\begin{equation}
-k_{Eh}=\kappa\rho_{00}.\label{eq:Ehrenfest_rate}
-\end{equation}
-
-\end_inset
-
-which agree with the linear dependency of the Ehrenfest decay rate on the
- initial population shown in Ref.
+ of the ground state, which agree with the linear dependency of the Ehrenfest
+ decay rate on the initial population shown in Ref.
 \begin_inset space ~
 \end_inset
 
@@ -2379,8 +2361,6 @@ onlinecite{li_mixed_2018}
 \end_inset
 
 .
- This problem largely limits the applicability of Ehrenfest dynamics.
- 
 \end_layout
 
 \begin_layout Section
@@ -3492,16 +3472,20 @@ In order to recover the FGR rate of the population decay, a straightforward
  
 \end_layout
 
+\begin_layout Subsubsection
+What do we add to the Liouville equation?
+\end_layout
+
 \begin_layout Standard
 formulate the complementary quantum transition formally, we write the equation
  of motion for the density matrix 
-\begin_inset Formula $\rho\left(t\right)$
+\begin_inset Formula $\widehat{\rho}$
 \end_inset
 
  in the form of 
 \begin_inset Formula 
 \begin{equation}
-\frac{\partial}{\partial t}\rho\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}},\rho\left(t\right)\right]+{\cal L}_{R}\left(t\right)\rho\left(t\right),\label{eq:EOM_Ehrenfest+R}
+\frac{\partial\widehat{\rho}}{\partial t}=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}},\widehat{\rho}\right]+{\cal L}_{R}\widehat{\rho},\label{eq:EOM_Ehrenfest+R}
 \end{equation}
 
 \end_inset
@@ -3511,10 +3495,7 @@ with an additional super-operator term responsible for the complementary
  The super-operator is given by
 \begin_inset Formula 
 \begin{equation}
-{\cal L}_{R}\rho=\left(\begin{array}{cc}
-k_{R}\rho_{11} & \frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\\
-\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right) & -k_{R}\rho_{11}
-\end{array}\right).
+\left[{\cal L}_{R}\widehat{\rho}\right]_{11}=-\left[{\cal L}_{R}\widehat{\rho}\right]_{00}=-k_{R}\rho_{11}
 \end{equation}
 
 \end_inset
@@ -3529,6 +3510,27 @@ Since there is no decoherence introduced, the off-diagonal element of
 \begin_inset Formula $\frac{d}{dt}(\tilde{\rho}_{11}\tilde{\rho}_{22}-\left|\tilde{\rho}_{12}\right|^{2})=0$
 \end_inset
 
+
+\begin_inset Formula 
+\begin{equation}
+\left[{\cal L}_{R}\widehat{\rho}\right]_{01}=\left[{\cal L}_{R}\widehat{\rho}\right]_{10}^{*}=\begin{cases}
+\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{01} & \rho_{00}\neq0\\
+\sqrt{\kappa dt}e^{i\phi} & \rho_{00}=0
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+not sure this 01 term is helpful or harmful....
+\end_layout
+
+\end_inset
+
  
 \begin_inset Foot
 status open
@@ -3538,7 +3540,7 @@ some note about what if
 \begin_inset Formula $\rho_{00}=0$
 \end_inset
 
- and coherence increas.
+ and coherence increase.
  coherence increase leads to more 
 \begin_inset Formula $\left\langle E\right\rangle ^{2}$
 \end_inset
@@ -3550,18 +3552,87 @@ some note about what if
 
 \end_inset
 
- 
+In the mean time, the quantum transition of the electronic system introduce
+ additional energy change of the system, 
 \begin_inset Formula 
 \begin{equation}
-k_{R}\left(t\right)\equiv\kappa\left(1-\rho_{00}\left(t\right)\right)
+\frac{dU_{s}}{dt}=\text{Tr}\left\{ \widehat{H}_{s}{\cal L}_{R}\widehat{\rho}\right\} =-\omega_{0}k_{R}\rho_{11}
 \end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+{\cal L}_{R}\rho=\left(\begin{array}{cc}
+k_{R}\rho_{11} & \frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{01}\\
+\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{10} & -k_{R}\rho_{11}
+\end{array}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+The additional relaxation rate
+\end_layout
+
+\begin_layout Standard
+The additional relaxation rate takes the same form as Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:rho_11"
+
+\end_inset
+
+ with an undetermined phase 
+\begin_inset Formula $\phi\in\left(0,2\pi\right)$
+\end_inset
+
+:
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $k_{R}\left(t\right)\equiv\kappa\left(1-\rho_{00}\left(t\right)\right)$
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
 
 \begin_inset Formula 
 \begin{equation}
-k_{R}\equiv\kappa\left(1-\rho_{00}\right)\times2\text{Im}\left[\rho_{01}e^{i\phi}\right]^{2}
+k_{R}\equiv2\kappa\left(1-\rho_{00}\right)\text{Im}\left[\frac{\rho_{01}}{\left|\rho_{01}\right|}e^{i\phi}\right]^{2}
+\end{equation}
+
+\end_inset
+
+and averaged over 
+\begin_inset Formula $\tau$
+\end_inset
+
+ yields
+\begin_inset Formula 
+\begin{equation}
+\overline{k_{R}}=\kappa\left(1-\rho_{00}\right).
 \end{equation}
 
 \end_inset
@@ -3576,39 +3647,28 @@ why phase here ??
 
 \end_inset
 
-to complement Eq.
+In the sense of short time average, the additional relaxation rate can complemen
+t Ehrenfest rate, Eq.
 \begin_inset space ~
 \end_inset
 
 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "eq:EOM_population_Ehrenfest"
+reference "eq:tau_averaged"
 
 \end_inset
 
-.
- With this additional relaxation, the population dynamics follows
+, and recover FGR rate:
 \begin_inset Formula 
 \begin{equation}
-\frac{\partial}{\partial t}\rho_{11}\left(t\right)=-k_{Eh}\rho_{11}\left(t\right)-k_{R}\rho_{11}\left(t\right)=\kappa\rho_{11}\left(t\right).
+\kappa=\overline{k_{Eh}}+\overline{k_{R}}.
 \end{equation}
 
 \end_inset
 
-At time 
-\begin_inset Formula $t$
-\end_inset
-
-, the additional decay rate 
-\begin_inset Formula $k_{R}\left(t\right)$
-\end_inset
-
- complement the Ehrenfest decay rate 
-\begin_inset Formula $k_{Eh}\left(t\right)$
-\end_inset
-
- to ensure the population dynamics follow the FGR decay rate.
+With the additional relaxation, we ensure the population dynamics follow
+ the FGR decay rate.
  Note that the radiation filed is considered at zero temperature, so we
  exclude thermal transition from 
 \begin_inset Formula $\left|0\right\rangle $
@@ -3647,74 +3707,12 @@ reference "eq:EOM_Ehrenfest+R"
 
 \end_layout
 
+\begin_layout Subsubsection
+Specific algorithm in wave function
+\end_layout
+
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-How to implement?
-\end_layout
-
-\end_inset
-
-We propose a prescription to implement the additional population relaxation
- in terms of pure state wave function.
- For each time step 
-\begin_inset Formula $dt$
-\end_inset
-
-, we perform a two-step propagation; First, the standard Ehrenfest propagation
- by Schrodinger equation:
-\begin_inset Formula 
-\begin{equation}
-\left(\begin{array}{c}
-c_{0}^{\prime}\\
-c_{1}^{\prime}
-\end{array}\right)=e^{-i\widehat{H}^{\mathrm{el}}dt/\hbar}\left(\begin{array}{c}
-c_{0}\\
-c_{1}
-\end{array}\right),\label{eq:EhrenfestPropagation}
-\end{equation}
-
-\end_inset
-
-where the electronic Hamiltonian 
-\begin_inset Formula $\widehat{H}^{\mathrm{el}}=\widehat{H}_{s}-\int\mathrm{d}x\bar{\mathbf{E}}\cdot\widehat{\mathbf{P}}$
-\end_inset
-
-, Second, the quantum transition as an population relaxation:
-\begin_inset Formula 
-\begin{equation}
-\left(\begin{array}{c}
-c_{0}^{\prime\prime}\\
-c_{1}^{\prime\prime}
-\end{array}\right)=\widehat{{\cal T}}_{0\leftarrow1}\left(k_{R}\right)\left(\begin{array}{c}
-c_{0}^{\prime}\\
-c_{1}^{\prime}
-\end{array}\right)\label{eq:TransistionPropagation}
-\end{equation}
-
-\end_inset
-
-where the quantum transition operator is determined by
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\begin_inset Formula 
-\begin{eqnarray*}
-\tilde{c}_{0} & = & \frac{c_{0}^{\prime}}{\left|c_{0}^{\prime}\right|}\sqrt{\left|c_{0}^{\prime}\right|^{2}+\left|c_{1}^{\prime}\right|^{2}\left(1-e^{-k_{R}dt}\right)},\\
-\tilde{c}_{1} & = & e^{-k_{R}dt/2}c_{1}^{\prime}
-\end{eqnarray*}
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+This is equivalent to use the wave function:
 \begin_inset Formula 
 \begin{eqnarray}
 c_{0}^{\prime\prime} & = & \frac{c_{0}^{\prime}}{\left|c_{0}^{\prime}\right|}\sqrt{\left|c_{0}^{\prime}\right|^{2}+k_{R}\left|c_{1}^{\prime}\right|^{2}dt},\\
@@ -3723,28 +3721,7 @@ c_{1}^{\prime\prime} & = & \frac{c_{1}^{\prime}}{\left|c_{1}^{\prime}\right|}\sq
 
 \end_inset
 
-and 
-\begin_inset Formula $k_{R}=\kappa(1-\left|c_{0}^{\prime}\right|^{2})$
-\end_inset
 
-.
- For this prescription, we assume that the quantum transition conserve the
- phase of the wave function within time step 
-\begin_inset Formula $dt$
-\end_inset
-
-.
- The transition operator 
-\begin_inset Formula $\widehat{{\cal T}}_{0\leftarrow1}\left(k_{R}\right)$
-\end_inset
-
- is effectively taking population 
-\begin_inset Formula $k_{R}\left|c_{1}^{\prime}\right|^{2}dt$
-\end_inset
-
- from the excited state to the ground state.
- For small enough time step, this quantum transition prescription is put
- in the population relaxation continuously in time.
 \end_layout
 
 \begin_layout Standard
@@ -3752,7 +3729,7 @@ In the mean time, the quantum transition of the electronic system leads
  to the energy loss of the system per time step,
 \begin_inset Formula 
 \begin{equation}
-\delta U_{R}\equiv\omega_{0}k_{R}\left|c_{1}^{\prime}\right|^{2}dt.
+\delta U_{R}=\omega_{0}k_{R}\rho_{11}dt
 \end{equation}
 
 \end_inset
@@ -3763,13 +3740,18 @@ In order to maintain energy conservation, we want to introduce a prescription
 \end_layout
 
 \begin_layout Subsection
-Quantum transition in phase space 
+Rescale the EM field
+\end_layout
+
+\begin_layout Standard
+Our goal here is to rescale the EM field to maintain energy conservation
+ without interference the density matrix propagation 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\mathbf{E}=\mathbf{E}+\alpha\text{sign}\left(\text{Im}\left[\rho_{01}e^{i\phi}\right]\right)\times\delta\mathbf{E}
+\mathbf{E}^{\prime\prime}=\mathbf{E}^{\prime}+\delta\mathbf{E}_{R}
 \]
 
 \end_inset
@@ -3777,7 +3759,219 @@ Quantum transition in phase space
 
 \begin_inset Formula 
 \[
-\mathbf{B}=\mathbf{B}+\beta\text{sign}\left(\text{Im}\left[\rho_{01}e^{i\phi}\right]\right)\times\delta\mathbf{B}
+\mathbf{B}^{\prime\prime}=\mathbf{B}^{\prime}+\delta\mathbf{B}_{R}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The requirement of the rescaling field: 
+\end_layout
+
+\begin_layout Enumerate
+must be transverse field
+\end_layout
+
+\begin_layout Enumerate
+can't self-interference with the electronic system, 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ must be located outside of the polarization distribution, 
+\begin_inset Formula $\mathbf{P}\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\int\mathbf{P}\cdot\mathbf{E}_{R}=0$
+\end_inset
+
+: this actually imply 
+\begin_inset Formula $g=1a$
+\end_inset
+
+, but it makes part of poynting vector inward
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+can't propagate inward.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Poynting vector: 
+\begin_inset Formula $\mathbf{S}=\frac{1}{\mu_{0}}\delta\mathbf{E}_{R}\times\delta\mathbf{B}_{R}$
+\end_inset
+
+ must obey 
+\begin_inset Formula $\mathbf{S}\left(\mathbf{r}\right)\cdot\hat{\mathbf{r}}>0$
+\end_inset
+
+ for all 
+\begin_inset Formula $\mathbf{r}$
+\end_inset
+
+.
+ so it is important to have sync sign of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ and equally energy distribution into E and B.
+\end_layout
+
+\begin_layout Enumerate
+In general, the magnitude of 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ is equal to 
+\begin_inset Formula $1/c$
+\end_inset
+
+ times the magnitude of 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ for light propagation.
+ But here the rescaling field is not plane wave, so we require equally distribut
+ed energy between E and B
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+What is the direction of the rescaling?
+\end_layout
+
+\begin_layout Standard
+where
+\begin_inset Formula 
+\[
+\delta\mathbf{E}_{R}=\alpha\text{sign}\left(\text{Im}\left[\rho_{01}e^{i\phi}\right]\right)\times\mathbf{u}_{E}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta\mathbf{B}_{R}=\frac{\alpha}{c}\text{sign}\left(\text{Im}\left[\rho_{01}e^{i\phi}\right]\right)\times\mathbf{u}_{B}
+\]
+
+\end_inset
+
+where unit vector in the direction
+\end_layout
+
+\begin_layout Standard
+From QCLE, we know that the lowest order of 
+\begin_inset Formula $\delta\mathbf{B}$
+\end_inset
+
+ must be in the direction of 
+\begin_inset Formula $\boldsymbol{\nabla}\times\mathbf{P}$
+\end_inset
+
+.
+ But we can argue that 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\delta\mathbf{E}=\sum_{n=0}^{\infty}g_{n}\left(\boldsymbol{\nabla}\times\right)^{2n}\mathbf{P}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta\mathbf{B}=\sum_{n=0}^{\infty}h_{n}\left(\boldsymbol{\nabla}\times\right)^{2n+1}\mathbf{P}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From the Maxwell's equation, we know that the averaged current generate
+ electric field in the direction of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+.
+ And we don't want to interference with that to meet Requirement #2
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+prescription
+\end_layout
+
+\end_inset
+
+Here, we propose a prescription for the quantum transition of the EM field
+ by 
+\begin_inset Formula 
+\[
+\delta\mathbf{E}=-\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}+g\mathbf{P}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta\mathbf{B}=-\boldsymbol{\nabla}\times\mathbf{P}+h\left(\boldsymbol{\nabla}\times\right)^{3}\mathbf{P}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $g$
+\end_inset
+
+ and 
+\begin_inset Formula $h$
+\end_inset
+
+ is determined by the requirements
+\begin_inset Formula 
+\[
+\delta\mathbf{E}\left(x=0\right)=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}\times\delta\mathbf{B}\left(x=0\right)=0
 \]
 
 \end_inset
@@ -3786,15 +3980,199 @@ Quantum transition in phase space
 \end_layout
 
 \begin_layout Subsubsection
-What is the direction?
+Equally distributed energy 
 \end_layout
 
-\begin_layout Enumerate
-From
+\begin_layout Standard
+In order to ensure the rescaling field only propagating outward
 \end_layout
 
-\begin_layout Enumerate
-Can not interference with self 
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\delta U_{E}=\delta U_{B}=\frac{1}{2}\delta U_{R}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+No energy conservation
+\end_layout
+
+\begin_layout Standard
+For each time step, we should require the energy conservation
+\begin_inset Formula 
+\[
+\frac{\epsilon_{0}}{2}\left|\mathbf{E}\right|^{2}+\frac{1}{2}\delta U_{R}=\frac{\epsilon_{0}}{2}\left|\mathbf{E}+\alpha\delta\mathbf{E}\right|^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{1}{2\mu_{0}}\left|\mathbf{B}\right|^{2}+\frac{1}{2}\delta U_{R}=\frac{1}{2\mu_{0}}\left|\mathbf{B}+\beta\delta\mathbf{B}\right|^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{1}{2}\delta U_{R}=\epsilon_{0}\alpha\mathbf{E}\cdot\delta\mathbf{E}+\frac{\epsilon_{0}}{2}\alpha^{2}\left|\delta\mathbf{E}\right|^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{1}{2}\delta U_{R}=\frac{1}{\mu_{0}}\beta\mathbf{B}\cdot\delta\mathbf{B}+\frac{1}{2\mu_{0}}\beta^{2}\left|\delta\mathbf{B}\right|^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+after averaging over phase 
+\begin_inset Formula 
+\[
+\left\langle \mathbf{E}\cdot\delta\mathbf{E}\right\rangle =0
+\]
+
+\end_inset
+
+so we can drop the cross term.
+ Note that each individual trajectory does not conserve total energy, but
+ the trajectory-averaged total energy is conserved.
+ 
+\begin_inset Formula 
+\[
+\frac{1}{2}\delta U_{R}=\frac{\epsilon_{0}}{2}\alpha^{2}\left|\delta\mathbf{E}\right|^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{1}{2}\delta U_{R}=\frac{1}{2\mu_{0}}\beta^{2}\left|\delta\mathbf{B}\right|^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\epsilon_{0}\mu_{0}\alpha^{2}\frac{\left|\delta\mathbf{E}\right|^{2}}{\left|\delta\mathbf{B}\right|^{2}}=\beta^{2}
+\]
+
+\end_inset
+
+they can be reduced to one parameter ...
+\end_layout
+
+\begin_layout Subsubsection
+What is the sign?
+\end_layout
+
+\begin_layout Standard
+The phase leads to constructive and destructive interference on top of Ehrenfest
+ emission field.
+\end_layout
+
+\begin_layout Subsubsection
+self-interference correction
+\end_layout
+
+\begin_layout Standard
+We notice that 
+\begin_inset Formula $\delta\mathbf{E}$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\delta\mathbf{B}$
+\end_inset
+
+
+\series default
+ has cross term.
+ For one step the cross term is shown up as
+\begin_inset Formula 
+\[
+\delta U_{R}=\epsilon_{0}\sum\tilde{\alpha}\delta\mathbf{E}\left(-n\right)\cdot\tilde{\alpha}\delta\mathbf{E}+\frac{\epsilon_{0}}{2}\tilde{\alpha}^{2}\left|\delta\mathbf{E}\right|^{2}+\frac{1}{\mu_{0}}\sum\tilde{\beta}\delta\mathbf{B}\left(-n\right)\cdot\tilde{\beta}\delta\mathbf{B}+\frac{1}{2\mu_{0}}\tilde{\beta}^{2}\left|\delta\mathbf{B}\right|^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta U_{R}=\epsilon_{0}\tilde{\alpha}^{2}\left|\delta\mathbf{E}\right|^{2}\left(\frac{1}{\left|\delta\mathbf{E}\right|^{2}}\sum\delta\mathbf{E}\left(-n\right)\cdot\delta\mathbf{E}+\frac{1}{\left|\delta\mathbf{B}\right|^{2}}\sum\delta\mathbf{B}\left(-n\right)\cdot\delta\mathbf{B}+1\right)=\epsilon_{0}\tilde{\alpha}^{2}\left|\delta\mathbf{E}\right|^{2}\frac{\Lambda}{cdt}
+\]
+
+\end_inset
+
+so
+\begin_inset Formula 
+\[
+\frac{cdt}{\Lambda}\delta U_{R}=\epsilon_{0}\tilde{\alpha}^{2}\left|\delta\mathbf{E}\right|^{2}
+\]
+
+\end_inset
+
+if 
+\begin_inset Formula $\left|\delta\mathbf{E}\right|^{2}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $\left|\delta\mathbf{B}\right|^{2}=1$
+\end_inset
+
+, 
+\begin_inset Formula $\epsilon_{0}\mu_{0}\tilde{\alpha}^{2}=\tilde{\beta}^{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta U_{R}=\epsilon_{0}\sum\tilde{\alpha}\delta\mathbf{E}\left(-n\right)\cdot\tilde{\alpha}\delta\mathbf{E}+\frac{\epsilon_{0}}{2}\tilde{\alpha}^{2}+\epsilon_{0}\tilde{\alpha}^{2}\sum\delta\mathbf{B}\left(-n\right)\cdot\delta\mathbf{B}+\frac{\epsilon_{0}}{2}\tilde{\alpha}^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta U_{R}=\epsilon_{0}\tilde{\alpha}^{2}\left(\sum\delta\mathbf{E}\left(-n\right)\cdot\delta\mathbf{E}+\sum\delta\mathbf{B}\left(-n\right)\cdot\delta\mathbf{B}+1\right)=\epsilon_{0}\tilde{\alpha}^{2}\frac{\Lambda}{cdt}
+\]
+
+\end_inset
+
+so
+\begin_inset Formula 
+\[
+\frac{cdt}{\Lambda}\delta U_{R}=\epsilon_{0}\tilde{\alpha}^{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Lambda=cdt\left(\sum\delta\mathbf{E}\left(-n\right)\cdot\delta\mathbf{E}+\sum\delta\mathbf{B}\left(-n\right)\cdot\delta\mathbf{B}+1\right)
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3913,7 +4291,7 @@ Here, we propose a prescription for the quantum transition of the EM field
  by 
 \begin_inset Formula 
 \[
-\delta\mathbf{B}=\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}
+\delta\mathbf{E}=-\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}+g\mathbf{P}
 \]
 
 \end_inset
@@ -3921,12 +4299,36 @@ Here, we propose a prescription for the quantum transition of the EM field
 
 \begin_inset Formula 
 \[
-\delta\mathbf{E}=\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}+\frac{\int\boldsymbol{\nabla}^{2}\cdot\bar{\mathbf{P}}^{\prime}}{\int\left|\bar{\mathbf{P}}^{\prime}\right|}\bar{\mathbf{P}}^{\prime}
+\delta\mathbf{B}=-\boldsymbol{\nabla}\times\mathbf{P}+h\left(\boldsymbol{\nabla}\times\right)^{3}\mathbf{P}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $g$
+\end_inset
+
+ and 
+\begin_inset Formula $h$
+\end_inset
+
+ is determined by the requirements
+\begin_inset Formula 
+\[
+\delta\mathbf{E}\left(x=0\right)=0
 \]
 
 \end_inset
 
 
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}\times\delta\mathbf{B}\left(x=0\right)=0
+\]
+
+\end_inset
+
+in order to avoid self-interference:
 \begin_inset Formula 
 \begin{eqnarray}
 \mathbf{E}^{\prime\prime} & = & \mathbf{E}^{\prime}+\alpha\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\bar{\mathbf{P}}^{\prime}\label{eq:E_transition}\\
@@ -4154,7 +4556,18 @@ reference "eq:classical_Efield"
 \end_layout
 
 \begin_layout Subsection
-Step-by-step Algorithm
+Step-by-step Algorithm of Ehrenfest+R method 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\vec{c}_{\text{Eh}}$
+\end_inset
+
+
+\begin_inset Formula $\vec{C}_{\text{Eh}+R}$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -4162,7 +4575,7 @@ propagate
 \begin_inset Formula $\rho$
 \end_inset
 
-
+ by 
 \end_layout
 
 \begin_layout Enumerate
@@ -4175,6 +4588,106 @@ propagate
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+How to implement?
+\end_layout
+
+\end_inset
+
+We propose a prescription to implement the additional population relaxation
+ in terms of pure state wave function.
+ For each time step 
+\begin_inset Formula $dt$
+\end_inset
+
+, we perform a two-step propagation; First, the standard Ehrenfest propagation
+ by Schrodinger equation:
+\begin_inset Formula 
+\begin{equation}
+\left(\begin{array}{c}
+c_{0}^{\prime}\\
+c_{1}^{\prime}
+\end{array}\right)=e^{-i\widehat{H}^{\mathrm{el}}dt/\hbar}\left(\begin{array}{c}
+c_{0}\\
+c_{1}
+\end{array}\right),\label{eq:EhrenfestPropagation}
+\end{equation}
+
+\end_inset
+
+where the electronic Hamiltonian 
+\begin_inset Formula $\widehat{H}^{\mathrm{el}}=\widehat{H}_{s}-\int\mathrm{d}x\mathbf{E}\cdot\widehat{\mathbf{P}}$
+\end_inset
+
+, Second, the quantum transition as an population relaxation:
+\begin_inset Formula 
+\begin{equation}
+\left(\begin{array}{c}
+c_{0}^{\prime\prime}\\
+c_{1}^{\prime\prime}
+\end{array}\right)=\widehat{{\cal T}}_{0\leftarrow1}\left(k_{R}\right)\left(\begin{array}{c}
+c_{0}^{\prime}\\
+c_{1}^{\prime}
+\end{array}\right)\label{eq:TransistionPropagation}
+\end{equation}
+
+\end_inset
+
+where the quantum transition operator is determined by
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray*}
+\tilde{c}_{0} & = & \frac{c_{0}^{\prime}}{\left|c_{0}^{\prime}\right|}\sqrt{\left|c_{0}^{\prime}\right|^{2}+\left|c_{1}^{\prime}\right|^{2}\left(1-e^{-k_{R}dt}\right)},\\
+\tilde{c}_{1} & = & e^{-k_{R}dt/2}c_{1}^{\prime}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+c_{0}^{\prime\prime} & = & \frac{c_{0}^{\prime}}{\left|c_{0}^{\prime}\right|}\sqrt{\left|c_{0}^{\prime}\right|^{2}+k_{R}\left|c_{1}^{\prime}\right|^{2}dt},\\
+c_{1}^{\prime\prime} & = & \frac{c_{1}^{\prime}}{\left|c_{1}^{\prime}\right|}\sqrt{\left|c_{1}^{\prime}\right|^{2}-k_{R}\left|c_{1}^{\prime}\right|^{2}dt}.
+\end{eqnarray}
+
+\end_inset
+
+and 
+\begin_inset Formula $k_{R}=\kappa(1-\left|c_{0}^{\prime}\right|^{2})$
+\end_inset
+
+.
+ For this prescription, we assume that the quantum transition conserve the
+ phase of the wave function within time step 
+\begin_inset Formula $dt$
+\end_inset
+
+.
+ The transition operator 
+\begin_inset Formula $\widehat{{\cal T}}_{0\leftarrow1}\left(k_{R}\right)$
+\end_inset
+
+ is effectively taking population 
+\begin_inset Formula $k_{R}\left|c_{1}^{\prime}\right|^{2}dt$
+\end_inset
+
+ from the excited state to the ground state.
+ For small enough time step, this quantum transition prescription is put
+ in the population relaxation continuously in time.
 \end_layout
 
 \begin_layout Section
