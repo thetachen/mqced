@@ -706,15 +706,6 @@ To derive this we need
 \begin_layout Standard
 \begin_inset Formula 
 \begin{eqnarray*}
-\mathbf{E}\left(\mathbf{r},t\right) & = & \hat{\boldsymbol{\theta}}\sin\theta\cos\left(\omega_{0}t-r^{\prime}\right)\left[-\frac{1}{r^{\prime}}+\frac{1}{r^{\prime3}}+\frac{1}{r^{\prime2}}\right]\\
- &  & +\hat{\mathbf{r}}
-\end{eqnarray*}
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{eqnarray*}
 \boldsymbol{\nabla}\cdot\mathbf{E}\left(\mathbf{r},t\right) & = & \frac{\omega_{0}^{3}}{c^{3}}\frac{p_{0}}{4\pi\epsilon_{0}}2\cos\theta\cos\left(\omega_{0}t-r^{\prime}\right)\left[-\frac{1}{r^{\prime2}}+\frac{1}{r^{\prime4}}+\frac{1}{r^{\prime3}}\right]\\
  &  & +\frac{\omega_{0}^{3}}{c^{3}}\frac{p_{0}}{4\pi\epsilon_{0}}2\cos\theta\sin\left(\omega_{0}t-r^{\prime}\right)\left[\frac{1}{r^{\prime3}}+\frac{1}{r^{\prime2}}\right]\\
  &  & +\frac{\omega_{0}^{3}}{c^{3}}\frac{p_{0}}{4\pi\epsilon_{0}}2\cos\theta\cos\left(\omega_{0}t-r^{\prime}\right)\left[-\frac{1}{r^{\prime4}}\right]\\
@@ -728,15 +719,7 @@ To derive this we need
 \end_layout
 
 \begin_layout Subsection
-What is the +R transition? – 1D
-\end_layout
-
-\begin_layout Subsubsection
-Use Tao's 
-\begin_inset Formula $\mathbf{P}$
-\end_inset
-
-
+What is the +R transition?
 \end_layout
 
 \begin_layout Standard
@@ -763,11 +746,19 @@ From Tao's eq.
 
 \end_layout
 
+\begin_layout Subsubsection
+Use Tao's 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 1D: Let
 \begin_inset Formula 
 \[
-P_{1D}=\sqrt{\frac{a}{\pi}}\mu_{12}
+p_{1D}=\sqrt{\frac{a}{\pi}}\mu_{12}
 \]
 
 \end_inset
@@ -864,6 +855,14 @@ so
 \begin_inset Formula 
 \[
 h=\frac{1}{6a}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\delta\mathbf{B}\left(x\right)=p_{1D}\left(-\frac{4}{3}a^{2}x^{3}\right)e^{-ax^{2}}\hat{\mathbf{y}}
 \]
 
 \end_inset
@@ -969,15 +968,7 @@ h=\frac{1}{6a}
 \end_layout
 
 \begin_layout Itemize
-Esitmate the overlap:
-\begin_inset Formula 
-\[
-\int dx\left|\mathbf{P}_{1D}\right|^{2}=p_{1D}\int dxe^{-2ax^{2}}=p_{1D}\sqrt{\frac{\pi}{2a}}
-\]
-
-\end_inset
-
-consider 
+Estimate the overlap:
 \end_layout
 
 \begin_deeper
@@ -990,6 +981,11 @@ consider
 \end_inset
 
 :
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+1D:
 \begin_inset Formula 
 \[
 \int dx\left|\mathbf{P}\cdot\delta\mathbf{E}\right|=p_{1D}^{2}4a^{2}\int dxx^{2}e^{-2ax^{2}}=p_{1D}^{2}4a^{2}\int dxx^{2}e^{-2ax^{2}}=p_{1D}^{2}\sqrt{\frac{\pi a}{2}}
@@ -999,25 +995,11 @@ consider
 
 
 \begin_inset Formula 
-\[
-\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=p_{1D}^{2}\sqrt{2\pi a}-p_{1D}^{2}\sqrt{\frac{\pi a}{2}}
-\]
-
-\end_inset
-
-vs
-\begin_inset Formula 
-\[
-\mathbf{P}\left(x,y,z\right)=\hat{\mathbf{z}}p_{3D}\xi\left(x,y,z\right)
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
 \begin{eqnarray*}
-\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P} & = & p_{3D}\xi\left[a^{2}xz\hat{\mathbf{x}}+a^{2}yz\hat{\mathbf{y}}+\left[2a-a^{2}\left(x^{2}+y^{2}\right)\right]\hat{\mathbf{z}}\right]\\
- & = & p_{3D}\xi a^{2}\left[xz\hat{\mathbf{x}}+yz\hat{\mathbf{y}}+\left[\frac{2}{a}-\left(x^{2}+y^{2}\right)\right]\hat{\mathbf{z}}\right]
+\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right| & = & p_{1D}^{2}\int dx\left(2a-4a^{2}x^{2}\right)e^{-2ax^{2}}\\
+ & = & p_{1D}^{2}\left(2a\sqrt{\frac{\pi}{2a}}-4a^{2}\sqrt{\frac{\pi}{2a}}\frac{1}{4a}\right)\\
+ & = & p_{1D}^{2}\left(\sqrt{2a\pi}-\sqrt{\frac{a\pi}{2}}\right)\\
+ & = & p_{1D}^{2}\sqrt{\frac{a\pi}{2}}
 \end{eqnarray*}
 
 \end_inset
@@ -1025,7 +1007,59 @@ vs
 
 \begin_inset Formula 
 \[
-\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\int dr^{3}p_{3D}^{2}a^{2}\left[\frac{2}{a}-\left(x^{2}+y^{2}\right)\right]e^{-2ar^{2}}=\int dr^{3}p_{3D}^{2}\left[2a-a^{2}\left(x^{2}+y^{2}\right)\right]e^{-2ar^{2}}
+\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\mu_{12}^{2}\sqrt{\frac{a^{3}}{2\pi}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\mathbf{P}\right|^{2}=p_{1D}^{2}\int dxe^{-2ax^{2}}=\mu_{12}^{2}\sqrt{\frac{a}{2\pi}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right|^{2}=p_{1D}^{2}\int dx\left(2a-4a^{2}x^{2}\right)^{2}e^{-2ax^{2}}=\mu_{12}^{2}\sqrt{\frac{a}{2\pi}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+3D:
+\begin_inset Formula 
+\[
+\mathbf{P}\left(x,y,z\right)=\hat{\mathbf{z}}p_{3D}\xi\left(x,y,z\right)=\hat{\mathbf{z}}\mu_{12}\frac{2a^{3/2}}{\pi^{3/2}}e^{-ar^{2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P} & = & \mu_{12}\frac{2a^{3/2}}{\pi^{3/2}}e^{-ar^{2}}\left[a^{2}xz\hat{\mathbf{x}}+a^{2}yz\hat{\mathbf{y}}+\left[2a-a^{2}\left(x^{2}+y^{2}\right)\right]\hat{\mathbf{z}}\right]\\
+\end{eqnarray*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\mathbf{P}\right|^{2}=\mu_{12}^{2}\frac{2a^{3}}{\pi^{3}}4\pi\int r^{2}e^{-2ar^{2}}=\mu_{12}^{2}\frac{2a^{3}}{\pi^{3}}4\pi\sqrt{\frac{\pi}{2a}}\frac{1}{4a}=\frac{2a^{3/2}}{\left(2\pi\right)^{3/2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\mu_{12}^{2}\frac{4a^{3}}{\pi^{3}}\int dr^{3}\left[2a-a^{2}\left(x^{2}+y^{2}\right)\right]e^{-2ar^{2}}
 \]
 
 \end_inset
@@ -1033,12 +1067,38 @@ vs
 first term:
 \begin_inset Formula 
 \[
-\int dr^{3}p_{3D}^{2}2ae^{-2ar^{2}}=p_{3D}^{2}8\pi a\int_{0}^{\infty}drr^{2}e^{-2ar^{2}}=p_{3D}^{2}\pi\sqrt{\frac{\pi}{2a}}
+\int dr^{3}2ae^{-2ar^{2}}=8\pi a\int_{0}^{\infty}drr^{2}e^{-2ar^{2}}=\pi\sqrt{\frac{\pi}{2a}}
+\]
+
+\end_inset
+
+second term:
+\begin_inset Formula 
+\begin{eqnarray*}
+\int dr^{3}a^{2}r^{2}\sin^{2}\theta e^{-2ar^{2}} & = & a^{2}2\pi\int drr^{4}e^{-2ar^{2}}\int d\theta\sin^{3}\theta\\
+ & = & a^{2}2\pi\sqrt{\frac{\pi}{2a}}\frac{3}{\left(4a\right)^{2}}\frac{4}{3}\\
+ & = & \left(\frac{\pi}{2}\right)^{3/2}\frac{1}{\sqrt{a}}\\
+\end{eqnarray*}
+
+\end_inset
+
+so 
+\begin_inset Formula 
+\[
+\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\mu_{12}^{2}\frac{4a^{3}}{\pi^{3}}\frac{1}{\sqrt{a}}\left(2\left(\frac{\pi}{2}\right)^{3/2}-\left(\frac{\pi}{2}\right)^{3/2}\right)=\mu_{12}^{2}\frac{4a^{5/2}}{\pi^{3/2}}\left(\frac{1}{2}\right)^{3/2}
 \]
 
 \end_inset
 
 ratio
+\begin_inset Formula 
+\[
+\frac{\text{1D}}{\text{3D}}=\frac{\frac{a^{3/2}}{\sqrt{2}\pi^{1/2}}/\sqrt{\frac{a}{2\pi}}}{\frac{2a^{5/2}}{\sqrt{2}\pi^{3/2}}/\frac{2a^{3/2}}{\left(2\pi\right)^{3/2}}}=\frac{\pi}{2a}\frac{2a}{2\pi}
+\]
+
+\end_inset
+
+
 \begin_inset Formula 
 \[
 \frac{p_{1D}^{2}2a}{p_{3D}^{2}\pi}=\frac{\frac{a}{\pi}\mu_{12}^{2}2a}{\frac{4a^{5}}{\pi^{3}}\mu_{12}^{2}\pi}=\frac{\pi}{2a^{3}}
@@ -1057,12 +1117,13 @@ ratio
 
 \end_layout
 
+\end_deeper
 \begin_layout Enumerate
 \begin_inset Formula $\delta B$
 \end_inset
 
  overlap with 
-\begin_inset Formula $B$
+\begin_inset Formula $P$
 \end_inset
 
 
@@ -1078,7 +1139,7 @@ ratio
 
 \end_deeper
 \begin_layout Itemize
-3D: Let 
+3D
 \begin_inset Formula 
 \[
 p_{0}=\frac{2a^{5/2}}{\pi^{3/2}}\mu_{12}
@@ -1114,10 +1175,6 @@ p_{0}=\frac{2a^{5/2}}{\pi^{3/2}}\mu_{12}
 \end_layout
 
 \begin_layout Subsection
-What is the +R transition? – 3D
-\end_layout
-
-\begin_layout Subsubsection
 Let 
 \begin_inset Formula $\mathbf{P}$
 \end_inset
@@ -1146,6 +1203,14 @@ where a normal distribution is (
 \begin_inset Formula 
 \[
 \xi\left(x,y,z\right)=\left(\frac{1}{\sqrt{2\pi}\sigma}\right)^{3}e^{-\frac{x^{2}+y^{2}+z^{2}}{2\sigma^{2}}}=\left(\frac{a}{2\pi}\right)^{3/2}e^{-\frac{a}{2}\left(x^{2}+y^{2}+z^{2}\right)}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{2a^{3/2}}{\pi^{3/2}}\mu_{12}
 \]
 
 \end_inset
