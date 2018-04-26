@@ -999,7 +999,7 @@ Estimate the overlap:
 \int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right| & = & p_{1D}^{2}\int dx\left(2a-4a^{2}x^{2}\right)e^{-2ax^{2}}\\
  & = & p_{1D}^{2}\left(2a\sqrt{\frac{\pi}{2a}}-4a^{2}\sqrt{\frac{\pi}{2a}}\frac{1}{4a}\right)\\
  & = & p_{1D}^{2}\left(\sqrt{2a\pi}-\sqrt{\frac{a\pi}{2}}\right)\\
- & = & p_{1D}^{2}\sqrt{\frac{a\pi}{2}}
+ & = & p_{1D}^{2}3\sqrt{\frac{a\pi}{2}}
 \end{eqnarray*}
 
 \end_inset
@@ -1007,7 +1007,7 @@ Estimate the overlap:
 
 \begin_inset Formula 
 \[
-\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\mu_{12}^{2}\sqrt{\frac{a^{3}}{2\pi}}
+\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=3\mu_{12}^{2}\sqrt{\frac{a^{3}}{2\pi}}
 \]
 
 \end_inset
@@ -1067,7 +1067,7 @@ Estimate the overlap:
 first term:
 \begin_inset Formula 
 \[
-\int dr^{3}2ae^{-2ar^{2}}=8\pi a\int_{0}^{\infty}drr^{2}e^{-2ar^{2}}=\pi\sqrt{\frac{\pi}{2a}}
+\int dr^{3}2ae^{-2ar^{2}}=8\pi a\int_{0}^{\infty}drr^{2}e^{-2ar^{2}}=8\pi a\sqrt{\frac{\pi}{2a}}\frac{1}{8a}=\sqrt{\frac{\pi^{3}}{2a}}
 \]
 
 \end_inset
@@ -1076,8 +1076,8 @@ second term:
 \begin_inset Formula 
 \begin{eqnarray*}
 \int dr^{3}a^{2}r^{2}\sin^{2}\theta e^{-2ar^{2}} & = & a^{2}2\pi\int drr^{4}e^{-2ar^{2}}\int d\theta\sin^{3}\theta\\
- & = & a^{2}2\pi\sqrt{\frac{\pi}{2a}}\frac{3}{\left(4a\right)^{2}}\frac{4}{3}\\
- & = & \left(\frac{\pi}{2}\right)^{3/2}\frac{1}{\sqrt{a}}\\
+ & = & a^{2}2\pi\frac{1}{2}\sqrt{\frac{\pi}{2a}}\frac{3}{\left(4a\right)^{2}}\frac{4}{3}\\
+ & = & \frac{1}{4}\sqrt{\frac{\pi^{3}}{2a}}\\
 \end{eqnarray*}
 
 \end_inset
@@ -1085,7 +1085,15 @@ second term:
 so 
 \begin_inset Formula 
 \[
-\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\mu_{12}^{2}\frac{4a^{3}}{\pi^{3}}\frac{1}{\sqrt{a}}\left(2\left(\frac{\pi}{2}\right)^{3/2}-\left(\frac{\pi}{2}\right)^{3/2}\right)=\mu_{12}^{2}\frac{4a^{5/2}}{\pi^{3/2}}\left(\frac{1}{2}\right)^{3/2}
+\int dx\left|\mathbf{P}\cdot\delta\mathbf{E}_{R}\right|=\mu_{12}^{2}\sqrt{\frac{a^{5}}{2\pi^{3}}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\mathbf{P}\cdot\left(\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}\right)\right|=\mu_{12}^{2}\frac{4a^{3}}{\pi^{3}}\frac{3}{4}\left(\sqrt{\frac{\pi^{3}}{2a}}\right)=\mu_{12}^{2}3\sqrt{\frac{a^{5}}{2\pi^{3}}}
 \]
 
 \end_inset
@@ -1093,7 +1101,7 @@ so
 ratio
 \begin_inset Formula 
 \[
-\frac{\text{1D}}{\text{3D}}=\frac{\frac{a^{3/2}}{\sqrt{2}\pi^{1/2}}/\sqrt{\frac{a}{2\pi}}}{\frac{2a^{5/2}}{\sqrt{2}\pi^{3/2}}/\frac{2a^{3/2}}{\left(2\pi\right)^{3/2}}}=\frac{\pi}{2a}\frac{2a}{2\pi}
+\frac{\text{1D}}{\text{3D}}=\frac{\mu_{12}^{2}3\sqrt{\frac{a^{3}}{2\pi}}}{\mu_{12}^{2}3\sqrt{\frac{a^{5}}{2\pi^{3}}}}=\frac{\mu_{12}^{2}}{\mu_{12}^{2}}\frac{\pi}{a}
 \]
 
 \end_inset
