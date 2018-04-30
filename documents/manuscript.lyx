@@ -118,20 +118,6 @@ College of Integrative Sciences and Arts, Arizona State University, Mesa,
 \end_layout
 
 \begin_layout Author
-Todd Martinez 
-\end_layout
-
-\begin_layout Affiliation
-Department of Chemistry and The PULSE Institute, Stanford University, Stanford,
- California 94305, USA 
-\end_layout
-
-\begin_layout Affiliation
-SLAC National Accelerator Laboratory, 2575 Sand Hill Road, Menlo Park, CA
- 94025, USA 
-\end_layout
-
-\begin_layout Author
 Abraham Nitzan
 \end_layout
 
@@ -175,7 +161,37 @@ Ehrenfest+R
 status open
 
 \begin_layout Plain Layout
-To incorporate 
+
+\series bold
+TODO:
+\end_layout
+
+\begin_layout Itemize
+Sec.II-B: Göppert-Mayer Transformation
+\end_layout
+
+\begin_layout Itemize
+Green's function detail
+\end_layout
+
+\begin_layout Itemize
+coherence of 
+\begin_inset Formula ${\cal L}_{R}\widehat{\rho}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+VI-A self-interference length discussion
+\end_layout
+
+\begin_layout Itemize
+VI-C discuss emission field coherent and incoherent field.
+\end_layout
+
+\begin_layout Itemize
+3LS Raman
 \end_layout
 
 \end_inset
@@ -524,8 +540,8 @@ reference "sec:Review"
 
 \end_inset
 
-, we review quantum electrodynamics theory for spontaneous emission.
- We focus on the Fermi's golden rule decay rate and the radiation properties.
+, we review quantum electrodynamics theory for spontaneous emission, in
+ which we focus on the Fermi's golden rule rate and the radiation properties.
  In Sec.
 \begin_inset space ~
 \end_inset
@@ -537,7 +553,8 @@ reference "sec:Ehrenfest-Dynamics"
 
 \end_inset
 
-, we review Ehrenfest dynamics for spontaneous emission.
+, we review Ehrenfest dynamics for quantum electrodynamics and discuss the
+ drawbacks.
  In Sec.
 \begin_inset space ~
 \end_inset
@@ -549,8 +566,8 @@ reference "sec:Mixed-Quantum–Classical-Theory"
 
 \end_inset
 
-, we formulate electrodynamical quantum-classical Liouville equation and
- the equation of motion for Ehrenfest dynamics in phase space.
+, we analyze Ehrenfest anstaz in the framework of mixed quantum-classical
+ theory.
  Sec.
 \begin_inset space ~
 \end_inset
@@ -562,8 +579,8 @@ reference "sec:Ehrenfest+R-method"
 
 \end_inset
 
- illustrates the proposed Ehrenfest+R method explicitly for spontaneous
- emission.
+ propose Ehrenfest+R method explicitly to recover the deficiency of the
+ standard Ehrenfest dynamics.
  Sec.
 \begin_inset space ~
 \end_inset
@@ -575,8 +592,8 @@ reference "sec:Results"
 
 \end_inset
 
- presents Ehrenfest+R results for the recovery of spontaneous emission rate
- and predicting the coherent and incoherent emission intensity.
+ presents the Ehrenfest+R results for spontaneous emission, include the
+ recovery of the decay rate and the coherent and incoherent emission intensity.
  In Sec.
 \begin_inset space ~
 \end_inset
@@ -588,8 +605,8 @@ reference "sec:Three-Level-System-Resonance"
 
 \end_inset
 
-, we discuss the generalizat Ehrenfest+R dynamics to treat resonance Raman
- scattering and demonstrate promising results for a simple three-level system.
+, we discuss the generalization of Ehrenfest+R dynamics to treat Raman scatterin
+g and demonstrate promising results for a simple three-level system.
  In Sec.
 \begin_inset space ~
 \end_inset
@@ -606,12 +623,12 @@ reference "sec:Conclusions"
 
 \begin_layout Standard
 In this paper, we use a bold symbol to denote a space vector 
-\begin_inset Formula $\mathbf{r}=x\mathbf{e}_{x}+y\mathbf{e}_{y}+z\mathbf{e}_{z}$
+\begin_inset Formula $\mathbf{r}=x\hat{\mathbf{x}}+y\hat{\mathbf{y}}+z\hat{\mathbf{z}}$
 \end_inset
 
  in Cartesian coordinate.
  Vector functions are denoted as 
-\begin_inset Formula $\mathbf{A}\left(\mathbf{r}\right)=\sum_{i=x,y,z}A_{i}\left(\mathbf{r}\right)\mathbf{e}_{i}$
+\begin_inset Formula $\mathbf{A}\left(\mathbf{r}\right)=\sum_{i=x,y,z}A_{i}\left(\mathbf{r}\right)\hat{\mathbf{i}}$
 \end_inset
 
 .
@@ -3350,22 +3367,12 @@ need for transition
 
 \end_inset
 
-From the above analysis of the difference in QCLE and Ehrenfest EOM, we
- must introduce quantum transitions to Ehrenfest dynamics not only for the
- trajectory in phase space, also for the quantum evolution of the electronic
- degrees of freedom.
- We shall make this interpretation explicit in Sec.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Ehrenfest+R-method"
-
-\end_inset
-
-.
+From the above analysis of the difference in electrodynamical QCLE and Ehrenfest
+ EOM, we must introduce quantum transitions to Ehrenfest dynamics not only
+ for the trajectory in phase space, also for the quantum evolution of the
+ electronic degrees of freedom.
+ We shall make this interpretation explicit in the following.
+ 
 \begin_inset Note Note
 status open
 
@@ -3379,6 +3386,19 @@ key "bellonzi_assessment_2016"
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+The connection here is weak here...
 \end_layout
 
 \end_inset
@@ -4240,7 +4260,7 @@ Despite the difficulty, we propose a possible scheme in the following.
  Consider the polarization distribution is effectively 1D space, 
 \begin_inset Formula 
 \begin{equation}
-\mathbf{P}^{\text{1D}}\left(x\right)=\mu_{01}\sqrt{\frac{a}{\pi}}e^{-ax^{2}}\hat{\mathbf{z}}
+\mathbf{P}^{\text{1D}}\left(x\right)=\mu_{01}\sqrt{\frac{a}{\pi}}e^{-ax^{2}}\hat{\mathbf{z}}\label{eq:P_1D}
 \end{equation}
 
 \end_inset
@@ -5233,7 +5253,8 @@ Here we outline the detailed algorithm for Ehrenfest+R method.
 \begin_inset Formula $\mathbf{P}^{\text{1D}}\left(x\right)$
 \end_inset
 
-, we precompute the following: 
+, we precompute the following quantities before starting Ehrenfest+R trajectorie
+s:
 \end_layout
 
 \begin_layout Enumerate
@@ -5290,8 +5311,9 @@ reference "eq:self-inter-length"
 
 \end_inset
 
- by considering an imaginary system that only has the rescaling emission
- by an arbitrary energy 
+.
+ Consider an imaginary system that only has the rescaling emission by an
+ arbitrary energy 
 \begin_inset Formula $\delta U$
 \end_inset
 
@@ -5350,7 +5372,7 @@ Then we initialize Ehrenfest+R trajectory
 \begin_inset Formula $\ell$
 \end_inset
 
- with a random phase 
+ with a phase 
 \begin_inset Formula $\phi^{\ell}$
 \end_inset
 
@@ -5456,20 +5478,8 @@ calculate
 apply absorbing boundary condition.
 \end_layout
 
-\begin_layout Standard
-\begin_inset CommandInset line
-LatexCommand rule
-offset "0.5ex"
-width "100col%"
-height "1pt"
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
-Results
+Results: Spontaneous Emission
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Results"
@@ -5489,8 +5499,8 @@ parameters
 
 \end_inset
 
-We simulate the spontaneous emission of a two-level system in 1D space using
- the standard Ehrenfest method and the proposed Ehrenfest+R method.
+We simulate the spontaneous emission of a two-level system in the effective
+ 1D space using the standard Ehrenfest method and the Ehrenfest+R method.
  The energy difference is 
 \begin_inset Formula $\hbar\omega_{0}=16.46\ \text{eV}$
 \end_inset
@@ -5500,53 +5510,35 @@ We simulate the spontaneous emission of a two-level system in 1D space using
 \begin_inset Formula $\mu_{01}=11282\ \text{C/nm/mol}$
 \end_inset
 
- and the Dirac delta function is approximated by a Gaussian distribution
- with 
+ and the polarization function is given by a Gaussian distribution with
+ 
 \begin_inset Formula $a=0.0556~\text{nm}^{-2}$
 \end_inset
 
 .
  In the following, we will compare the results by standard Ehrenfest, Ehrenfest+
 R, and quantum theory.
-\begin_inset Note Note
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-initial phase
-\end_layout
-
+ We here select the phase evenly distributed: 
+\begin_inset Formula $\phi^{\ell}=2\pi j/N_{\text{traj}}$
 \end_inset
 
-The initial wave function is 
-\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\rho_{gg}}\left|g\right\rangle +\sqrt{\rho_{ee}}e^{i\phi}\left|e\right\rangle $
+ for 
+\begin_inset Formula $j=1,\cdots,N_{\text{traj}}$
 \end_inset
 
- where 
-\begin_inset Formula $\phi$
-\end_inset
-
- is a random phase.
-\end_layout
-
-\end_inset
-
-
+.
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename ../runs-diabatical/ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged/fig_1.pdf
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_1.pdf
 
 \end_inset
 
@@ -5557,7 +5549,29 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-population dynamics and extracted spontaneous decay rate
+(a) Population of the excited state as a function of time.
+ The initial state is 
+\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\frac{1}{2}}\left|0\right\rangle +\sqrt{\frac{1}{2}}\left|1\right\rangle $
+\end_inset
+
+.
+ The black dash line indicate the FGR decay.
+ The red solid line is the standard Ehrefest dynamics and the red dash line
+ is an exponential fitting of the data.
+ And the green solid line is Ehrefest+R dynamics with 
+\begin_inset Formula $N_{\text{traj}}=40$
+\end_inset
+
+.
+ (b) Spontaneous decay rates extracted from excited state population dynamics
+ for different initial states.
+ As a function of the initial ground state population 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+, the exponential decay rates are obtained by the standard Ehrenfest method
+ (red) and Ehrenfest+R method (green).
+ The black dash line indicate the FGR rate.
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:population-dynamics-and"
@@ -5578,6 +5592,21 @@ name "fig:population-dynamics-and"
 \end_layout
 
 \begin_layout Subsection
+Self-interference length
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Lambda^{\text{1D}}\approx7.2\ \text{nm}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Spontaneous decay rate
 \end_layout
 
@@ -5591,9 +5620,20 @@ standard Ehrenfest
 
 \end_inset
 
-We show the deficiency of the standard Ehrenfest dynamics.
- For long time, we find it difficult to fit the standard Ehrenfest dynamics
- to an exponential decay curve.
+Due to the deficiency of the standard Ehrenfest dynamics, it is not surprising
+ that the standard Ehrenfest dynamics cannot fit to an exponential decay
+ curve well, see Fig
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:population-dynamics-and"
+
+\end_inset
+
+(a).
  The decay rate extracted from short-time Ehrenfest dynamics is generally
  smaller than the FGR rate and has a linear dependence on the initial ground
  state population (
@@ -5638,7 +5678,7 @@ When the initial state is a trivial pure state
 \begin_inset Formula $\rho_{00}=0$
 \end_inset
 
-, standard Ehrenfest method predict no decay.
+, the standard Ehrenfest method predict no decay.
 \end_layout
 
 \begin_layout Standard
@@ -5651,7 +5691,7 @@ Ehrenfest+R method
 
 \end_inset
 
-By Ehrenfest+R method, we correct the quantitative error of the standard
+With Ehrenfest+R method, we can correct the quantitative error of the standard
  Ehrenfest dynamics and recover the spontaneous decay rates, see Fig.
 \begin_inset space ~
 \end_inset
@@ -5663,9 +5703,9 @@ reference "fig:population-dynamics-and"
 
 \end_inset
 
-.
- The transition rates extracted from Ehrenfest+R dynamics agree with the
- FGR decay rate for all the initial conditions.
+(b).
+ The exponential decay rates extracted from Ehrenfest+R dynamics agree very
+ well with the FGR decay rate for all the initial conditions.
  Most importantly,
 \family roman
 \series medium
@@ -5714,30 +5754,16 @@ Emission Fields Intensity
 status open
 
 \begin_layout Plain Layout
-radiation field
-\end_layout
-
-\end_inset
-
-The most important question, also the real challenge for semiclassical methods
- for electron–radiation dynamics, is how accurate one can predict the radiation
- field.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
 intensity
 \end_layout
 
 \end_inset
 
-We find that, Ehrenfest+R method yields the radiation field intensity distributi
-on 
-\begin_inset Formula $\langle\widehat{\mathbf{E}}(x,t)^{2}\rangle$
+Ehrenfest+R method yields the radiation field intensity distribution 
+\begin_inset Formula $\langle\mathbf{E}^{2}\left(x,t\right)\rangle$
 \end_inset
 
- in a good agreement with the analytical expression by quantum theory, Eq.
+ in a good agreement with the theoretical expression Eq.
 \begin_inset space ~
 \end_inset
 
@@ -5748,7 +5774,7 @@ reference "eq:Intensity"
 
 \end_inset
 
-.
+ derived from quantum theory.
  
 \begin_inset Note Note
 status open
@@ -5969,109 +5995,6 @@ coherent vs.
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename ../runs-diabatical/ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged/fig_2.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-(a) Radiation field intensity as a function of coordinate 
-\begin_inset Formula $x$
-\end_inset
-
- at 
-\begin_inset Formula $t=25\ \text{fs}$
-\end_inset
-
-.
- We compare Ehrenfest dynamics (red) and Ehrenfest+R dynamics (green).
- The green dash line is the analytical result obtained by Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Intensity"
-
-\end_inset
-
-.
- The red dash line is Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Esquare"
-
-\end_inset
-
- using the Ehrenfest population.
- The event horizon is at 
-\begin_inset Formula $\left|x\right|=ct=7500\ \text{nm}$
-\end_inset
-
-.
- The result is averaged over 
-\begin_inset Formula $1000$
-\end_inset
-
- trajectories.
- (b) Relative incoherent emission is plotted as a function of the initial
- population of the excited state 
-\begin_inset Formula $\rho_{11}$
-\end_inset
-
-.
- The data is averaged over a short time 
-\begin_inset Formula $\tau=1\ \text{fs}$
-\end_inset
-
-.
- 
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:Radiation-field-intensity"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Incoherent and coherent emission
-\end_layout
-
-\begin_layout Standard
 We show that the quantum transition introduced in Ehrenfest+R method is
  responsible for the incoherent emission.
  We estimate the contribution of the incoherent emission by the 
@@ -6132,19 +6055,6 @@ reference "fig:Radiation-field-intensity"
  the electric and magnetic field.
  As a result, we find that the relative incoherence calculated by Ehrenfest+R
  dynamics agree with the quantum theory.
- 
-\end_layout
-
-\begin_layout Subsection
-Spontaneous emission in 3D
-\end_layout
-
-\begin_layout Standard
-We want to make sure it comes out as 
-\begin_inset Formula $\nabla\times$
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -6156,17 +6066,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename /home/theta/sync/mqced/runs-venus/3D/test_check_Pr_0.5/fig.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename /home/theta/sync/mqced/runs-venus/3D/test_noEC_GRID210_C01.0/fig.pdf
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_2.pdf
 
 \end_inset
 
@@ -6177,7 +6077,83 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-\begin_inset Formula $\Lambda^{\text{3D}}=0.2$
+Radiation field properties as a function of coordinate at 
+\begin_inset Formula $t=100\ \text{fs}$
+\end_inset
+
+ for initial excited state population (a) 
+\begin_inset Formula $\rho_{11}=0.5$
+\end_inset
+
+, (b) 
+\begin_inset Formula $\rho_{11}=0.9$
+\end_inset
+
+, and (c) 
+\begin_inset Formula $\rho_{11}=1$
+\end_inset
+
+.
+ The self-interference length is 
+\begin_inset Formula $\Lambda=7.2\ \text{nm}$
+\end_inset
+
+.
+ The solid lines are 
+\begin_inset Formula $\left\langle E_{z}^{2}\left(x\right)\right\rangle $
+\end_inset
+
+ (green) and 
+\begin_inset Formula $\left\langle E_{z}\left(x\right)\right\rangle ^{2}$
+\end_inset
+
+ (blue) calculated by Ehrenfest+R method with 
+\begin_inset Formula $N_{\text{traj}}=40$
+\end_inset
+
+.
+ The black dash lines are the theoretical results obtained by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Intensity"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Esquare"
+
+\end_inset
+
+ for given initial population.
+ The event horizon can be observed at 
+\begin_inset Formula $x=ct=3\times10^{4}\ \text{nm}$
+\end_inset
+
+.
+ Note that, in (c), we obtain 
+\begin_inset Formula $\left\langle E_{z}\left(x\right)\right\rangle =0$
+\end_inset
+
+ by Ehrenfest+R method and 
+\begin_inset Formula $\left\langle E_{z}\left(x\right)\right\rangle =\left\langle E_{z}^{2}\left(x\right)\right\rangle =0$
+\end_inset
+
+ by standard Ehrenfest method.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Radiation-field-intensity"
+
 \end_inset
 
 
@@ -6187,6 +6163,394 @@ status open
 
 
 \end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+Spontaneous emission in 3D
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+setting
+\end_layout
+
+\end_inset
+
+Now we consider a two-level system in a 3D space.
+ We assume the polarization in the form of a Gaussian distribution
+\begin_inset Formula 
+\begin{equation}
+\mathbf{P}^{\text{3D}}\left(\mathbf{r}\right)=\hat{\mathbf{z}}\mu_{01}\frac{2a^{3/2}}{\pi^{3/2}}e^{-ar^{2}}
+\end{equation}
+
+\end_inset
+
+which is only polarized in the 
+\begin_inset Formula $z$
+\end_inset
+
+ direction.
+ We use 
+\begin_inset Formula $a=0.0556~\text{nm}^{-2}$
+\end_inset
+
+ and the width of the Gaussian is about 
+\begin_inset Formula $\sigma=1/\sqrt{2a}\approx3\ \text{nm}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\mathbf{P}^{\text{3D}}\left(\mathbf{r}\right)$
+\end_inset
+
+ is not a transverse field, so we choose the rescaling field as 
+\begin_inset Formula $\delta\mathbf{E}_{R}=\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}=\boldsymbol{\nabla}\times\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First, we want to make sure 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ are an appropriate rescaling direction for spontaneous emission.
+ To do so, we calculate the overlap of the EM field coming out from the
+ standard Ehrenfest dynamics with 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+.
+ Consider a spherical shell outside of the region of 
+\begin_inset Formula $\mathbf{P}^{\text{3D}}\left(\mathbf{r}\right)$
+\end_inset
+
+, usually several 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ away from the emitter, we calculate the normalized overlap estimation in
+ this region defined as 
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{E}_{Eh}|\delta\mathbf{E}_{R}\right)=\frac{\int_{\circledcirc}\mathbf{E}_{Eh}\cdot\delta\mathbf{E}_{R}}{\sqrt{\int_{\circledcirc}\left|\mathbf{E}_{Eh}\right|^{2}\int_{\circledcirc}\left|\delta\mathbf{E}_{R}\right|^{2}}}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\int_{\circledcirc}$
+\end_inset
+
+ denote the integral within the spherical shell.
+ The normalized overlap estimation represent the portion of the rescaling
+ field within the emission field of Ehrenfest dynamics.
+\end_layout
+
+\begin_layout Standard
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:overlap-self-interference "
+
+\end_inset
+
+ show the normalized overlap estimation for short time.
+ Since we consider a shell 
+\begin_inset Formula $4\sigma$
+\end_inset
+
+ away from the Gaussian distribution, 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\text{\mathbf{P}}^{\text{3D}}\right)$
+\end_inset
+
+ is expected to be zero.
+ And we find that, for a short time (
+\begin_inset Formula $t<0.05\ \text{fs}$
+\end_inset
+
+), when the emission filed just come into the vacuum, both 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\left(\mathbf{B}_{Eh}|\boldsymbol{\nabla}\times\text{\mathbf{P}}^{\text{3D}}\right)$
+\end_inset
+
+ account for 
+\begin_inset Formula $90\%$
+\end_inset
+
+ of the emission field.
+ We note this result is also valid for other initial state.
+ This confirm that, the leading order contribution of the rescaling field
+ should be on the direction of 
+\begin_inset Formula $\delta\mathbf{E}_{R}=\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ for the electric field and 
+\begin_inset Formula $\delta\mathbf{B}_{R}=\boldsymbol{\nabla}\times\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ for the magnetic field.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_check_Pr_0.5.fig.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_precompute.fig.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+(a) The overlap of Ehrenfest emission field with derivatives of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ as a function of time in 3D space.
+ We consider a spherical shell 
+\begin_inset Formula $4\sigma$
+\end_inset
+
+ away from the emitter and the shell is 
+\begin_inset Formula $12<r<24\ \text{nm}$
+\end_inset
+
+.
+ The initial state of Ehrenfest dynamics is 
+\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\frac{1}{2}}\left|0\right\rangle +\sqrt{\frac{1}{2}}\left|1\right\rangle $
+\end_inset
+
+.
+ The solid line is the overlap of 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\text{\ensuremath{\mathbf{P}}}\right)$
+\end_inset
+
+, the dash line is the overlap of 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}\right)$
+\end_inset
+
+, and the dotted line is the overlap of 
+\begin_inset Formula $\left(\mathbf{B}_{Eh}|\boldsymbol{\nabla}\times\text{\mathbf{P}}\right)$
+\end_inset
+
+.
+ (b) The transient self-interference length as a function of time in 3D
+ space for different possible 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:overlap-self-interference "
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Second, we want to check the self-interference length for the rescaling
+ field.
+ Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:overlap-self-interference "
+
+\end_inset
+
+ shows the transient self-interference length is much smaller than that
+ in 1D case, 
+\begin_inset Formula $\Lambda^{\text{3D}}\approx0.6\ \text{nm}$
+\end_inset
+
+.
+ If we consider the rescaling field as the form: 
+\begin_inset Formula $\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}+g\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ for arbitrary 
+\begin_inset Formula $g$
+\end_inset
+
+, we find that the transient self-interference length does not reach a steady
+ value.
+ In fact, the self-interference increases linearly with time since the longitudi
+nal part of 
+\begin_inset Formula $\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ does not propagate outward and accumulate to increase the self-interference.
+ So, our choice of the rescaling field is more appropriate for this case.
+\end_layout
+
+\begin_layout Standard
+Finally, the spontaneous emission intensity can be obtained by Ehrenest+R
+ method in 3D space.
+ Here we consider the initial density matrix is 
+\begin_inset Formula $\rho_{11}=1$
+\end_inset
+
+, and expect to be only incoherent emission.
+ We compare the data with mean electromagnetic energy flux of electric dipole
+ radiation,
+\begin_inset Formula 
+\begin{equation}
+\left\langle I\left(\mathbf{r}\right)\right\rangle =\frac{\mu_{0}}{c^{2}}\frac{\omega_{0}^{4}\mu_{01}^{2}}{32\pi^{2}}\frac{\sin^{2}\theta}{r^{2}}.
+\end{equation}
+
+\end_inset
+
+Note that for this initial condition, Ehrenfest dynamics does not predict
+ any spontaneous emission.
+ Ehrenfest+R result shows good agreement with the classical dipole radiation.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C00.5.fig.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C01.0.fig.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spontaneous emission intensity calculated by Ehrenfest+R method as a function
+ of radius 
+\begin_inset Formula $r$
+\end_inset
+
+ at 
+\begin_inset Formula $t=1.0\ \text{fs}$
+\end_inset
+
+ with self-interference correction, 
+\begin_inset Formula $\Lambda^{\text{3D}}\approx0.6\ \text{nm}$
+\end_inset
+
+.
+ The polar angle is 
+\begin_inset Formula $\theta=\frac{\pi}{2}$
+\end_inset
+
+.
+ The initial density matrix is 
+\begin_inset Formula $\rho_{11}=1$
+\end_inset
+
+.
+ The simulation is performed in Cartesian coordinate system with 
+\begin_inset Formula $X_{\text{max}}=315\ \text{nm}$
+\end_inset
+
+ and 
+\begin_inset Formula $N_{\text{grid}}=210$
+\end_inset
+
+ for each dimension.
+ The black dash line is the theoretical energy flux.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
 
 \end_inset
 
@@ -6731,10 +7095,14 @@ reference "fig:3LS_RR"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -6810,6 +7178,11 @@ status open
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:3LS_RR"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -7137,14 +7510,6 @@ apply the dissipative transition.
 
 \begin_layout Enumerate
 apply the absorption boundary condition to the EM field.
-\begin_inset Formula 
-\[
-\frac{1}{2}\left(\left\{ \widehat{H}_{W},\widehat{\rho}_{W}\right\} +\left\{ \widehat{\rho}_{W},\widehat{H}_{W}\right\} \right)
-\]
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -7161,21 +7526,9 @@ status open
 \noindent
 \align center
 \begin_inset Graphics
-	filename ../runs-diabatical/ehrenfest-1d-3ls_ResonantRaman_phase-averaged/fig_3.pdf
+	filename runs-diabatical.ehrenfest-1d-3ls_ResonantRaman_phase-averaged.fig_3.pdf
 	BoundingBox 0bp 0bp 227bp 142bp
 	clip
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\noindent
-\align center
-\begin_inset Graphics
-	filename ../runs-diabatical/ehrenfest-1d-3ls_ResonantRaman_phase-averaged/fig_4.pdf
-	BoundingBox 0bp 0bp 227bp 227bp
 
 \end_inset
 
@@ -7250,6 +7603,81 @@ name "fig:3LS_KCWACW"
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-3ls_ResonantRaman_phase-averaged.fig_4.pdf
+	BoundingBox 0bp 0bp 227bp 227bp
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Stimulated emission spectrum with changing incident CW field frequency 
+\begin_inset Formula $\omega_{I}$
+\end_inset
+
+ from 
+\begin_inset Formula $0.2$
+\end_inset
+
+ to 
+\begin_inset Formula $0.3$
+\end_inset
+
+.
+ The parameter is the same as Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:3LS_KCWACW"
+
+\end_inset
+
+.
+ The resonance Raman scattering occurs at 
+\begin_inset Formula $\omega_{I}=0.25$
+\end_inset
+
+.
+ The spectrum is in log-scale and normalized.
+ (Insert) The position of Raman peak as a function of 
+\begin_inset Formula $\omega_{I}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
 
 \end_layout
 

@@ -744,6 +744,47 @@ From Tao's eq.
 \end_inset
 
 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+p_{0}=\frac{2a^{5/2}}{\pi^{3/2}}\mu_{12}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{P}\left(\mathbf{r}\right)=p_{0}e^{-ar^{2}}\left(xz\hat{\mathbf{x}}+yz\hat{\mathbf{y}}+z^{2}\hat{\mathbf{z}}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}\times\mathbf{P}=p_{0}e^{-ar^{2}}\left(-y\hat{\mathbf{x}}+x\hat{\mathbf{y}}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}=p_{0}e^{-ar^{2}}\left[2axz\hat{\mathbf{x}}+2ayz\hat{\mathbf{y}}+\left(2-2ax^{2}-2ay^{2}\right)\hat{\mathbf{z}}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1146,42 +1187,6 @@ ratio
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-3D
-\begin_inset Formula 
-\[
-p_{0}=\frac{2a^{5/2}}{\pi^{3/2}}\mu_{12}
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\mathbf{P}\left(\mathbf{r}\right)=p_{0}e^{-ar^{2}}\left(xz\hat{\mathbf{x}}+yz\hat{\mathbf{y}}+z^{2}\hat{\mathbf{z}}\right)
-\]
-
-\end_inset
-
- 
-\begin_inset Formula 
-\[
-\boldsymbol{\nabla}\times\mathbf{P}=p_{0}e^{-ar^{2}}\left(-y\hat{\mathbf{x}}+x\hat{\mathbf{y}}\right)
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}=p_{0}e^{-ar^{2}}\left[2axz\hat{\mathbf{x}}+2ayz\hat{\mathbf{y}}+\left(2-2ax^{2}-2ay^{2}\right)\hat{\mathbf{z}}\right]
-\]
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsection
 Let 
 \begin_inset Formula $\mathbf{P}$
