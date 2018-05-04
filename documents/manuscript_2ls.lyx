@@ -1,0 +1,7111 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\begin_preamble
+\usepackage{enumitem}
+\end_preamble
+\options preprint,aip,jcp
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Ehrenfest+R Dynamics: Mixed Quantum-Classical Electrodynamics Simulation
+ of Spontaneous and Stimulated Emission
+\end_layout
+
+\begin_layout Author
+Hsing-Ta Chen
+\end_layout
+
+\begin_layout Author Email
+
+hsingc@sas.upenn.edu
+\end_layout
+
+\begin_layout Affiliation
+Department of Chemistry, University of Pennsylvania, Philadelphia, Pennsylvania
+ 19104, U.S.A.
+\end_layout
+
+\begin_layout Author
+Tao E.
+ Li
+\end_layout
+
+\begin_layout Affiliation
+Department of Chemistry, University of Pennsylvania, Philadelphia, Pennsylvania
+ 19104, U.S.A.
+\end_layout
+
+\begin_layout Author
+Maxim Sukharev
+\end_layout
+
+\begin_layout Affiliation
+Department of Physics, Arizona State University, Tempe, Arizona 85287, USA
+\end_layout
+
+\begin_layout Affiliation
+College of Integrative Sciences and Arts, Arizona State University, Mesa,
+ AZ 85212, USA
+\end_layout
+
+\begin_layout Author
+Abraham Nitzan
+\end_layout
+
+\begin_layout Affiliation
+Department of Chemistry, University of Pennsylvania, Philadelphia, Pennsylvania
+ 19104, U.S.A.
+\end_layout
+
+\begin_layout Author
+Joseph E.
+ Subotnik
+\end_layout
+
+\begin_layout Affiliation
+Department of Chemistry, University of Pennsylvania, Philadelphia, Pennsylvania
+ 19104, U.S.A.
+\end_layout
+
+\begin_layout Abstract
+The dynamics of an electronic system interacting with an electromagnetic
+ field is investigated within mixed quantum-classical theory.
+ Based on the analysis of quantum–classical Liouville equations and the
+ standard Ehrenfest equation of motion, we propose a new 
+\begin_inset Quotes eld
+\end_inset
+
+Ehrenfest+R
+\begin_inset Quotes erd
+\end_inset
+
+ method, incorporating complementary quantum transitions to account for
+ quantum effects that are lost in the mean-field approximation.
+ The method recover the spontaneous emission rate and reveal the incoherent
+ emission of a two-level electronic system.
+ We explore the method to treat resonance Raman scattering, highlighting
+ the power of Ehrenfest+R approach.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+TODO:
+\end_layout
+
+\begin_layout Itemize
+Green's function detail
+\end_layout
+
+\begin_layout Itemize
+coherence of 
+\begin_inset Formula ${\cal L}_{R}\widehat{\rho}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+VI-A self-interference length discussion
+\end_layout
+
+\begin_layout Itemize
+VI-C discuss emission field coherent and incoherent field.
+\end_layout
+
+\begin_layout Itemize
+Make all figures unitless
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Introduction"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+important
+\end_layout
+
+\end_inset
+
+Light–matter interaction is of pivotal importance to the development of
+ physics and chemistry.
+ Optical response of matters provides a useful tool to probe the structural
+ and dynamical properties of materials, to manipulate the behavior of light,
+ and to control microscopic degrees of freedom.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+linear response theory
+\end_layout
+
+\end_inset
+
+We usually describe light–matter interaction in a linear response manner;
+ the electromagnetic (EM) field is considered a perturbation to the matter
+ system and the optical response are predicted by extrapolating the behavior
+ of the system.
+ This scheme does not not account for the feedback of the matter system
+ toward the EM field.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Beyond linear
+\end_layout
+
+\end_inset
+
+However, many recent studies discover novel phenomena beyond this picture.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1 cavity QED
+\end_layout
+
+\end_inset
+
+In situations involving strong light–matter coupling, such as molecules
+ in an optical cavity, spectroscopic observation of nonlinearity has been
+ reported as a characteristic quantum effect 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "thompson_nonlinear_1998,solano_strong-driving-assisted_2003,fink_climbing_2008"
+literal "true"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+2 X-ray pumb-probe
+\end_layout
+
+\end_inset
+
+Also, strong light–matter coupling plays a key role in x-ray pump-probe
+ scattering experiments to reveal the interplay among electronic, vibrational,
+ and photonic degrees of freedom 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "glownia_self-referenced_2016,bennett_comment_2017"
+literal "true"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+3 Collective
+\end_layout
+
+\end_inset
+
+As another example, for systems composed of many quantum emitters, the collectiv
+e effect of light–matter interaction leads to very different phenomena from
+ linear response theory, such as coupled exciton–plasma optics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "torma_strong_2015,puthumpally-joseph_dipole-induced_2014,puthumpally-joseph_theoretical_2015,sukharev_optics_2017"
+literal "true"
+
+\end_inset
+
+ and superradiance laser 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dicke_coherence_1954,andreev_collective_1980,oppel_directional_2014"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+challenge
+\end_layout
+
+\end_inset
+
+Many of these phenomena raise an exciting challenge to existing theories;
+ one needs to treat the matter and the EM field within a consistent framework.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+why semiclassical
+\end_layout
+
+\end_inset
+
+Despite our understanding of simplified quantum models 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dirac_quantum_1927,dirac_quantum_1927-1"
+literal "true"
+
+\end_inset
+
+, semiclassical simulations provide an important means to study these phenomena
+ in realistic systems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "milonni_semiclassical_1976"
+literal "true"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+mixed QC
+\end_layout
+
+\end_inset
+
+Most of semiclassical simulations are based on mixed quantum–classical theory
+ which treats the electronic/molecular system by quantum mechanics and approxima
+tes the bath degrees of freedom in a classical description.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+electron-nucleai
+\end_layout
+
+\end_inset
+
+While there are many semiclassical approaches for coupled electron–nuclei
+ systems offering intuitive interpretations and reliable predictions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "miller_classical_1974,kapral_mixed_1999,tully_mixed_1998,tully_molecular_1990"
+literal "true"
+
+\end_inset
+
+, the feasibility of analog semiclassical ideas for coupled electron–radiation
+ dynamics remains open questions or not explored yet.
+ Recent advances in such approaches, including numerical implementation
+ of Maxwell–Liouville equation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ziolkowski_ultrafast_1995,slavcheva_coupled_2002,fratalocchi_three-dimensional_2008,sukharev_numerical_2011"
+literal "true"
+
+\end_inset
+
+, symmetrical quantum-classical dynamics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "miller_classical/semiclassical_1978,cotton_symmetrical_2013,cotton_symmetrical_2013-1"
+literal "true"
+
+\end_inset
+
+, and mean–field Ehrenfest dynamics
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_mixed_2018"
+literal "true"
+
+\end_inset
+
+, have explored important physics of collective effects and spontaneous
+ emission in a semiclassical context.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+SQC: symmetrical quantum-classical (SQC) dynamics is capable of capturing
+ some aspects of spontaneous decay qualitatively
+\begin_inset CommandInset citation
+LatexCommand cite
+key "miller_classical/semiclassical_1978,cotton_symmetrical_2013,cotton_symmetrical_2013-1"
+literal "true"
+
+\end_inset
+
+.
+ despite quantitative discrepancies shown in recent study [Tao], there are
+ some unphysical consequences arising from the binning procedure.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ehrenfest
+\end_layout
+
+\end_inset
+
+For electron–radiation dynamics, Ehrenfest method combines quantum Liouville
+ equation and classical electrodynamics in a mean-field approximation manner;
+ the averaged quantum observable of the system represents the response to
+ the classical field.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Good
+\end_layout
+
+\end_inset
+
+One of the advantages of Ehrenfest dynamics is that, the total energy is
+ conserved in a self-consistent way.
+ Also, the implementation is computationally inexpensive and can be generalized
+ to a large system.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+example
+\end_layout
+
+\end_inset
+
+Recent studies have shown that Ehrenfest dynamics can capture the qualitative
+ feature of absorption spectra of a two-level system, and photo-initiated
+ excited dynamics 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_mixed_2018"
+literal "true"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+another good
+\end_layout
+
+\end_inset
+
+The predicted emission rate is close to the correct spontaneous decay rate,
+ given that the initial coherence of the system is not zero .
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+however
+\end_layout
+
+\end_inset
+
+However, apart from known quantitative discrepancy, the current implementation
+ of Ehrenfest dynamics could result in unphysical behaviors in some situations,
+ such as zero electronic coherence and strong dephasing, which put a limitation
+ on its applicability.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+goal
+\end_layout
+
+\end_inset
+
+Our goal here is to investigate the origin of the failure of Ehrenfest dynamics
+ by analyzing the undeyling mixed quantum–classical theory and to propose
+ a new algorithm based on Ehrenfest method for electron–radiation dynamics.
+\end_layout
+
+\begin_layout Standard
+The paper is organized in the following.
+ In Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Review"
+
+\end_inset
+
+, we review quantum electrodynamics theory for spontaneous emission, in
+ which we focus on the Fermi's golden rule rate and the radiation properties.
+ In Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Ehrenfest-Dynamics"
+
+\end_inset
+
+, we review Ehrenfest dynamics for quantum electrodynamics and discuss the
+ drawbacks.
+ In Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Mixed-Quantum–Classical-Theory"
+
+\end_inset
+
+, we analyze Ehrenfest anstaz in the framework of mixed quantum-classical
+ theory.
+ Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Ehrenfest+R-method"
+
+\end_inset
+
+ propose Ehrenfest+R method explicitly to recover the deficiency of the
+ standard Ehrenfest dynamics.
+ Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Results"
+
+\end_inset
+
+ presents the Ehrenfest+R results for spontaneous emission, include the
+ recovery of the decay rate and the coherent and incoherent emission intensity.
+ In Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Three-Level-System-Resonance"
+
+\end_inset
+
+, we discuss the generalization of Ehrenfest+R dynamics to treat Raman scatterin
+g and demonstrate promising results for a simple three-level system.
+ In Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Conclusions"
+
+\end_inset
+
+, we summarize and discuss future research of our approach.
+\end_layout
+
+\begin_layout Standard
+In this paper, we use a bold symbol to denote a space vector 
+\begin_inset Formula $\mathbf{r}=x\hat{\mathbf{x}}+y\hat{\mathbf{y}}+z\hat{\mathbf{z}}$
+\end_inset
+
+ in Cartesian coordinate.
+ Vector functions are denoted as 
+\begin_inset Formula $\mathbf{A}\left(\mathbf{r}\right)=\sum_{i=x,y,z}A_{i}\left(\mathbf{r}\right)\hat{\mathbf{i}}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+A hat operator 
+\begin_inset Formula $\widehat{c}$
+\end_inset
+
+ represents an electronic operator and a tilde operator 
+\begin_inset Formula $\widetilde{a}$
+\end_inset
+
+ represents a photon operator.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+And we defined the product 
+\begin_inset Formula $\mathbf{A}\circ\mathbf{B}=\sum_{i}\int d\mathbf{r}\mathbf{A}_{i}\left(\mathbf{r}\right)\mathbf{B}_{i}\left(\mathbf{r}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}\circ\mathbf{A}=\mathbf{A}^{\circ2}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ We work in SI units.
+\end_layout
+
+\begin_layout Section
+Review of Quantum Electrodynamics theory for spontaneous emission
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Review"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Power-Zienau-Woolley Hamiltonian
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Hamiltonian"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We start with describing the interaction between a non-relativistic electronic
+ system and an electromagnetic (EM) field using quantum electrodynamics
+ in the Coulomb gauge.
+ We consider the Hamiltonian in a multipolar form rigorously equivalent
+ to the standard description, so-called Power-Zienau-Woolley Hamiltonian
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "power_coulomb_1959,atkins_interaction_1970,cohen-tannoudji_photons_1997"
+literal "true"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{H}_{PZW}= & \widehat{H}_{s}+\int\mathrm{d}\mathbf{r}\left\{ \frac{1}{2\epsilon_{0}}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\left(\mathbf{\nabla}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)\right)^{2}\right\} \\
+ & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)\cdot\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)+\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left|\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)\right|^{2}.
+\end{split}
+\label{eq:Power-Zienau-Woolley}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)$
+\end_inset
+
+ is the vector potential of the EM field and 
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)$
+\end_inset
+
+ is the transverse field displacement, 
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)=\epsilon_{0}\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right)+\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\widehat{H}_{s}$
+\end_inset
+
+ is the Hamiltonian of the matter system and will be specified in the following.
+ Here we ignore the multipolar magnetization coupling.
+ We assume the polarization operator of the matter only has transverse contribut
+ion to the EM field, 
+\begin_inset Formula $\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)=\widehat{\mathbf{P}}\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ And we consider a globally neutral system, so that the displacement is
+ only a transverse field, 
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)=\widehat{\mathbf{D}}\left(\mathbf{r}\right)$
+\end_inset
+
+, and we will drop the 
+\begin_inset Formula $\perp$
+\end_inset
+
+ notation.
+\end_layout
+
+\begin_layout Standard
+For quantum electrodynamics in the Coulomb gauge, the operator associated
+ with the vector potential is given by
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}\frac{{\cal E}_{\mathbf{k}}}{\omega_{\mathbf{k}}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}+\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula ${\cal E}_{\mathbf{k}}=\sqrt{\frac{\hbar\omega_{\mathbf{k}}}{2\epsilon_{0}L^{n}}}$
+\end_inset
+
+ and 
+\begin_inset Formula $L^{n}$
+\end_inset
+
+ is the volume of the 
+\begin_inset Formula $n$
+\end_inset
+
+-dimensonal space and 
+\begin_inset Formula $\omega_{\mathbf{k}}=c\left|\mathbf{k}\right|$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\widehat{a}_{\mathbf{k}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{a}_{\mathbf{k}}^{\dagger}$
+\end_inset
+
+ are destruction and creation operators of the field and satisfying the
+ commutation relations: 
+\begin_inset Formula $\left[\widehat{a}_{\mathbf{k}},\widehat{a}_{\mathbf{k^{\prime}}}^{\dagger}\right]=\delta\left(\mathbf{k}-\mathbf{k^{\prime}}\right)$
+\end_inset
+
+.
+ and The electric and magnetic fields can be obtained according to 
+\begin_inset Formula 
+\begin{eqnarray}
+\widehat{\mathbf{B}}\left(\mathbf{r}\right) & = & \mathbf{\boldsymbol{\nabla}}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}\frac{{\cal E}_{\mathbf{k}}}{c}\mathbf{k}\times\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:B_operator}\\
+\widehat{\mathbf{E}}\left(\mathbf{r}\right) & = & -\frac{1}{c}\frac{\partial}{\partial t}\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:E_operator}
+\end{eqnarray}
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{\boldsymbol{\nabla}}\cdot\widehat{\mathbf{A}}\left(\mathbf{r}\right)=0$
+\end_inset
+
+ in the Coulomb gauge.
+ The transverse Hamiltonian of the EM field can be represented as 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{H}_{R}= & \int\mathrm{d}\mathbf{r}\left\{ \frac{\epsilon_{0}}{2}\widehat{\mathbf{E}}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\widehat{\mathbf{B}}\left(\mathbf{r}\right)^{2}\right\} \\
+= & \sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right)
+\end{split}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Note that 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{\widehat{B}}\left(\mathbf{r}\right)$
+\end_inset
+
+, and 
+\begin_inset Formula $\widehat{\mathbf{E}}\left(\mathbf{r}\right)$
+\end_inset
+
+ are pure EM field operators, but 
+\begin_inset Formula $\widehat{\mathbf{D}}\left(\mathbf{r}\right)$
+\end_inset
+
+ is a mixed operator of electronic and field degrees of freedom.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are several advantages to take Power-Zienau-Woolley Hamiltonian in
+ this form as the starting point.
+ First, the electron–radiation coupling can be expressed in terms of electric
+ field and polarization, instead of vector potentials.
+ The effect of the electronic system toward the EM field is included within
+ the polarization distribution.
+ The electric dipole Hamiltonian, a widely used form for studying light-matter
+ interaction, emerges easily after long-wavelength approximation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cohen-tannoudji_photons_1997"
+literal "true"
+
+\end_inset
+
+.
+ Second, the displacement 
+\begin_inset Formula $\widehat{\mathbf{D}}\left(\mathbf{r}\right)$
+\end_inset
+
+ is formally the momentum conjugate with the vector potential 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)$
+\end_inset
+
+ satisfying the canonical commutation relation, 
+\begin_inset Formula $[\widehat{\mathbf{D}}\left(\mathbf{r}\right),\widehat{\mathbf{A}}\left(\mathbf{r}^{\prime}\right)]=i\hbar\delta\left(\mathbf{r}-\mathbf{r}^{\prime}\right)$
+\end_inset
+
+.
+ We will see in the following that it is crucial that the Hamiltonian in
+ terms of canonical conjugate variables.
+\end_layout
+
+\begin_layout Subsection
+Spontaneous Emission of Two-level System Model
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+Joe: write some introduction
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Spontaneous Emission
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "heller_semiclassical_1981,nitzan_chemical_2006"
+literal "true"
+
+\end_inset
+
+a classical dipolar antenna
+\end_layout
+
+\begin_layout Enumerate
+We need the quantum field theory of electrons and electromagnetic fields,
+ so-called quantum electrodynamics.
+\end_layout
+
+\begin_layout Enumerate
+quantum (open quantum system)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dirac_quantum_1927"
+literal "true"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Miller
+\begin_inset CommandInset citation
+LatexCommand cite
+key "miller_classical/semiclassical_1978"
+literal "true"
+
+\end_inset
+
+ apart from semiclassical corrections, spontaneous decay rates can be ascertaine
+d from classical dynamics.
+\end_layout
+
+\begin_layout Enumerate
+Here, we want to check not only the population decay, but also the radiation
+ field properties.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+What is spontaneous emission?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Spontaneous emission is an irreversible process that a quantum system transition
+s from an excited state to a ground state and emits photons with a random
+ phase and direction.
+ Spontaneous emission is considered a quantum optical effect of fundamental
+ importance for phenomena such as luminescence, fluorescence, and phosphorescenc
+e, which cannot be explained by classical electromagnetic theory.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+just show results, detail see appendix
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Ehrenfest Dynamics as an anstaz for quantum electrodynamics
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Ehrenfest-Dynamics"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+what is Ehrenfest 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Intro
+\end_layout
+
+\end_inset
+
+Ehrenfest dynamics provides an semi-classical anstaz to the evolution of
+ quantum electrodynamics based on mean-field approximation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "subotnik_augmented_2010,li_mixed_2018"
+literal "true"
+
+\end_inset
+
+.
+ In general, mean-field approximation is valid when the system does not
+ have a strong correlation of the interaction among the subsystems 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "miller_classical/semiclassical_1978"
+literal "true"
+
+\end_inset
+
+.
+ In this section, we review Ehrenfest approach to treat coupled electron–radiati
+on dynamics and discuss the application of capturing spontaneous emission.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Semiclassical Hamiltonian
+\end_layout
+
+\begin_layout Standard
+First, we approximate the total Hamiltonian, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Power-Zienau-Woolley"
+
+\end_inset
+
+, by a semiclassical Hamiltonian.
+ We treat the EM field operators as classical electrodynamics parameters
+ and obtain such a semiclassical Hamiltonian
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mukamel_principles_1999"
+literal "true"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{H}= & \widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\mathbf{E}\left(\mathbf{r},t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\\
+ & +\int\mathrm{d}\mathbf{r}\left\{ \frac{\epsilon_{0}}{2}\mathbf{E}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right\} 
+\end{split}
+\end{equation}
+
+\end_inset
+
+where we denote 
+\begin_inset Formula $\widehat{\mathbf{D}}\rightarrow\mathbf{D}=\epsilon_{0}\mathbf{E}+\mathbf{P}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{\nabla}\times\widehat{\mathbf{A}}\rightarrow\mathbf{B}$
+\end_inset
+
+ and commute 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ with 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+ in the coupling term.
+ From the semiclassical Hamiltonian, we can extract the electronic Hamiltonian
+ depends only parametrically on the EM field 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}^{\mathrm{el}}\left(\mathbf{E}\right)=\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\mathbf{E}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electronic_Hamiltonian}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Ehrenfest dynamics 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ehrenfest anstaz
+\end_layout
+
+\end_inset
+
+Within Ehrenfest dynamics, the electronic system is described by the electronic
+ density matrix 
+\begin_inset Formula $\widehat{\rho}\left(t\right)$
+\end_inset
+
+ while the EM field, 
+\begin_inset Formula $\mathbf{E}\left(\mathbf{r},t\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}\left(\mathbf{r},t\right)$
+\end_inset
+
+, propagates by classical electrodynamics.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+density matrix - Liouville
+\end_layout
+
+\end_inset
+
+The electronic density matrix evolves following Liouville equation,
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial}{\partial t}\widehat{\rho}\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}}\left(\mathbf{E}\right),\widehat{\rho}\left(t\right)\right].\label{eq:liouville_rho}
+\end{equation}
+
+\end_inset
+
+where the within the dipole approximation for the electron–field coupling.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+EM field - Maxwell
+\end_layout
+
+\end_inset
+
+The EM field is governed by Maxwell's equation for classical electrodynamics
+ 
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\partial}{\partial t}\mathbf{B}\left(\mathbf{r},t\right) & = & -\boldsymbol{\nabla}\times\mathbf{E}\left(\mathbf{r},t\right),\label{eq:maxwell_BE}\\
+\frac{\partial}{\partial t}\mathbf{E}\left(\mathbf{r},t\right) & = & c^{2}\boldsymbol{\nabla}\times\mathbf{B}\left(\mathbf{r},t\right)-\frac{1}{\epsilon_{0}}\mathbf{J}\left(\mathbf{r},t\right),\label{eq:maxwell_EB}
+\end{eqnarray}
+
+\end_inset
+
+where the averaged current is generated by the averaged polarization of
+ the electronic system
+\begin_inset Formula 
+\begin{equation}
+\mathbf{J}\left(\mathbf{r},t\right)=\frac{\partial}{\partial t}\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} .\label{eq:polarization_mean}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that Maxwell's equation can be written as an equivalent form 
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\partial}{\partial t}\mathbf{B}\left(\mathbf{r},t\right) & = & -\frac{1}{\epsilon_{0}}\boldsymbol{\nabla}\times\mathbf{D}\left(\mathbf{r},t\right)+\frac{1}{\epsilon_{0}}\boldsymbol{\nabla}\times\mathbf{P}\left(\mathbf{r},t\right),\label{eq:maxwell_BD}\\
+\frac{\partial}{\partial t}\mathbf{D}\left(\mathbf{r},t\right) & = & \frac{1}{\mu_{0}}\boldsymbol{\nabla}\times\mathbf{B}\left(\mathbf{r},t\right).\label{eq:maxwell_DB}
+\end{eqnarray}
+
+\end_inset
+
+in terms of the displacement 
+\begin_inset Formula $\mathbf{D}=\epsilon_{0}\mathbf{E}+\mathbf{P}$
+\end_inset
+
+ where the averaged polarization is 
+\begin_inset Formula $\mathbf{P}=\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} $
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+Abe: I would have preferred to think of E as a molecule-radiation field
+ operator so |E|2 contain an interaction term.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+energy conservation
+\end_layout
+
+\end_inset
+
+The total energy of the electronic system and the classical EM field is
+ 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}U_{\mathrm{tot}}\left(\widehat{\rho},\mathbf{E},\mathbf{B}\right) & =\mathrm{Tr}_{s}\left(\widehat{\rho}\left(t\right)\widehat{H}_{s}\right)+\\
+ & \int\mathrm{d}\mathbf{r}\left(\frac{\epsilon_{0}}{2}\mathbf{E}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right).
+\end{split}
+\end{equation}
+
+\end_inset
+
+One can show that the total energy is conserved within Ehrenfest dynamics,
+ which is one of most important merit.
+ Eqs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_EB"
+
+\end_inset
+
+ can be propagated in a concurrent manner.
+ Therefore, Ehrenfest dynamics is a self-consistent, computationally inexpensive
+ approach to propagate the electronic and EM field dynamics simultaneously.
+\end_layout
+
+\begin_layout Subsubsection
+Drawbacks of Ehrenfest dynamics
+\end_layout
+
+\begin_layout Standard
+However, there are several drawbacks of Ehrenfest dynamics.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+detail balance
+\end_layout
+
+\end_inset
+
+First, it is well-known that, for electron–nuclei dynamics, Ehrenfest or
+ mean-field dynamics does not satisfy detailed balance
+\begin_inset CommandInset citation
+LatexCommand cite
+key "parandekar_detailed_2006"
+literal "true"
+
+\end_inset
+
+.
+ This drawback may cause incorrect electronic populations at long times.
+ The failure of maintaining detailed balance leads to anomalous energy flow
+ that may violate thermodynamics at equilibrium
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jain_vibrational_2018"
+literal "true"
+
+\end_inset
+
+.
+ For electron–radiation dynamics, this problem may not be fatal since the
+ absorption and emission of radiation field can be considered relatively
+ fast in time compared to electron–nuclei dynamics.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+partially correct
+\end_layout
+
+\end_inset
+
+Apart from the detail balance concerns, Ehrenfest dynamics has some deficiencies
+ of capturing quantum effects, such as spontaneous and stimulated emission
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "li_mixed_2018"
+literal "true"
+
+\end_inset
+
+.
+ It has been shown that, Ehrenfest dynamics is capable of partially capturing
+ quantum effects in quantitative sense.
+ Yet, the deficiencies become qualitative failures in some cases.
+ Specifically, consider a spontaneous emission situation where the electronic
+ system has zero averaged current (
+\begin_inset Formula $\mathbf{J}=0$
+\end_inset
+
+) intially and within a vaccum environment (
+\begin_inset Formula $\mathbf{E}=\mathbf{B}=0$
+\end_inset
+
+) without external fields, the electron–radiation coupling stay zero along
+ the propagation, so that Ehrenfest dynamics fail to predict any spontaneous
+ emission in this case.
+ Namely, the mean-field nature of Ehrenfest dynamics may cause unphysical
+ results.
+\end_layout
+
+\begin_layout Subsubsection
+Spontaneous Emission
+\end_layout
+
+\begin_layout Standard
+In order to address this problem, we analyze Ehrenfest dynamics for spontaneous
+ emission of two-level system in 1D space.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+wavefunction
+\end_layout
+
+\end_inset
+
+We consider the system Hamiltonian is given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Hs_omega_0"
+
+\end_inset
+
+ and assume that the electronic density matrix is described as a pure state
+ 
+\begin_inset Formula $\widehat{\rho}=\left|\psi\right\rangle \left\langle \psi\right|$
+\end_inset
+
+ where the wave function of the two-level system is 
+\begin_inset Formula $\left|\psi\left(t\right)\right\rangle =c_{0}\left(t\right)\left|0\right\rangle +c_{1}\left(t\right)\left|1\right\rangle $
+\end_inset
+
+.
+ Also, we do not include any decoherence, so the density matrix of the two
+ level system can be written as 
+\begin_inset Formula $\rho_{ij}\left(t\right)=c_{i}\left(t\right)c_{j}^{*}\left(t\right)$
+\end_inset
+
+ and propagates by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:liouville_rho"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+EB is on yz plane
+\end_layout
+
+\end_inset
+
+The transverse field in 1D space is denoted as 
+\begin_inset Formula $\mathbf{E}\left(x\right)=E_{y}\left(x\right)\mathbf{e}_{y}+E_{z}\left(x\right)\mathbf{e}_{z}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}\left(x\right)=B_{y}\left(x\right)\mathbf{e}_{y}+B_{z}\left(x\right)\mathbf{e}_{z}$
+\end_inset
+
+ propagating according to Maxwell's equation, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_BE"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_EB"
+
+\end_inset
+
+.
+ Consider the polarization operator is a point dipole given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:P_delta"
+
+\end_inset
+
+, we can write down the averaged current density
+\begin_inset Formula 
+\begin{equation}
+\mathbf{J}\left(x,t\right)=\frac{\partial}{\partial t}\mathbf{P}\left(x,t\right)=-2\omega_{0}\mu_{01}\delta\left(x\right)\mathrm{Im}\rho_{01}\left(t\right),\label{eq:maxwell_J}
+\end{equation}
+
+\end_inset
+
+Note that it is equivalent to use the displacement 
+\begin_inset Formula $\mathbf{D}=\epsilon_{0}\mathbf{E}+\mathbf{P}$
+\end_inset
+
+, but we have 
+\begin_inset Formula $\mathbf{D}=\epsilon_{0}\mathbf{E}$
+\end_inset
+
+ everywhere outside the point dipole.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Formal solution
+\end_layout
+
+\end_inset
+
+The emission field is effectively the classical radiation of the time-dependent
+ current source 
+\begin_inset Formula $\mathbf{J}\left(x,t\right)$
+\end_inset
+
+ at 
+\begin_inset Formula $x=0$
+\end_inset
+
+.
+ By classical electrodynamics, one can write down the formal solution for
+ the electric field generated by the current source at 
+\begin_inset Formula $x=0$
+\end_inset
+
+ in terms of the density matrix,
+\begin_inset Formula 
+\begin{equation}
+\mathbf{E}\left(x=0,t\right)=\frac{\omega_{0}\mu_{01}}{c\epsilon_{0}}\mathrm{Im}\rho_{01}\left(t\right).\label{eq:classical_Efield}
+\end{equation}
+
+\end_inset
+
+The dipole coupling in electronic Hamiltonian turns out to be
+\begin_inset Formula 
+\begin{equation}
+\int\mathrm{d}x\mathbf{E}\left(x,t\right)\cdot\widehat{\mathbf{P}}\left(x\right)=\frac{\omega_{0}\mu_{01}^{2}}{\epsilon_{0}c}\mathrm{Im}\rho_{01}\left(t\right)=\hbar\kappa\mathrm{Im}\rho_{01}\left(t\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ is the Fermi's golden rule rate defined in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:FGR_rate"
+
+\end_inset
+
+.
+ Therefore, the Liouville equation, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+, becomes non-linear differential equations
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\partial\rho_{11}}{\partial t} & = & -2\kappa\mathrm{Im}\left[\rho_{01}\right]^{2},\label{eq:rho_11}\\
+\frac{\partial\rho_{01}}{\partial t} & = & i\omega_{0}\rho_{01}-i\kappa\mathrm{Im}\rho_{01}\left(\rho_{11}-\rho_{00}\right).
+\end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Why it fail?
+\end_layout
+
+\end_inset
+
+We find that 
+\begin_inset Formula $\rho_{11}\left(t\right)=1$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{01}\left(t\right)=0$
+\end_inset
+
+ are one of the steady state of the equation of motion for density matrix.
+ The failure of Ehrenfest dynamics is attributed to this solution as the
+ initial condition.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+averaged behvior
+\end_layout
+
+\end_inset
+
+Since 
+\begin_inset Formula $\kappa\ll\omega_{0}$
+\end_inset
+
+ in the Fermi's golden rule region, we can approximate the coherence as
+ 
+\begin_inset Formula $\rho_{01}\approx\left|\rho_{01}\right|e^{i\omega_{0}t}$
+\end_inset
+
+ for a short time scale and consider a pure state 
+\begin_inset Formula $\left|\rho_{01}\right|^{2}=\rho_{00}\rho_{11}$
+\end_inset
+
+.
+ Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:rho_11"
+
+\end_inset
+
+ then becomes 
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\rho_{11}}{\partial t}=-2\kappa\rho_{00}\rho_{11}\sin^{2}\omega_{0}t.
+\end{equation}
+
+\end_inset
+
+Now we can define the Ehrenfest decay rate by 
+\begin_inset Formula $\frac{\partial\rho_{11}}{\partial t}=-k_{Eh}\rho_{11}$
+\end_inset
+
+ and
+\begin_inset Formula 
+\begin{equation}
+k_{Eh}=2\kappa\rho_{00}\sin^{2}\omega_{0}t.\label{eq:Ehrenfest_rate}
+\end{equation}
+
+\end_inset
+
+Note that the Ehrenfest decay rate is an instantaneous rate that depends
+ on the population of the system.
+\end_layout
+
+\begin_layout Standard
+We further analyze Ehrenfest dynamics in a coarse-grained sense of the density
+ matrix.
+ The coarse-grained behavior is obtained by taking a local time average
+ over a short time scale.
+ Again, we consider the time scale 
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
+\end_inset
+
+.
+ The coarse-grained Ehrenfest decay rate within the time scale is denoted
+ as 
+\begin_inset Formula 
+\begin{equation}
+\overline{k_{Eh}}=\frac{1}{\tau}\int_{t}^{t+\tau}dt^{\prime}k_{Eh}=\kappa\rho_{00},\label{eq:tau_averaged}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\overline{\sin^{2}\omega_{0}t}\approx\frac{1}{2}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\left|\rho_{01}\right|^{2}\approx-\kappa\left|\rho_{01}\right|^{2}\left(\rho_{11}-\rho_{00}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+We find, for a short time 
+\begin_inset Formula $t\rightarrow0$
+\end_inset
+
+, the coarse-grained Ehrenfest decay rate depends linearly on the initial
+ population of the ground state 
+\begin_inset Formula $\rho_{00}\left(t=0\right)$
+\end_inset
+
+.
+ This agrees with the linear dependency of the Ehrenfest decay rate on the
+ initial population shown in Ref.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+onlinecite{li_mixed_2018}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Ehrenfest+R Method
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Ehrenfest+R-method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Intro
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+With the understanding of the difference between Ehrenfest EOM and electrodynami
+cal QCLE,
+\end_layout
+
+\end_inset
+
+ we propose 
+\emph on
+Ehrenfest+R
+\emph default
+ method to recover the discrepancy by appending complementary mechanisms
+ on the top of Ehrenfest dynamics.
+ For simplicity, we demonstrate Ehrenfest+R method in the context of two-level
+ system in a effective 1D space.
+ Note that the radiation filed is considered at zero temperature, so we
+ exclude thermal transition from 
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+ to 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The proposed Ehrenfest+R method appends two quantum transitions in the following
+ forms: to the standard Ehrenfest dynamics: the complementary population
+ relaxation for the electronic system and the corresponding EM field rescali.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Population Relaxation
+\end_layout
+
+\begin_layout Subsubsection
+Liouville equation with +R 
+\end_layout
+
+\begin_layout Standard
+In order to recover the FGR rate of the population decay, we append an additiona
+l term to Liouville equation,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\widehat{\rho}}{\partial t}=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}},\widehat{\rho}\right]+{\cal L}_{R}\widehat{\rho},\label{eq:EOM_Ehrenfest+R}
+\end{equation}
+
+\end_inset
+
+where the super-operator 
+\begin_inset Formula ${\cal L}_{R}$
+\end_inset
+
+ is responsible for an additional population relaxation.
+ For a two-level system, the diagonal elements of super-operator is given
+ by
+\begin_inset Formula 
+\begin{equation}
+\left[{\cal L}_{R}\widehat{\rho}\right]_{11}=-\left[{\cal L}_{R}\widehat{\rho}\right]_{00}=-k_{R}\rho_{11},
+\end{equation}
+
+\end_inset
+
+and the the off-diagonal elements are determined by conversing the purity
+ of density matrix.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Since there is no decoherence introduced, the off-diagonal element of 
+\begin_inset Formula ${\cal L}_{R}\rho$
+\end_inset
+
+ is obtained by conversing the purity of density matrix.
+ i.e.
+ 
+\begin_inset Formula $\frac{d}{dt}(\rho_{00}\rho_{11}-\left|\rho_{01}\right|^{2})=0$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+some note about what if 
+\begin_inset Formula $\rho_{00}=0$
+\end_inset
+
+ and coherence increase.
+ coherence increase leads to more 
+\begin_inset Formula $\left\langle E\right\rangle ^{2}$
+\end_inset
+
+ emission.
+ v.s.
+ Ehrenfest only coherence decay...
+\end_layout
+
+\begin_layout Plain Layout
+Since there is no decoherence introduced, the off-diagonal element of 
+\begin_inset Formula ${\cal L}_{R}\rho$
+\end_inset
+
+ is obtained by conversing the purity of density matrix.
+ i.e.
+ 
+\begin_inset Formula $\frac{d}{dt}(\rho_{00}\rho_{11}-\left|\rho_{01}\right|^{2})=0$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[{\cal L}_{R}\widehat{\rho}\right]_{01}=\left[{\cal L}_{R}\widehat{\rho}\right]_{10}^{*}=\begin{cases}
+\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{01} & \rho_{00}\neq0\\
+\frac{1}{2}\kappa e^{i\phi} & \rho_{00}=0
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+not sure this 01 term is helpful or harmful....
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+dc_{0}^{\prime}c_{1}^{\prime}=\left(e^{-k_{R}dt/2}-e^{-k_{R}dt}\right)e^{i\phi}\approx\left(\frac{k_{R}dt}{2}\right)e^{i\phi}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{01}=\frac{1}{2}k_{R}\left(\frac{1-2\rho_{00}}{\rho_{00}}\right)\sqrt{\rho_{00}(1-\rho_{00})}=\frac{1}{2}\kappa\left(1-2\sin^{2}\right)\frac{\cos^{2}}{\sin}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Say something about increasing of coherence
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+ The complementary relaxation rate is defined as 
+\begin_inset Formula 
+\begin{equation}
+k_{R}\equiv2\kappa\left(1-\rho_{00}\right)\text{Im}\left[\frac{\rho_{01}}{\left|\rho_{01}\right|}e^{i\phi}\right]^{2},\label{eq:k_R}
+\end{equation}
+
+\end_inset
+
+which takes the same form as Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Ehrenfest_rate"
+
+\end_inset
+
+ but with an arbitrary phase 
+\begin_inset Formula $\phi\in\left(0,2\pi\right)$
+\end_inset
+
+.
+ The coarse-grained average of the complementary rate within the time scale
+ 
+\begin_inset Formula $\tau$
+\end_inset
+
+ (defined in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:tau_averaged"
+
+\end_inset
+
+) turns out to be 
+\begin_inset Formula 
+\begin{equation}
+\overline{k_{R}}=\kappa\left(1-\rho_{00}\right).
+\end{equation}
+
+\end_inset
+
+In the coarse-grained sense, the total decay rate obtained by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest+R"
+
+\end_inset
+
+ is 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\kappa=\overline{k_{Eh}}+\overline{k_{R}}
+\end{equation}
+
+\end_inset
+
+which recover the FGR rate.
+ Therefore, the effect of the additional population relaxation complements
+ the deficiency of Ehrenfest decay rate shown in Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Ehrenfest-Dynamics"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+{\cal L}_{R}\rho=\left(\begin{array}{cc}
+k_{R}\rho_{11} & \frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{01}\\
+\frac{1}{2}k_{R}\left(\frac{\rho_{11}}{\rho_{00}}-1\right)\rho_{10} & -k_{R}\rho_{11}
+\end{array}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+The phase 
+\begin_inset Formula $\phi$
+\end_inset
+
+ in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:k_R"
+
+\end_inset
+
+ can be arbitrary since it does not have any effect on the total decay rate
+ in the coarse-grained sense.
+ This implies that there are multiple trajectories (
+\begin_inset Formula $\ell\in N_{\text{traj }}$
+\end_inset
+
+) with different 
+\begin_inset Formula $\phi^{\ell}$
+\end_inset
+
+ following the Ehrenfest+R dynamics could produce identical population dynamics.
+ For each Ehrenfest+R trajectory, the arbitrary phase simply leads to a
+ constant phase shift to the complementary decay.
+ At this point, it seems not necessary to include the arbitrary phase in
+ the complementary rate.
+ However, we will find it play a significant role in the method and discuss
+ more detail in the following section.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Note that the right-hand side of Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest+R"
+
+\end_inset
+
+ contains two nonlinear terms: the standard Ehrenfest dynamics term, and
+ the additional relaxation term.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Implementation in wavefunction
+\end_layout
+
+\begin_layout Standard
+To implement the propagation of Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest+R"
+
+\end_inset
+
+, we now consider the electronic system in a pure state, so that we have
+ 
+\begin_inset Formula $\widehat{\rho}=\left|\psi\right\rangle \left\langle \psi\right|$
+\end_inset
+
+.
+ For each time step 
+\begin_inset Formula $dt$
+\end_inset
+
+, the wavefunction can be evolved by a two-step propagation scheme:
+\begin_inset Formula 
+\begin{equation}
+\left|\psi\left(t+dt\right)\right\rangle =\widehat{{\cal T}}_{0\leftarrow1}\left[k_{R}\right]\cdot e^{-i\widehat{H}^{\mathrm{el}}dt/\hbar}\left|\psi\left(t\right)\right\rangle .\label{eq:EhrenfestPropagation}
+\end{equation}
+
+\end_inset
+
+The propagator 
+\begin_inset Formula $e^{-i\widehat{H}^{\mathrm{el}}dt/\hbar}$
+\end_inset
+
+ carries out the standard Ehrenfest dynamics with the electronic Hamiltonian
+ given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:electronic_Hamiltonian"
+
+\end_inset
+
+.
+ The quantum transition operator 
+\begin_inset Formula $\widehat{{\cal T}}_{0\leftarrow1}\left(k_{R}\right)$
+\end_inset
+
+ implement the additional population relaxation.
+ Explicitly, the transition operator is defined by 
+\begin_inset Formula 
+\begin{equation}
+\left(\begin{array}{c}
+c_{0}^{\prime}\\
+c_{1}^{\prime}
+\end{array}\right)=\widehat{{\cal T}}_{0\leftarrow1}\left[k_{R}\right]\left(\begin{array}{c}
+c_{0}\\
+c_{1}
+\end{array}\right)\label{eq:TransitonOperator}
+\end{equation}
+
+\end_inset
+
+ where
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{eqnarray}
+c_{0}^{\prime\prime} & = & \frac{c_{0}^{\prime}}{\left|c_{0}^{\prime}\right|}\sqrt{\left|c_{0}^{\prime}\right|^{2}+k_{R}\left|c_{1}^{\prime}\right|^{2}dt},\\
+c_{1}^{\prime\prime} & = & \frac{c_{1}^{\prime}}{\left|c_{1}^{\prime}\right|}\sqrt{\left|c_{1}^{\prime}\right|^{2}-k_{R}\left|c_{1}^{\prime}\right|^{2}dt}.
+\end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{0}^{\prime}=\begin{cases}
+c_{0}\sqrt{1+\frac{\left|c_{1}\right|^{2}}{\left|c_{0}\right|^{2}}\left(1-e^{-k_{R}dt}\right)}, & \text{if }\left|c_{0}\right|\neq0,\\
+\sqrt{1-e^{-k_{R}dt}}e^{i\theta}, & \text{if }\left|c_{0}\right|=0,
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+c_{1}^{\prime}=c_{1}e^{-k_{R}dt/2}\approx\frac{c_{1}}{\left|c_{1}\right|}\sqrt{\left|c_{1}\right|^{2}-k_{R}\left|c_{1}\right|^{2}dt},
+\end{equation}
+
+\end_inset
+
+and if 
+\begin_inset Formula $\left|c_{0}\right|\neq0$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{equation}
+\begin{split}c_{0}^{\prime} & =c_{0}\sqrt{1+\frac{\left|c_{1}\right|^{2}}{\left|c_{0}\right|^{2}}\left(1-e^{-k_{R}dt}\right)}\\
+ & \approx\frac{c_{0}}{\left|c_{0}\right|}\sqrt{\left|c_{0}\right|^{2}+k_{R}\left|c_{1}\right|^{2}dt}
+\end{split}
+\end{equation}
+
+\end_inset
+
+Note that the phase of the wavefunction is preserved by the transition operator
+ in this implemtation.
+ In other words, the transition operator simply transfer 
+\begin_inset Formula $k_{R}\left|c_{1}\right|^{2}dt$
+\end_inset
+
+ amount of population from 
+\begin_inset Formula $\left|1\right\rangle $
+\end_inset
+
+ to 
+\begin_inset Formula $\left|0\right\rangle $
+\end_inset
+
+ without changing the phase of the wavefunction.
+\end_layout
+
+\begin_layout Standard
+Also, it is noted that, when the density matrix of the system is only on
+ the excited state (
+\begin_inset Formula $\widehat{\rho}=\left|1\right\rangle \left\langle 1\right|$
+\end_inset
+
+), i.e.
+ 
+\begin_inset Formula $\left|c_{0}\right|=0$
+\end_inset
+
+, there is a undetermined phase in the wavefunction representation, say
+ 
+\begin_inset Formula $\left|\psi\right\rangle =e^{i\theta}\left|1\right\rangle $
+\end_inset
+
+.
+ In this case, the transition operator is defined as 
+\begin_inset Formula 
+\begin{eqnarray}
+c_{1}^{\prime} & = & e^{i\theta}e^{-\kappa dt/2}\approx e^{i\theta}\sqrt{1-\kappa dt},\\
+c_{0}^{\prime} & = & \sqrt{1-e^{-\kappa dt}}\approx\sqrt{\kappa dt},
+\end{eqnarray}
+
+\end_inset
+
+in which we find 
+\begin_inset Formula $\overline{k_{Eh}}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\overline{k_{R}}=\kappa$
+\end_inset
+
+, and the additional relaxation takes full responsibility of the spontaneous
+ decay.
+\end_layout
+
+\begin_layout Subsubsection
+Energy changes
+\end_layout
+
+\begin_layout Standard
+While the Ehrenfest propagation 
+\begin_inset Formula $e^{-i\widehat{H}^{\mathrm{el}}dt/\hbar}$
+\end_inset
+
+ together with Maxwell's equations conserves the total energy, the quantum
+ transition leads to energy changes of the electronic system by
+\begin_inset Formula 
+\begin{equation}
+\frac{dU_{s}}{dt}=\text{Tr}\left\{ \widehat{H}_{s}{\cal L}_{R}\widehat{\rho}\right\} =-\omega_{0}k_{R}\rho_{11}.
+\end{equation}
+
+\end_inset
+
+In terms of the quantum transition operator for time step 
+\begin_inset Formula $dt$
+\end_inset
+
+, the energy loss of the system is denoted as 
+\begin_inset Formula 
+\begin{equation}
+\delta U_{R}=\omega_{0}k_{R}\rho_{11}dt.\label{eq:EnergyChange}
+\end{equation}
+
+\end_inset
+
+To maintain energy conservation, the energy loss has to flow into the EM
+ filed in the form of light emission.
+ In the following, we introduce a rescaling scheme of the EM field to make
+ up for the energy loss accordingly.
+\end_layout
+
+\begin_layout Subsection
+Rescale the EM field
+\end_layout
+
+\begin_layout Standard
+In the standard Ehrenfest dynamics, the classical EM field, 
+\begin_inset Formula $\mathbf{E}_{Eh}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{Eh}$
+\end_inset
+
+, is generated by the time-dependent current source, 
+\begin_inset Formula $\mathbf{J}$
+\end_inset
+
+.
+ To compensate the energy loss for each time step by the transition operator,
+ we rescale the Ehrenfest EM field in the form of
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathbf{E}_{Eh+R}=\mathbf{E}_{Eh}+\alpha\delta\mathbf{E}_{R},
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\mathbf{B}_{Eh+R}=\mathbf{B}_{Eh}+\beta\delta\mathbf{B}_{R},
+\end{equation}
+
+\end_inset
+
+where the coefficients 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ are determined by energy conservation:
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ are the normalized rescaling field with 
+\begin_inset Formula $\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}=\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}=1$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ are directional unit vector for the rescaling field.
+ 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ have unit of 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split} & \int\mathrm{d}\mathbf{r}\left(\frac{\epsilon_{0}}{2}\left|\mathbf{E}_{Eh}\right|^{2}+\frac{1}{2\mu_{0}}\left|\mathbf{B}_{Eh}\right|^{2}\right)+\delta U_{R}\\
+ & \ =\int\mathrm{d}\mathbf{r}\left(\frac{\epsilon_{0}}{2}\left|\mathbf{E}_{Eh+R}\right|^{2}+\frac{1}{2\mu_{0}}\left|\mathbf{B}_{Eh+R}\right|^{2}\right).
+\end{split}
+\label{eq:+R_energy}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the FGR rate has been recovered by the additional population relaxation,
+ it is crucial that the rescaling fields is chosen not to interference the
+ density matrix propagation.
+ To do so, there are several requirements for the rescaling fields:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(a)]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ must be transverse fields.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(b)]
+\end_layout
+
+\end_inset
+
+The spatial distribution of 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ must be located outside of the polarization distribution, such that 
+\begin_inset Formula $\int\mathbf{P}\cdot\delta\mathbf{E}_{R}=0$
+\end_inset
+
+ and the electronic Hamiltonian does not change after we rescale the field.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\int\mathbf{P}\cdot\mathbf{E}_{R}=0$
+\end_inset
+
+: this actually imply 
+\begin_inset Formula $g=1a$
+\end_inset
+
+, but it makes part of poynting vector inward
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(c)]
+\end_layout
+
+\end_inset
+
+The magnitude of 
+\begin_inset Formula $\beta\delta\mathbf{B}_{R}$
+\end_inset
+
+ is equal to 
+\begin_inset Formula $1/c$
+\end_inset
+
+ times the magnitude of 
+\begin_inset Formula $\alpha\delta\mathbf{E}_{R}$
+\end_inset
+
+ for all 
+\begin_inset Formula $\mathbf{r}$
+\end_inset
+
+ in space so that the emission light propagates only in one direction.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(d)]
+\end_layout
+
+\end_inset
+
+The directional energy flow must be outward, i.e.
+ the Poynting vector, 
+\begin_inset Formula $\mathbf{S}=\frac{1}{\mu_{0}}\mathbf{E}_{Eh+R}\times\mathbf{B}_{Eh+R}$
+\end_inset
+
+ must have 
+\begin_inset Formula $\mathbf{S}\left(\mathbf{r}\right)\cdot\hat{\mathbf{r}}>0$
+\end_inset
+
+ for all 
+\begin_inset Formula $\mathbf{r}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+so it is important to have sync sign of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ and equally energy distribution into E and B.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+However, these requirements are very difficult to satisfy in general, especially
+ (c) and (d).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D Gaussian
+\end_layout
+
+\end_inset
+
+Despite the difficulty, we propose a possible scheme in the following.
+ Consider the polarization distribution is effectively 1D space, 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{P}^{\text{1D}}\left(x\right)=\mu_{01}\sqrt{\frac{a}{\pi}}e^{-ax^{2}}\hat{\mathbf{z}}\label{eq:P_1D}
+\end{equation}
+
+\end_inset
+
+which is changing along in the 
+\begin_inset Formula $x$
+\end_inset
+
+ direction but polarized in the 
+\begin_inset Formula $z$
+\end_inset
+
+ direction.
+ 
+\begin_inset Formula $\mathbf{P}^{\text{1D}}\left(x\right)$
+\end_inset
+
+ is a transverse field itself.
+ The polarization distribution is smooth and the width is assumed to be
+ much smaller than the wavelength (
+\begin_inset Formula $\frac{1}{\sqrt{a}}\ll\frac{2\pi c}{\omega_{0}}$
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Final prescription for EM field rescaling 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we describe the final prescription for the rescaling scheme.
+ For a Ehrenfest+R trajectory 
+\begin_inset Formula $\ell$
+\end_inset
+
+, the EM field is propagated using 
+\begin_inset Formula 
+\begin{equation}
+\left(\begin{array}{c}
+\mathbf{E}\left(t+dt\right)\\
+\mathbf{B}\left(t+dt\right)
+\end{array}\right)={\cal R}\left[\delta U_{R}^{\ell}\right]\cdot{\cal U}\left(dt\right)\left(\begin{array}{c}
+\mathbf{E}\left(t\right)\\
+\mathbf{B}\left(t\right)
+\end{array}\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula ${\cal U}\left(dt\right)$
+\end_inset
+
+ denote the propagator following Maxwell equation Eq.
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:maxwell_BE"
+
+\end_inset
+
+-
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:polarization_mean"
+
+\end_inset
+
+) by time step 
+\begin_inset Formula $dt$
+\end_inset
+
+.
+ The rescaling operator is defined as 
+\begin_inset Formula 
+\begin{equation}
+{\cal R}\left[\delta U_{R}^{\ell}\right]\left(\begin{array}{c}
+\mathbf{E}_{Eh}\\
+\mathbf{B}_{Eh}
+\end{array}\right)=\left(\begin{array}{c}
+\mathbf{E}_{Eh}+\text{\tilde{\alpha}^{\ell}}\delta\mathbf{E}_{R}\\
+\mathbf{B}_{Eh}+\text{\tilde{\beta}^{\ell}}\delta\mathbf{B}_{R}
+\end{array}\right),
+\end{equation}
+
+\end_inset
+
+given a given phase shift 
+\begin_inset Formula $\phi^{\ell}$
+\end_inset
+
+ and energy change 
+\begin_inset Formula $\delta U_{R}^{\ell}$
+\end_inset
+
+, The coefficient 
+\begin_inset Formula $\text{\tilde{\alpha}^{\ell}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\text{\tilde{\beta}^{\ell}}$
+\end_inset
+
+ is determined by Eq.
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alpha_ell"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:beta_ell"
+
+\end_inset
+
+) and Eq.
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alpha_sic"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:beta_sic"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Joe:
+\end_layout
+
+\begin_layout Plain Layout
+this is not the only prescription.
+\end_layout
+
+\begin_layout Plain Layout
+Maxwell propagator and transition
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+say something about incoherence...Thus, for small 
+\begin_inset Formula $dt$
+\end_inset
+
+, the sequence of the stochastic quantum transitions in phase space results
+ in an effectively continuous change of radiation field on top of the standard
+ Ehrenfest emission
+\end_layout
+
+\begin_layout Plain Layout
+The stochastic emission is the source of the incoherent emission.
+ Unlike the Ehrenfest emission field, i.e.
+ Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:classical_Efield"
+
+\end_inset
+
+, which is at frequency 
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+, the stochastic emission by the quantum transition is not associated with
+ the system frequency 
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+.
+ We shall discuss the coherent and incoherent emission in the following.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Step-by-step Algorithm of Ehrenfest+R method 
+\end_layout
+
+\begin_layout Standard
+Here we outline the detailed algorithm for Ehrenfest+R method.
+ Given the polarization distribution 
+\begin_inset Formula $\mathbf{P}^{\text{1D}}\left(x\right)$
+\end_inset
+
+, we precompute the following quantities before starting Ehrenfest+R trajectorie
+s:
+\end_layout
+
+\begin_layout Enumerate
+Calculate the FGR rate: 
+\begin_inset Formula $\kappa$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Compute the normalized rescaling field,
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+, by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dE_1D"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dB_1D"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Precompute the self-interference length 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:self-inter-length"
+
+\end_inset
+
+.
+ Consider an imaginary system that only has the rescaling emission by an
+ arbitrary energy 
+\begin_inset Formula $\delta U$
+\end_inset
+
+.
+ For each time step, 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+propagate the EM field by 
+\begin_inset Formula ${\cal R}\left[\delta U\right]\cdot{\cal U}\left(dt\right)$
+\end_inset
+
+ with the same sign.
+\end_layout
+
+\begin_layout Itemize
+calculate the overlap of the EM field and 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+, 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ to obtain the right-hand side of Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:self-inter-length"
+
+\end_inset
+
+ as a function of time, i.e.
+ a transient self-interference length, 
+\begin_inset Formula $\Lambda\left(t\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+propagate until reach a steady value of 
+\begin_inset Formula $\Lambda\left(t\right)\rightarrow\Lambda$
+\end_inset
+
+ for self-interference correction.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Then we initialize Ehrenfest+R trajectory 
+\begin_inset Formula $\ell$
+\end_inset
+
+ with a phase 
+\begin_inset Formula $\phi^{\ell}$
+\end_inset
+
+.
+ For time step 
+\begin_inset Formula $dt$
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Enumerate
+propagate the wavefunction by 
+\begin_inset Formula $\left|\psi_{Eh}\right\rangle =e^{-i\widehat{H}^{\mathrm{el}}dt/\hbar}\left|\psi\left(t\right)\right\rangle $
+\end_inset
+
+ and the EM field by Maxwell propagator 
+\begin_inset Formula $\left(\begin{array}{c}
+\mathbf{E}_{Eh}\\
+\mathbf{B}_{Eh}
+\end{array}\right)={\cal U}\left(dt\right)\left(\begin{array}{c}
+\mathbf{E}\left(t\right)\\
+\mathbf{B}\left(t\right)
+\end{array}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+calculate the complementary rate 
+\begin_inset Formula $k_{R}^{\ell}$
+\end_inset
+
+ by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:k_R"
+
+\end_inset
+
+ and energy change 
+\begin_inset Formula $\delta U_{R}^{\ell}$
+\end_inset
+
+ by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EnergyChange"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+apply the transition operator 
+\begin_inset Formula $\left|\psi\left(t+dt\right)\right\rangle =\widehat{{\cal T}}_{0\leftarrow1}\left[k_{R}^{\ell}\right]\left|\psi_{Eh}\right\rangle $
+\end_inset
+
+ by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:TransitonOperator"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+calculate 
+\begin_inset Formula $\text{\tilde{\alpha}^{\ell}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\text{\tilde{\beta}^{\ell}}$
+\end_inset
+
+ and then rescale the EM field 
+\begin_inset Formula ${\cal R}\left[\delta U_{R}^{\ell}\right]\left(\begin{array}{c}
+\mathbf{E}_{Eh}\\
+\mathbf{B}_{Eh}
+\end{array}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+apply absorbing boundary condition.
+\end_layout
+
+\begin_layout Section
+Results: Spontaneous Emission
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Results"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+parameters
+\end_layout
+
+\end_inset
+
+We simulate the spontaneous emission of a two-level system in the effective
+ 1D space.
+ The energy difference of the two levels system is 
+\begin_inset Formula $\hbar\omega_{0}=16.46\ \text{eV}$
+\end_inset
+
+.
+ The transition dipole moment is 
+\begin_inset Formula $\mu_{01}=11282\ \text{C/nm/mol}$
+\end_inset
+
+ and the polarization function is given by a Gaussian distribution with
+ 
+\begin_inset Formula $a=0.0556~\text{nm}^{-2}$
+\end_inset
+
+.
+ In the following, we will compare the results by standard Ehrenfest and
+ Ehrenfest+R dynamics.
+ Full quantum mechanical results are obtained by the retarded Green's function.
+ 
+\end_layout
+
+\begin_layout Standard
+For Ehrenfest+R dynamics trajectories, we select the phase evenly distributed:
+ 
+\begin_inset Formula $\phi^{\ell}=2\pi j/N_{\text{traj}}$
+\end_inset
+
+ for 
+\begin_inset Formula $j=1,\cdots,N_{\text{traj}}$
+\end_inset
+
+.
+ For the polarization distribution given by Eq.
+\begin_inset space ~
+\end_inset
+
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:P_1D"
+
+\end_inset
+
+, we obtain the self-interference length as 
+\begin_inset Formula $\Lambda^{\text{1D}}\approx7.2\ \text{nm}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_1.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+(a) Population of the excited state as a function of time.
+ The initial state is 
+\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\frac{1}{2}}\left|0\right\rangle +\sqrt{\frac{1}{2}}\left|1\right\rangle $
+\end_inset
+
+.
+ The black dash line indicate the FGR decay.
+ The red solid line is the standard Ehrefest dynamics and the red dash line
+ is an exponential fitting of the data.
+ And the green solid line is Ehrefest+R dynamics with 
+\begin_inset Formula $N_{\text{traj}}=40$
+\end_inset
+
+.
+ (b) Spontaneous decay rates extracted from excited state population dynamics
+ for different initial states.
+ As a function of the initial ground state population 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+, the exponential decay rates are obtained by the standard Ehrenfest method
+ (red) and Ehrenfest+R method (green).
+ The black dash line indicate the FGR rate.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:population-dynamics-and"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Spontaneous decay rate
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+standard Ehrenfest
+\end_layout
+
+\end_inset
+
+Due to the deficiency of the standard Ehrenfest dynamics, it is not surprising
+ that the standard Ehrenfest dynamics cannot fit to an exponential decay
+ curve well, see Fig
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:population-dynamics-and"
+
+\end_inset
+
+(a).
+ The decay rate extracted from short-time Ehrenfest dynamics is generally
+ smaller than the FGR rate and has a linear dependence on the initial ground
+ state population (
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+), as Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Ehrenfest_rate"
+
+\end_inset
+
+ suggested.
+ The Ehrenfest decay rate becomes closed to the FGR rate when 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+ increases.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+When the initial state is a trivial pure state 
+\begin_inset Formula $\left|\psi\left(0\right)\right\rangle =\left|1\right\rangle $
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\rho_{00}=0$
+\end_inset
+
+, the standard Ehrenfest method predict no decay.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ehrenfest+R method
+\end_layout
+
+\end_inset
+
+With Ehrenfest+R method, we can correct the quantitative error of the standard
+ Ehrenfest dynamics and recover the spontaneous decay rates, see Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:population-dynamics-and"
+
+\end_inset
+
+(b).
+ The exponential decay rates extracted from Ehrenfest+R dynamics agree very
+ well with the FGR decay rate for all the initial conditions.
+ Most importantly,
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ when the initial state is a trivial pure state,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ Ehrenfest+R dynamics yields
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ accurate population dynamics and decay rate.
+\end_layout
+
+\begin_layout Subsection
+Emission Fields Intensity
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+intensity
+\end_layout
+
+\end_inset
+
+Ehrenfest+R method yields the radiation field intensity distribution 
+\begin_inset Formula $\langle\mathbf{E}^{2}\left(x,t\right)\rangle$
+\end_inset
+
+ in a good agreement with the theoretical expression Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Intensity"
+
+\end_inset
+
+ derived from quantum theory.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(a)
+\end_layout
+
+\end_inset
+
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Radiation-field-intensity"
+
+\end_inset
+
+(a) show the spatial distribution of the radiation intensity at a snapshot
+ at time 
+\begin_inset Formula $t=25\ \text{fs}$
+\end_inset
+
+.
+ The intensity distribution exhibits 
+\begin_inset Formula $e^{\kappa|x|}$
+\end_inset
+
+ in 1D and the event horizon is at 
+\begin_inset Formula $\left|x\right|=ct=7500\ \text{nm}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(b)
+\end_layout
+
+\end_inset
+
+At a given position in space, the radiation intensity decay with respect
+ to time at the spontaneous decay rate 
+\begin_inset Formula $e^{-\kappa t}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Fig.
+\begin_inset space ~
+\end_inset
+
+X (b) shows, at 
+\begin_inset Formula $x=15\ \text{nm}$
+\end_inset
+
+, the observed intensity shows an exponential decrease in time after 
+\begin_inset Formula $t=0.05\ \text{fs}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Coherent is Ehrenfest
+\end_layout
+
+\end_inset
+
+On the other hand, we find that, the standard Ehrenfest dynamics only generate
+ coherent emission, i.e.
+ 
+\begin_inset Formula $\langle\widehat{\mathbf{E}}\left(x,t\right)^{2}\rangle=\langle\widehat{\mathbf{E}}\left(x,t\right)\rangle^{2}$
+\end_inset
+
+.
+ In Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Radiation-field-intensity"
+
+\end_inset
+
+(a), we show the agreement between Ehrenfest 
+\begin_inset Formula $\langle\widehat{\mathbf{E}}\left(x,t\right)\rangle^{2}$
+\end_inset
+
+ (red line) and 
+\begin_inset Formula $\langle\widehat{\mathbf{E}}\left(x,t\right)^{2}\rangle=\rho_{00}\rho_{11}\times R(x,t)$
+\end_inset
+
+ (red dash line) where 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho_{11}$
+\end_inset
+
+ are the Ehrenfest population calculated on the fly.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ To see this explicitly, we take a short time average of the electric field
+ 
+\begin_inset Formula $\bar{\mathbf{E}}\left(0,t\right)$
+\end_inset
+
+ at 
+\begin_inset Formula $x=0$
+\end_inset
+
+ (i.e.
+ Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:classical_Efield"
+
+\end_inset
+
+) using Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:tau_averaged"
+
+\end_inset
+
+, so that
+\begin_inset Formula 
+\begin{equation}
+\left|\bar{\mathbf{E}}\left(0,t\right)\right|^{2}\approx\left|\rho_{01}\left(t\right)\right|^{2}\times\frac{1}{2}\left(\frac{\omega_{0}\mu_{01}}{c\epsilon_{0}}\right)^{2}
+\end{equation}
+
+\end_inset
+
+Assume the electronic system stays in pure state, then we have 
+\begin_inset Formula $\left|\rho_{01}\right|=\left|C_{0,0}\right|\left|C_{1,0}\right|$
+\end_inset
+
+.
+ Also, we consider the intensity at 
+\begin_inset Formula $x=0$
+\end_inset
+
+ within a short time interval 
+\begin_inset Formula $0<t<\tau$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(0,t\right)\right\rangle ^{2}\approx\left|C_{0,0}\left(t\right)\right|^{2}\left|C_{1,0}\left(t\right)\right|^{2}\times\frac{1}{2}\left(\frac{\omega_{0}\mu_{01}}{c\epsilon_{0}}\right)^{2}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+However, it should be emphasized that, the coherent emission generated by
+ Ehrenfest dynamics does not agree Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Esquare"
+
+\end_inset
+
+ from quantum theory since the Ehrenfest population does not decay at the
+ FGR rate.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+coherent vs.
+ incoherent emission
+\end_layout
+
+\end_inset
+
+We show that the quantum transition introduced in Ehrenfest+R method is
+ responsible for the incoherent emission.
+ We estimate the contribution of the incoherent emission by the 
+\emph on
+relative incoherence
+\emph default
+ of the radiation field defined as 
+\begin_inset Formula 
+\begin{equation}
+\frac{\left\langle \widehat{\mathbf{E}}\left(x,0\right)^{2}\right\rangle -\left\langle \widehat{\mathbf{E}}\left(x,0\right)\right\rangle ^{2}}{\left\langle \widehat{\mathbf{E}}\left(x,0\right)^{2}\right\rangle }=\left|C_{1,0}\left(0\right)\right|^{2}=\rho_{11}
+\end{equation}
+
+\end_inset
+
+for the short time.
+ By Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Esquare"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Intensity"
+
+\end_inset
+
+, we find that the relative incoherence is proportional to the population
+ of the excited state.
+ In Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Radiation-field-intensity"
+
+\end_inset
+
+(b), we obtain the incoherent emission contribution of Ehrenfest+R dynamics
+ by the energy loss of the quantum transition 
+\begin_inset Formula $\frac{1}{2}\frac{dE_{R}}{dt}$
+\end_inset
+
+.
+ Suppose that, in average, the energy loss is partitioned equally between
+ the electric and magnetic field.
+ As a result, we find that the relative incoherence calculated by Ehrenfest+R
+ dynamics agree with the quantum theory.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_2.pdf
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_3.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Radiation field properties as a function of coordinate at 
+\begin_inset Formula $t=100\ \text{fs}$
+\end_inset
+
+ for initial excited state population (a) 
+\begin_inset Formula $\rho_{11}=0.5$
+\end_inset
+
+, (b) 
+\begin_inset Formula $\rho_{11}=0.9$
+\end_inset
+
+, and (c) 
+\begin_inset Formula $\rho_{11}=1$
+\end_inset
+
+.
+ The self-interference length is 
+\begin_inset Formula $\Lambda=7.2\ \text{nm}$
+\end_inset
+
+.
+ The solid lines are 
+\begin_inset Formula $\left\langle E_{z}^{2}\left(x\right)\right\rangle $
+\end_inset
+
+ (green) and 
+\begin_inset Formula $\left\langle E_{z}\left(x\right)\right\rangle ^{2}$
+\end_inset
+
+ (blue) calculated by Ehrenfest+R method with 
+\begin_inset Formula $N_{\text{traj}}=40$
+\end_inset
+
+.
+ The black dash lines are the theoretical results obtained by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Intensity"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Esquare"
+
+\end_inset
+
+ for given initial population.
+ The event horizon can be observed at 
+\begin_inset Formula $x=ct=3\times10^{4}\ \text{nm}$
+\end_inset
+
+.
+ Note that, in (c), we obtain 
+\begin_inset Formula $\left\langle E_{z}\left(x\right)\right\rangle =0$
+\end_inset
+
+ by Ehrenfest+R method and 
+\begin_inset Formula $\left\langle E_{z}\left(x\right)\right\rangle =\left\langle E_{z}^{2}\left(x\right)\right\rangle =0$
+\end_inset
+
+ by standard Ehrenfest method.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Radiation-field-intensity"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+Spontaneous emission in 3D
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+setting
+\end_layout
+
+\end_inset
+
+Now we consider a two-level system in a 3D space.
+ We assume the polarization in the form of a Gaussian distribution
+\begin_inset Formula 
+\begin{equation}
+\mathbf{P}^{\text{3D}}\left(\mathbf{r}\right)=\hat{\mathbf{z}}\mu_{01}\frac{2a^{3/2}}{\pi^{3/2}}e^{-ar^{2}}
+\end{equation}
+
+\end_inset
+
+which is only polarized in the 
+\begin_inset Formula $z$
+\end_inset
+
+ direction.
+ We use 
+\begin_inset Formula $a=0.0556~\text{nm}^{-2}$
+\end_inset
+
+ and the width of the Gaussian is about 
+\begin_inset Formula $\sigma=1/\sqrt{2a}\approx3\ \text{nm}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\mathbf{P}^{\text{3D}}\left(\mathbf{r}\right)$
+\end_inset
+
+ is not a transverse field, so we choose the rescaling field as 
+\begin_inset Formula $\delta\mathbf{E}_{R}=\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}=\boldsymbol{\nabla}\times\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First, we want to make sure 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ are an appropriate rescaling direction for spontaneous emission.
+ To do so, we calculate the overlap of the EM field coming out from the
+ standard Ehrenfest dynamics with 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+.
+ Consider a spherical shell outside of the region of 
+\begin_inset Formula $\mathbf{P}^{\text{3D}}\left(\mathbf{r}\right)$
+\end_inset
+
+, usually several 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ away from the emitter, we calculate the normalized overlap estimation in
+ this region defined as 
+\begin_inset Formula 
+\begin{equation}
+\left(\mathbf{E}_{Eh}|\delta\mathbf{E}_{R}\right)=\frac{\int_{\circledcirc}\mathbf{E}_{Eh}\cdot\delta\mathbf{E}_{R}}{\sqrt{\int_{\circledcirc}\left|\mathbf{E}_{Eh}\right|^{2}\int_{\circledcirc}\left|\delta\mathbf{E}_{R}\right|^{2}}}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\int_{\circledcirc}$
+\end_inset
+
+ denote the integral within the spherical shell.
+ The normalized overlap estimation represent the portion of the rescaling
+ field within the emission field of Ehrenfest dynamics.
+\end_layout
+
+\begin_layout Standard
+Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "fig:overlap-self-interference "
+
+\end_inset
+
+ show the normalized overlap estimation for short time.
+ Since we consider a shell 
+\begin_inset Formula $4\sigma$
+\end_inset
+
+ away from the Gaussian distribution, 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\text{\mathbf{P}}^{\text{3D}}\right)$
+\end_inset
+
+ is expected to be zero.
+ And we find that, for a short time (
+\begin_inset Formula $t<0.05\ \text{fs}$
+\end_inset
+
+), when the emission filed just come into the vacuum, both 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\left(\mathbf{B}_{Eh}|\boldsymbol{\nabla}\times\text{\mathbf{P}}^{\text{3D}}\right)$
+\end_inset
+
+ account for 
+\begin_inset Formula $90\%$
+\end_inset
+
+ of the emission field.
+ We note this result is also valid for other initial state.
+ This confirm that, the leading order contribution of the rescaling field
+ should be on the direction of 
+\begin_inset Formula $\delta\mathbf{E}_{R}=\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ for the electric field and 
+\begin_inset Formula $\delta\mathbf{B}_{R}=\boldsymbol{\nabla}\times\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ for the magnetic field.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_check_Pr_0.5.fig.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_precompute.fig.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+(a) The overlap of Ehrenfest emission field with derivatives of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ as a function of time in 3D space.
+ We consider a spherical shell 
+\begin_inset Formula $4\sigma$
+\end_inset
+
+ away from the emitter and the shell is 
+\begin_inset Formula $12<r<24\ \text{nm}$
+\end_inset
+
+.
+ The initial state of Ehrenfest dynamics is 
+\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\frac{1}{2}}\left|0\right\rangle +\sqrt{\frac{1}{2}}\left|1\right\rangle $
+\end_inset
+
+.
+ The solid line is the overlap of 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\text{\ensuremath{\mathbf{P}}}\right)$
+\end_inset
+
+, the dash line is the overlap of 
+\begin_inset Formula $\left(\mathbf{E}_{Eh}|\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}\right)$
+\end_inset
+
+, and the dotted line is the overlap of 
+\begin_inset Formula $\left(\mathbf{B}_{Eh}|\boldsymbol{\nabla}\times\text{\mathbf{P}}\right)$
+\end_inset
+
+.
+ (b) The transient self-interference length as a function of time in 3D
+ space for different possible 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:overlap-self-interference "
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Second, we want to check the self-interference length for the rescaling
+ field.
+ Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:overlap-self-interference "
+
+\end_inset
+
+ shows the transient self-interference length is much smaller than that
+ in 1D case, 
+\begin_inset Formula $\Lambda^{\text{3D}}\approx0.6\ \text{nm}$
+\end_inset
+
+.
+ If we consider the rescaling field as the form: 
+\begin_inset Formula $\left(\boldsymbol{\nabla}\times\right)^{2}\text{\mathbf{P}}^{\text{3D}}+g\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ for arbitrary 
+\begin_inset Formula $g$
+\end_inset
+
+, we find that the transient self-interference length does not reach a steady
+ value.
+ In fact, the self-interference increases linearly with time since the longitudi
+nal part of 
+\begin_inset Formula $\text{\mathbf{P}}^{\text{3D}}$
+\end_inset
+
+ does not propagate outward and accumulate to increase the self-interference.
+ So, our choice of the rescaling field is more appropriate for this case.
+\end_layout
+
+\begin_layout Standard
+Finally, the spontaneous emission intensity can be obtained by Ehrenest+R
+ method in 3D space.
+ Here we consider the initial density matrix is 
+\begin_inset Formula $\rho_{11}=1$
+\end_inset
+
+, and expect to be only incoherent emission.
+ We compare the data with mean electromagnetic energy flux of electric dipole
+ radiation,
+\begin_inset Formula 
+\begin{equation}
+\left\langle I\left(\mathbf{r}\right)\right\rangle =\frac{\mu_{0}}{c^{2}}\frac{\omega_{0}^{4}\mu_{01}^{2}}{32\pi^{2}}\frac{\sin^{2}\theta}{r^{2}}.
+\end{equation}
+
+\end_inset
+
+Note that for this initial condition, Ehrenfest dynamics does not predict
+ any spontaneous emission.
+ Ehrenfest+R result shows good agreement with the classical dipole radiation.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C00.5.fig.pdf
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C00.5.fig_2.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C01.0.fig.pdf
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C01.0.fig_2.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spontaneous emission intensity calculated by Ehrenfest+R method as a function
+ of radius 
+\begin_inset Formula $r$
+\end_inset
+
+ at 
+\begin_inset Formula $t=1.0\ \text{fs}$
+\end_inset
+
+ for the initial population (a) 
+\begin_inset Formula $\rho_{11}=0.5$
+\end_inset
+
+, and (b)
+\begin_inset Formula $\rho_{11}=1.0$
+\end_inset
+
+.
+ The right panels are the corresponding spectrum of the electric field in
+ the 
+\begin_inset Formula $z$
+\end_inset
+
+ direction.
+ The dim lines are the data of individual trajectories and the solid circles
+ are averaged data.
+ The black dash line is the theoretical energy flux.
+ The self-interference length is 
+\begin_inset Formula $\Lambda^{\text{3D}}\approx0.6\ \text{nm}$
+\end_inset
+
+.
+ The polar angle is 
+\begin_inset Formula $\theta=\frac{\pi}{2}$
+\end_inset
+
+.
+ The simulation is performed in Cartesian coordinate system with 
+\begin_inset Formula $X_{\text{max}}=315\ \text{nm}$
+\end_inset
+
+ and 
+\begin_inset Formula $N_{\text{grid}}=210$
+\end_inset
+
+ for each dimension.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusions and Future works
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Conclusions"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+what have I done...
+\end_layout
+
+\end_inset
+
+In this work, we develop the framework of mixed quantum–classical theory
+ for coupled electron-radiation dynamics in terms of electrodynamical QLCE
+ and Ehrenfest EOM formulation.
+ With the understanding and explicit analysis, we propose an ad hoc Ehrenfest+R
+ method by introducing the complementary quantum transitions to recover
+ the deficiency of the standard Ehrenfest dynamics.
+ In the context of spontaneous emission, Ehrenfest+R dynamics predict the
+ correct decay rate and discriminate the coherent and incoherent emission
+ intensity in a great agreement with full quantum results.
+ Furthermore, we generalize Ehrenfest+R method to treat a resonance Raman
+ scattering model and demonstrate its capability of capturing quantitative
+ results of resonance spectra and linewidth.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+merit
+\end_layout
+
+\begin_layout Plain Layout
+energy conservation
+\end_layout
+
+\begin_layout Plain Layout
+The key stable, 
+\end_layout
+
+\begin_layout Plain Layout
+efficient- the cost of Ehrenfest+R is of the same order magnitude 
+\end_layout
+
+\begin_layout Plain Layout
+not the only prescription
+\end_layout
+
+\begin_layout Plain Layout
+comparing electrodynamical QCLE and Ehrenfest EOM inspire other improvement
+ of Ehrenfest 
+\end_layout
+
+\end_inset
+
+Our current prescription of Ehrenfest+R dynamics has several advantages.
+ First, it conserves the total electrodynamics energy.
+ Second, since the system transition is effectively continuous and the stochasti
+c EM field transition is minimal in magnitude, it is numerically stable.
+ Third, the cost of each Ehrenfest+R trajectory is of the same order magnitude
+ as the standard Ehrenfest dynamics, and it is easy to reach convergence.
+ We note that the success of our prescription relies on the fact that the
+ spontaneous emission follows Fermi's golden rule.
+ Therefore, applying Ehrenfest+R method to other problems requires further
+ modification of the current prescription.
+ Namely, the framework pave the way for possible varieties of mixed quantum-clas
+sical methods derived from the analysis of the electrodynamical QCLE and
+ Ehrenfest EOM.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+future
+\end_layout
+
+\end_inset
+
+Future work will investigate Ehrenfest+R dynamics in detail in three dimensions,
+ with weak and strong incident EM fields, with arbitrary numbers of electronic
+ states, and with general forms of the transition dipole moments.
+ We will also incorporate non-adiabatic methods for electron–phonon dynamics,
+ such as surface hopping and quantum master equations, to account for nuclear
+ dynamics and decoherence.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+applications
+\end_layout
+
+\end_inset
+
+We are looking forward to pursuing more applications of varients of Ehrenfest+R
+ method, including energy transfer through radiation, electron–electron
+ correlation effects on the EM field, and collective behavior in plasmonic
+ systems.
+ 
+\end_layout
+
+\begin_layout Section*
+Acknowledgment
+\end_layout
+
+\begin_layout Standard
+This work is supported by AAA.
+ We would like to thank BBB.
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Quantum Theory of Spontaneous Emission
+\end_layout
+
+\begin_layout Subsection
+Electric Dipole Hamiltonian
+\end_layout
+
+\begin_layout Standard
+In practice, we consider an electronic system with a spatial distribution
+ of the order of Bohr radius interacting with an EM field of wavelength
+ much larger than the size of the system.
+ In this case, we can exploit the long-wavelength approximation to get the
+ electric dipole Hamiltonian after generalized Göppert-Mayer transformation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cohen-tannoudji_photons_1997"
+literal "true"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+c.f.
+ Cohen p.
+ 304-312
+\end_layout
+
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{ED}=\widehat{H}_{s}-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}\left(0\right)+\sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right),
+\end{equation}
+
+\end_inset
+
+so-called the electric dipole Hamiltonian.
+ In this representation, the interaction is simply described by a coupling
+ term between the dipole moment 
+\begin_inset Formula $\mathbf{\widehat{\mathbf{d}}}=\sum_{\alpha}q_{\alpha}\mathbf{\widehat{\mathbf{r}}}_{\alpha}$
+\end_inset
+
+ and the electric field evaluated at the position of the system.
+ We assume the electronic system is located at the origin.
+ The advantage of the electric dipole Hamiltonian is that the coupling is
+ linear in terms of field operator.
+ The electric dipole Hamiltonian is usually taken as a starting point to
+ study quantum optical effects, such as spontaneous emission.
+\end_layout
+
+\begin_layout Standard
+As a review of quantum electrodynamics description for spontaneous emission,
+ we consider a simple model of two-level system 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{s}=\varepsilon_{0}\left|0\right\rangle \left\langle 0\right|+\varepsilon_{1}\left|1\right\rangle \left\langle 1\right|
+\end{equation}
+
+\end_inset
+
+which only coupled via the interaction with the EM field.
+ We assume 
+\begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega_{0}=\varepsilon_{1}-\varepsilon_{0}$
+\end_inset
+
+.
+ The electronic dipole moment operator takes the form of 
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{d}}=\boldsymbol{\mu}_{01}\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{\mu}_{01}=\left\langle 0\right|\sum_{\alpha}q_{\alpha}\mathbf{\widehat{\mathbf{r}}}_{\alpha}\left|1\right\rangle $
+\end_inset
+
+ is the transition dipole moment of the two states.
+ The coupling term of the electric dipole Hamiltonian turns out to be 
+\begin_inset Formula 
+\begin{equation}
+-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}\left(0\right)=\sum_{k}V_{k}\left(\widehat{a}_{k}-\widehat{a}_{k}^{\dagger}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $V_{k}=i{\cal E}_{k}\mathbf{e}_{k}\cdot\boldsymbol{\mu}_{01}$
+\end_inset
+
+ and we simplify 
+\begin_inset Formula $\mathbf{k}$
+\end_inset
+
+ by the magnitude 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ Despite the simplicity, the model is capable of revealing the Fermi's golden
+ rule (FGR) decay of the system and spontaneous emission in the EM field.
+\end_layout
+
+\begin_layout Subsection
+Dressed state representation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Cohen Eq.(31) of p.310 is exactly Eq.
+ (19) of p.308, so 
+\begin_inset Formula $D^{\prime}=\epsilon_{0}E$
+\end_inset
+
+.
+ so the electric-dipole Hamiltonian Eq.(38) is 
+\begin_inset Formula 
+\[
+\widehat{H}=\widehat{H}_{s}+\sum_{k}\hbar\omega_{k}\left(\widehat{a}_{k}^{\dagger}\widehat{a}_{k}+\frac{1}{2}\right)-\widehat{\mathbf{P}}\left(0\right)\cdot\widehat{\mathbf{E}}\left(0\right),
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+in second quantization
+\end_layout
+
+\begin_layout Plain Layout
+in terms of destruction and creation operators 
+\begin_inset Formula $\widehat{a}_{k}$
+\end_inset
+
+, 
+\begin_inset Formula $\widehat{a}_{k}^{\dagger}$
+\end_inset
+
+ of photons with 
+\begin_inset Formula $\hbar\omega_{k}=\hbar ck$
+\end_inset
+
+ mode.
+ The quantized electric field is 
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{E}}\left(0\right)=i\sum_{k}\sqrt{\frac{\hbar\omega_{k}}{2\epsilon_{0}L^{n}}}\mathbf{e}_{k}\left(\widehat{a}_{k}-\widehat{a}_{k}^{\dagger}\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $L^{n}$
+\end_inset
+
+ indicates the 
+\begin_inset Formula $n$
+\end_inset
+
+-dimensional volume.
+ For the two-level system we considered, the electric-dipole coupling can
+ be written as 
+\begin_inset Formula 
+\begin{equation}
+-\widehat{\mathbf{P}}\left(0\right)\cdot\widehat{\mathbf{E}}\left(0\right)=\sum_{k}V_{k}\left(\widehat{a}_{k}-\widehat{a}_{k}^{\dagger}\right)
+\end{equation}
+
+\end_inset
+
+where the coupling strength is given by
+\begin_inset Formula 
+\begin{equation}
+V_{k}=-i\boldsymbol{\mu}_{01}\cdot\mathbf{e}_{k}\sqrt{\frac{\hbar\omega_{k}}{2\epsilon_{0}L^{n}}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We now consider the dressed state representation
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nitzan_chemical_2006"
+literal "true"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray}
+\left|j;k\right\rangle =\left|j\right\rangle \left|0,\cdots,1_{k},\cdots,0\right\rangle  & \ \text{for } & j=0,1
+\end{eqnarray}
+
+\end_inset
+
+as the basis where 
+\begin_inset Formula $\left|0,\cdots,1_{k},\cdots,0\right\rangle $
+\end_inset
+
+ indicates the field state that one single photon of mode 
+\begin_inset Formula $\omega_{k}$
+\end_inset
+
+ is created.
+ 
+\begin_inset Formula $\left|j;0\right\rangle $
+\end_inset
+
+ represent the 
+\begin_inset Formula $\left|j\right\rangle $
+\end_inset
+
+ state in vacuum.
+ Note that the basis is restricted in the Hilbert space of one photon states.
+ 
+\end_layout
+
+\begin_layout Standard
+The Hamiltonian in the dressed state basis forms two continuous manifolds
+ of energies 
+\begin_inset Formula $\left\langle j;k\right|\widehat{H}\left|j;k\right\rangle =\varepsilon_{j}+\hbar\omega_{k}$
+\end_inset
+
+ associated with the electronic state 
+\begin_inset Formula $\left|j\right\rangle $
+\end_inset
+
+.
+ The electric dipole coupling between the manifolds are given by 
+\begin_inset Formula $\left\langle 1;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 0;0\right|\widehat{H}\left|1;k\right\rangle =V_{k}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\langle 0;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 1;0\right|\widehat{H}\left|1;k\right\rangle =0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We can write the total wavefunction in the dressed state representation
+ as 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\left|\psi\left(t\right)\right\rangle = & C_{0,0}\left(t\right)\left|0;0\right\rangle +C_{1,0}\left(t\right)\left|1;0\right\rangle +\\
+ & \sum_{k}C_{0,k}\left(t\right)\left|0;k\right\rangle +\sum_{k}C_{1,k}\left(t\right)\left|1;k\right\rangle ,
+\end{split}
+\end{equation}
+
+\end_inset
+
+and consider the initial wave function of the electronic system in vacuum
+\begin_inset Formula 
+\begin{equation}
+\left|\psi\left(0\right)\right\rangle =C_{0,0}\left|0;0\right\rangle +C_{1,0}\left|1;0\right\rangle 
+\end{equation}
+
+\end_inset
+
+with 
+\begin_inset Formula $\left|C_{0,0}\right|^{2}+\left|C_{1,0}\right|^{2}=1$
+\end_inset
+
+.
+ Time evolution of the wavefunction is therefore governed by Schrodinger
+ equation 
+\begin_inset Formula $i\hbar\frac{\partial}{\partial t}\left|\psi\left(t\right)\right\rangle =\widehat{H}\left|\psi\left(t\right)\right\rangle $
+\end_inset
+
+.
+ Note that the Hilbert space of the dress states can be separated into 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+two decoupled sub-spaces: one for the 
+\begin_inset Formula $\left|0;k\right\rangle $
+\end_inset
+
+ manifold coupled with 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left|1;0\right\rangle $
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+another for the 
+\begin_inset Formula $\left|1;k\right\rangle $
+\end_inset
+
+ manifold coupled with 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Given that 
+\begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}$
+\end_inset
+
+, the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left|0;k\right\rangle $
+\end_inset
+
+ manifold includes the resonant 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+level with the 
+\begin_inset Formula $\left|1;0\right\rangle $
+\end_inset
+
+ state, i.e.
+ 
+\begin_inset Formula $\varepsilon_{0}+\hbar\omega_{0}=\varepsilon_{1}$
+\end_inset
+
+.
+ However, the the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left|1;k\right\rangle $
+\end_inset
+
+ manifold
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is always off-resonant with 
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\varepsilon_{1}+\hbar\omega_{k}>\varepsilon_{0}$
+\end_inset
+
+ for all 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ Therefore, we can approximate 
+\begin_inset Formula $C_{1,k}\left(t\right)\approx0$
+\end_inset
+
+ and 
+\begin_inset Formula $C_{0,0}\left(t\right)\approx\left|C_{0,0}\left(t\right)\right|e^{-i\varepsilon_{0}t/\hbar}$
+\end_inset
+
+ as the lowest order form of the short time behavior.
+\end_layout
+
+\begin_layout Subsection
+Retarded Green's function formulation
+\end_layout
+
+\begin_layout Standard
+We adapt the retarded Green's function formulation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nitzan_chemical_2006"
+literal "true"
+
+\end_inset
+
+ to obtain the time evolution of 
+\begin_inset Formula $C_{1,0}\left(t\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $C_{0,k}\left(t\right)$
+\end_inset
+
+.
+ The retarded Green's operator is 
+\begin_inset Formula $\widehat{G}\left(\varepsilon\right)=\left[\varepsilon-\widehat{H}+i\eta\right]^{-1}$
+\end_inset
+
+, which can be obtained by self-consistent expression
+\begin_inset Formula 
+\begin{eqnarray}
+G_{11}\left(\varepsilon\right) & = & \frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},\\
+G_{k1}\left(\varepsilon\right) & = & \frac{V_{k}}{\varepsilon-\varepsilon_{k}+i\eta}\frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},
+\end{eqnarray}
+
+\end_inset
+
+where 
+\begin_inset Formula $\eta$
+\end_inset
+
+ is a positive small quantity (
+\begin_inset Formula $\eta\rightarrow0$
+\end_inset
+
+) and 
+\begin_inset Formula $\Gamma\left(\varepsilon\right)=\sum_{k}\left|V_{k}\right|^{2}/\left(\varepsilon-\varepsilon_{k}+i\eta\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+weak-couplig limit
+\end_layout
+
+\end_inset
+
+we assume the weak coupling limit, the coupling between the system and the
+ EM field is weak.
+ Therefore, the Green's operators are expected to be a sharp peak at 
+\begin_inset Formula $\varepsilon_{1}$
+\end_inset
+
+, so that we can approximate 
+\begin_inset Formula $\Gamma\left(\varepsilon\right)\approx\Gamma\left(\varepsilon_{1}\right)\equiv\hbar\kappa$
+\end_inset
+
+ to represent the lifetime of the energy level coupled to the resonant manifold.
+ Note that the weak coupling limit also imply 
+\begin_inset Formula $\omega_{0}\gg\kappa$
+\end_inset
+
+, i.e.
+ the oscillatory period is much faster than the life time of the excited
+ state.
+ Finally, the wavefunction can be obtained by carrying out the Fourier transform
+ 
+\begin_inset Formula $\left|\psi\left(t\right)\right\rangle =-\frac{1}{2\pi i}\int_{-\infty}^{\infty}d\varepsilon e^{-i\left(\varepsilon+i\eta\right)t/\hbar}\widehat{G}\left(\varepsilon\right)\left|\psi\left(0\right)\right\rangle $
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+C_{1,0}\left(t\right)=C_{1,0}e^{-i\frac{\varepsilon_{1}}{\hbar}t-\frac{\kappa}{2}t},
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+C_{0,k}\left(t\right)=\frac{C_{1,0}V_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\frac{\hbar\kappa}{2}+i\eta}\left[e^{-i\left(\frac{\varepsilon_{0}}{\hbar}+\omega_{k}\right)t}-e^{-i\frac{\varepsilon_{1}}{\hbar}t-\frac{\kappa}{2}t}\right].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FGR rate...3D
+\end_layout
+
+\end_inset
+
+From the wavefunction, we find the population of the excited state decay
+ as
+\begin_inset Formula $\left|C_{1,0}\left(t\right)\right|^{2}=\left|C_{1,0}\right|^{2}e^{-\kappa t}$
+\end_inset
+
+.
+ The decay rate in 3D can be obtained by carrying out 
+\begin_inset Formula $\Gamma\left(\varepsilon_{1}\right)$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{equation}
+\kappa^{\text{3D}}=\frac{\left|\boldsymbol{\mu}_{01}\right|^{2}\omega_{0}^{3}}{3\pi\hbar\epsilon_{0}c^{3}},
+\end{equation}
+
+\end_inset
+
+which agree with the Fermi’s golden rule (FGR) for spontaneous emission.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "nitzan_chemical_2006"
+literal "true"
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D
+\end_layout
+
+\end_inset
+
+To study an effective 1D situation, we will imagine an uniform charge distributi
+ons on the plane of 
+\begin_inset Formula $y$
+\end_inset
+
+ and 
+\begin_inset Formula $z$
+\end_inset
+
+ direction and a delta function in the 
+\begin_inset Formula $x$
+\end_inset
+
+ direction.
+ The effective dipole moment in 1D is therefore defined as 
+\begin_inset Formula $\mu_{01}^{2}=\left|\boldsymbol{\mu}_{01}\right|^{2}/L_{y}L_{z}$
+\end_inset
+
+.
+ We can obtain the decay rate for the effective 1D case as 
+\begin_inset Formula 
+\begin{equation}
+\kappa^{\text{1D}}=\frac{\mu_{01}^{2}\omega_{0}}{\hbar\epsilon_{0}c}.\label{eq:FGR_rate}
+\end{equation}
+
+\end_inset
+
+We will use 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ to represent the FGR rate for either 
+\begin_inset Formula $\kappa^{\text{3D}}$
+\end_inset
+
+ or 
+\begin_inset Formula $\kappa^{\text{1D}}$
+\end_inset
+
+ depending on context.
+ Note that, in general, the Fermi's golden rule is valid in the weak coupling
+ limit (
+\begin_inset Formula $\kappa\ll\omega_{0}$
+\end_inset
+
+), also called the FGR regime.
+\end_layout
+
+\begin_layout Subsection
+Radiation Field Observables
+\end_layout
+
+\begin_layout Standard
+We can now obtain the expectation value of EM field observables using the
+ retard Green's function.
+ Here we calculate the radiation intensity 
+\begin_inset Formula $\left\langle \widehat{\mathbf{E}}\left(x,t\right)^{2}\right\rangle $
+\end_inset
+
+ and the observed electric field 
+\begin_inset Formula $\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle $
+\end_inset
+
+ from the electric field operator, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:E_operator"
+
+\end_inset
+
+ for the effective 1D setting.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D-E^2
+\end_layout
+
+\end_inset
+
+Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:E_operator"
+
+\end_inset
+
+ suggest that the intensity observable 
+\begin_inset Formula $\widehat{\mathbf{E}}^{2}$
+\end_inset
+
+ only include coupling within the manifolds of 
+\begin_inset Formula $\left|0;k\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left|1;k\right\rangle $
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\left|1;k\right\rangle $
+\end_inset
+
+ is the off-resonant manifold, we ignore the contribution.
+ Therefore, the observed intensity takes the form of 
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)^{2}\right\rangle =\left|C_{1,0}\right|^{2}\times\frac{R\left(x,t\right)^{2}}{2}\label{eq:Intensity}
+\end{equation}
+
+\end_inset
+
+where we ignore vacuum fluctuation of the radiation filed.
+ We note that the intensity is associated with the energy flux of spontaneous
+ emission.
+ Therefore, the intensity distribution 
+\begin_inset Formula $e^{-\kappa\left(t-x/c\right)}$
+\end_inset
+
+ is corresponding to the FGR decay of the system.
+ The divergence of the intensity and the coherent emission amplitude imply
+ that there is an incoherent emission come into play.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D-E
+\end_layout
+
+\end_inset
+
+The electric field operator couples
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ the 
+\begin_inset Formula $\left|0;k\right\rangle $
+\end_inset
+
+ manifold coupled with 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+ state, so that the observed electric field is given by (see Appendix)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+check again:
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle =\left|C_{0,0}\left(t\right)\right|\left|C_{1,0}\right|\times\frac{R\left(x,t\right)}{\sqrt{2}}\sin\omega_{0}\left(t-r/c\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+R\left(x,t\right)=\frac{\omega_{0}\mu_{01}}{c\epsilon_{0}}e^{-\frac{\kappa}{2}\left(t-x/c\right)}\times\left[\theta\left(ct-x\right)-\theta\left(-x\right)\right].
+\end{equation}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $R\left(x,t\right)$
+\end_inset
+
+ gives the event horizons 
+\begin_inset Formula $x<ct$
+\end_inset
+
+ for the emitting radiation.
+ The observed electric field represent the 
+\emph on
+coherent emission 
+\emph default
+at the frequency 
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+.
+ We note that the amplitude of coherent emission depends on the instantaneous
+ population of the ground state 
+\begin_inset Formula $\left|C_{0,0}\left(t\right)\right|$
+\end_inset
+
+ and the initial population of the excited state 
+\begin_inset Formula $\left|C_{1,0}\right|$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D-E-coarse-grained
+\end_layout
+
+\end_inset
+
+The coarse-grained behavior is defined by taking a local time average over
+ a short time scale.
+ Here, we consider a time scale 
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
+\end_inset
+
+.
+ Within this time scale, the population does not change much and the coherence
+ is considered as a rapid oscillation.
+ The coarse-grained Ehrenfest decay rate within the time scale is denoted
+ as 
+\end_layout
+
+\begin_layout Standard
+We find that the the observed electric field is 
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle ^{2}=\left|C_{0,0}\left(t\right)\right|^{2}\left|C_{1,0}\left(0\right)\right|^{2}\times R\left(x,t\right)\times\frac{1}{2}\sin^{2}\omega_{0}\left(t-r/c\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+represent Taking average over short time interval 
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
+\end_inset
+
+, one obtain an estimate of the amplitude of the 
+\emph on
+coherent emission
+\emph default
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ as
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+more detail in Appendix
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle ^{2}=\left|C_{0,0}\left(t\right)\right|^{2}\left|C_{1,0}\left(t\right)\right|^{2}\times\frac{1}{2}R\left(x,t\right)^{2}\label{eq:Esquare}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $\overline{\sin^{2}\omega_{0}t}\approx\frac{1}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+3D
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Mixed Quantum–Classical Theory for electrodynamics
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Mixed-Quantum–Classical-Theory"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To address this problem systematically, the section aims to compare Ehrenfest
+ dynamics and exact quantum dynamics in the framework of mixed quantum–classical
+ theory.
+ First, we formulate the quantum-classical Liouville equations (QCLE) for
+ quantum electrodynamics as formally exact equation of motion.
+ Then, we approximate the probability density for Ehrenfest dynamics and
+ derive the corresponding equation of motion.
+ By comparing the equations of motion, we shall discover the difference.
+\end_layout
+
+\begin_layout Subsection
+Electrodynamical Quantum-Classical Liouville Equation
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:QCLE"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Intro
+\end_layout
+
+\end_inset
+
+Following Kapral
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kapral_mixed_1999"
+literal "true"
+
+\end_inset
+
+, we derive the elctrodynamical QCLE for electron–radiation dynamics.
+ It is an analogue to the QCLE for electron–nuclei dynamics.
+ 
+\end_layout
+
+\begin_layout Standard
+We denote the total density operator 
+\begin_inset Formula $\widehat{{\cal W}}\left(t\right)$
+\end_inset
+
+ for the electronic system and the EM field.
+ The evolution of total density operator is governed by the quantum Liouville
+ equation
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial}{\partial t}\widehat{{\cal W}}\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H},\widehat{{\cal W}}\left(t\right)\right].
+\end{equation}
+
+\end_inset
+
+Since we want to treat the field degrees of freedom classically, we perform
+ the partial Wigner transforms with respect to the vector filed operator,
+ 
+\begin_inset Formula $\widehat{\mathbf{A}}$
+\end_inset
+
+, and its conjugate momentum, 
+\begin_inset Formula $\widehat{\mathbf{D}}$
+\end_inset
+
+.
+ Formally, the partial Wigner transform of the density operator gives the
+ probability density
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{\rho}_{W}\left(\mathbf{D},\mathbf{A},t\right)=\frac{1}{\left(2\pi\hbar\right)^{3N}} & \int d\mathbf{Z}e^{i\mathbf{D}\cdot\mathbf{Z}/\hbar}\times\\
+ & \left\langle \mathbf{A}-\frac{\mathbf{Z}}{2}\right|\widehat{{\cal W}}\left(t\right)\left|\mathbf{A}+\frac{\mathbf{Z}}{2}\right\rangle ,
+\end{split}
+\end{equation}
+
+\end_inset
+
+where the bold symbol 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ without the hat refer to the coordinate representation of these quantities,
+ not operators.
+ The coordinate representation 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are 
+\begin_inset Formula $c$
+\end_inset
+
+-number spatial functions satisfying 
+\begin_inset Formula $\widehat{\mathbf{D}}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle =\mathbf{D}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)\left|\mathbf{A}\right\rangle =\mathbf{A}\left(\mathbf{r}\right)\left|\mathbf{A}\right\rangle $
+\end_inset
+
+.
+ The partial Wigner transform of the Hamiltonian is 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{W}\left(\mathbf{D},\mathbf{A},t\right)=\int d\mathbf{Z}e^{i\mathbf{D}\cdot\mathbf{Z}/\hbar}\left\langle \mathbf{A}-\frac{\mathbf{Z}}{2}\right|\widehat{H}\left|\mathbf{A}+\frac{\mathbf{Z}}{2}\right\rangle .
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After the partial Wigner transform, the quantum Liouville equation can be
+ expanded in powers of 
+\begin_inset Formula $\hbar$
+\end_inset
+
+ and turns out to be
+\emph on
+ 
+\color red
+(Abe: why is small 
+\begin_inset Formula $\hbar$
+\end_inset
+
+ expansion valid? what is the real small parameter?) 
+\emph default
+\color inherit
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{W},\widehat{\rho}_{W}\right]\\
+ & +\frac{1}{2}\left(\left\{ \widehat{H}_{W},\widehat{\rho}_{W}\right\} -\left\{ \widehat{\rho}_{W},\widehat{H}_{W}\right\} \right),\\
+ & +{\cal O}\left(\hbar\right)
+\end{split}
+\label{eq:EOM_Wigner_poisson}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+show that it is exact for quadratic?
+\end_layout
+
+\end_inset
+
+where the Poisson bracket is given by 
+\begin_inset Formula 
+\begin{equation}
+\left\{ \widehat{H}_{W},\widehat{\rho}_{W}\right\} =\int\mathrm{d}\mathbf{r}\left(\frac{\delta\widehat{H}_{W}}{\delta\mathbf{D}}\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{A}}-\frac{\delta\widehat{H}_{W}}{\delta\mathbf{A}}\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{D}}\right).
+\end{equation}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ are treated as independent variables of the phase space.
+ The fact that 
+\begin_inset Formula $\widehat{H}_{W}$
+\end_inset
+
+ does not commute with 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+ is still maintained in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner_poisson"
+
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+justification of the expansion
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we take the first two term of Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner_poisson"
+
+\end_inset
+
+ and write down explicit equation of motion.
+ The functional derivatives with respect to the spatial function 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ can be obtained as (see Appendix
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "sec:Functional-Derivative"
+
+\end_inset
+
+)
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\delta\widehat{H}_{W}}{\delta\mathbf{A}} & = & \frac{1}{\mu_{0}}\boldsymbol{\nabla}\times\mathbf{B}\\
+\frac{\delta\widehat{H}_{W}}{\delta\mathbf{D}} & = & \frac{1}{\epsilon_{0}}\left(\mathbf{D}-\widehat{\mathbf{P}}\right)
+\end{eqnarray}
+
+\end_inset
+
+using the identity 
+\begin_inset Formula $\int d\mathbf{r}\frac{\delta\nabla\times\mathbf{A}}{\delta\mathbf{A}}\left(\mathbf{r}\right)\mathbf{\phi}\left(\mathbf{r}\right)=\nabla\times\mathbf{\phi}\left(\mathbf{r}\right)$
+\end_inset
+
+ for an arbitrary function 
+\begin_inset Formula $\mathbf{\phi}\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ We change the phase space coordinate from 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{B}=\boldsymbol{\nabla}\times\mathbf{A}$
+\end_inset
+
+, then we obtain the explicit equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{W}\left(t,\mathbf{D},\mathbf{B}\right)$
+\end_inset
+
+ terms of the displacement 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and magnetic field 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\frac{\mathbf{D}\cdot\widehat{\mathbf{P}}}{\epsilon_{0}}+\int\mathrm{d}\mathbf{r}\frac{\widehat{\mathbf{P}}^{2}}{2\epsilon_{0}},\widehat{\rho}_{W}\right]\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{B}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{D}}\\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{D}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\\
+ & -\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left\{ \nabla\times\widehat{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\cdot\nabla\times\widehat{\mathbf{P}}\right\} ,
+\end{split}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\partial}{\partial t} & \widehat{\rho}_{W}=-\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]\\
+ & +\frac{i}{2\hbar}\int\mathrm{d}\mathbf{r}\left\{ \frac{\mathbf{D}-\widehat{\mathbf{P}}}{\epsilon_{0}}\left[\widehat{\mathbf{P}},\widehat{\rho}_{W}\right]+\left[\widehat{\mathbf{P}},\widehat{\rho}_{W}\right]\frac{\mathbf{D}-\widehat{\mathbf{P}}}{\epsilon_{0}}\right\} \\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{D}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\\
+ & -\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left\{ \nabla\times\widehat{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\cdot\nabla\times\widehat{\mathbf{P}}\right\} ,\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{B}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{D}}
+\end{split}
+\label{eq:EOM_Wigner}
+\end{equation}
+
+\end_inset
+
+which we refer to the electrodynamical QCLE.
+ Note that Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner"
+
+\end_inset
+
+ maintains the fact that the quantum operator 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+ does not commute with 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+what does QCLE mean?
+\end_layout
+
+\end_inset
+
+Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner"
+
+\end_inset
+
+ shows that the evolution of the Wigner probability density consists of
+ two types of contribution.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+commutator
+\end_layout
+
+\end_inset
+
+The first and second terms of the right-hand side involving the commutator
+ account for the quantum evolution of the electronic degrees of freedom.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+classical
+\end_layout
+
+\end_inset
+
+The rest of right-hand side account for the evolution of the 
+\begin_inset Quotes eld
+\end_inset
+
+classical
+\begin_inset Quotes erd
+\end_inset
+
+ degrees of freedom of the probability density.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+d/dD, d/dB
+\end_layout
+
+\end_inset
+
+The third and fourth terms indicate the evolution with respect to 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ , and the last terms contain the evolution with respect to 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Equation of motion for Ehrenfest joint probability density
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+joint probability density
+\end_layout
+
+\end_inset
+
+An Ehrenfest trajectory can be represented by a mixed quantum-classical
+ state (
+\begin_inset Formula $\mathbf{D},\mathbf{B},\widehat{\rho}$
+\end_inset
+
+) undergoing Ehrenfest dynamics, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+.
+ Suppose that at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+, the initial electronic density matrix is 
+\begin_inset Formula $\widehat{\rho}_{0}$
+\end_inset
+
+ and the field is represented by an initial distribution in phase space
+ 
+\begin_inset Formula $f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)$
+\end_inset
+
+.
+ Therefore, we can construct the joint electronic–radiation probability
+ density corresponding to a swarm of Ehrenfest trajectories starting from
+ 
+\begin_inset Formula $\left(\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+.
+ The joint probability density for Ehrenfest dynamics is then defined formally
+ as 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)\equiv & \int\mathrm{d}\mathbf{D}_{0}\int\mathrm{d}\mathbf{B}_{0}f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)\times\\
+ & \widehat{\rho}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)\times\\
+ & \delta\left(\mathbf{D}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{D}\right)\times\\
+ & \delta\left(\mathbf{B}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{B}\right)
+\end{split}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\widehat{\rho}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{D}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+ are the Ehrenfest trajectory starting from the initial condition 
+\begin_inset Formula $\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}$
+\end_inset
+
+.
+ However, there does not exist a formal equation of motion for the joint
+ probability density in general 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "subotnik_augmented_2010"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+Still need to clarify why preimage assumption could lead to (53)...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can circumvent this difficulty by the following assumptions.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Unique pre-image assumption
+\end_layout
+
+\end_inset
+
+We invoke the unique preimage assumption 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "subotnik_augmented_2010,subotnik_can_2013"
+literal "true"
+
+\end_inset
+
+ to ensure each point in phase space 
+\begin_inset Formula $\left(\mathbf{D},\mathbf{B}\right)$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ is corresponding to a unique electronic density matrix 
+\begin_inset Formula $\widehat{\rho}_{0}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+continuity
+\end_layout
+
+\end_inset
+
+Also, the swarm of trajectories is assumed to evolve such that no trajectories
+ reach the same 
+\begin_inset Formula $\left(\mathbf{D},\mathbf{B}\right)$
+\end_inset
+
+ in phase space at the same time.
+ With the above assumptions, we define the joint electron–radiation probability
+ density in the form of
+\emph on
+\color red
+ (Abe: How is this follows from the above assumptions?)
+\emph default
+\color inherit
+
+\begin_inset Formula 
+\begin{equation}
+\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)=\widehat{\rho}\left(\mathbf{D},\mathbf{B},t\right)\times f\left(\mathbf{D},\mathbf{B},t\right),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $f\left(\mathbf{D},\mathbf{B},t\right)=\text{Tr}_{s}\left\{ \widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)\right\} $
+\end_inset
+
+ is the averaged density of the classical field 
+\begin_inset Formula $(\mathbf{D},\mathbf{B})$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\rho}\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+ is the electronic density matrix associated with the field 
+\begin_inset Formula $\mathbf{D},\mathbf{B}$
+\end_inset
+
+ satisfying Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+To derive the equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+, we explicitly compute its partial derivative: 
+\begin_inset Formula $\frac{\partial}{\partial t}\widehat{\rho}_{Eh}=\frac{\partial\widehat{\rho}}{\partial t}f+\widehat{\rho}\frac{\partial f}{\partial t}$
+\end_inset
+
+.
+ The partial derivative of 
+\begin_inset Formula $\widehat{\rho}\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+ can be obtained by Eq.
+\begin_inset space ~
+\end_inset
+
+.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+ and the partial derivative of 
+\begin_inset Formula $f\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+ is computed by the continuity equation together with Eqs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:polarization_mean"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+ (see Appendix
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Partial-derivatives"
+
+\end_inset
+
+).
+ Therefore, the equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{Eh}$
+\end_inset
+
+ can be written in the form of 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{Eh}= & -\frac{i}{\hbar}\left[\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\frac{\bar{\mathbf{D}}\cdot\widehat{\mathbf{P}}}{\epsilon_{0}}+\int\mathrm{d}\mathbf{r}\frac{\bar{\mathbf{P}}\cdot\widehat{\mathbf{P}}}{\epsilon_{0}},\widehat{\rho}_{Eh}\right]\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\bar{\mathbf{B}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\mathbf{D}}}\\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\bar{\mathbf{D}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\mathbf{B}}}.\\
+ & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\bar{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\mathbf{B}}}
+\end{split}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{Eh}= & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{Eh}\right]+\frac{i}{\hbar}\int\mathrm{d}\mathbf{r}\frac{\mathbf{D}-\bar{\mathbf{P}}}{\epsilon_{0}}\left[\widehat{\mathbf{P}},\widehat{\rho}_{Eh}\right]\\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\mathbf{\nabla}\times\mathbf{D}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\mathbf{B}}.\\
+ & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\mathbf{\nabla}\times\bar{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\mathbf{B}}\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\mathbf{\nabla}\times\mathbf{B}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\mathbf{D}}
+\end{split}
+\label{eq:EOM_Ehrenfest}
+\end{equation}
+
+\end_inset
+
+which we shall refer to equation of motion of Ehrenfest probability density
+ (Ehrenfest EOM).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+what does QCLE mean?
+\end_layout
+
+\end_inset
+
+Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest"
+
+\end_inset
+
+ shows that the evolution of the Ehrenfest probability density is consistent
+ to Ehrenfest anstaz.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+commutator
+\end_layout
+
+\end_inset
+
+The first and second terms of the right-hand side involving the commutator
+ account for the quantum evolution according to the electronic Hamiltonian
+ given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:electronic_Hamiltonian"
+
+\end_inset
+
+ (with 
+\begin_inset Formula $\mathbf{D}-\bar{\mathbf{P}}=\epsilon_{0}\bar{\mathbf{E}}$
+\end_inset
+
+).
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+classical
+\end_layout
+
+\end_inset
+
+The third and fourth terms corresponds the evolution of 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_BD"
+
+\end_inset
+
+.
+ The last term accounts for the evolution of 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Compare electrodynamics QCLE and Ehrenfest EOM
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+What's the difference
+\end_layout
+
+\end_inset
+
+Comparing Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner"
+
+\end_inset
+
+, we find that, the differences between QCLE and Ehrenfest EOM are attributed
+ to the commutation relation of 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+2nd term
+\end_layout
+
+\end_inset
+
+Explicitly, the right-hand side of QCLE and Ehrenfest EOM are different
+ in the second and fourth terms.
+ The second term represents the discrepancy in the quantum evolution of
+ the electronic system.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+4th term
+\end_layout
+
+\end_inset
+
+The fourth term indicates the diverging of Ehrenfest trajectory and time
+ evolution of Wigner probability density in phase space.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+reduce to Ehrenfest
+\end_layout
+
+\end_inset
+
+We also note that QCLE can be reduced to Ehrenfest EOM by taking the mean-field
+ approximation for the EM field, i.e.
+ 
+\begin_inset Formula $\widehat{\mathbf{P}}\rightarrow\bar{\mathbf{P}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}-\widehat{\mathbf{P}}\rightarrow\mathbf{D}-\bar{\mathbf{P}}=\epsilon_{0}\bar{\mathbf{E}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+trajectory-based description
+\end_layout
+
+\end_inset
+
+Like many trajectory-based descriptions for electron–nuclei dynamics, one
+ usually needs to include quantum transitions, such as momentum jump approximati
+on 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kapral_mixed_1999,kapral_progress_2006,kapral_surface_2016"
+literal "true"
+
+\end_inset
+
+ and surface hopping 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tully_molecular_1990,tully_mixed_1998"
+literal "true"
+
+\end_inset
+
+, to account for the quantum effect that can not be captured by classical
+ trajectories in phase space.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+need for transition
+\end_layout
+
+\end_inset
+
+From the above analysis of the difference in electrodynamical QCLE and Ehrenfest
+ EOM, we must introduce quantum transitions to Ehrenfest dynamics not only
+ for the trajectory in phase space, also for the quantum evolution of the
+ electronic degrees of freedom.
+ We shall make this interpretation explicit in the following.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Unfortunately, the implementation of trajectory-based propagation is usually
+ complicated and often lead to numerical instability 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bellonzi_assessment_2016"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+The connection here is weak here...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Derivation of rescaling field
+\end_layout
+
+\begin_layout Subsection
+The direction of the rescaling field
+\end_layout
+
+\begin_layout Standard
+By comparing electrodynamical QCLE and Ehrenfest EOM, we know that the lowest
+ order of 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ should be in the direction of 
+\begin_inset Formula $\boldsymbol{\nabla}\times\mathbf{P}$
+\end_inset
+
+.
+ Then, higher order terms of 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ can be obtained by Maxwell's equation and take the form of 
+\begin_inset Formula $\left(\boldsymbol{\nabla}\times\right)^{2n+1}\mathbf{P}$
+\end_inset
+
+.
+ So we can write a general form of the rescaling field as a linear combination
+ of the odd derivatives for 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\delta\mathbf{B}_{R}=\sum_{n=0}^{\infty}h_{n}\left(\boldsymbol{\nabla}\times\right)^{2n+1}\mathbf{P},
+\end{equation}
+
+\end_inset
+
+and the even derivatives for 
+\begin_inset Formula 
+\begin{equation}
+\delta\mathbf{E}_{R}=\sum_{n=0}^{\infty}g_{n}\left(\boldsymbol{\nabla}\times\right)^{2n}\mathbf{P}.
+\end{equation}
+
+\end_inset
+
+In general, this form ensure the rescaling field is transverse field, 
+\begin_inset Formula $\boldsymbol{\nabla}\cdot\delta\mathbf{E}_{R}=\boldsymbol{\nabla}\cdot\delta\mathbf{B}_{R}=0$
+\end_inset
+
+ that satisfy requirement (a).
+\end_layout
+
+\begin_layout Standard
+To satisfy requirement (b), the desired rescaling field can be obtained
+ by choosing 
+\begin_inset Formula $g_{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $h_{n}$
+\end_inset
+
+ so that 
+\begin_inset Formula $\delta\mathbf{E}_{R}\left(\mathbf{r}\right)=\delta\mathbf{B}_{R}\left(\mathbf{r}\right)=0$
+\end_inset
+
+ within the region where 
+\begin_inset Formula $\mathbf{P}\left(\mathbf{r}\right)\neq0$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+prescription
+\end_layout
+
+\end_inset
+
+If the polarization distribution is smooth and and has a small size in space
+ at 
+\begin_inset Formula $\mathbf{r}=0$
+\end_inset
+
+, we can take the lowest two order derivatives as a simplest prescription
+ for the rescaling direction:
+\begin_inset Formula 
+\begin{eqnarray}
+\delta\mathbf{E}_{R} & = & \left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}-g\mathbf{P},\\
+\delta\mathbf{B}_{R} & = & \boldsymbol{\nabla}\times\mathbf{P}-h\left(\boldsymbol{\nabla}\times\right)^{3}\mathbf{P}.
+\end{eqnarray}
+
+\end_inset
+
+where the coefficients 
+\begin_inset Formula $g$
+\end_inset
+
+ and 
+\begin_inset Formula $h$
+\end_inset
+
+ are determined by letting 
+\begin_inset Formula 
+\begin{equation}
+\delta\mathbf{E}_{R}\left(\mathbf{r}=0\right)=0,
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\boldsymbol{\nabla}\times\delta\mathbf{B}_{R}\left(\mathbf{r}=0\right)=0.
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+Check what is g and h in 3D.
+ Then we can know if we need it or not....
+\end_layout
+
+\end_inset
+
+The proposed rescaling direction can approximately eliminate the overlap
+ with 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+
+\begin_inset Formula $\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $\mathbf{P}^{\text{1D}}\left(x\right)$
+\end_inset
+
+ specifically , we have 
+\begin_inset Formula $g=2a$
+\end_inset
+
+ and 
+\begin_inset Formula $h=1/6a$
+\end_inset
+
+, and the rescaling field is given by
+\begin_inset Formula 
+\begin{eqnarray}
+\delta\mathbf{E}_{R}\left(x\right) & = & -4a^{2}x^{2}e^{-ax^{2}}\mu_{01}\sqrt{\frac{a}{\pi}}\hat{\mathbf{z}},\label{eq:dE_1D}\\
+\delta\mathbf{B}_{R}\left(x\right) & = & \frac{4}{3}a^{2}x^{3}e^{-ax^{2}}\mu_{01}\sqrt{\frac{a}{\pi}}\hat{\mathbf{y}}.\label{eq:dB_1D}
+\end{eqnarray}
+
+\end_inset
+
+We can estimate the overlap by
+\begin_inset Formula 
+\[
+\frac{\int dx\left|\delta\mathbf{E}_{R}\right|\left|\mathbf{P}\right|}{\sqrt{\int dx\left|\mathbf{P}\right|^{2}\int dx\left|\delta\mathbf{E}_{R}\right|^{2}}}=\frac{1}{\sqrt{3}}
+\]
+
+\end_inset
+
+compare to
+\begin_inset Formula 
+\[
+\frac{\int dx\left|\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}\right|\left|\mathbf{P}\right|}{\sqrt{\int dx\left|\mathbf{P}\right|^{2}\int dx\left|\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}\right|^{2}}}
+\]
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\int dx\left|\delta\mathbf{E}_{R}\right|\left|\mathbf{P}\right|=\mu_{01}^{2}\sqrt{\frac{a^{3}}{2\pi}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\mathbf{P}\right|^{2}=\mu_{01}^{2}\sqrt{\frac{a}{2\pi}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\delta\mathbf{E}_{R}\right|^{2}=3a^{2}\mu_{01}^{2}\sqrt{\frac{a}{2\pi}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}\right|\left|\mathbf{P}\right|=3\mu_{01}^{2}\sqrt{\frac{a^{3}}{2\pi}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int dx\left|\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}\right|^{2}=
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{\int dx\left|\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}\right|\left|\mathbf{P}\right|}{\sqrt{\int dx\left|\mathbf{P}\right|^{2}\int dx\left|\left(\boldsymbol{\nabla}\times\right)^{2}\mathbf{P}\right|^{2}}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+talk about overlap in 1D
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Equally distributed energy approximation
+\end_layout
+
+\begin_layout Standard
+In general, requirement (c) is very difficult to satisfy for ALL space in
+ the current form of the rescaling field (unless we consider a plane wave).
+ So we now release this requirement a bit as:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(c$^
+\backslash
+prime$)]
+\backslash
+setcounter{enumi}{3}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ must have similar spatial distribution, and carry equal amount of total
+ energy density.
+\end_layout
+
+\begin_layout Standard
+For the effectively 1D case, 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ has similar distribution in space.
+ Energy conservation (Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:+R_energy"
+
+\end_inset
+
+) then becomes simple quadratic equations 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\delta U_{R}}{2} & =\frac{\epsilon_{0}}{2}\int\mathrm{d}\mathbf{r}\left(2\mathbf{E}_{Eh}\cdot\alpha\delta\mathbf{E}_{R}+\left|\alpha\delta\mathbf{E}_{R}\right|^{2}\right)\\
+ & =\frac{1}{2\mu_{0}}\int\mathrm{d}\mathbf{r}\left(2\mathbf{B}_{Eh}\cdot\beta\delta\mathbf{B}_{R}+\left|\beta\delta\mathbf{B}_{R}\right|^{2}\right).
+\end{split}
+\label{eq:+R_energy_equal}
+\end{equation}
+
+\end_inset
+
+Since 
+\begin_inset Formula $\delta U_{R}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}>0$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta U_{R}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}>0$
+\end_inset
+
+, the solution of the quadratic equation for 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ must be one positive and one negative.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+drawback
+\end_layout
+
+\end_inset
+
+To satisfy requirement (d), we need to choose 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ so that the Poynting vector has the correct direction everywhere.
+ However, it is difficult to determine 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ since we have to consider all the cross terms in the Poynting vector, including
+ 
+\begin_inset Formula $\mathbf{E}_{Eh}\times\beta\delta\mathbf{B}_{R}$
+\end_inset
+
+, 
+\begin_inset Formula $\alpha\delta\mathbf{E}_{R}\times\mathbf{B}_{Eh}$
+\end_inset
+
+, and 
+\begin_inset Formula $\alpha\delta\mathbf{E}_{R}\times\beta\delta\mathbf{B}_{R}$
+\end_inset
+
+.
+ Besides the difficulty of determining the coefficient, we find that the
+ rescaling field obtained by the energy conservation scheme is unstable
+ since the magnitude of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ may change drastically as the sign changes.
+\end_layout
+
+\begin_layout Subsection
+Oscillating sign to cancel the cross term
+\end_layout
+
+\begin_layout Standard
+Here we propose a feasible, stable prescription for EM field rescaling.
+ We define the Ehrenfest+R trajectory following 
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\delta U_{R}^{\ell}}{2} & = & \frac{\epsilon_{0}}{2}\int\mathrm{d}\mathbf{r}\left|\alpha^{\ell}\delta\mathbf{E}_{R}\right|^{2}\\
+ & = & \frac{1}{2\mu_{0}}\int\mathrm{d}\mathbf{r}\left|\beta^{\ell}\delta\mathbf{B}_{R}\right|^{2},
+\end{eqnarray}
+
+\end_inset
+
+which does not conserve energy since we drop the cross term.
+ In this case, 
+\begin_inset Formula $\left|\text{\ensuremath{\alpha^{\ell}}}\right|^{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left|\text{\ensuremath{\beta^{\ell}}}\right|^{2}$
+\end_inset
+
+ have the relation
+\begin_inset Formula 
+\begin{equation}
+\left|\text{\ensuremath{\alpha^{\ell}}}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}=c^{2}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}\label{eq:alpha-beta}
+\end{equation}
+
+\end_inset
+
+that satisfy requirement (c
+\begin_inset Formula $^{\prime}$
+\end_inset
+
+).
+ For Ehrenfest+R trajectory, 
+\begin_inset Formula $\alpha^{\ell}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta^{\ell}$
+\end_inset
+
+ are determined by 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left|\text{\ensuremath{\alpha^{\ell}}}\right|^{2}=\frac{\delta U_{R}^{\ell}}{\epsilon_{0}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}}=\frac{\omega_{0}\rho_{11}2\kappa\left(1-\rho_{00}\right)}{\epsilon_{0}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}}dt\text{Im}\left[\frac{\rho_{01}}{\left|\rho_{01}\right|}e^{i\phi^{\ell}}\right]^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\text{\alpha^{\ell}}=\sqrt{\frac{\delta U_{R}^{\ell}}{\epsilon_{0}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}}}\times\text{sgn}\left(\text{Im}\left[\rho_{01}e^{i\phi^{\ell}}\right]\right)\label{eq:alpha_ell}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\text{\beta^{\ell}}=\sqrt{\frac{\mu_{0}\delta U_{R}^{\ell}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}}}\times\text{sgn}\left(\text{Im}\left[\rho_{01}e^{i\phi^{\ell}}\right]\right)\label{eq:beta_ell}
+\end{equation}
+
+\end_inset
+
+in which the sign is associated with 
+\begin_inset Formula $\delta U_{R}^{\ell}$
+\end_inset
+
+ and the complementary rate 
+\begin_inset Formula $k_{R}$
+\end_inset
+
+, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:k_R"
+
+\end_inset
+
+.
+ The scheme render the sign of 
+\begin_inset Formula $\text{\alpha^{\ell}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\text{\beta^{\ell}}$
+\end_inset
+
+ oscillates at the same frequency of 
+\begin_inset Formula $\rho_{01}$
+\end_inset
+
+ with a phase shift 
+\begin_inset Formula $\phi^{\ell}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+des and cons interference
+\end_layout
+
+\end_inset
+
+The sign oscillation makes the rescaling field has a phase shift different
+ from the emission field of Ehrenfest dynamics (
+\begin_inset Formula $\mathbf{E}_{Eh}$
+\end_inset
+
+) given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:classical_Efield"
+
+\end_inset
+
+.
+ 
+\begin_inset Formula $\mathbf{E}_{Eh}\left(x=0\right)$
+\end_inset
+
+ is always associated with the sign of 
+\begin_inset Formula $\mathrm{Im}\left[\rho_{01}\right]$
+\end_inset
+
+.
+ It implies that the rescaling field may result in destructive or constructive
+ interference to 
+\begin_inset Formula $\mathbf{E}_{Eh}$
+\end_inset
+
+ depending on 
+\begin_inset Formula $\phi^{\ell}$
+\end_inset
+
+.
+ Note that, while the population decay of Ehrenfest+R dynamics are identical
+ among Ehrenfest+R trajectories, the emission EM fields are different.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+cancel cross term
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The destructive or constructive interference also leads to energy conservation
+ on average.
+ For each time step, the averaged Ehrenfest+R trajectories yields
+\begin_inset Formula 
+\begin{equation}
+\left\langle \alpha\delta\mathbf{E}_{R}\right\rangle =\left\langle \beta\delta\mathbf{B}_{R}\right\rangle =0
+\end{equation}
+
+\end_inset
+
+where we denote 
+\begin_inset Formula $\left\langle \right\rangle =\frac{1}{N_{\text{traj}}}\sum_{_{\ell}}^{N_{\text{traj}}}$
+\end_inset
+
+.
+ It turns out the cross terms in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:+R_energy_equal"
+
+\end_inset
+
+ are canceled on average and the total energy of a swarm of Ehrenfest+R
+ trajectories is still conserved.
+ 
+\end_layout
+
+\begin_layout Standard
+Another advantage is that, requirement (d) becomes easier to be satisfied
+ when the cross terms are canceled on average.
+ Since 
+\begin_inset Formula $\mathbf{E}_{Eh}\times\left\langle \beta\delta\mathbf{B}_{R}\right\rangle =\left\langle \alpha\delta\mathbf{E}_{R}\right\rangle \times\mathbf{B}_{Eh}=0$
+\end_inset
+
+, the Poynting vector we need to consider only contains 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{S}=\frac{1}{\mu_{0}}\mathbf{E}_{Eh}\times\mathbf{B}_{Eh}+\frac{1}{\mu_{0}}\left\langle \alpha\delta\mathbf{E}_{R}\times\beta\delta\mathbf{B}_{R}\right\rangle .
+\end{equation}
+
+\end_inset
+
+For the effective 1D case, 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dE_1D"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dB_1D"
+
+\end_inset
+
+ suggest that 
+\begin_inset Formula $\text{\alpha^{\ell}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\text{\beta^{\ell}}$
+\end_inset
+
+ must have the same sign.
+ Therefore, the current prescription satisfies requirement (d).
+ 
+\end_layout
+
+\begin_layout Subsection
+Self-interference correction
+\end_layout
+
+\begin_layout Standard
+However, we notice that 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\series bold
+
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+
+\series default
+ interference the rescaling field from previous time along Ehrenfest+R trajector
+y.
+ The cross term between current and previous rescaling filed does not vanish
+ on average.
+ We can derive a unit-less ratio of the contribution of the self-interference
+ (see Appendix)
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\Lambda}{cdt}=1 & +\frac{\int\mathrm{d}\mathbf{r}\sum_{j}\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}}\\
+ & +\frac{\int\mathrm{d}\mathbf{r}\sum_{j}\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}}
+\end{split}
+\label{eq:self-inter-length}
+\end{equation}
+
+\end_inset
+
+where we define the 
+\begin_inset Quotes eld
+\end_inset
+
+self-interference length
+\begin_inset Quotes erd
+\end_inset
+
+ as 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ to indicate the effect of the previous rescaling field overlaping per time
+ step.
+ 
+\begin_inset Formula $\delta\mathbf{E}_{R}\left(jdt\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}\left(jdt\right)$
+\end_inset
+
+ is denoted as the rescaling field under free propagation of time 
+\begin_inset Formula $jdt$
+\end_inset
+
+ by Maxwell equations.
+ Therefore, we redefine Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:alpha_ell"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:beta_ell"
+
+\end_inset
+
+ with self-interference correction as 
+\begin_inset Formula 
+\begin{eqnarray}
+\text{\tilde{\alpha}^{\ell}} & = & \text{\alpha^{\ell}}\sqrt{\frac{cdt}{\Lambda}},\label{eq:alpha_sic}\\
+\text{\tilde{\beta}^{\ell}} & = & \text{\beta^{\ell}}\sqrt{\frac{cdt}{\Lambda}}.\label{eq:beta_sic}
+\end{eqnarray}
+
+\end_inset
+
+We note that the self-interference length only depends on 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ and identical for all Ehrenfest+R trajectories.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Therefore, to for the emission energy 
+\begin_inset Formula $\delta U_{R}^{\ell}$
+\end_inset
+
+, we should consider Note that, within some short 
+\begin_inset Quotes eld
+\end_inset
+
+self-interference time
+\begin_inset Quotes erd
+\end_inset
+
+, we assume that the sign does not change 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ does not change much.
+ 
+\begin_inset Formula 
+\[
+\begin{split} & \delta U_{R}^{\ell}+\left(\frac{\epsilon_{0}}{2}\int\mathrm{d}\mathbf{r}\left|\sum_{j}\alpha^{\ell}\delta\mathbf{E}_{R}\left(jdt\right)\right|^{2}+\frac{1}{2\mu_{0}}\int\mathrm{d}\mathbf{r}\left|\sum_{j}\beta^{\ell}\delta\mathbf{B}_{R}\left(jdt\right)\right|^{2}\right)\\
+ & \ =\frac{\epsilon_{0}}{2}\int\mathrm{d}\mathbf{r}\left|\sum_{j}\alpha^{\ell}\delta\mathbf{E}_{R}\left(jdt\right)+\alpha^{\ell}\delta\mathbf{E}_{R}\right|^{2}+\frac{1}{2\mu_{0}}\int\mathrm{d}\mathbf{r}\left|\sum_{j}\beta^{\ell}\delta\mathbf{B}_{R}\left(jdt\right)+\beta^{\ell}\delta\mathbf{B}_{R}\right|^{2}.
+\end{split}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{split} & \delta U_{R}^{\ell}\\
+ & =\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}2\sum_{j}\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}+\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}+\frac{1}{2\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}2\sum_{j}\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}+\frac{1}{2\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}
+\end{split}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{split} & \delta U_{R}^{\ell}\\
+ & =\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}2\sum_{j}\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}+\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}+\frac{1}{2\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}2\sum_{j}\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}+\frac{1}{2\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}\\
+ & =\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}\left\{ 2\frac{\int\mathrm{d}\mathbf{r}\sum_{j}\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}}+1+2\frac{\int\mathrm{d}\mathbf{r}\sum_{j}\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}}+1\right\} \\
+ & =\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}\frac{2\Lambda}{cdt}
+\end{split}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{split} & \delta U_{R}^{\ell}\\
+ & =\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}2\sum_{j}\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}+\frac{\epsilon_{0}}{2}\left|\alpha^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}+\frac{1}{2\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}2\sum_{j}\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}+\frac{1}{2\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}\\
+ & =\frac{1}{\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}\left\{ 2\frac{\int\mathrm{d}\mathbf{r}\sum_{j}\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{E}_{R}\right|^{2}}+1+2\frac{\int\mathrm{d}\mathbf{r}\sum_{j}\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}}{\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}}+1\right\} \\
+ & =\frac{1}{\mu_{0}}\left|\beta^{\ell}\right|^{2}\int\mathrm{d}\mathbf{r}\left|\delta\mathbf{B}_{R}\right|^{2}\frac{2\Lambda}{cdt}
+\end{split}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "MyLibrary"
+options "apsrev4-1"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
