@@ -167,10 +167,6 @@ TODO:
 \end_layout
 
 \begin_layout Itemize
-Sec.II-B: Göppert-Mayer Transformation
-\end_layout
-
-\begin_layout Itemize
 Green's function detail
 \end_layout
 
@@ -192,6 +188,10 @@ VI-C discuss emission field coherent and incoherent field.
 
 \begin_layout Itemize
 3LS Raman
+\end_layout
+
+\begin_layout Itemize
+Make all figures unitless
 \end_layout
 
 \end_inset
@@ -235,10 +235,12 @@ linear response theory
 
 \end_inset
 
-Usually, light–matter interaction is treated in a linear response manner;
- the electromagnetic field is considered a perturbation to the matter system
- and the optical response are predicted by extrapolating the behavior of
- the system.
+We usually describe light–matter interaction in a linear response manner;
+ the electromagnetic (EM) field is considered a perturbation to the matter
+ system and the optical response are predicted by extrapolating the behavior
+ of the system.
+ This scheme does not not account for the feedback of the matter system
+ toward the EM field.
  
 \begin_inset Note Note
 status open
@@ -317,7 +319,6 @@ key "dicke_coherence_1954,andreev_collective_1980,oppel_directional_2014"
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
@@ -331,8 +332,7 @@ challenge
 \end_inset
 
 Many of these phenomena raise an exciting challenge to existing theories;
- one needs to treat the matter and the electromagnetic field within a consistent
- framework.
+ one needs to treat the matter and the EM field within a consistent framework.
  
 \begin_inset Note Note
 status open
@@ -709,8 +709,8 @@ key "power_coulomb_1959,atkins_interaction_1970,cohen-tannoudji_photons_1997"
 
 \begin_inset Formula 
 \begin{equation}
-\begin{split}\widehat{H}= & \widehat{H}_{s}+\int\mathrm{d}\mathbf{r}\left\{ \frac{1}{2\epsilon_{0}}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\left(\mathbf{\nabla}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)\right)^{2}\right\} \\
- & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)\cdot\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)+\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left|\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)^{2}\right|.
+\begin{split}\widehat{H}_{PZW}= & \widehat{H}_{s}+\int\mathrm{d}\mathbf{r}\left\{ \frac{1}{2\epsilon_{0}}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\left(\mathbf{\nabla}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)\right)^{2}\right\} \\
+ & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)\cdot\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)+\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left|\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)\right|^{2}.
 \end{split}
 \label{eq:Power-Zienau-Woolley}
 \end{equation}
@@ -756,10 +756,10 @@ ion to the EM field,
 
 \begin_layout Standard
 For quantum electrodynamics in the Coulomb gauge, the operator associated
- with the vector potential is given byl^
+ with the vector potential is given by
 \begin_inset Formula 
 \begin{equation}
-\widehat{\mathbf{A}}\left(\mathbf{r}\right)=\sum_{\mathbf{k}}i\frac{{\cal E}_{\mathbf{k}}}{\omega_{\mathbf{k}}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}+\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right)
+\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}\frac{{\cal E}_{\mathbf{k}}}{\omega_{\mathbf{k}}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}+\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right)
 \end{equation}
 
 \end_inset
@@ -772,11 +772,15 @@ where
 \begin_inset Formula $L^{n}$
 \end_inset
 
- is the volumn of the 
+ is the volume of the 
 \begin_inset Formula $n$
 \end_inset
 
--dimensonal space.
+-dimensonal space and 
+\begin_inset Formula $\omega_{\mathbf{k}}=c\left|\mathbf{k}\right|$
+\end_inset
+
+.
  
 \begin_inset Formula $\widehat{a}_{\mathbf{k}}$
 \end_inset
@@ -794,8 +798,8 @@ where
  and The electric and magnetic fields can be obtained according to 
 \begin_inset Formula 
 \begin{eqnarray}
-\widehat{\mathbf{B}}\left(\mathbf{r}\right) & = & \mathbf{\boldsymbol{\nabla}}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right),\\
-\widehat{\mathbf{E}}\left(\mathbf{r}\right) & = & -\frac{1}{c}\frac{\partial}{\partial t}\widehat{\mathbf{A}}\left(\mathbf{r}\right),
+\widehat{\mathbf{B}}\left(\mathbf{r}\right) & = & \mathbf{\boldsymbol{\nabla}}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}\frac{{\cal E}_{\mathbf{k}}}{c}\mathbf{k}\times\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:B_operator}\\
+\widehat{\mathbf{E}}\left(\mathbf{r}\right) & = & -\frac{1}{c}\frac{\partial}{\partial t}\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:E_operator}
 \end{eqnarray}
 
 \end_inset
@@ -805,10 +809,21 @@ where
 \end_inset
 
  in the Coulomb gauge.
- 
-\end_layout
+ The transverse Hamiltonian of the EM field can be represented as 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{H}_{R}= & \int\mathrm{d}\mathbf{r}\left\{ \frac{\epsilon_{0}}{2}\widehat{\mathbf{E}}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\widehat{\mathbf{B}}\left(\mathbf{r}\right)^{2}\right\} \\
+= & \sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right)
+\end{split}
+\end{equation}
 
-\begin_layout Standard
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Note that 
 \begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)$
 \end_inset
@@ -827,6 +842,11 @@ Note that
 
  is a mixed operator of electronic and field degrees of freedom.
  
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -863,50 +883,53 @@ key "cohen-tannoudji_photons_1997"
 \end_layout
 
 \begin_layout Subsection
-The Electric Dipole Hamiltonian
+Electric Dipole Hamiltonian
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-c.f.
- Cohen p.
- 304
-\end_layout
-
-\end_inset
-
-We consider the Hamiltonian in full quantum mechanical description.
- After generalized Göppert-Mayer transformation
+In practice, we consider an electronic system with a spatial distribution
+ of the order of Bohr radius interacting with an EM field of wavelength
+ much larger than the size of the system.
+ In this case, we can exploit the long-wavelength approximation to get the
+ electric dipole Hamiltonian after generalized Göppert-Mayer transformation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "cohen-tannoudji_photons_1997"
 
 \end_inset
 
-, one can obtain the electric-dipole Hamiltonian (an equivalent formulation
- of Eq.
-\begin_inset space ~
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+c.f.
+ Cohen p.
+ 304-312
+\end_layout
+
 \end_inset
 
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Power-Zienau-Woolley"
-
-\end_inset
-
-)
+,
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}=\widehat{H}_{s}-\widehat{\mathbf{P}}\left(0\right)\cdot\widehat{\mathbf{E}}\left(0\right)+\sum_{k}\hbar\omega_{k}\left(\widehat{a}_{k}^{\dagger}\widehat{a}_{k}+\frac{1}{2}\right),
+\widehat{H}_{ED}=\widehat{H}_{s}-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}\left(0\right)+\sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right),
 \end{equation}
 
 \end_inset
 
+so-called the electric dipole Hamiltonian.
+ In this representation, the interaction is simply described by a coupling
+ term between the dipole moment 
+\begin_inset Formula $\mathbf{\widehat{\mathbf{d}}}=\sum_{\alpha}q_{\alpha}\mathbf{\widehat{\mathbf{r}}}_{\alpha}$
+\end_inset
 
+ and the electric field evaluated at the position of the system.
+ We assume the electronic system is located at the origin.
+ The advantage of the electric dipole Hamiltonian is that the coupling is
+ linear in terms of field operator.
+ The electric dipole Hamiltonian is usually taken as a starting point to
+ study quantum optical effects, such as spontaneous emission.
 \end_layout
 
 \begin_layout Subsection
@@ -992,54 +1015,74 @@ What is spontaneous emission?
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 Spontaneous emission is an irreversible process that a quantum system transition
 s from an excited state to a ground state and emits photons with a random
  phase and direction.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Spontaneous emission is considered a quantum optical effect is of fundamental
+ Spontaneous emission is considered a quantum optical effect of fundamental
  importance for phenomena such as luminescence, fluorescence, and phosphorescenc
-e.
- Obviously, classical electromagnetic theory cannot explain spontaneous
- emission.
- One needs the quantum field theory of electromagnetic fields, so-called
- quantum electrodynamics 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "cohen-tannoudji_photons_1997"
-
-\end_inset
-
-.
- Here, we review quantum electrodynamics description for spontaneous emission,
- which can give us the electronic dynamics and the radiation field properties
- simultaneously.
+e, which cannot be explained by classical electromagnetic theory.
 \end_layout
 
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-consider a two level system
-\end_layout
-
-\end_inset
-
-We consider the electronic Hamiltonian is simply a two-level system:
+\begin_layout Standard
+As a review of quantum electrodynamics description for spontaneous emission,
+ we consider a simple model of two-level system 
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}_{s}=\varepsilon_{0}\widehat{c}_{0}^{\dagger}\widehat{c}_{0}+\varepsilon_{1}\widehat{c}_{1}^{\dagger}\widehat{c}_{1}
+\widehat{H}_{s}=\varepsilon_{0}\left|0\right\rangle \left\langle 0\right|+\varepsilon_{1}\left|1\right\rangle \left\langle 1\right|
 \end{equation}
 
 \end_inset
 
+which only coupled via the interaction with the EM field.
+ We assume 
+\begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}$
+\end_inset
 
+ and 
+\begin_inset Formula $\omega_{0}=\varepsilon_{1}-\varepsilon_{0}$
+\end_inset
+
+.
+ The electronic dipole moment operator takes the form of 
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{d}}=\boldsymbol{\mu}_{01}\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\boldsymbol{\mu}_{01}=\left\langle 0\right|\sum_{\alpha}q_{\alpha}\mathbf{\widehat{\mathbf{r}}}_{\alpha}\left|1\right\rangle $
+\end_inset
+
+ is the transition dipole moment of the two states.
+ The coupling term of the electric dipole Hamiltonian turns out to be 
+\begin_inset Formula 
+\begin{equation}
+-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}\left(0\right)=\sum_{k}V_{k}\left(\widehat{a}_{k}-\widehat{a}_{k}^{\dagger}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $V_{k}=i{\cal E}_{k}\mathbf{e}_{k}\cdot\boldsymbol{\mu}_{01}$
+\end_inset
+
+ and we simplify 
+\begin_inset Formula $\mathbf{k}$
+\end_inset
+
+ by the magnitude 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ Despite the simplicity, the model is capable of revealing the Fermi's golden
+ rule (FGR) decay of the system and spontaneous emission in the EM field.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1072,8 +1115,7 @@ Cohen Eq.(31) of p.310 is exactly Eq.
 in second quantization
 \end_layout
 
-\end_inset
-
+\begin_layout Plain Layout
 in terms of destruction and creation operators 
 \begin_inset Formula $\widehat{a}_{k}$
 \end_inset
@@ -1116,7 +1158,7 @@ where
 where the coupling strength is given by
 \begin_inset Formula 
 \begin{equation}
-V_{k}=-i\mu_{01}\sqrt{\frac{\hbar\omega_{k}}{2\epsilon_{0}L^{n}}}
+V_{k}=-i\boldsymbol{\mu}_{01}\cdot\mathbf{e}_{k}\sqrt{\frac{\hbar\omega_{k}}{2\epsilon_{0}L^{n}}}
 \end{equation}
 
 \end_inset
@@ -1124,8 +1166,13 @@ V_{k}=-i\mu_{01}\sqrt{\frac{\hbar\omega_{k}}{2\epsilon_{0}L^{n}}}
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
-We now consider the basis in the dressed state representation
+We now consider the dressed state representation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nitzan_chemical_2006"
@@ -1140,7 +1187,7 @@ key "nitzan_chemical_2006"
 
 \end_inset
 
-where 
+as the basis where 
 \begin_inset Formula $\left|0,\cdots,1_{k},\cdots,0\right\rangle $
 \end_inset
 
@@ -1154,13 +1201,49 @@ where
 \end_inset
 
  represent the 
-\begin_inset Formula $j$
+\begin_inset Formula $\left|j\right\rangle $
 \end_inset
 
  state in vacuum.
  Note that the basis is restricted in the Hilbert space of one photon states.
- The initial wave function of the electronic system in vacuum can be expressed
- as
+ 
+\end_layout
+
+\begin_layout Standard
+The Hamiltonian in the dressed state basis forms two continuous manifolds
+ of energies 
+\begin_inset Formula $\left\langle j;k\right|\widehat{H}\left|j;k\right\rangle =\varepsilon_{j}+\hbar\omega_{k}$
+\end_inset
+
+ associated with the electronic state 
+\begin_inset Formula $\left|j\right\rangle $
+\end_inset
+
+.
+ The electric dipole coupling between the manifolds are given by 
+\begin_inset Formula $\left\langle 1;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 0;0\right|\widehat{H}\left|1;k\right\rangle =V_{k}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\langle 0;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 1;0\right|\widehat{H}\left|1;k\right\rangle =0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We can write the total wavefunction in the dressed state representation
+ as 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\left|\psi\left(t\right)\right\rangle = & C_{0,0}\left(t\right)\left|0;0\right\rangle +C_{1,0}\left(t\right)\left|1;0\right\rangle +\\
+ & \sum_{k}C_{0,k}\left(t\right)\left|0;k\right\rangle +\sum_{k}C_{1,k}\left(t\right)\left|1;k\right\rangle ,
+\end{split}
+\end{equation}
+
+\end_inset
+
+and consider the initial wave function of the electronic system in vacuum
 \begin_inset Formula 
 \begin{equation}
 \left|\psi\left(0\right)\right\rangle =C_{0,0}\left|0;0\right\rangle +C_{1,0}\left|1;0\right\rangle 
@@ -1173,24 +1256,83 @@ with
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-The Hamiltonian in the dressed state basis forms continuous manifolds 
-\begin_inset Formula $\left\langle j;k\right|\widehat{H}\left|j;k\right\rangle =E_{j}+\hbar\omega_{k}$
-\end_inset
-
- associated with the electronic state 
-\begin_inset Formula $\left|j\right\rangle $
-\end_inset
-
-, and only coupled by 
-\begin_inset Formula $\left\langle 1;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 0;0\right|\widehat{H}\left|1;k\right\rangle =V_{k}$
+ Time evolution of the wavefunction is therefore governed by Schrodinger
+ equation 
+\begin_inset Formula $i\hbar\frac{\partial}{\partial t}\left|\psi\left(t\right)\right\rangle =\widehat{H}\left|\psi\left(t\right)\right\rangle $
 \end_inset
 
 .
- Provided 
-\begin_inset Formula $E_{0}<E_{1}$
+ Note that the Hilbert space of the dress states can be separated into 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+two decoupled sub-spaces: one for the 
+\begin_inset Formula $\left|0;k\right\rangle $
+\end_inset
+
+ manifold coupled with 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left|1;0\right\rangle $
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+another for the 
+\begin_inset Formula $\left|1;k\right\rangle $
+\end_inset
+
+ manifold coupled with 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Given that 
+\begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}$
 \end_inset
 
 , the 
@@ -1209,7 +1351,7 @@ The Hamiltonian in the dressed state basis forms continuous manifolds
 \begin_inset Formula $\left|0;k\right\rangle $
 \end_inset
 
- manifold includes resonant 
+ manifold includes the resonant 
 \family default
 \series default
 \shape default
@@ -1225,7 +1367,13 @@ level with the
 \begin_inset Formula $\left|1;0\right\rangle $
 \end_inset
 
- state, while the the 
+ state, i.e.
+ 
+\begin_inset Formula $\varepsilon_{0}+\hbar\omega_{0}=\varepsilon_{1}$
+\end_inset
+
+.
+ However, the the 
 \family roman
 \series medium
 \shape up
@@ -1253,37 +1401,29 @@ level with the
 \uwave default
 \noun default
 \color inherit
- is off-resonant with 
-\begin_inset Formula $\left|1;0\right\rangle $
+ is always off-resonant with 
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+, i.e.
+ 
+\begin_inset Formula $\varepsilon_{1}+\hbar\omega_{k}>\varepsilon_{0}$
+\end_inset
+
+ for all 
+\begin_inset Formula $k$
 \end_inset
 
 .
- So we can decompose the wave function into
-\begin_inset Formula 
-\begin{equation}
-\left|\psi\left(t\right)\right\rangle =\left|\psi_{\mathrm{res}}\left(t\right)\right\rangle +\left|\psi_{\mathrm{off}}\left(t\right)\right\rangle ,
-\end{equation}
-
+ Therefore, we can approximate 
+\begin_inset Formula $C_{1,k}\left(t\right)\approx0$
 \end_inset
 
-where the resonant and off-resonant wave functions are decoupled:
-\begin_inset Formula 
-\begin{eqnarray}
-\left|\psi_{\mathrm{res}}\left(t\right)\right\rangle  & = & C_{1,0}\left(t\right)\left|1;0\right\rangle +\sum_{0,k}C_{0,k}\left(t\right)\left|0;k\right\rangle \\
-\left|\psi_{\mathrm{off}}\left(t\right)\right\rangle  & = & C_{0,0}\left(t\right)\left|0;0\right\rangle +\sum_{1,k}C_{1,k}\left(t\right)\left|1;k\right\rangle 
-\end{eqnarray}
-
+ and 
+\begin_inset Formula $C_{0,0}\left(t\right)\approx\left|C_{0,0}\left(t\right)\right|e^{-i\varepsilon_{0}t/\hbar}$
 \end_inset
 
-We approximate 
-\begin_inset Formula $\left|\psi_{\mathrm{off}}\left(t\right)\right\rangle $
-\end_inset
-
- by the lowest order form 
-\begin_inset Formula $C_{0,0}\left(t\right)\approx C_{0,0}\left(t\right)e^{-iE_{0}t/\hbar}$
-\end_inset
-
- for the short time behavior.
+ as the lowest order form of the short time behavior.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1291,27 +1431,31 @@ Retarded Green's function formulation
 \end_layout
 
 \begin_layout Standard
-The evolution of the resonant wave function 
-\begin_inset Formula $\left|\psi_{\mathrm{res}}\left(t\right)\right\rangle $
-\end_inset
-
- can be solved by retarded Green's function formulation 
+We adapt the retarded Green's function formulation 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nitzan_chemical_2006"
 
 \end_inset
 
-.
- We obtain the retarded Green's operator 
-\begin_inset Formula $\widehat{G}\left(E\right)=\left[E-\widehat{H}+i\eta\right]^{-1}$
+ to obtain the time evolution of 
+\begin_inset Formula $C_{1,0}\left(t\right)$
 \end_inset
 
- in a self-consistent expression
+ and 
+\begin_inset Formula $C_{0,k}\left(t\right)$
+\end_inset
+
+.
+ The retarded Green's operator is 
+\begin_inset Formula $\widehat{G}\left(\varepsilon\right)=\left[\varepsilon-\widehat{H}+i\eta\right]^{-1}$
+\end_inset
+
+, which can be obtained by self-consistent expression
 \begin_inset Formula 
 \begin{eqnarray}
-G_{11}\left(E\right) & = & \frac{1}{E-E_{1}+i\eta+\frac{i}{2}\Gamma},\\
-G_{k1}\left(E\right) & = & \frac{V_{k}}{E-E_{k}+i\eta}\frac{1}{E-E_{1}+i\eta+\frac{i}{2}\Gamma},
+G_{11}\left(\varepsilon\right) & = & \frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},\\
+G_{k1}\left(\varepsilon\right) & = & \frac{V_{k}}{\varepsilon-\varepsilon_{k}+i\eta}\frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},
 \end{eqnarray}
 
 \end_inset
@@ -1324,78 +1468,51 @@ where
 \begin_inset Formula $\eta\rightarrow0$
 \end_inset
 
-).
- Here, 
-\begin_inset Formula $\Gamma=\hbar\kappa$
+) and 
+\begin_inset Formula $\Gamma\left(\varepsilon\right)=\sum_{k}\left|V_{k}\right|^{2}/\left(\varepsilon-\varepsilon_{k}+i\eta\right)$
 \end_inset
 
- is the lifetime of the energy level coupled to the resonant manifold, correspon
-ding to the Fermi's golden rule.
+.
+ 
+\end_layout
+
+\begin_layout Standard
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-In the weak coupling limit, where Fermi's golden rule is valid, we can argue
- that Green's function, Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:G11"
+weak-couplig limit
+\end_layout
 
 \end_inset
 
- and Eq.
-\begin_inset space ~
+we assume the weak coupling limit, the coupling between the system and the
+ EM field is weak.
+ Therefore, the Green's operators are expected to be a sharp peak at 
+\begin_inset Formula $\varepsilon_{1}$
 \end_inset
 
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Gk1"
-
+, so that we can approximate 
+\begin_inset Formula $\Gamma\left(\varepsilon\right)\approx\Gamma\left(\varepsilon_{1}\right)\equiv\hbar\kappa$
 \end_inset
 
-, is expected to be a sharp peak at 
-\begin_inset Formula $E=E_{1}$
+ to represent the lifetime of the energy level coupled to the resonant manifold.
+ Note that the weak coupling limit also imply 
+\begin_inset Formula $\omega_{0}\gg\kappa$
 \end_inset
 
-, thus we can assume 
-\begin_inset Formula $\Gamma^{\left(n\right)}\left(E\right)$
-\end_inset
-
- only takes the value near resonance and becomes independent of 
-\begin_inset Formula $E$
+, i.e.
+ the oscillatory period is much faster than the life time of the excited
+ state.
+ Finally, the wavefunction can be obtained by carrying out the Fourier transform
+ 
+\begin_inset Formula $\left|\psi\left(t\right)\right\rangle =-\frac{1}{2\pi i}\int_{-\infty}^{\infty}d\varepsilon e^{-i\left(\varepsilon+i\eta\right)t/\hbar}\widehat{G}\left(\varepsilon\right)\left|\psi\left(0\right)\right\rangle $
 \end_inset
 
 :
 \begin_inset Formula 
 \begin{equation}
-\Gamma^{\left(n\right)}\left(E\right)\approx\Gamma^{\left(n\right)}\left(E_{1}\right).
-\end{equation}
-
-\end_inset
-
-For convenience, we denote 
-\begin_inset Formula 
-\begin{equation}
-\Gamma^{\left(n\right)}\left(E_{1}\right)=\Gamma_{1}.
-\end{equation}
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
- The resonant wave function is then computed by carrying out the Fourier
- transform 
-\begin_inset Formula 
-\begin{equation}
-C_{1,0}\left(t\right)=C_{1,0}\left(0\right)e^{-iE_{1}t/\hbar-\frac{\kappa}{2}t}\times\theta\left(t\right)
+C_{1,0}\left(t\right)=C_{1,0}e^{-i\frac{\varepsilon_{1}}{\hbar}t-\frac{\kappa}{2}t},
 \end{equation}
 
 \end_inset
@@ -1403,19 +1520,12 @@ C_{1,0}\left(t\right)=C_{1,0}\left(0\right)e^{-iE_{1}t/\hbar-\frac{\kappa}{2}t}\
 
 \begin_inset Formula 
 \begin{equation}
-\begin{split}C_{0,k}\left(t\right)= & \frac{C_{1,0}\left(0\right)V_{k}}{E_{0}+\hbar\omega_{k}-E_{1}+i\frac{\hbar\kappa}{2}+i\eta}\times\\
- & \left[e^{-i\left(E_{0}+\hbar\omega_{k}\right)t/\hbar}-e^{-iE_{1}t/\hbar-\frac{\kappa}{2}t}\right]\times\theta\left(t\right)
-\end{split}
+C_{0,k}\left(t\right)=\frac{C_{1,0}V_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\frac{\hbar\kappa}{2}+i\eta}\left[e^{-i\left(\frac{\varepsilon_{0}}{\hbar}+\omega_{k}\right)t}-e^{-i\frac{\varepsilon_{1}}{\hbar}t-\frac{\kappa}{2}t}\right].
 \end{equation}
 
 \end_inset
 
-where 
-\begin_inset Formula $\theta\left(t\right)$
-\end_inset
 
- is a step function coming from the direction of contour integral.
- 
 \end_layout
 
 \begin_layout Standard
@@ -1423,191 +1533,321 @@ where
 status open
 
 \begin_layout Plain Layout
-Say something about the population dynamics.
- reflect FGR rate...
+FGR rate...3D
 \end_layout
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Subsubsection
-Fermi's Golden Rule
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-
-\series bold
-NEED EDIT
-\end_layout
-
-\end_inset
-
-We now consider a two level system in one-dimensional (1D) space.
- The energy difference between the exited state 
-\begin_inset Formula $\left|1\right\rangle $
-\end_inset
-
- and the ground state 
-\begin_inset Formula $\left|0\right\rangle $
-\end_inset
-
- is 
-\begin_inset Formula $\hbar\omega_{0}$
-\end_inset
-
- and there is no diabatic coupling; the two levels only coupled thought
- electromagnetic fields (i.e.
- the system Hamiltonian is given by 
-\begin_inset Formula 
-\begin{equation}
-\widehat{H}_{s}=\hbar\omega_{0}\left|1\right\rangle \left\langle 1\right|\label{eq:Hs_omega_0}
-\end{equation}
-
-\end_inset
-
-).
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-dipole approx
-\end_layout
-
-\end_inset
-
-We assume that the two level system is infinitely small and located at 
-\begin_inset Formula $x=0$
-\end_inset
-
- in real space.
- We also invoke the point-dipole approximation or the long-wavelength approximat
-ion, i.e., 
-\begin_inset Formula 
-\begin{equation}
-\widehat{\mathbf{P}}\left(x\right)=\mu_{01}\delta\left(x\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\label{eq:P_delta}
-\end{equation}
-
+From the wavefunction, we find the population of the excited state decay
+ as
+\begin_inset Formula $\left|C_{1,0}\left(t\right)\right|^{2}=\left|C_{1,0}\right|^{2}e^{-\kappa t}$
 \end_inset
 
 .
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-FGR
-\end_layout
-
+ The decay rate in 3D can be obtained by carrying out 
+\begin_inset Formula $\Gamma\left(\varepsilon_{1}\right)$
 \end_inset
 
-Suppose the electronic system is in a vacuum (no incoming radiation field),
- we expect to observe spontaneous decay of the excited state population
- following
+, 
 \begin_inset Formula 
 \begin{equation}
-\frac{\partial}{\partial t}\rho_{11}=-\frac{\partial}{\partial t}\rho_{00}=-\kappa\rho_{11},
+\kappa^{\text{3D}}=\frac{\left|\boldsymbol{\mu}_{01}\right|^{2}\omega_{0}^{3}}{3\pi\hbar\epsilon_{0}c^{3}},
 \end{equation}
 
 \end_inset
 
- at the Fermi's golden rule (FGR) rate 
+which agree with the Fermi’s golden rule (FGR) for spontaneous emission.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nitzan_chemical_2006"
 
 \end_inset
 
-
-\begin_inset Formula 
-\begin{equation}
-\kappa=\frac{\omega_{0}}{\hbar\epsilon_{0}c}\mu_{01}^{2}.\label{eq:FGR_rate}
-\end{equation}
-
-\end_inset
-
-
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-There should be some footnote about the unit of the one-dimensional 
-\begin_inset Formula $\mu_{01}$
-\end_inset
-
-.
- 
-\end_layout
-
-\end_inset
-
  
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-FGR regime
+1D
 \end_layout
 
 \end_inset
 
-Note that the Fermi's golden rule is valid when 
-\begin_inset Formula $\kappa\ll\omega_{0}$
+To study an effective 1D situation, we will imagine an uniform charge distributi
+ons on the plane of 
+\begin_inset Formula $y$
 \end_inset
 
-, i.e.
- the lifetime of the excited state must be much longer than the oscillation
- period.
- 
-\end_layout
-
-\begin_layout Subsubsection
-Electric Field Observations
-\end_layout
-
-\begin_layout Standard
-Suppose the energy difference is 
-\begin_inset Formula $E_{1}-E_{0}=\hbar\omega_{0}$
+ and 
+\begin_inset Formula $z$
 \end_inset
 
- and we consider the radiation field in 1D (
-\begin_inset Formula $n=1$
+ direction and a delta function in the 
+\begin_inset Formula $x$
 \end_inset
 
-), the electric field observable is given by 
+ direction.
+ The effective dipole moment in 1D is therefore defined as 
+\begin_inset Formula $\mu_{01}^{2}=\left|\boldsymbol{\mu}_{01}\right|^{2}/L_{y}L_{z}$
+\end_inset
+
+.
+ We can obtain the decay rate for the effective 1D case as 
 \begin_inset Formula 
 \begin{equation}
-\widehat{\mathbf{E}}\left(x,t\right)=i\sum_{k}\sqrt{\frac{\hbar\omega_{k}}{2\epsilon_{0}L}}\mathbf{e}_{k}\left(\widehat{a}_{k}e^{ikx}-\widehat{a}_{k}^{\dagger}e^{-ikx}\right),
+\kappa^{\text{1D}}=\frac{\mu_{01}^{2}\omega_{0}}{\hbar\epsilon_{0}c}.\label{eq:FGR_rate}
 \end{equation}
 
 \end_inset
 
-which couple the electronic state 
-\begin_inset Formula $\left|0;0\right\rangle $
+We will use 
+\begin_inset Formula $\kappa$
 \end_inset
 
- and the manifold 
+ to represent the FGR rate for either 
+\begin_inset Formula $\kappa^{\text{3D}}$
+\end_inset
+
+ or 
+\begin_inset Formula $\kappa^{\text{1D}}$
+\end_inset
+
+ depending on context.
+ Note that, in general, the Fermi's golden rule is valid in the weak coupling
+ limit (
+\begin_inset Formula $\kappa\ll\omega_{0}$
+\end_inset
+
+), also called the FGR regime.
+\end_layout
+
+\begin_layout Subsubsection
+Radiation Field Observables
+\end_layout
+
+\begin_layout Standard
+We can now obtain the expectation value of EM field observables using the
+ retard Green's function.
+ Here we calculate the radiation intensity 
+\begin_inset Formula $\left\langle \widehat{\mathbf{E}}\left(x,t\right)^{2}\right\rangle $
+\end_inset
+
+ and the observed electric field 
+\begin_inset Formula $\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle $
+\end_inset
+
+ from the electric field operator, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:E_operator"
+
+\end_inset
+
+ for the effective 1D setting.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D-E^2
+\end_layout
+
+\end_inset
+
+Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:E_operator"
+
+\end_inset
+
+ suggest that the intensity observable 
+\begin_inset Formula $\widehat{\mathbf{E}}^{2}$
+\end_inset
+
+ only include coupling within the manifolds of 
 \begin_inset Formula $\left|0;k\right\rangle $
 \end_inset
 
-.
- We find that the the observed electric field represent the coherent oscillation
- in the form of 
-\begin_inset Formula $\sin\omega_{0}\left(t-x/c\right)$
-\end_inset
-
-, and depends on the initial condition 
-\begin_inset Formula $C_{0,0}\left(0\right)C_{1,0}\left(0\right)$
+ and 
+\begin_inset Formula $\left|1;k\right\rangle $
 \end_inset
 
 .
- Taking average over short time interval 
+ Since 
+\begin_inset Formula $\left|1;k\right\rangle $
+\end_inset
+
+ is the off-resonant manifold, we ignore the contribution.
+ Therefore, the observed intensity takes the form of 
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)^{2}\right\rangle =\left|C_{1,0}\right|^{2}\times\frac{R\left(x,t\right)^{2}}{2}\label{eq:Intensity}
+\end{equation}
+
+\end_inset
+
+where we ignore vacuum fluctuation of the radiation filed.
+ We note that the intensity is associated with the energy flux of spontaneous
+ emission.
+ Therefore, the intensity distribution 
+\begin_inset Formula $e^{-\kappa\left(t-x/c\right)}$
+\end_inset
+
+ is corresponding to the FGR decay of the system.
+ The divergence of the intensity and the coherent emission amplitude imply
+ that there is an incoherent emission come into play.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D-E
+\end_layout
+
+\end_inset
+
+The electric field operator couples
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ the 
+\begin_inset Formula $\left|0;k\right\rangle $
+\end_inset
+
+ manifold coupled with 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+ state, so that the observed electric field is given by (see Appendix)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+check again:
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle =\left|C_{0,0}\left(t\right)\right|\left|C_{1,0}\right|\times\frac{R\left(x,t\right)}{\sqrt{2}}\sin\omega_{0}\left(t-r/c\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+R\left(x,t\right)=\frac{\omega_{0}\mu_{01}}{c\epsilon_{0}}e^{-\frac{\kappa}{2}\left(t-x/c\right)}\times\left[\theta\left(ct-x\right)-\theta\left(-x\right)\right].
+\end{equation}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $R\left(x,t\right)$
+\end_inset
+
+ gives the event horizons 
+\begin_inset Formula $x<ct$
+\end_inset
+
+ for the emitting radiation.
+ The observed electric field represent the 
+\emph on
+coherent emission 
+\emph default
+at the frequency 
+\begin_inset Formula $\omega_{0}$
+\end_inset
+
+.
+ We note that the amplitude of coherent emission depends on the instantaneous
+ population of the ground state 
+\begin_inset Formula $\left|C_{0,0}\left(t\right)\right|$
+\end_inset
+
+ and the initial population of the excited state 
+\begin_inset Formula $\left|C_{1,0}\right|$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+1D-E-coarse-grained
+\end_layout
+
+\end_inset
+
+The coarse-grained behavior is defined by taking a local time average over
+ a short time scale.
+ Here, we consider a time scale 
+\begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
+\end_inset
+
+.
+ Within this time scale, the population does not change much and the coherence
+ is considered as a rapid oscillation.
+ The coarse-grained Ehrenfest decay rate within the time scale is denoted
+ as 
+\end_layout
+
+\begin_layout Standard
+We find that the the observed electric field is 
+\begin_inset Formula 
+\begin{equation}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle ^{2}=\left|C_{0,0}\left(t\right)\right|^{2}\left|C_{1,0}\left(0\right)\right|^{2}\times R\left(x,t\right)\times\frac{1}{2}\sin^{2}\omega_{0}\left(t-r/c\right)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+represent Taking average over short time interval 
 \begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
 \end_inset
 
@@ -1634,82 +1874,28 @@ more detail in Appendix
 
 \begin_inset Formula 
 \begin{equation}
-\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle ^{2}=\left|C_{0,0}\left(t\right)\right|^{2}\left|C_{1,0}\left(t\right)\right|^{2}\times R\left(x,t\right)\label{eq:Esquare}
+\left\langle \widehat{\mathbf{E}}\left(x,t\right)\right\rangle ^{2}=\left|C_{0,0}\left(t\right)\right|^{2}\left|C_{1,0}\left(t\right)\right|^{2}\times\frac{1}{2}R\left(x,t\right)^{2}\label{eq:Esquare}
 \end{equation}
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 where 
-\begin_inset Formula 
-\begin{equation}
-\begin{split}R\left(x,t\right)= & \frac{1}{2}\left(\frac{\omega_{0}\mu_{01}}{c\epsilon_{0}}\right)^{2}e^{-\kappa\left(t-x/c\right)}\times\\
- & \theta\left(t\right)\left[\theta\left(ct-x\right)-\theta\left(-x\right)\right]
-\end{split}
-\end{equation}
-
+\begin_inset Formula $\overline{\sin^{2}\omega_{0}t}\approx\frac{1}{2}$
 \end_inset
 
-Note that 
-\begin_inset Formula $R\left(x,t\right)$
-\end_inset
 
- gives the event horizons 
-\begin_inset Formula $x<ct$
-\end_inset
-
- for the emitting radiation.
- 
 \end_layout
 
 \begin_layout Standard
-On the other hand, the intensity observable by 
-\begin_inset Formula $\widehat{\mathbf{E}}\left(x,t\right)^{2}$
-\end_inset
-
- only include coupling within the manifolds of 
-\begin_inset Formula $\left|0;k\right\rangle $
-\end_inset
-
- and 
-\begin_inset Formula $\left|1;k\right\rangle $
-\end_inset
-
-.
- Since 
-\begin_inset Formula $\left|1;k\right\rangle $
-\end_inset
-
- is the off-resonant manifold, we ignore the contribution.
- Therefore, the observed intensity takes the form of 
-\begin_inset Formula 
-\begin{equation}
-\left\langle \widehat{\mathbf{E}}\left(x,t\right)^{2}\right\rangle =\left|C_{1,0}\left(0\right)\right|^{2}\times R\left(x,t\right)\label{eq:Intensity}
-\end{equation}
-
-\end_inset
-
-where we ignore vacuum fluctuation of the radiation filed.
- The divergence of the intensity and the coherent emission amplitude imply
- that there is an incoherent emission come into play.
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset line
-LatexCommand rule
-offset "0.5ex"
-width "100col%"
-height "1pt"
-
-\end_inset
-
-
 \begin_inset Note Note
 status open
 
 \begin_layout Plain Layout
-
-\series bold
-start edit here!!!
+3D
 \end_layout
 
 \end_inset
@@ -1736,10 +1922,6 @@ status open
 what is Ehrenfest 
 \end_layout
 
-\begin_layout Plain Layout
-specific failure
-\end_layout
-
 \end_inset
 
 
@@ -1756,7 +1938,14 @@ Intro
 \end_inset
 
 Ehrenfest dynamics provides an semi-classical anstaz to the evolution of
- electron–radiation dynamics based on mean-field approximation.
+ quantum electrodynamics based on mean-field approximation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "subotnik_augmented_2010,li_mixed_2018"
+
+\end_inset
+
+.
  In general, mean-field approximation is valid when the system does not
  have a strong correlation of the interaction among the subsystems 
 \begin_inset CommandInset citation
@@ -1766,7 +1955,73 @@ key "miller_classical/semiclassical_1978"
 \end_inset
 
 .
+ In this section, we review Ehrenfest approach to treat coupled electron–radiati
+on dynamics and discuss the application of capturing spontaneous emission.
  
+\end_layout
+
+\begin_layout Subsubsection
+Semiclassical Hamiltonian
+\end_layout
+
+\begin_layout Standard
+First, we approximate the total Hamiltonian, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Power-Zienau-Woolley"
+
+\end_inset
+
+, by a semiclassical Hamiltonian.
+ We treat the EM field operators as classical electrodynamics parameters
+ and obtain such a semiclassical Hamiltonian
+\begin_inset CommandInset citation
+LatexCommand cite
+key "mukamel_principles_1999"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{H}= & \widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\mathbf{E}\left(\mathbf{r},t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\\
+ & +\int\mathrm{d}\mathbf{r}\left\{ \frac{\epsilon_{0}}{2}\mathbf{E}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right\} 
+\end{split}
+\end{equation}
+
+\end_inset
+
+where we denote 
+\begin_inset Formula $\widehat{\mathbf{D}}\rightarrow\mathbf{D}=\epsilon_{0}\mathbf{E}+\mathbf{P}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{\nabla}\times\widehat{\mathbf{A}}\rightarrow\mathbf{B}$
+\end_inset
+
+ and commute 
+\begin_inset Formula $\mathbf{E}$
+\end_inset
+
+ with 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+ in the coupling term.
+ From the semiclassical Hamiltonian, we can extract the electronic Hamiltonian
+ depends only parametrically on the EM field 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}^{\mathrm{el}}\left(\mathbf{E}\right)=\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\mathbf{E}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electronic_Hamiltonian}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1783,27 +2038,21 @@ Ehrenfest anstaz
 
 \end_inset
 
-The Ehrenfest dynamics as a semiclassical description for electron–radiation
- dynamics is formulated in Ref.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset citation
-LatexCommand cite
-key "subotnik_augmented_2010,li_mixed_2018"
-
-\end_inset
-
-.
- The electronic system is described by the electronic density matrix 
+Within Ehrenfest dynamics, the electronic system is described by the electronic
+ density matrix 
 \begin_inset Formula $\widehat{\rho}\left(t\right)$
 \end_inset
 
- while the radiation field is treated by classical electrodynamics.
-\end_layout
+ while the EM field, 
+\begin_inset Formula $\mathbf{E}\left(\mathbf{r},t\right)$
+\end_inset
 
-\begin_layout Standard
+ and 
+\begin_inset Formula $\mathbf{B}\left(\mathbf{r},t\right)$
+\end_inset
+
+, propagates by classical electrodynamics.
+ 
 \begin_inset Note Note
 status open
 
@@ -1821,28 +2070,8 @@ The electronic density matrix evolves following Liouville equation,
 
 \end_inset
 
-where the so-called electronic Hamiltonian depends only parametrically on
- the EM field 
-\begin_inset Formula 
-\begin{equation}
-\widehat{H}^{\mathrm{el}}\left(\mathbf{E}\right)=\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\mathbf{E}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electronic_Hamiltonian}
-\end{equation}
-
-\end_inset
-
-within the dipole approximation for the electron–field coupling.
+where the within the dipole approximation for the electron–field coupling.
  
-\begin_inset Formula $\widehat{H}_{s}$
-\end_inset
-
- is the electronic system Hamiltonian and 
-\begin_inset Formula $\widehat{\mathbf{P}}\left(\mathbf{r}\right)$
-\end_inset
-
- is the polarization operator.
-\end_layout
-
-\begin_layout Standard
 \begin_inset Note Note
 status open
 
@@ -1871,6 +2100,10 @@ where the averaged current is generated by the averaged polarization of
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
 Note that Maxwell's equation can be written as an equivalent form 
 \begin_inset Formula 
 \begin{eqnarray}
@@ -1920,7 +2153,7 @@ The total energy of the electronic system and the classical EM field is
 \begin_inset Formula 
 \begin{equation}
 \begin{split}U_{\mathrm{tot}}\left(\widehat{\rho},\mathbf{E},\mathbf{B}\right) & =\mathrm{Tr}_{s}\left(\widehat{\rho}\left(t\right)\widehat{H}_{s}\right)+\\
- & \int\mathrm{d}\mathbf{r}\left(\frac{\epsilon_{0}}{2}\left|\mathbf{E}\left(\mathbf{r},t\right)\right|^{2}+\frac{1}{2\mu_{0}}\left|\mathbf{B}\left(\mathbf{r},t\right)\right|^{2}\right).
+ & \int\mathrm{d}\mathbf{r}\left(\frac{\epsilon_{0}}{2}\mathbf{E}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right).
 \end{split}
 \end{equation}
 
@@ -2031,7 +2264,7 @@ key "li_mixed_2018"
 \end_layout
 
 \begin_layout Subsubsection
-Spontaneous Decay Rate of Standard Ehrenfest Method 
+Spontaneous Emission
 \end_layout
 
 \begin_layout Standard
@@ -2255,7 +2488,7 @@ We find that
 
  are one of the steady state of the equation of motion for density matrix.
  The failure of Ehrenfest dynamics is attributed to this solution as the
- initial condtion.
+ initial condition.
 \end_layout
 
 \begin_layout Standard
@@ -2320,15 +2553,13 @@ Note that the Ehrenfest decay rate is an instantaneous rate that depends
 \begin_layout Standard
 We further analyze Ehrenfest dynamics in a coarse-grained sense of the density
  matrix.
- The coarse-grained behavior is defined by taking a local time average over
- a short time scale.
- Here, we consider a time scale 
+ The coarse-grained behavior is obtained by taking a local time average
+ over a short time scale.
+ Again, we consider the time scale 
 \begin_inset Formula $2\pi/\omega_{0}\ll\tau\ll1/\kappa$
 \end_inset
 
 .
- Within this time scale, the population does not change much and the coherence
- is considered as a rapid oscillation.
  The coarse-grained Ehrenfest decay rate within the time scale is denoted
  as 
 \begin_inset Formula 
@@ -5500,8 +5731,8 @@ parameters
 \end_inset
 
 We simulate the spontaneous emission of a two-level system in the effective
- 1D space using the standard Ehrenfest method and the Ehrenfest+R method.
- The energy difference is 
+ 1D space.
+ The energy difference of the two levels system is 
 \begin_inset Formula $\hbar\omega_{0}=16.46\ \text{eV}$
 \end_inset
 
@@ -5516,14 +5747,36 @@ We simulate the spontaneous emission of a two-level system in the effective
 \end_inset
 
 .
- In the following, we will compare the results by standard Ehrenfest, Ehrenfest+
-R, and quantum theory.
- We here select the phase evenly distributed: 
+ In the following, we will compare the results by standard Ehrenfest and
+ Ehrenfest+R dynamics.
+ Full quantum mechanical results are obtained by the retarded Green's function.
+ 
+\end_layout
+
+\begin_layout Standard
+For Ehrenfest+R dynamics trajectories, we select the phase evenly distributed:
+ 
 \begin_inset Formula $\phi^{\ell}=2\pi j/N_{\text{traj}}$
 \end_inset
 
  for 
 \begin_inset Formula $j=1,\cdots,N_{\text{traj}}$
+\end_inset
+
+.
+ For the polarization distribution given by Eq.
+\begin_inset space ~
+\end_inset
+
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:P_1D"
+
+\end_inset
+
+, we obtain the self-interference length as 
+\begin_inset Formula $\Lambda^{\text{1D}}\approx7.2\ \text{nm}$
 \end_inset
 
 .
@@ -5585,21 +5838,6 @@ name "fig:population-dynamics-and"
 
 
 \end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Self-interference length
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula 
-\[
-\Lambda^{\text{1D}}\approx7.2\ \text{nm}
-\]
 
 \end_inset
 
@@ -6059,7 +6297,7 @@ reference "fig:Radiation-field-intensity"
 
 \begin_layout Standard
 \begin_inset Float figure
-wide false
+wide true
 sideways false
 status open
 
@@ -6067,6 +6305,16 @@ status open
 \align center
 \begin_inset Graphics
 	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_2.pdf
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_3.pdf
 
 \end_inset
 
@@ -6482,6 +6730,12 @@ status open
 
 \end_inset
 
+ 
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C00.5.fig_2.pdf
+
+\end_inset
+
 
 \end_layout
 
@@ -6489,6 +6743,12 @@ status open
 \align center
 \begin_inset Graphics
 	filename runs-venus.3D.test_noEC_GRID210_C01.0.fig.pdf
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename runs-venus.3D.test_noEC_GRID210_C01.0.fig_2.pdf
 
 \end_inset
 
@@ -6508,18 +6768,31 @@ Spontaneous emission intensity calculated by Ehrenfest+R method as a function
 \begin_inset Formula $t=1.0\ \text{fs}$
 \end_inset
 
- with self-interference correction, 
+ for the initial population (a) 
+\begin_inset Formula $\rho_{11}=0.5$
+\end_inset
+
+, and (b)
+\begin_inset Formula $\rho_{11}=1.0$
+\end_inset
+
+.
+ The right panels are the corresponding spectrum of the electric field in
+ the 
+\begin_inset Formula $z$
+\end_inset
+
+ direction.
+ The dim lines are the data of individual trajectories and the solid circles
+ are averaged data.
+ The black dash line is the theoretical energy flux.
+ The self-interference length is 
 \begin_inset Formula $\Lambda^{\text{3D}}\approx0.6\ \text{nm}$
 \end_inset
 
 .
  The polar angle is 
 \begin_inset Formula $\theta=\frac{\pi}{2}$
-\end_inset
-
-.
- The initial density matrix is 
-\begin_inset Formula $\rho_{11}=1$
 \end_inset
 
 .
@@ -6532,7 +6805,6 @@ Spontaneous emission intensity calculated by Ehrenfest+R method as a function
 \end_inset
 
  for each dimension.
- The black dash line is the theoretical energy flux.
 \end_layout
 
 \end_inset
@@ -7939,6 +8211,10 @@ This work is supported by AAA.
 
 \begin_layout Section
 \start_of_appendix
+Detail of Green's function
+\end_layout
+
+\begin_layout Section
 Functional Derivative
 \begin_inset CommandInset label
 LatexCommand label
@@ -7982,13 +8258,9 @@ name "sec:Partial-derivatives"
 
 \end_layout
 
-\begin_layout Section
-Derive self-interference length
-\end_layout
-
 \begin_layout Standard
 \begin_inset Note Note
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Therefore, to for the emission energy 
