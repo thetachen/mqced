@@ -27,7 +27,7 @@ elif (len(argv) == 3):
 
 #Default Options:
 ShowAnimation = True
-AveragePeriod = 2
+AveragePeriod = 100
 UseInitialRandomPhase = True
 NumberTrajectories = 1
 UsePlusEmission = True
@@ -137,7 +137,7 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
     TBy = TBy/np.sqrt(EMP.TB2)
     EMP.update_TETB(TEx,TEy,TBx,TBy)
 
-    print 'EMP.TE2', EMP.TE2, 'EMP.TB2', EMP.TB2
+    #print 'EMP.TE2', EMP.TE2, 'EMP.TB2', EMP.TB2
     """
     Start Time Evolution
     """
@@ -147,7 +147,7 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
         dE = 1E-3
         sign = 1.0
         alpha,beta=EMP.MakeTransition_sign(dE,sign,UseRandomEB=False)
-        print alpha,beta
+        #print alpha,beta
         #3. Evolve the field
         EMP.propagate(dt)
 
@@ -165,7 +165,15 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
         """
         output:
         """
-
+        # Lambda =(Overlap[1]+Overlap[0])/(EMP.TE2*alpha**2+EMP.TB2*beta**2)  *dt
+        # Lambda = 2*Overlap[0]/EMP.TE2/alpha**2 *dt
+        # Lambda = Overlap[0]/EMP.TE2/alpha**2 *dt + Overlap[1]/EMP.TB2/beta**2  *dt
+        Lambda = (Overlap[0]/EMP.TE2/alpha**2 +0.5)*dt + (Overlap[1]/EMP.TB2/beta**2 +0.5)*dt
+        print Lambda[it],1.0/Lambda[it]
+        # print np.abs(Lambda[it]-Lambda[it-1])
+        if (np.abs(Lambda[it]-Lambda[it-1])<1E-10):
+            print width, Lambda[it]/width
+            return Lambda[it]
         """
         Plot
         """
@@ -194,11 +202,6 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
             plt.cla()
             ax[2].plot(times[:it],2*Overlap[0,:it]/EMP.TE2/alpha**2 *dt,lw=2,label='overlap: E')
             ax[2].plot(times[:it],2*Overlap[1,:it]/EMP.TB2/beta**2  *dt,lw=2,label='overlap: B')
-            # Lambda =(Overlap[1]+Overlap[0])/(EMP.TE2*alpha**2+EMP.TB2*beta**2)  *dt
-            # Lambda = 2*Overlap[0]/EMP.TE2/alpha**2 *dt
-            # Lambda = Overlap[0]/EMP.TE2/alpha**2 *dt + Overlap[1]/EMP.TB2/beta**2  *dt
-            Lambda = (Overlap[0]/EMP.TE2/alpha**2 +0.5)*dt + (Overlap[1]/EMP.TB2/beta**2 +0.5)*dt
-            print Lambda[it],1.0/Lambda[it]
             ax[2].plot(times[:it],Lambda[:it],lw=2,label='$\lambda$')
             ax[2].legend(loc='best')
 
@@ -228,7 +231,6 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
             ax[4].legend()
             # fig.savefig('test_plot.pdf')
             fig.canvas.draw()
-
 
     """
     End of Time Evolution
