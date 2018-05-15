@@ -1,4 +1,4 @@
 cp *.pdf ~/Dropbox/Ehr+R/
-cp manuscript.tex ~/Dropbox/Ehr+R/
-cp manuscript.lyx ~/Dropbox/Ehr+R/
+cp manuscript*.tex ~/Dropbox/Ehr+R/
+cp manuscript*.lyx ~/Dropbox/Ehr+R/
 cp MyLibrary.bib ~/Dropbox/Ehr+R/
