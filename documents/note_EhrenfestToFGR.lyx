@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -22,6 +22,8 @@
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -51,6 +53,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 1
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -59,7 +62,10 @@
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -1190,6 +1196,461 @@ a=-\frac{k_{\mathrm{FGR}}}{2}\left(\frac{P_{2}}{\text{Re}\rho_{12}}-2\frac{\left
 
 
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+To prove the same relation in 3D
+\end_layout
+
+\begin_layout Subsubsection
+retarded potential for a delta function soure
+\end_layout
+
+\begin_layout Standard
+Let us start with the solution by Fourier analysis (see Panofsky and Phillips
+ 14-2).
+ The equation for both 
+\begin_inset Formula $\phi=\phi\left(\mathbf{r},t\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}\left(\mathbf{r},t\right)$
+\end_inset
+
+ has a general form:
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}^{2}\phi-\frac{1}{c^{2}}\frac{\partial^{2}}{\partial t^{2}}\phi=-\frac{\rho}{\epsilon_{0}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}^{2}\mathbf{A}-\frac{1}{c^{2}}\frac{\partial^{2}}{\partial t^{2}}\mathbf{A}=-\mu_{0}\mathbf{J}
+\]
+
+\end_inset
+
+In terms of Fourier component:
+\begin_inset Formula 
+\[
+\phi_{\omega}\left(\mathbf{r}\right)=\frac{1}{2\pi}\int\phi\left(\mathbf{r},t\right)e^{i\omega t}dt
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{A}_{\omega}\left(\mathbf{r}\right)=\frac{1}{2\pi}\int\mathbf{A}\left(\mathbf{r},t\right)e^{i\omega t}dt
+\]
+
+\end_inset
+
+which satisfy
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}^{2}\phi_{\omega}+\frac{\omega^{2}}{c^{2}}\phi_{\omega}=-\frac{\rho_{\omega}}{\epsilon_{0}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}^{2}\mathbf{A}_{\omega}+\frac{\omega^{2}}{c^{2}}\mathbf{A}_{\omega}=-\mu_{0}\mathbf{J}_{\omega}
+\]
+
+\end_inset
+
+Consider unit point source at the origin, the solution of the equation:
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}^{2}G_{\omega}+\frac{\omega^{2}}{c^{2}}G_{\omega}=-\delta\left(\mathbf{r}\right)
+\]
+
+\end_inset
+
+is given by 
+\begin_inset Formula 
+\[
+G_{\omega}=\frac{1}{4\pi r}e^{\pm i\omega r/c}.
+\]
+
+\end_inset
+
+Since the corresponding solution in time domain is 
+\begin_inset Formula 
+\[
+G\left(\mathbf{r},t\right)=\int\frac{1}{4\pi r}e^{-i\omega t\pm i\omega r/c}dt,
+\]
+
+\end_inset
+
+it implies that the 
+\begin_inset Formula $+$
+\end_inset
+
+ solution is retarded and the 
+\begin_inset Formula $-$
+\end_inset
+
+ solution is advanced.
+ Here we only consider retarded solution:
+\begin_inset Formula 
+\[
+G_{\omega}^{ret}=\frac{1}{4\pi r}e^{i\omega r/c}
+\]
+
+\end_inset
+
+and the retarded potential is 
+\begin_inset Formula 
+\[
+\phi_{\omega}^{\mathrm{ret}}=\frac{\rho_{\omega}}{4\pi\epsilon_{0}r}e^{i\omega r/c}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{A}_{\omega}^{\mathrm{ret}}=\frac{\mu_{0}\mathbf{J}_{\omega}}{4\pi r}e^{i\omega r/c}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Construct the retarded E field
+\end_layout
+
+\begin_layout Standard
+We may construct the retarded electric field by 
+\begin_inset Formula 
+\[
+\mathbf{E}=-\boldsymbol{\nabla}\phi-\frac{\partial}{\partial t}\mathbf{A}
+\]
+
+\end_inset
+
+i.e.
+ in frequency domain:
+\begin_inset Formula 
+\[
+\mathbf{E}_{\omega}=-\boldsymbol{\nabla}\phi_{\omega}+i\omega\mathbf{A}_{\omega}
+\]
+
+\end_inset
+
+Now, we plug 
+\begin_inset Formula $\phi_{\omega}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}_{\omega}$
+\end_inset
+
+ into 
+\begin_inset Formula $\mathbf{E}_{\omega}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{E}_{\omega} & = & -\boldsymbol{\nabla}\frac{\rho_{\omega}}{4\pi\epsilon_{0}r}e^{i\omega r/c}+i\omega\frac{\mu_{0}\mathbf{J}_{\omega}}{4\pi r}e^{i\omega r/c}\\
+ & = & \frac{\rho_{\omega}}{4\pi\epsilon_{0}}\frac{\hat{\mathbf{r}}}{r^{2}}e^{i\omega r/c}-\frac{\rho_{\omega}}{4\pi\epsilon_{0}}\frac{\hat{\mathbf{r}}}{r}i\frac{\omega}{c}e^{i\omega r/c}+i\omega\frac{\mu_{0}\mathbf{J}_{\omega}}{4\pi r}e^{i\omega r/c}\\
+ & = & \frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\left(\frac{\rho_{\omega}}{r^{2}}\hat{\mathbf{r}}-i\frac{\rho_{\omega}\omega}{cr}\hat{\mathbf{r}}+\frac{i\omega}{c^{2}r}\mathbf{J}_{\omega}\right)
+\end{eqnarray*}
+
+\end_inset
+
+We can expand 
+\begin_inset Formula 
+\[
+\mathbf{J}_{\omega}=\left(\mathbf{J}_{\omega}\cdot\hat{\mathbf{r}}\right)\hat{\mathbf{r}}-\left(\mathbf{J}_{\omega}\times\hat{\mathbf{r}}\right)\times\hat{\mathbf{r}}
+\]
+
+\end_inset
+
+and rewrite 
+\begin_inset Formula 
+\[
+\mathbf{E}_{\omega}=\frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\left(\frac{\rho_{\omega}}{r^{2}}\hat{\mathbf{r}}-i\frac{\rho_{\omega}\omega}{cr}\hat{\mathbf{r}}+\frac{i\omega}{c^{2}r}\left(\mathbf{J}_{\omega}\cdot\hat{\mathbf{r}}\right)\hat{\mathbf{r}}-\frac{i\omega}{c^{2}r}\left(\mathbf{J}_{\omega}\times\hat{\mathbf{r}}\right)\times\hat{\mathbf{r}}\right)
+\]
+
+\end_inset
+
+Note that the 
+\begin_inset Formula $\hat{\mathbf{r}}$
+\end_inset
+
+ direction of 
+\begin_inset Formula $\mathbf{E}_{\omega}$
+\end_inset
+
+ is a function of the radial coordinate 
+\begin_inset Formula $r$
+\end_inset
+
+ only, i.e.
+\begin_inset Formula 
+\[
+\mathbf{E}_{\omega}\cdot\hat{\mathbf{r}}=E_{\omega,r}\left(r\right)
+\]
+
+\end_inset
+
+i.e.
+\begin_inset Formula 
+\[
+\mathbf{E}_{\omega}=E_{\omega,r}\left(r\right)\hat{\mathbf{r}}-\frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\left(\frac{i\omega}{c^{2}r}\left(\mathbf{J}_{\omega}\times\hat{\mathbf{r}}\right)\times\hat{\mathbf{r}}\right)
+\]
+
+\end_inset
+
+so that we can show 
+\begin_inset Formula $E_{\omega,r}\left(r\right)\hat{\mathbf{r}}$
+\end_inset
+
+ is longitudinal by 
+\begin_inset Formula 
+\[
+\boldsymbol{\nabla}\times E_{\omega,r}\left(r\right)\hat{\mathbf{r}}=\frac{1}{r\sin\theta}\frac{\partial E_{\omega,r}\left(r\right)}{\partial\phi}\hat{\boldsymbol{\theta}}-\frac{1}{r}\frac{\partial E_{\omega,r}\left(r\right)}{\partial\theta}\hat{\boldsymbol{\phi}}=0
+\]
+
+\end_inset
+
+Therefore, we have 
+\begin_inset Formula 
+\[
+\mathbf{E}_{\omega}^{\perp}=-\frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\left(\frac{i\omega}{c^{2}r}\left(\mathbf{J}_{\omega}\times\hat{\mathbf{r}}\right)\times\hat{\mathbf{r}}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Calculate the coupling 
+\end_layout
+
+\begin_layout Standard
+Without loss of generality, we consider 
+\begin_inset Formula 
+\[
+\widehat{\mathbf{P}}\left(\mathbf{r}\right)=\mu_{01}\delta\left(\mathbf{r}\right)\hat{\mathbf{z}}\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)
+\]
+
+\end_inset
+
+The classical polarization is 
+\begin_inset Formula 
+\[
+\mathbf{P}\left(\mathbf{r},t\right)=\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} =2\mu_{01}\delta\left(\mathbf{r}\right)\times\mathrm{Re}\left[\rho_{01}\left(t\right)\right]\hat{\mathbf{z}}
+\]
+
+\end_inset
+
+The bounded charge is 
+\begin_inset Formula 
+\[
+\rho\left(\mathbf{r},t\right)=-\nabla\mathbf{P}\left(\mathbf{r},t\right)=-2\mu_{01}\frac{\partial}{\partial z}\delta\left(\mathbf{r}\right)\times\mathrm{Re}\left[\rho_{01}\left(t\right)\right]\hat{\mathbf{z}}
+\]
+
+\end_inset
+
+The current is 
+\begin_inset Formula 
+\[
+\mathbf{J}\left(\mathbf{r},t\right)=\frac{\partial}{\partial t}\mathbf{P}\left(\mathbf{r},t\right)=-2\omega_{0}\mu_{01}\delta\left(\mathbf{r}\right)\mathrm{Im}\left[\rho_{01}\left(t\right)\right]\hat{\mathbf{z}}\equiv J\left(\mathbf{r},t\right)\hat{\mathbf{z}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{J}\left(\mathbf{r},t\right)=\int d\omega e^{-i\omega t}\mathbf{J}_{\omega}\left(\mathbf{r}\right)
+\]
+
+\end_inset
+
+and in frequency domain:
+\begin_inset Formula 
+\[
+\mathbf{J}_{\omega}\left(\mathbf{r}\right)=J_{\omega}\left(\mathbf{r}\right)\hat{\mathbf{z}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+J_{\omega}\left(\mathbf{r}\right)=\frac{1}{2\pi}\int J\left(\mathbf{r},t\right)e^{i\omega t}dt=-2\omega_{0}\mu_{01}\delta\left(\mathbf{r}\right)\times\frac{1}{2\pi}\int\mathrm{Im}\left[\rho_{01}\left(t\right)\right]e^{i\omega t}dt
+\]
+
+\end_inset
+
+We want to calculate the coupling:
+\begin_inset Formula 
+\begin{eqnarray*}
+\int\mathrm{d}\mathbf{r}\mathbf{E}^{\perp}\left(\mathbf{r},t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right) & = & \int\mathrm{d}\mathbf{r}\mathbf{E}^{\perp}\left(\mathbf{r},t\right)\mu_{01}\delta\left(\mathbf{r}\right)\hat{\mathbf{z}}\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\\
+ & = & \left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\times\mu_{01}\int\mathrm{d}\mathbf{r}\mathbf{E}^{\perp}\left(\mathbf{r},t\right)\delta\left(\mathbf{r}\right)\hat{\mathbf{z}}\\
+ & = & \left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\times\mu_{01}\int d\omega e^{-i\omega t}\int\mathrm{d}\mathbf{r}\delta\left(\mathbf{r}\right)\mathbf{E}_{\omega}^{\perp}\left(\mathbf{r}\right)\cdot\hat{\mathbf{z}}
+\end{eqnarray*}
+
+\end_inset
+
+Now we write everything explicitly in spherical coordinate using 
+\begin_inset Formula $\delta\left(\mathbf{r}\right)=\frac{\delta\left(r\right)}{2\pi r^{2}}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\int\mathrm{d}\mathbf{r}\delta\left(\mathbf{r}\right) & = & 2\pi\int_{0}^{\infty}r^{2}dr\int_{0}^{\pi}\sin\theta d\theta\frac{\delta\left(r\right)}{2\pi r^{2}}\\
+ & = & \int_{0}^{\infty}dr\int_{0}^{\pi}d\theta\sin\theta\delta\left(r\right)
+\end{eqnarray*}
+
+\end_inset
+
+and using 
+\begin_inset Formula $\left(\left(\hat{\mathbf{z}}\times\hat{\mathbf{r}}\right)\times\hat{\mathbf{r}}\right)\cdot\hat{\mathbf{z}}=-\sin^{2}\theta$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{E}_{\omega}^{\perp}\left(\mathbf{r}\right)\cdot\hat{\mathbf{z}} & = & -\frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\left(\frac{i\omega}{c^{2}r}\left(\mathbf{J}_{\omega}\times\hat{\mathbf{r}}\right)\times\hat{\mathbf{r}}\right)\cdot\hat{\mathbf{z}}\\
+ & = & \frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\frac{i\omega}{c^{2}r}J_{\omega}\left(\mathbf{r}\right)\sin^{2}\theta
+\end{eqnarray*}
+
+\end_inset
+
+The matrix element is 
+\begin_inset Formula 
+\[
+H_{01}^{el}=-\mu_{01}\int d\omega e^{-i\omega t}\int\mathrm{d}\mathbf{r}\delta\left(\mathbf{r}\right)\mathbf{E}_{\omega}^{\perp}\left(\mathbf{r}\right)\cdot\hat{\mathbf{z}}=\mu_{01}\int d\omega e^{-i\omega t}\int_{0}^{\infty}dr\int_{0}^{\pi}d\theta\sin^{3}\theta\delta\left(r\right)\frac{e^{i\omega r/c}}{4\pi\epsilon_{0}}\frac{i\omega}{c^{2}r}J_{\omega}\left(\mathbf{r}\right)
+\]
+
+\end_inset
+
+Use 
+\begin_inset Formula $\int_{0}^{\pi}d\theta\sin^{3}\theta=\frac{4}{3}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+H_{01}^{el}=-\frac{\mu_{01}}{3\pi\epsilon_{0}c^{2}}\int d\omega e^{-i\omega t}\int_{0}^{\infty}dr\delta\left(r\right)\frac{i\omega e^{i\omega r/c}}{r}J_{\omega}\left(\mathbf{r}\right)
+\]
+
+\end_inset
+
+We want to use 
+\begin_inset Formula $\frac{\partial^{2}}{\partial t^{2}}\mathbf{J}\left(\mathbf{r},t\right)=\int d\omega\left(-\omega^{2}\right)e^{-i\omega t}\mathbf{J}_{\omega}\left(\mathbf{r}\right)$
+\end_inset
+
+, so we rewrite
+\begin_inset Formula 
+\[
+H_{01}^{el}=-\frac{\mu_{01}}{3\pi\epsilon_{0}c^{3}}\int d\omega e^{-i\omega t}\left(-\omega^{2}\right)\int_{0}^{\infty}dr\delta\left(r\right)\frac{e^{i\omega r/c}}{i\omega r/c}J_{\omega}\left(\mathbf{r}\right)
+\]
+
+\end_inset
+
+The integral wrt 
+\begin_inset Formula $r$
+\end_inset
+
+ can be carried out by the following:
+\end_layout
+
+\begin_layout Itemize
+The real part: We use 
+\begin_inset Formula $\lim_{x\rightarrow0}\frac{\sin x}{x}=1$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int_{0}^{\infty}dr\delta\left(r\right)\frac{\sin\left(\omega r/c\right)}{\omega r/c}J_{\omega}\left(\mathbf{r}\right)=\lim_{r\rightarrow0}J_{\omega}\left(\mathbf{r}\right)\frac{\sin\left(\omega r/c\right)}{\omega r/c}=J_{\omega}\left(0\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The imaginary part: Since 
+\begin_inset Formula $J_{\omega}\left(\mathbf{r}\right)\sim\delta\left(r\right)$
+\end_inset
+
+, we can consider (use 
+\begin_inset Formula $-\delta\left(r\right)=r\dot{\delta}\left(r\right)$
+\end_inset
+
+ )
+\begin_inset Formula 
+\begin{eqnarray*}
+\int_{0}^{\infty}dr\delta\left(r\right)\frac{e^{i\omega r/c}}{i\omega r/c}\delta\left(r\right) & = & -i\int_{0}^{\infty}dr\delta\left(r\right)\frac{\cos\left(\omega r/c\right)}{\omega r/c}\delta\left(r\right)\\
+ & = & i\frac{c}{\omega}\int_{0}^{\infty}dr\dot{\delta}\left(r\right)\cos\left(\omega r/c\right)\delta\left(r\right)
+\end{eqnarray*}
+
+\end_inset
+
+By and integration by part
+\begin_inset Formula 
+\[
+i\frac{c}{\omega}\int_{0}^{\infty}dr\dot{\delta}\left(r\right)\cos\left(\omega r/c\right)\delta\left(r\right)=-i\frac{c}{\omega}\int_{0}^{\infty}dr\delta\left(r\right)\sin\left(\omega r/c\right)\delta\left(r\right)-i\frac{c}{\omega}\int_{0}^{\infty}dr\delta\left(r\right)\cos\left(\omega r/c\right)\dot{\delta}\left(r\right)
+\]
+
+\end_inset
+
+we have
+\begin_inset Formula 
+\[
+\int_{0}^{\infty}dr\delta\left(r\right)\frac{e^{i\omega r/c}}{i\omega r/c}\delta\left(r\right)=-\frac{i}{2}\frac{c}{\omega}\int_{0}^{\infty}dr\delta\left(r\right)\sin\left(\omega r/c\right)\delta\left(r\right)=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Finally, we have 
+\begin_inset Formula 
+\[
+H_{01}^{el}=-\frac{\mu_{01}}{3\pi\epsilon_{0}c^{3}}\int d\omega e^{-i\omega t}\left(-\omega^{2}\right)J_{\omega}\left(0\right)=-\frac{\mu_{01}}{3\pi\epsilon_{0}c^{3}}\frac{\partial^{2}}{\partial t^{2}}J\left(0,t\right)
+\]
+
+\end_inset
+
+By 
+\begin_inset Formula $J\left(0,t\right)=-2\omega_{0}\mu_{01}\mathrm{Im}\left[\rho_{01}\left(t\right)\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathrm{Im}\left[\rho_{01}\left(t\right)\right]\approx\sqrt{\rho_{00}\rho_{11}}\sin\omega_{0}t$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+H_{01}^{el}=2\frac{\omega_{0}^{3}\mu_{01}^{2}}{3\pi\epsilon_{0}c^{3}}\mathrm{Im}\left[\rho_{01}\left(t\right)\right]
+\]
 
 \end_inset
 
