@@ -1033,7 +1033,7 @@ c.f.
 ):
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}_{\text{ED}}=\widehat{H}_{s}-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}_{\perp}\left(0\right)+\sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right).
+\widehat{H}_{\text{int}}\approx-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}=0\right).
 \end{equation}
 
 \end_inset
@@ -1175,7 +1175,7 @@ noprefix "false"
  and the photon field can be expressed as 
 \begin_inset Formula 
 \begin{equation}
--\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}_{\perp}\left(0\right)=\sum_{\mathbf{k}}V_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}-\widehat{a}_{\mathbf{k}}^{\dagger}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)
+-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}=0\right)=\sum_{\mathbf{k}}V_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}-\widehat{a}_{\mathbf{k}}^{\dagger}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\label{eq:ED-interaction}
 \end{equation}
 
 \end_inset
@@ -5229,8 +5229,23 @@ name "sec:Weisskopf–Wigner"
 \end_layout
 
 \begin_layout Standard
-The analysis is based on Weisskopf–Wigner theory where the two-level system
- is coupled to a continuum of field modes.
+Consider the electric dipole Hamiltonian given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:ED-interaction"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we derive the population dynamics and the emission EM field of a two level
+ system in vacuum based on Weisskopf–Wigner theory and retarded Green's
+ function approach.
 \end_layout
 
 \begin_layout Subsection
@@ -5314,13 +5329,54 @@ V_{k}=-i\boldsymbol{\mu}_{01}\cdot\mathbf{e}_{k}\sqrt{\frac{\hbar\omega_{k}}{2\e
 
 \end_layout
 
+\begin_layout Plain Layout
+For 3D, the transverse direction of 
+\begin_inset Formula $\mathbf{e}_{\mathbf{k}}$
+\end_inset
+
+ is 
+\begin_inset Formula $\mathbf{e}_{\mathbf{k}}\approx-\hat{\boldsymbol{\theta}}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathbf{e}_{\mathbf{k}}\cdot\boldsymbol{\mu}_{01}=\sin\theta
+\]
+
+\end_inset
+
+so we have 
+\begin_inset Formula $\sin^{2}\theta$
+\end_inset
+
+ factor for 
+\begin_inset Formula $\left|V_{\mathbf{k}}\right|^{2}$
+\end_inset
+
+
+\end_layout
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-In terms of the dressed state representation
+We write the wavefunction of the EM field in terms of a fock state 
+\begin_inset Formula $\left|0,\cdots,1_{\mathbf{k}},\cdots,0\right\rangle $
+\end_inset
+
+ indicates one single photon of mode 
+\begin_inset Formula $\omega_{\mathbf{k}}$
+\end_inset
+
+ and denote the vacuum state as 
+\begin_inset Formula $\left|\left\{ 0\right\} \right\rangle $
+\end_inset
+
+.
+ We can formulate this problem in terms of the dressed state representation
 \begin_inset CommandInset citation
 LatexCommand citep
 key "scully_quantum_1997,nitzan_chemical_2006"
@@ -5331,68 +5387,28 @@ literal "true"
 
 \begin_inset Formula 
 \begin{eqnarray}
-\left|j;k\right\rangle =\left|j\right\rangle \left|0,\cdots,1_{k},\cdots,0\right\rangle  & \ \text{for } & j=0,1
+\left|j;\mathbf{k}\right\rangle  & = & \left|j\right\rangle \left|0,\cdots,1_{\mathbf{k}},\cdots,0\right\rangle \\
+\left|j;0\right\rangle  & = & \left|j\right\rangle \left|\left\{ 0\right\} \right\rangle 
 \end{eqnarray}
 
 \end_inset
 
-as the basis where 
-\begin_inset Formula $\left|0,\cdots,1_{k},\cdots,0\right\rangle $
+where 
+\begin_inset Formula $\left|j\right\rangle =\left|0\right\rangle ,\left|1\right\rangle $
 \end_inset
 
- indicates the field state that one single photon of mode 
-\begin_inset Formula $\omega_{k}$
-\end_inset
-
- is created.
- 
-\begin_inset Formula $\left|j;0\right\rangle $
-\end_inset
-
- represent the 
-\begin_inset Formula $\left|j\right\rangle $
-\end_inset
-
- state in vacuum.
- Note that the basis is restricted in the Hilbert space of one photon states.
- 
-\end_layout
-
-\begin_layout Standard
-The Hamiltonian in the dressed state basis forms two continuous manifolds
- of energies 
-\begin_inset Formula $\left\langle j;k\right|\widehat{H}\left|j;k\right\rangle =\varepsilon_{j}+\hbar\omega_{k}$
-\end_inset
-
- associated with the electronic state 
-\begin_inset Formula $\left|j\right\rangle $
-\end_inset
-
-.
- The electric dipole coupling between the manifolds are given by 
-\begin_inset Formula $\left\langle 1;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 0;0\right|\widehat{H}\left|1;k\right\rangle =V_{k}$
-\end_inset
-
- and 
-\begin_inset Formula $\left\langle 0;0\right|\widehat{H}\left|0;k\right\rangle =\left\langle 1;0\right|\widehat{H}\left|1;k\right\rangle =0$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-We can write the total wavefunction in the dressed state representation
- as 
+ are the wavefunction of the two level system.
+ The total wavefunction in the dressed state representation is 
 \begin_inset Formula 
 \begin{equation}
 \begin{split}\left|\psi\left(t\right)\right\rangle = & C_{0,0}\left(t\right)\left|0;0\right\rangle +C_{1,0}\left(t\right)\left|1;0\right\rangle +\\
- & \sum_{k}C_{0,k}\left(t\right)\left|0;k\right\rangle +\sum_{k}C_{1,k}\left(t\right)\left|1;k\right\rangle ,
+ & \sum_{\mathbf{k}}C_{0,\mathbf{k}}\left(t\right)\left|0;\mathbf{k}\right\rangle +\sum_{\mathbf{k}}C_{1,\mathbf{k}}\left(t\right)\left|1;\mathbf{k}\right\rangle ,
 \end{split}
 \end{equation}
 
 \end_inset
 
-and consider the initial wave function of the electronic system in vacuum
+and the initial wavefunction of the two-level system in vacuum is 
 \begin_inset Formula 
 \begin{equation}
 \left|\psi\left(0\right)\right\rangle =C_{0,0}\left|0;0\right\rangle +C_{1,0}\left|1;0\right\rangle 
@@ -5405,7 +5421,105 @@ with
 \end_inset
 
 .
- Time evolution of the wavefunction is therefore governed by Schr
+ Note that the basis is restricted in the Hilbert space of one photon states.
+ 
+\end_layout
+
+\begin_layout Standard
+In the dressed state representation, the electric dipole Hamiltonian can
+ be expressed in a matrix form as 
+\begin_inset Formula 
+\begin{equation}
+{\cal H}={\cal H}_{0}+{\cal V}=\left(\begin{array}{cccc}
+\left[\varepsilon_{0}+\hbar\omega_{\mathbf{k}}\right] & 0 & \left[V_{\mathbf{k}}\right]^{\dagger} & 0\\
+0 & \varepsilon_{0} & 0 & \left[V_{\mathbf{k}}\right]\\
+\left[V_{\mathbf{k}}\right] & 0 & \varepsilon_{1} & 0\\
+0 & \left[V_{\mathbf{k}}\right]^{\dagger} & 0 & \left[\varepsilon_{1}+\hbar\omega_{\mathbf{k}}\right]
+\end{array}\right)
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\left[\varepsilon_{j}+\hbar\omega_{\mathbf{k}}\right]$
+\end_inset
+
+ are an infinite matrix with only diagonal elements 
+\begin_inset Formula $\varepsilon_{j}+\hbar\omega_{\mathbf{k}}$
+\end_inset
+
+ for 
+\begin_inset Formula $j=0,1$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\left[V_{\mathbf{k}}\right]$
+\end_inset
+
+ is an infinite row with corresponding element 
+\begin_inset Formula $V_{\mathbf{k}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\varepsilon_{j}+\hbar\omega_{\mathbf{k}}$
+\end_inset
+
+.
+ We denote the diagonal part of the matrix as the unperturbed Hamiltonian
+ 
+\begin_inset Formula ${\cal H}_{0}$
+\end_inset
+
+ and the off-diagonal part as the coupling Hamilton 
+\begin_inset Formula ${\cal V}$
+\end_inset
+
+.
+ Note that the two quantum states in vacuum 
+\begin_inset Formula $\left|0;0\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left|1;0\right\rangle $
+\end_inset
+
+ are coupled with two continuous manifolds 
+\begin_inset Formula $\left|1;\mathbf{k}\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\left|0;\mathbf{k}\right\rangle $
+\end_inset
+
+, respectively.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Energies 
+\begin_inset Formula $\left\langle j;\mathbf{k}\right|\widehat{H}\left|j;\mathbf{k}\right\rangle =\varepsilon_{j}+\hbar\omega_{\mathbf{k}}$
+\end_inset
+
+ associated with the electronic state 
+\begin_inset Formula $\left|j\right\rangle $
+\end_inset
+
+.
+ The electric dipole coupling between the manifolds are given by 
+\begin_inset Formula $\left\langle 1;0\right|\widehat{H}\left|0;\mathbf{k}\right\rangle =\left\langle 0;0\right|\widehat{H}\left|1;\mathbf{k}\right\rangle =V_{\mathbf{k}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\langle 0;0\right|\widehat{H}\left|0;\mathbf{k}\right\rangle =\left\langle 1;0\right|\widehat{H}\left|1;\mathbf{k}\right\rangle =0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The wavefunction can be propagated by Schr
 \begin_inset ERT
 status open
 
@@ -5495,6 +5609,11 @@ another for the
  
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 Given that 
 \begin_inset Formula $\varepsilon_{0}<\varepsilon_{1}$
@@ -5513,7 +5632,7 @@ Given that
 \noun off
 \color none
 
-\begin_inset Formula $\left|0;k\right\rangle $
+\begin_inset Formula $\left|0;\mathbf{k}\right\rangle $
 \end_inset
 
  manifold includes the resonant 
@@ -5532,12 +5651,7 @@ level with the
 \begin_inset Formula $\left|1;0\right\rangle $
 \end_inset
 
- state, i.e.
- 
-\begin_inset Formula $\varepsilon_{0}+\hbar\omega_{0}=\varepsilon_{1}$
-\end_inset
-
-.
+ state.
  However, the the 
 \family roman
 \series medium
@@ -5551,7 +5665,7 @@ level with the
 \noun off
 \color none
 
-\begin_inset Formula $\left|1;k\right\rangle $
+\begin_inset Formula $\left|1;\mathbf{k}\right\rangle $
 \end_inset
 
  manifold
@@ -5570,25 +5684,38 @@ level with the
 \begin_inset Formula $\left|0;0\right\rangle $
 \end_inset
 
-, i.e.
- 
-\begin_inset Formula $\varepsilon_{1}+\hbar\omega_{k}>\varepsilon_{0}$
-\end_inset
-
  for all 
-\begin_inset Formula $k$
+\begin_inset Formula $\mathbf{k}$
 \end_inset
 
 .
- Therefore, we can approximate 
-\begin_inset Formula $C_{1,k}\left(t\right)\approx0$
+ Therefore, as the lowest order approximation, we can assume 
+\begin_inset Formula $C_{1,\mathbf{k}}\left(t\right)\approx0$
 \end_inset
 
  and 
-\begin_inset Formula $C_{0,0}\left(t\right)\approx\left|C_{0,0}\left(t\right)\right|e^{-i\varepsilon_{0}t/\hbar}$
+\begin_inset Formula 
+\begin{equation}
+C_{0,0}\left(t\right)\approx\left|C_{0,0}\left(t\right)\right|e^{-i\varepsilon_{0}t/\hbar}
+\end{equation}
+
 \end_inset
 
- as the lowest order form of the short time behavior.
+for short time behavior.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+vacuum fluctuaion? 
+\begin_inset Formula $C_{1,\mathbf{k}}\left(t\right)\approx0$
+\end_inset
+
+?
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -5596,7 +5723,7 @@ Retarded Green's function formulation
 \end_layout
 
 \begin_layout Standard
-We adapt the retarded Green's function formulation
+We employ the retarded Green's function formulation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "nitzan_chemical_2006"
@@ -5609,37 +5736,78 @@ literal "true"
 \end_inset
 
  and 
-\begin_inset Formula $C_{0,k}\left(t\right)$
+\begin_inset Formula $C_{0,\mathbf{k}}\left(t\right)$
 \end_inset
 
 .
- The retarded Green's operator is 
-\begin_inset Formula $\widehat{G}\left(\varepsilon\right)=\left[\varepsilon-\widehat{H}+i\eta\right]^{-1}$
+ The retarded Green's operators are 
+\begin_inset Formula ${\cal G}\left(\varepsilon\right)=\left[\varepsilon-{\cal H}+i\eta\right]^{-1}$
 \end_inset
 
-, which can be obtained by self-consistent expression
-\begin_inset Formula 
-\begin{eqnarray}
-G_{11}\left(\varepsilon\right) & = & \frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},\\
-G_{k1}\left(\varepsilon\right) & = & \frac{V_{k}}{\varepsilon-\varepsilon_{k}+i\eta}\frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},
-\end{eqnarray}
-
+ for the full Hamiltonian and 
+\begin_inset Formula ${\cal G}_{0}\left(\varepsilon\right)=\left[\varepsilon-{\cal H}_{0}+i\eta\right]^{-1}$
 \end_inset
 
-where 
+ for the unperturbed Hamiltonian where 
 \begin_inset Formula $\eta$
 \end_inset
 
  is a positive small quantity (
-\begin_inset Formula $\eta\rightarrow0$
+\begin_inset Formula $\eta\rightarrow0^{+}$
 \end_inset
 
-) and 
-\begin_inset Formula $\Gamma\left(\varepsilon\right)=\sum_{k}\left|V_{k}\right|^{2}/\left(\varepsilon-\varepsilon_{k}+i\eta\right)$
+).
+ Using the Dyson's identity 
+\begin_inset Formula ${\cal G}={\cal G}_{0}+{\cal G}_{0}{\cal V}{\cal G}={\cal G}_{0}+{\cal G}{\cal V}{\cal G}_{0}$
+\end_inset
+
+, we obtain the retarded Green's function in a self-consistent expression
+\begin_inset Formula 
+\begin{eqnarray}
+{\cal G}_{11}\left(\varepsilon\right) & = & \frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},\\
+{\cal G}_{\mathbf{k}1}\left(\varepsilon\right) & = & \frac{V_{\mathbf{k}}}{\varepsilon-\varepsilon_{0}-\hbar\omega_{\mathbf{k}}+i\eta}\frac{1}{\varepsilon-\varepsilon_{1}+i\eta+\frac{i}{2}\Gamma\left(\varepsilon\right)},
+\end{eqnarray}
+
+\end_inset
+
+where the self energy is 
+\begin_inset Formula $\Gamma\left(\varepsilon\right)=2i\sum_{\mathbf{k}}\left|V_{\mathbf{k}}\right|^{2}/\left(\varepsilon-\varepsilon_{0}-\hbar\omega_{\mathbf{k}}+i\eta\right)$
 \end_inset
 
 .
- 
+ For 1D, the self energy is 
+\begin_inset Formula 
+\begin{eqnarray*}
+\Gamma^{\text{1D}}\left(\varepsilon\right) & = & 2i\sum_{\boldsymbol{\sigma}}\frac{L}{2\pi}\int dk\frac{\mu_{01}^{2}\mathcal{E}_{k}^{2}}{\varepsilon-\varepsilon_{0}-\hbar\omega_{\mathbf{k}}+i\eta}\\
+ & = & i\frac{\mu_{01}^{2}}{2\pi\epsilon_{0}\hbar c}\sum_{\boldsymbol{\sigma}}-i\pi\left(\varepsilon-\varepsilon_{0}\right)\\
+ & = & \frac{\mu_{01}^{2}}{\epsilon_{0}\hbar c}\left(\varepsilon-\varepsilon_{0}\right)
+\end{eqnarray*}
+
+\end_inset
+
+For 3D, we assume the dipole moment is 
+\begin_inset Formula $\boldsymbol{\mu}_{01}=\mu_{01}\hat{\mathbf{z}}$
+\end_inset
+
+ and the transvese electric field is 
+\begin_inset Formula $\mathbf{e}_{\mathbf{k}}=-\hat{\boldsymbol{\theta}}$
+\end_inset
+
+, so that 
+\begin_inset Formula $\mathbf{e}_{\mathbf{k}}\cdot\boldsymbol{\mu}_{01}=\mu_{01}\sin\theta$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{eqnarray*}
+\Gamma^{\text{3D}}\left(\varepsilon\right) & = & 2i\left(\frac{L}{2\pi}\right)^{3}2\pi\int\sin^{3}\theta d\theta\int k^{2}dk\frac{\mu_{01}^{2}\mathcal{E}_{k}^{2}}{\varepsilon-\varepsilon_{0}-\hbar\omega_{\mathbf{k}}+i\eta}\\
+ & = & i\frac{\mu_{01}^{2}}{3\epsilon_{0}\pi^{2}\hbar^{3}c^{3}}\left[-i\pi\left(\varepsilon-\varepsilon_{0}\right)^{3}\right]\\
+ & = & \frac{\mu_{01}^{2}}{3\epsilon_{0}\pi\hbar^{3}c^{3}}\left(\varepsilon-\varepsilon_{0}\right)^{3}
+\end{eqnarray*}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -5652,13 +5820,16 @@ weak-couplig limit
 
 \end_inset
 
-we assume the weak coupling limit, the coupling between the system and the
- EM field is weak.
- Therefore, the Green's operators are expected to be a sharp peak at 
+Since we assume the weak coupling limit, the Green's operators 
+\begin_inset Formula ${\cal G}\left(\varepsilon\right)$
+\end_inset
+
+ are expected to be a sharp peak at 
 \begin_inset Formula $\varepsilon_{1}$
 \end_inset
 
-, so that we can approximate 
+.
+ Here we evaluate the self energy at 
 \begin_inset Formula $\Gamma\left(\varepsilon\right)\approx\Gamma\left(\varepsilon_{1}\right)\equiv\hbar\kappa$
 \end_inset
 
@@ -5670,7 +5841,7 @@ we assume the weak coupling limit, the coupling between the system and the
 , i.e.
  the oscillatory period is much faster than the life time of the excited
  state.
- Finally, the wavefunction can be obtained by carrying out the Fourier transform
+ The wavefunction can be obtained by carrying out the Fourier transform
  
 \begin_inset Formula $\left|\psi\left(t\right)\right\rangle =-\frac{1}{2\pi i}\int_{-\infty}^{\infty}d\varepsilon e^{-i\left(\varepsilon+i\eta\right)t/\hbar}\widehat{G}\left(\varepsilon\right)\left|\psi\left(0\right)\right\rangle $
 \end_inset
