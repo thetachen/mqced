@@ -1,0 +1,1118 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\begin_preamble
+\usepackage{enumitem}
+\end_preamble
+\options preprint,aip,jcp
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Mixed Quantum–Classical Theory for electrodynamics
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Mixed-Quantum–Classical-Theory"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The section aims to compare Ehrenfest dynamics and exact quantum dynamics
+ in the framework of mixed quantum–classical theory.
+ First, we formulate the quantum-classical Liouville equations (QCLE) for
+ quantum electrodynamics as formally exact equation of motion.
+ Then, we approximate the probability density for Ehrenfest dynamics and
+ derive the corresponding equation of motion.
+ By comparing the equations of motion, we shall discover the difference.
+\end_layout
+
+\begin_layout Subsection
+Electrodynamical Quantum-Classical Liouville Equation
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:QCLE"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Intro
+\end_layout
+
+\end_inset
+
+Following Kapral
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kapral_mixed_1999"
+literal "true"
+
+\end_inset
+
+, we derive the elctrodynamical QCLE for electron–radiation dynamics.
+ We denote the total density operator 
+\begin_inset Formula $\widehat{{\cal W}}\left(t\right)$
+\end_inset
+
+ for the electronic system and the EM field.
+ The evolution of total density operator is governed by the quantum Liouville
+ equation
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial}{\partial t}\widehat{{\cal W}}\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}_{\text{PZW}},\widehat{{\cal W}}\left(t\right)\right].
+\end{equation}
+
+\end_inset
+
+Since we want to treat the field degrees of freedom classically, we perform
+ the partial Wigner transforms with respect to the vector filed operator,
+ 
+\begin_inset Formula $\widehat{\mathbf{A}}$
+\end_inset
+
+, and its conjugate momentum, 
+\begin_inset Formula $\widehat{\mathbf{D}}$
+\end_inset
+
+.
+ Formally, the partial Wigner transform of the density operator gives the
+ probability density
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{\rho}_{W}\left(\mathbf{D},\mathbf{A},t\right)=\frac{1}{\left(2\pi\hbar\right)^{3N}} & \int d\mathbf{Z}e^{i\mathbf{D}\cdot\mathbf{Z}/\hbar}\times\\
+ & \left\langle \mathbf{A}-\frac{\mathbf{Z}}{2}\right|\widehat{{\cal W}}\left(t\right)\left|\mathbf{A}+\frac{\mathbf{Z}}{2}\right\rangle ,
+\end{split}
+\end{equation}
+
+\end_inset
+
+where the bold symbol 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ without the hat refer to the coordinate representation of these quantities,
+ not operators.
+ The coordinate representation 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ are 
+\begin_inset Formula $c$
+\end_inset
+
+-number spatial functions satisfying 
+\begin_inset Formula $\widehat{\mathbf{D}}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle =\mathbf{D}\left(\mathbf{r}\right)\left|\mathbf{D}\right\rangle $
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)\left|\mathbf{A}\right\rangle =\mathbf{A}\left(\mathbf{r}\right)\left|\mathbf{A}\right\rangle $
+\end_inset
+
+.
+ The partial Wigner transform of the Hamiltonian is 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{W}\left(\mathbf{D},\mathbf{A}\right)=\int d\mathbf{Z}e^{i\mathbf{D}\cdot\mathbf{Z}/\hbar}\left\langle \mathbf{A}-\frac{\mathbf{Z}}{2}\right|\widehat{H}\left|\mathbf{A}+\frac{\mathbf{Z}}{2}\right\rangle .
+\end{equation}
+
+\end_inset
+
+The Liouville equation can be expressed in terms of the partial Wigner transform
+ 
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial t}\widehat{\rho}_{W}\left(\mathbf{D},\mathbf{A},t\right)=-\frac{i}{\hbar}\left[\widehat{H}_{W}\left(\mathbf{D},\mathbf{A}\right)e^{\hbar\overleftrightarrow{\Lambda}/2i}\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)-\widehat{\rho}_{W}\left(\boldsymbol{D},\boldsymbol{A},t\right)e^{\hbar\overleftrightarrow{\Lambda}/2i}\widehat{H}_{W}\left(\mathbf{D},\mathbf{A}\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After the partial Wigner transform, the quantum Liouville equation can be
+ expanded in powers of 
+\begin_inset Formula $\hbar$
+\end_inset
+
+ and turns out to be
+\emph on
+ 
+\color red
+(Abe: why is small 
+\begin_inset Formula $\hbar$
+\end_inset
+
+ expansion valid? what is the real small parameter?) 
+\emph default
+\color inherit
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{W},\widehat{\rho}_{W}\right]\\
+ & +\frac{1}{2}\left(\left\{ \widehat{H}_{W},\widehat{\rho}_{W}\right\} -\left\{ \widehat{\rho}_{W},\widehat{H}_{W}\right\} \right),\\
+ & +{\cal O}\left(\hbar\right)
+\end{split}
+\label{eq:EOM_Wigner_poisson}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+show that it is exact for quadratic?
+\end_layout
+
+\end_inset
+
+where the Poisson bracket is given by 
+\begin_inset Formula 
+\begin{equation}
+\left\{ \widehat{H}_{W},\widehat{\rho}_{W}\right\} =\int\mathrm{d}\mathbf{r}\left(\frac{\delta\widehat{H}_{W}}{\delta\mathbf{D}}\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{A}}-\frac{\delta\widehat{H}_{W}}{\delta\mathbf{A}}\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{D}}\right).
+\end{equation}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ are treated as independent variables of the phase space.
+ The fact that 
+\begin_inset Formula $\widehat{H}_{W}$
+\end_inset
+
+ does not commute with 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+ is still maintained in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner_poisson"
+
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+justification of the expansion
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we take the first two term of Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner_poisson"
+
+\end_inset
+
+ and write down explicit equation of motion.
+ The functional derivatives with respect to the spatial function 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ can be obtained as 
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\delta\widehat{H}_{W}}{\delta\mathbf{A}} & = & \frac{1}{\mu_{0}}\boldsymbol{\nabla}\times\mathbf{B}\\
+\frac{\delta\widehat{H}_{W}}{\delta\mathbf{D}} & = & \frac{1}{\epsilon_{0}}\left(\mathbf{D}-\widehat{\mathbf{P}}\right)
+\end{eqnarray}
+
+\end_inset
+
+using the identity 
+\begin_inset Formula $\int d\mathbf{r}\frac{\delta\nabla\times\mathbf{A}}{\delta\mathbf{A}}\left(\mathbf{r}\right)\mathbf{\phi}\left(\mathbf{r}\right)=\nabla\times\mathbf{\phi}\left(\mathbf{r}\right)$
+\end_inset
+
+ for an arbitrary function 
+\begin_inset Formula $\mathbf{\phi}\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ We change the phase space coordinate from 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ to 
+\begin_inset Formula $\mathbf{B}=\boldsymbol{\nabla}\times\mathbf{A}$
+\end_inset
+
+, then we obtain the explicit equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{W}\left(t,\mathbf{D},\mathbf{B}\right)$
+\end_inset
+
+ terms of the displacement 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+ and magnetic field 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{W}= & -\frac{i}{\hbar}\left[\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\frac{\mathbf{D}\cdot\widehat{\mathbf{P}}}{\epsilon_{0}}+\int\mathrm{d}\mathbf{r}\frac{\widehat{\mathbf{P}}^{2}}{2\epsilon_{0}},\widehat{\rho}_{W}\right]\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{B}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{D}}\\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{D}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\\
+ & -\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left\{ \nabla\times\widehat{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\cdot\nabla\times\widehat{\mathbf{P}}\right\} ,
+\end{split}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\partial}{\partial t} & \widehat{\rho}_{W}=-\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{W}\right]\\
+ & +\frac{i}{2\hbar}\int\mathrm{d}\mathbf{r}\left\{ \frac{\mathbf{D}-\widehat{\mathbf{P}}}{\epsilon_{0}}\left[\widehat{\mathbf{P}},\widehat{\rho}_{W}\right]+\left[\widehat{\mathbf{P}},\widehat{\rho}_{W}\right]\frac{\mathbf{D}-\widehat{\mathbf{P}}}{\epsilon_{0}}\right\} \\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{D}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\\
+ & -\frac{1}{2\epsilon_{0}}\int\mathrm{d}\mathbf{r}\left\{ \nabla\times\widehat{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}+\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{B}}\cdot\nabla\times\widehat{\mathbf{P}}\right\} ,\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\mathbf{B}\cdot\frac{\delta\widehat{\rho}_{W}}{\delta\mathbf{D}}
+\end{split}
+\label{eq:EOM_Wigner}
+\end{equation}
+
+\end_inset
+
+which we refer to the electrodynamical QCLE.
+ Note that Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner"
+
+\end_inset
+
+ maintains the fact that the quantum operator 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+ does not commute with 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+what does QCLE mean?
+\end_layout
+
+\end_inset
+
+Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner"
+
+\end_inset
+
+ shows that the evolution of the Wigner probability density consists of
+ two types of contribution.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+commutator
+\end_layout
+
+\end_inset
+
+The first and second terms of the right-hand side involving the commutator
+ account for the quantum evolution of the electronic degrees of freedom.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+classical
+\end_layout
+
+\end_inset
+
+The rest of right-hand side account for the evolution of the 
+\begin_inset Quotes eld
+\end_inset
+
+classical
+\begin_inset Quotes erd
+\end_inset
+
+ degrees of freedom of the probability density.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+d/dD, d/dB
+\end_layout
+
+\end_inset
+
+The third and fourth terms indicate the evolution with respect to 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ , and the last terms contain the evolution with respect to 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Equation of motion for Ehrenfest joint probability density
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+joint probability density
+\end_layout
+
+\end_inset
+
+An Ehrenfest trajectory can be represented by a mixed quantum-classical
+ state (
+\begin_inset Formula $\mathbf{D},\mathbf{B},\widehat{\rho}$
+\end_inset
+
+) undergoing Ehrenfest dynamics, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+.
+ Suppose that at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+, the initial electronic density matrix is 
+\begin_inset Formula $\widehat{\rho}_{0}$
+\end_inset
+
+ and the field is represented by an initial distribution in phase space
+ 
+\begin_inset Formula $f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)$
+\end_inset
+
+.
+ Therefore, we can construct the joint electronic–radiation probability
+ density corresponding to a swarm of Ehrenfest trajectories starting from
+ 
+\begin_inset Formula $\left(\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+.
+ The joint probability density for Ehrenfest dynamics is then defined formally
+ as 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)\equiv & \int\mathrm{d}\mathbf{D}_{0}\int\mathrm{d}\mathbf{B}_{0}f\left(\mathbf{D}_{0},\mathbf{B}_{0}\right)\times\\
+ & \widehat{\rho}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)\times\\
+ & \delta\left(\mathbf{D}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{D}\right)\times\\
+ & \delta\left(\mathbf{B}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)-\mathbf{B}\right)
+\end{split}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\widehat{\rho}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{D}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}\left(t;\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}\right)$
+\end_inset
+
+ are the Ehrenfest trajectory starting from the initial condition 
+\begin_inset Formula $\mathbf{D}_{0},\mathbf{B}_{0},\widehat{\rho}_{0}$
+\end_inset
+
+.
+ However, there does not exist a formal equation of motion for the joint
+ probability density in general.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "subotnik_augmented_2010"
+literal "true"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+Still need to clarify why preimage assumption could lead to (53)...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can circumvent this difficulty by the following assumptions.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Unique pre-image assumption
+\end_layout
+
+\end_inset
+
+We invoke the unique preimage assumption
+\begin_inset CommandInset citation
+LatexCommand cite
+key "subotnik_augmented_2010,subotnik_can_2013"
+literal "true"
+
+\end_inset
+
+ to ensure each point in phase space 
+\begin_inset Formula $\left(\mathbf{D},\mathbf{B}\right)$
+\end_inset
+
+ at time 
+\begin_inset Formula $t$
+\end_inset
+
+ is corresponding to a unique electronic density matrix 
+\begin_inset Formula $\widehat{\rho}_{0}$
+\end_inset
+
+ at time 
+\begin_inset Formula $t=0$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+continuity
+\end_layout
+
+\end_inset
+
+Also, the swarm of trajectories is assumed to evolve such that no trajectories
+ reach the same 
+\begin_inset Formula $\left(\mathbf{D},\mathbf{B}\right)$
+\end_inset
+
+ in phase space at the same time.
+ With the above assumptions, we define the joint electron–radiation probability
+ density in the form of
+\emph on
+\color red
+ (Abe: How is this follows from the above assumptions?)
+\emph default
+\color inherit
+
+\begin_inset Formula 
+\begin{equation}
+\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)=\widehat{\rho}\left(\mathbf{D},\mathbf{B},t\right)\times f\left(\mathbf{D},\mathbf{B},t\right),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $f\left(\mathbf{D},\mathbf{B},t\right)=\text{Tr}_{s}\left\{ \widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)\right\} $
+\end_inset
+
+ is the averaged density of the classical field 
+\begin_inset Formula $(\mathbf{D},\mathbf{B})$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\rho}\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+ is the electronic density matrix associated with the field 
+\begin_inset Formula $\mathbf{D},\mathbf{B}$
+\end_inset
+
+ satisfying Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+In terms of displacement, Maxwell's equations read
+\begin_inset Formula 
+\begin{eqnarray}
+\frac{\partial}{\partial t}\mathbf{B}\left(\mathbf{r},t\right) & = & -\frac{1}{\epsilon_{0}}\boldsymbol{\nabla}\times\mathbf{D}\left(\mathbf{r},t\right)+\frac{1}{\epsilon_{0}}\boldsymbol{\nabla}\times\mathbf{P}\left(\mathbf{r},t\right),\label{eq:maxwell_BD}\\
+\frac{\partial}{\partial t}\mathbf{D}\left(\mathbf{r},t\right) & = & \frac{1}{\mu_{0}}\boldsymbol{\nabla}\times\mathbf{B}\left(\mathbf{r},t\right).\label{eq:maxwell_DB}
+\end{eqnarray}
+
+\end_inset
+
+in terms of the displacement 
+\begin_inset Formula $\mathbf{D}=\epsilon_{0}\mathbf{E}+\mathbf{P}$
+\end_inset
+
+ where the averaged polarization is 
+\begin_inset Formula $\mathbf{P}=\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} $
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+To derive the equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{Eh}\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+, we explicitly compute its partial derivative: 
+\begin_inset Formula $\frac{\partial}{\partial t}\widehat{\rho}_{Eh}=\frac{\partial\widehat{\rho}}{\partial t}f+\widehat{\rho}\frac{\partial f}{\partial t}$
+\end_inset
+
+.
+ The partial derivative of 
+\begin_inset Formula $\widehat{\rho}\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+ can be obtained by Eq.
+\begin_inset space ~
+\end_inset
+
+.
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+ and the partial derivative of 
+\begin_inset Formula $f\left(\mathbf{D},\mathbf{B},t\right)$
+\end_inset
+
+ is computed by the continuity equation together with Eqs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:polarization_mean"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+.
+ Therefore, the equation of motion for 
+\begin_inset Formula $\widehat{\rho}_{Eh}$
+\end_inset
+
+ can be written in the form of 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{Eh}= & -\frac{i}{\hbar}\left[\widehat{H}_{s}-\int\mathrm{d}\mathbf{r}\frac{\bar{\mathbf{D}}\cdot\widehat{\mathbf{P}}}{\epsilon_{0}}+\int\mathrm{d}\mathbf{r}\frac{\bar{\mathbf{P}}\cdot\widehat{\mathbf{P}}}{\epsilon_{0}},\widehat{\rho}_{Eh}\right]\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\bar{\mathbf{B}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\mathbf{D}}}\\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\bar{\mathbf{D}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\mathbf{B}}}.\\
+ & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\nabla\times\bar{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\bar{\mathbf{B}}}
+\end{split}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\begin{split}\frac{\partial}{\partial t}\widehat{\rho}_{Eh}= & -\frac{i}{\hbar}\left[\widehat{H}_{s},\widehat{\rho}_{Eh}\right]+\frac{i}{\hbar}\int\mathrm{d}\mathbf{r}\frac{\mathbf{D}-\bar{\mathbf{P}}}{\epsilon_{0}}\left[\widehat{\mathbf{P}},\widehat{\rho}_{Eh}\right]\\
+ & +\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\mathbf{\nabla}\times\mathbf{D}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\mathbf{B}}.\\
+ & -\frac{1}{\epsilon_{0}}\int\mathrm{d}\mathbf{r}\mathbf{\nabla}\times\bar{\mathbf{P}}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\mathbf{B}}\\
+ & -\frac{1}{\mu_{0}}\int\mathrm{d}\mathbf{r}\mathbf{\nabla}\times\mathbf{B}\cdot\frac{\delta\widehat{\rho}_{Eh}}{\delta\mathbf{D}}
+\end{split}
+\label{eq:EOM_Ehrenfest}
+\end{equation}
+
+\end_inset
+
+which we shall refer to equation of motion of Ehrenfest probability density
+ (Ehrenfest EOM).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+what does QCLE mean?
+\end_layout
+
+\end_inset
+
+Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest"
+
+\end_inset
+
+ shows that the evolution of the Ehrenfest probability density is consistent
+ to Ehrenfest anstaz.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+commutator
+\end_layout
+
+\end_inset
+
+The first and second terms of the right-hand side involving the commutator
+ account for the quantum evolution according to the electronic Hamiltonian
+ given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:electronic_Hamiltonian"
+
+\end_inset
+
+ (with 
+\begin_inset Formula $\mathbf{D}-\bar{\mathbf{P}}=\epsilon_{0}\bar{\mathbf{E}}$
+\end_inset
+
+).
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+classical
+\end_layout
+
+\end_inset
+
+The third and fourth terms corresponds the evolution of 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_BD"
+
+\end_inset
+
+.
+ The last term accounts for the evolution of 
+\begin_inset Formula $\mathbf{D}$
+\end_inset
+
+, Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_DB"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Compare electrodynamics QCLE and Ehrenfest EOM
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+What's the difference
+\end_layout
+
+\end_inset
+
+Comparing Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Ehrenfest"
+
+\end_inset
+
+ and Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:EOM_Wigner"
+
+\end_inset
+
+, we find that, the differences between QCLE and Ehrenfest EOM are attributed
+ to the commutation relation of 
+\begin_inset Formula $\widehat{\rho}_{W}$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+2nd term
+\end_layout
+
+\end_inset
+
+Explicitly, the right-hand side of QCLE and Ehrenfest EOM are different
+ in the second and fourth terms.
+ The second term represents the discrepancy in the quantum evolution of
+ the electronic system.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+4th term
+\end_layout
+
+\end_inset
+
+The fourth term indicates the diverging of Ehrenfest trajectory and time
+ evolution of Wigner probability density in phase space.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+reduce to Ehrenfest
+\end_layout
+
+\end_inset
+
+We also note that QCLE can be reduced to Ehrenfest EOM by taking the mean-field
+ approximation for the EM field, i.e.
+ 
+\begin_inset Formula $\widehat{\mathbf{P}}\rightarrow\bar{\mathbf{P}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}-\widehat{\mathbf{P}}\rightarrow\mathbf{D}-\bar{\mathbf{P}}=\epsilon_{0}\bar{\mathbf{E}}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+trajectory-based description
+\end_layout
+
+\end_inset
+
+Like many trajectory-based descriptions for electron–nuclei dynamics, one
+ usually needs to include quantum transitions, such as momentum jump approximati
+on
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kapral_mixed_1999,kapral_progress_2006,kapral_surface_2016"
+literal "true"
+
+\end_inset
+
+ and surface hopping,
+\begin_inset CommandInset citation
+LatexCommand cite
+key "tully_molecular_1990,tully_mixed_1998"
+literal "true"
+
+\end_inset
+
+ to account for the quantum effect that can not be captured by classical
+ trajectories in phase space.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+need for transition
+\end_layout
+
+\end_inset
+
+From the above analysis of the difference in electrodynamical QCLE and Ehrenfest
+ EOM, we must introduce quantum transitions to Ehrenfest dynamics not only
+ for the trajectory in phase space, also for the quantum evolution of the
+ electronic degrees of freedom.
+ We shall make this interpretation explicit in the following.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Unfortunately, the implementation of trajectory-based propagation is usually
+ complicated and often lead to numerical instability 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "bellonzi_assessment_2016"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\emph on
+The connection here is weak here...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
