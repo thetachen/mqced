@@ -1,0 +1,69 @@
+#!/usr/bin/python
+from units import AtomicUnit
+from utility import *
+AU = AtomicUnit()
+
+#scan A
+width = 1.0
+
+#Options:
+# ShowAnimation = False
+ShowAnimation = True
+AveragePeriod = 1
+UseInitialRandomPhase = False
+UsePlusEmission = True
+UseRandomEB = False
+NumberTrajectories = 1
+
+# Set up time steps
+T0 = 0.0
+Tmax = 4.0
+dt = 8.0/80
+# Tmax = 1.0/AU.fs * 100
+# dt = 0.05
+times = np.arange(T0, Tmax, dt)
+rescaling_times = np.arange(0,41,5)
+
+param_EM={
+    # Z coordinate grid parameters
+    'Zlim':     [-8.0/AU.nm*width,8.0/AU.nm*width],
+    'NZgrid':   int(80*2*width),
+    # ABC pararmeters
+    'Zo':       0.0/AU.nm*width,
+    'Z0':       6.5/AU.nm*width,
+    'Z1':       7.5/AU.nm*width,
+    # Continuous Wave parameters
+    'A_CW':     0.0,
+    'K_CW':     0.25,
+}
+param_EM['Zgrid'] = np.linspace(param_EM['Zlim'][0],param_EM['Zlim'][1], num=param_EM['NZgrid'])
+param_EM['dZ'] = param_EM['Zgrid'][1]-param_EM['Zgrid'][0]
+# start index for [Ex,Ey,Bx,By]
+param_EM['_Ex'] = 0*param_EM['NZgrid']
+param_EM['_Ey'] = 1*param_EM['NZgrid']
+param_EM['_Bx'] = 2*param_EM['NZgrid']
+param_EM['_By'] = 3*param_EM['NZgrid']
+param_EM=Struct(**param_EM)
+
+param_TLS={
+    'nstates':  2,
+    # Hamiltoniam
+    'H0':		np.array([[0.0,0.0],\
+                          [0.0,0.25]]),
+	# Coupling
+    'VP':       np.array([[0.0,1.0],\
+                          [1.0,0.0]]),
+    # initial diabatic state vector
+    # 'C0':				np.sqrt(np.array([[0.0],[1.0]],complex))*np.exp(1j*np.pi*-0.5),
+    'C0':              np.sqrt(np.array([[0.5],[0.5]],complex)),#*np.exp(1j*np.pi*0.5),
+    # polarization
+    'Mu':       0.0,
+    #'Sigma':    0.0556*(AU.nm**2),
+    #'Pmax':     33824.0/AU.Cnmmol,
+    'Sigma':    0.5/width**2, #0.0556 nm-2
+    'Pmax':     0.025*np.sqrt(2.0),
+}
+param_TLS=Struct(**param_TLS)
+
+phase_shift = 1.9 *np.pi
+Lambda = 1.0/0.56
