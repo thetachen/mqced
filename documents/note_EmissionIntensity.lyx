@@ -2428,7 +2428,7 @@ since
 -part are non-resonant, we take the first order approximation
 \begin_inset Formula 
 \[
-d_{0}\left(t\right)=d_{0}\left(0\right)e^{-iE_{g}t/\hbar}
+d_{0}\left(t\right)=\left|d_{0}\left(t\right)\right|e^{-iE_{g}t/\hbar}
 \]
 
 \end_inset
@@ -2480,7 +2480,7 @@ By
 
 \begin_inset Formula 
 \[
-\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle =\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\sum_{k}i\mathcal{E}_{k}\vec{\sigma}_{k}e^{ikr}\frac{-i\mathcal{E}_{k}\vec{\mu}\cdot\vec{\sigma}_{k}}{E_{g}+\hbar\omega_{k}-E_{e}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\left(E_{e}-E_{g}\right)t/\hbar-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
+\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle =\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\sum_{k}i\mathcal{E}_{k}\vec{\sigma}_{k}e^{ikr}\frac{-i\mathcal{E}_{k}\vec{\mu}\cdot\vec{\sigma}_{k}}{E_{g}+\hbar\omega_{k}-E_{e}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\left(E_{e}-E_{g}\right)t/\hbar-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
 \]
 
 \end_inset
@@ -2492,7 +2492,7 @@ Let
 
 \begin_inset Formula 
 \[
-\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle =\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\sum_{k}\vec{\sigma}_{k}e^{ikr}\frac{\mathcal{E}_{k}^{2}\vec{\mu}\cdot\vec{\sigma}_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
+\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle =\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\sum_{k}\vec{\sigma}_{k}e^{ikr}\frac{\mathcal{E}_{k}^{2}\vec{\mu}\cdot\vec{\sigma}_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
 \]
 
 \end_inset
@@ -2504,7 +2504,7 @@ Take only amplitude (to get rid of space vector
 )
 \begin_inset Formula 
 \[
-\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\mu\sum_{k}e^{ikr}\frac{\mathcal{E}_{k}^{2}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
+\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\mu\sum_{k}e^{ikr}\frac{\mathcal{E}_{k}^{2}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
 \]
 
 \end_inset
@@ -2524,7 +2524,7 @@ Use
  here)
 \begin_inset Formula 
 \[
-\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\mu\int_{0}^{\infty}dk\left(\frac{L}{2\pi}\right)e^{ikr}\frac{\frac{\hbar\omega_{k}}{2\epsilon_{0}L}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
+\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\mu\int_{0}^{\infty}dk\left(\frac{L}{2\pi}\right)e^{ikr}\frac{\frac{\hbar\omega_{k}}{2\epsilon_{0}L}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
 \]
 
 \end_inset
@@ -2532,7 +2532,7 @@ Use
 
 \begin_inset Formula 
 \[
-\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\frac{\mu}{4\pi\epsilon_{0}}\int_{0}^{\infty}dke^{ikr}\frac{\hbar\omega_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
+\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\frac{\mu}{4\pi\epsilon_{0}}\int_{0}^{\infty}dke^{ikr}\frac{\hbar\omega_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
 \]
 
 \end_inset
@@ -2544,7 +2544,7 @@ Change
 
 \begin_inset Formula 
 \[
-\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\frac{\mu}{4\pi\epsilon_{0}c}\int_{0}^{\infty}d\omega_{k}e^{i\omega_{k}r/c}\frac{\hbar\omega_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
+\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\frac{\mu}{4\pi\epsilon_{0}c}\int_{0}^{\infty}d\omega_{k}e^{i\omega_{k}r/c}\frac{\hbar\omega_{k}}{\hbar\omega_{k}-\hbar\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2}}\left[e^{-i\omega_{k}t}-e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2}t/\hbar}\right]+c.c.
 \]
 
 \end_inset
@@ -2552,7 +2552,7 @@ Change
 
 \begin_inset Formula 
 \[
-\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)d_{0}\left(0\right)c_{0}\left(0\right)\frac{\mu}{4\pi\epsilon_{0}c}\int_{0}^{\infty}d\omega_{k}\frac{\omega_{k}}{\omega_{k}-\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2\hbar}}\left[e^{-i\omega_{k}\left(t-r/c\right)}-e^{i\omega_{k}r/c}e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2\hbar}t}\right]+c.c.
+\left|\left\langle \widehat{\vec{E}}\left(\vec{r}\right)\right\rangle \right|=\theta\left(t\right)\left|d_{0}\left(t\right)\right|c_{0}\left(0\right)\frac{\mu}{4\pi\epsilon_{0}c}\int_{0}^{\infty}d\omega_{k}\frac{\omega_{k}}{\omega_{k}-\omega_{0}+i\eta+i\frac{\Gamma_{1}}{2\hbar}}\left[e^{-i\omega_{k}\left(t-r/c\right)}-e^{i\omega_{k}r/c}e^{-i\omega_{0}t-\frac{\Gamma_{1}}{2\hbar}t}\right]+c.c.
 \]
 
 \end_inset

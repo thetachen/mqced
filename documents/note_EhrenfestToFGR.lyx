@@ -1774,6 +1774,22 @@ we end up a non-linear equation for
 
 \end_inset
 
+
+\begin_inset Formula 
+\[
+\ddot{{\cal R}}=-\omega_{0}\dot{{\cal I}}\approx-\omega_{0}^{2}{\cal R}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\dddot{{\cal R}}\approx-\omega_{0}^{2}\dot{{\cal R}}=\omega_{0}^{3}{\cal I}
+\]
+
+\end_inset
+
 we have
 \begin_inset Formula 
 \begin{equation}
