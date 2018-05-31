@@ -23,7 +23,7 @@ P0 = 0.025*np.sqrt(2.0)
 field_unit = W0*P0
 
 syncoutput = "/home/theta/sync/mqced/documents/"
-prefix = "source-1d.test_2ls_ehrenfest+."
+prefix = "source-1d.test_precompute."
 def main():
     fig, ax= plt.subplots(2,1,figsize=(xsize*cm2inch,8.0*cm2inch))
     plot_Field(ax,'data.pkl',show_legend=False)
