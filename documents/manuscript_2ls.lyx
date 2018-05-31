@@ -8,7 +8,7 @@
 \begin_preamble
 \usepackage{enumitem}
 \end_preamble
-\options preprint,aip,jcp
+\options reprint,aip,jcp
 \use_default_options false
 \maintain_unincluded_children false
 \language english
@@ -7956,7 +7956,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename source-1d.test_2ls_ehrenfest+.fig.pdf
+	filename source-1d.test_2ls_ehrenfest+EC.fig.pdf
 
 \end_inset
 
