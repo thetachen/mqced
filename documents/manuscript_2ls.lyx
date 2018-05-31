@@ -4205,12 +4205,12 @@ Our simulation is propagated using Cartesian coordinates with
 \end_inset
 
  for 1D and 
-\begin_inset Formula $dx=dy=dz=0.1$
+\begin_inset Formula $dx=dy=dz=0.3\ \text{nm}$
 \end_inset
 
  for 3D.
  The time step is 
-\begin_inset Formula $dt=0.1$
+\begin_inset Formula $dt=10^{-3}\ \text{fs}$
 \end_inset
 
 .
@@ -7928,7 +7928,7 @@ reference "fig:electric-field-energy-conserved"
  And yet, as we know from Appendix A, this solution is incorrect.
  On the other hand, if the rescaling field is out of phase (e.g.
  
-\begin_inset Formula $\phi=\pi$
+\begin_inset Formula $\phi=\frac{\pi}{2}$
 \end_inset
 
 ), this inversion of the rescaling field would lead to chaotic EM dynamics
@@ -7943,7 +7943,7 @@ reference "fig:electric-field-energy-conserved"
 
 \end_inset
 
-(b) and (c)).
+(b)).
  
 \end_layout
 
@@ -7964,17 +7964,17 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-The electric field produced for spontaneous emission in 1D as a function
- of 
+Ehrenfest+R method enforcing energy conservation for spontaneous emission
+ of a 1D system.
+ In the upper panels, we plot a snapshot of the electric field at 
+\begin_inset Formula $t=1.5\text{ fs}$
+\end_inset
+
+ as a function of 
 \begin_inset Formula $x$
 \end_inset
 
- at 
-\begin_inset Formula $t=1.1\text{ fs}$
-\end_inset
-
- by Ehrenfest+R method enforcing energy conservation.
- The phases of the rescaling field are chosen to be (a) 
+ for the phases of the rescaling field chosen to be (a) 
 \begin_inset Formula $\phi=0$
 \end_inset
 
@@ -7982,20 +7982,50 @@ The electric field produced for spontaneous emission in 1D as a function
 \begin_inset Formula $\phi=0.5\pi$
 \end_inset
 
-, and (c) 
-\begin_inset Formula $\phi=\pi$
-\end_inset
-
 .
  The initial condition is 
-\begin_inset Formula $\rho_{11}=0.9$
+\begin_inset Formula $\rho_{11}=0.5$
 \end_inset
 
 .
+ The dashed red lines are the Ehrenfest component (
+\begin_inset Formula $\mathbf{E}_{Eh}$
+\end_inset
+
+) and the solid blue lines are the rescaling field (
+\begin_inset Formula $\alpha\delta\mathbf{E}_{R}$
+\end_inset
+
+).
+ The lower panels are corresponding coefficient 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ as a function of 
+\begin_inset Formula $450-ct\ \text{nm}$
+\end_inset
+
+ determined by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:micro_energy_converse_E"
+
+\end_inset
+
+.
+ Note the electric field is inverted as 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ change sign.
  While the EM field looks physical in (a), inverting the electric field
- out of phase in (b) and (c) leads to extremely unphysical pulses of the
- EM field.
- Also note that the electric field in (c) is completely inverted to (a).
+ out of phase in (b) leads to extremely unphysical pulses of the EM field.
+ Also note that the rescaling field in (b) is completely inverted to the
+ Ehrenfest component.
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:electric-field-energy-conserved"
@@ -8088,7 +8118,7 @@ average energy conservation
 
 Now, in order to enforce energy conservation on average, imagine that we
  run 
-\begin_inset Formula $N_{\text{traj}}$
+\begin_inset Formula $N$
 \end_inset
 
  trajectories (indexed by 
@@ -8097,7 +8127,7 @@ Now, in order to enforce energy conservation on average, imagine that we
 
 ), and for each trajectory, the EM field is written as the pure Ehrenfest
  EM fields plus a sum of 
-\begin_inset Formula $N_{\text{traj}}$
+\begin_inset Formula $N$
 \end_inset
 
  rescaling fields of each retarded time steps 
@@ -8133,42 +8163,46 @@ where
 ), energy conservation must satisfy the following condition:
 \begin_inset Formula 
 \begin{eqnarray}
-\left\langle \delta U_{R}^{\ell}\right\rangle  & = & \frac{\epsilon_{0}}{2}\int\mathrm{d}v\left\langle \left\langle \mathbf{E}_{Eh}^{\ell}\left(t\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right\rangle \right\rangle ^{\prime}\nonumber \\
- &  & +\frac{\epsilon_{0}}{2}\int\mathrm{d}v\sum_{j=0}^{n-1}\left\langle \left\langle \text{\alpha_{j}^{\ell}}\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right\rangle \right\rangle ^{\prime}\nonumber \\
- &  & +\frac{\epsilon_{0}}{2}\int\mathrm{d}v\left\langle \left\langle \alpha_{n}^{\ell}\delta\mathbf{E}_{R}\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right\rangle \right\rangle ^{\prime}\nonumber \\
- &  & +\frac{1}{2\mu_{0}}\int\mathrm{d}v\left\langle \left\langle \mathbf{B}_{Eh}^{\ell}\left(t\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\rangle \right\rangle ^{\prime}\nonumber \\
- &  & +\frac{1}{2\mu_{0}}\int\mathrm{d}v\sum_{j=0}^{n-1}\left\langle \left\langle \text{\beta_{j}^{\ell}}\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\rangle \right\rangle ^{\prime}\nonumber \\
- &  & +\frac{1}{2\mu_{0}}\int\mathrm{d}v\left\langle \left\langle \beta_{n}^{\ell}\delta\mathbf{B}_{R}\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\rangle \right\rangle ^{\prime}\label{eq:average_energy_conservation}
+\left\langle \delta U_{R}^{\ell}\right\rangle  & = & \frac{1}{N_{\text{traj}}^{2}}\sum_{\ell,\ell^{\prime}}\left\{ \frac{\epsilon_{0}}{2}\int\mathrm{d}v\mathbf{E}_{Eh}^{\ell}\left(t\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right.\nonumber \\
+ &  & +\frac{\epsilon_{0}}{2}\sum_{j=0}^{n-1}\int\mathrm{d}v\text{\alpha_{j}^{\ell}}\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\nonumber \\
+ &  & +\frac{\epsilon_{0}}{2}\int\mathrm{d}v\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\nonumber \\
+ &  & +\frac{1}{2\mu_{0}}\int\mathrm{d}v\mathbf{B}_{Eh}^{\ell}\left(t\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\nonumber \\
+ &  & +\frac{1}{2\mu_{0}}\sum_{j=0}^{n-1}\int\mathrm{d}v\text{\beta_{j}^{\ell}}\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\nonumber \\
+ &  & \left.+\frac{1}{2\mu_{0}}\int\mathrm{d}v\beta_{n}^{\ell}\delta\mathbf{B}_{R}\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\} .\label{eq:average_energy_conservation}
 \end{eqnarray}
 
 \end_inset
 
-where 
-\begin_inset Formula $\left\langle \cdots\right\rangle =\frac{1}{N_{\text{traj}}}\sum_{\ell}^{N_{\text{traj}}}$
-\end_inset
-
- and 
-\begin_inset Formula $\left\langle \cdots\right\rangle ^{\prime}=\frac{1}{N_{\text{traj}}}\sum_{\ell^{\prime}}^{N_{\text{traj}}}$
-\end_inset
-
-.
- Now, let us assume that there is phase cancellation between different trajector
-ies, i.e.
+Now, let us assume that there is phase cancellation between different trajectori
+es, i.e.
  
 \begin_inset Formula 
 \[
-\left\langle \left\langle \mathbf{E}_{Eh}^{\ell}\left(t\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right\rangle \right\rangle ^{\prime}=\left\langle \left\langle \mathbf{B}_{Eh}^{\ell}\left(t\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\rangle \right\rangle ^{\prime}=0,
+\sum_{\ell,\ell^{\prime}}\mathbf{E}_{Eh}^{\ell}\left(t\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}=\sum_{\ell,\ell^{\prime}}\mathbf{B}_{Eh}^{\ell}\left(t\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}=0,
 \]
 
 \end_inset
 
 and
 \begin_inset Formula 
+\[
+\begin{split}\begin{split}\sum_{\ell,\ell^{\prime}}\text{\alpha_{j}^{\ell}} & \delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\\
+ & =2N_{\text{traj}}\sum_{\ell}\text{\alpha_{j}^{\ell}}\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\delta\mathbf{E}_{R},
+\end{split}
+\\
+\begin{split}\sum_{\ell,\ell^{\prime}}\text{\beta_{j}^{\ell}} & \delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\\
+ & =2N_{\text{traj}}\sum_{\ell}\text{\beta_{j}^{\ell}}\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\beta_{n}^{\ell}\delta\mathbf{B}_{R}.
+\end{split}
+\end{split}
+\]
+
+\end_inset
+
+Also,
+\begin_inset Formula 
 \begin{eqnarray*}
-\left\langle \left\langle \text{\alpha_{j}^{\ell}}\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right\rangle \right\rangle ^{\prime} & = & 2\left\langle \text{\alpha_{j}^{\ell}}\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\right\rangle ,\\
-\left\langle \left\langle \text{\beta_{j}^{\ell}}\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\rangle \right\rangle ^{\prime} & = & 2\left\langle \text{\beta_{j}^{\ell}}\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right\rangle ,\\
-\left\langle \left\langle \alpha_{n}^{\ell}\delta\mathbf{E}_{R}\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R}\right\rangle \right\rangle ^{\prime} & = & \left\langle \left|\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\right|^{2}\right\rangle ,\\
-\left\langle \left\langle \beta_{n}^{\ell}\delta\mathbf{B}_{R}\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R}\right\rangle \right\rangle ^{\prime} & = & \left\langle \left|\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right|^{2}\right\rangle .
+\sum_{\ell,\ell^{\prime}}\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\cdot\alpha_{n}^{\ell^{\prime}}\delta\mathbf{E}_{R} & = & N_{\text{traj}}\sum_{\ell}\left|\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\right|^{2},\\
+\sum_{\ell,\ell^{\prime}}\beta_{n}^{\ell}\delta\mathbf{B}_{R}\cdot\beta_{n}^{\ell^{\prime}}\delta\mathbf{B}_{R} & = & N_{\text{traj}}\sum_{\ell}\left|\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right|^{2}.
 \end{eqnarray*}
 
 \end_inset
@@ -8198,7 +8232,148 @@ reference "eq:average_energy_conservation"
 
 \end_layout
 
+\begin_layout Subsection
+Overlaps with previous rescaling field cause self-interference
+\end_layout
+
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename source-1d.test_precompute.fig.pdf
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Time evolution of rescaling fields (
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ in the upper panel and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+ in the lower panel) as a function of 
+\begin_inset Formula $x$
+\end_inset
+
+ for a 1D system.
+ The polarization distribution is given by Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:P_1D"
+
+\end_inset
+
+ and the spatial distribution of rescaling fields are Eqs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dE_1D"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:dB_1D"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ (plotted in the dashed lines).
+ The rescaling fields propagate outward from the origin with time step 
+\begin_inset Formula $dt=10^{-3}\ \text{fs}$
+\end_inset
+
+.
+ Here we show 
+\begin_inset Formula $\delta\mathbf{E}_{R}\left(jdt\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}\left(jdt\right)$
+\end_inset
+
+ for 
+\begin_inset Formula $j=5,10,\cdots,40$
+\end_inset
+
+.
+ According to Eqs.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:self-inter-length-Et"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:self-inter-length-Bt"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, self interference lengths can be calculated by a summation of the overlaps
+ 
+\begin_inset Formula $\delta\mathbf{E}_{R}\left(jdt\right)\cdot\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}\left(jdt\right)\cdot\delta\mathbf{B}_{R}$
+\end_inset
+
+, which strongly depends on the geometry of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+.
+ Note that the overlaps become almost zero at 
+\begin_inset Formula $t=40dt=0.04\ \text{fs}$
+\end_inset
+
+.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:self-interference"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 Although the cross term between the pure Ehrenfest field and the rescaling
  fields will be eliminated by phase cancellation, the rescaling fields of
  current time step (
@@ -8210,7 +8385,49 @@ Although the cross term between the pure Ehrenfest field and the rescaling
 \end_inset
 
 ) will not vanish the cross terms on average.
- From Eq.
+ For instance, in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:self-interference"
+
+\end_inset
+
+ we plot the time evolution of 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta\mathbf{B}_{R}$
+\end_inset
+
+for a 1D system.
+ Given the polarization distribution is small in space and propagating freely
+ at speed of light, the relevant cross term is the overlaps 
+\begin_inset Formula $\int\mathrm{d}v\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\delta\mathbf{E}_{R}$
+\end_inset
+
+ and 
+\begin_inset Formula $\int\mathrm{d}v\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\delta\mathbf{B}_{R}$
+\end_inset
+
+ for small 
+\begin_inset Formula $t-jdt$
+\end_inset
+
+.
+ At this point, we presume that 
+\begin_inset Formula $\alpha_{j}^{\ell}\approx\alpha_{n}^{\ell}$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta_{j}^{\ell}\approx\beta_{n}^{\ell}$
+\end_inset
+
+ does not change much for a short, local time period and simplify Eq.
 \begin_inset space ~
 \end_inset
 
@@ -8224,35 +8441,7 @@ noprefix "false"
 
 \end_inset
 
-, we note that the relevant cross term is the overlap 
-\begin_inset Formula $\int\mathrm{d}v\delta\mathbf{E}_{R}\left(t-jdt\right)\cdot\delta\mathbf{E}_{R}$
-\end_inset
-
- and 
-\begin_inset Formula $\int\mathrm{d}v\delta\mathbf{B}_{R}\left(t-jdt\right)\cdot\delta\mathbf{B}_{R}$
-\end_inset
-
-.
- At this point, we presume that 
-\begin_inset Formula $\alpha_{j}^{\ell}\approx\alpha_{n}^{\ell}$
-\end_inset
-
- and 
-\begin_inset Formula $\beta_{j}^{\ell}\approx\beta_{n}^{\ell}$
-\end_inset
-
- does not change much for a short time and Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:average_energy_conservation"
-
-\end_inset
-
- can be simplified as 
+ as 
 \begin_inset Note Note
 status open
 
@@ -8274,17 +8463,17 @@ status open
 \begin_inset Formula 
 \begin{eqnarray}
 \delta U_{R}^{\ell} & = & \frac{\Lambda_{E}\left(t\right)}{cdt}\frac{\epsilon_{0}}{2}\int\mathrm{d}v\left|\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\right|^{2}\nonumber \\
- &  & +\frac{\Lambda_{B}\left(t\right)}{cdt}\frac{1}{2\mu_{0}}\int\mathrm{d}v\left|\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right|^{2}\label{eq:average_energy_conservation_canceled}
+ &  & +\frac{\Lambda_{B}\left(t\right)}{cdt}\frac{1}{2\mu_{0}}\int\mathrm{d}v\left|\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right|^{2}.\label{eq:average_energy_conservation_canceled}
 \end{eqnarray}
 
 \end_inset
 
-where we define the self-interference length 
-\begin_inset Formula $\Lambda_{E}$
+Here we define the self-interference lengths 
+\begin_inset Formula $\Lambda_{E}\left(t\right)$
 \end_inset
 
  and 
-\begin_inset Formula $\Lambda_{B}$
+\begin_inset Formula $\Lambda_{B}\left(t\right)$
 \end_inset
 
  corresponding to 
@@ -8304,16 +8493,40 @@ where we define the self-interference length
 
 \end_inset
 
-These quantities must mimic the spatial size of 
-\begin_inset Formula $\delta\mathbf{E}_{R}=\boldsymbol{\nabla}\times\boldsymbol{\nabla}\times\mathbf{P}$
+As shown in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:self-interference"
+
+\end_inset
+
+, these quantities are an estimation of the total overlap of current rescaling
+ field (at time 
+\begin_inset Formula $t$
+\end_inset
+
+) with previous rescaling fields (at time 
+\begin_inset Formula $t-jdt$
+\end_inset
+
+) and must depend on the spatial size of 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
 \end_inset
 
  and 
-\begin_inset Formula $\delta\mathbf{B}_{R}=\boldsymbol{\nabla}\times\mathbf{P}$
+\begin_inset Formula $\delta\mathbf{B}_{R}$
 \end_inset
 
- and will reach a constant in a short time.
- In practice, we can use 
+.
+ We find that the self-interference lengths will reach a constant in a short
+ time.
+ In other words, the rescaling field overlap only with a short history of
+ itself.
+ Therefore, in practice, we can approximate 
 \begin_inset Formula $\Lambda_{E}\left(t\right)\rightarrow\Lambda_{E}$
 \end_inset
 
@@ -8326,20 +8539,20 @@ These quantities must mimic the spatial size of
 \end_layout
 
 \begin_layout Standard
-Now we impose the assumption that the 
-\begin_inset Formula $E$
+Finally we are now impose the assumption that the 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
 \end_inset
 
  and 
-\begin_inset Formula $B$
+\begin_inset Formula $\delta\mathbf{B}_{R}$
 \end_inset
 
  rescaling field carry equal energy density (i.e.
  
-\begin_inset Formula $\frac{\epsilon_{0}}{2}\int\mathrm{d}v\left\langle \left|\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\right|^{2}\right\rangle =\frac{1}{2\mu_{0}}\int\mathrm{d}v\left\langle \left|\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right|^{2}\right\rangle $
+\begin_inset Formula $\frac{\epsilon_{0}}{2}\int\mathrm{d}v\left|\alpha_{n}^{\ell}\delta\mathbf{E}_{R}\right|^{2}=\frac{1}{2\mu_{0}}\int\mathrm{d}v\left|\beta_{n}^{\ell}\delta\mathbf{B}_{R}\right|^{2}$
 \end_inset
 
-), so that energy conservation Eq.
+), so that energy conservation (Eq.
 \begin_inset space ~
 \end_inset
 
@@ -8350,7 +8563,7 @@ reference "eq:average_energy_conservation_canceled"
 
 \end_inset
 
- can further simplify:
+) can be further simplified:
 \begin_inset Note Note
 status open
 
@@ -8382,27 +8595,7 @@ where the average self-interference length is
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-expression for 
-\begin_inset Formula $\alpha$
-\end_inset
-
- and 
-\begin_inset Formula $\beta$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-Finally, 
+ Thus, 
 \begin_inset Formula $\alpha_{n}^{\ell}$
 \end_inset
 
@@ -8426,7 +8619,7 @@ status open
 
 \begin_inset Formula 
 \begin{equation}
-\text{\alpha_{n}^{\ell}}=\sqrt{\frac{cdt}{\Lambda}\frac{\delta U_{R}^{\ell}}{\epsilon_{0}\int\mathrm{d}v\left|\delta\mathbf{E}_{R}\right|^{2}}}\times\text{sgn}\left(\text{Im}\left[\rho_{01}e^{i\phi^{\ell}}\right]\right)\label{eq:alpha_ell-1}
+\text{\alpha_{n}^{\ell}}=\sqrt{\frac{cdt}{\Lambda}\frac{\delta U_{R}^{\ell}}{\epsilon_{0}\int\mathrm{d}v\left|\delta\mathbf{E}_{R}\right|^{2}}}\times\text{sgn}\left(\text{Im}\left[\rho_{01}e^{i\phi^{\ell}}\right]\right),\label{eq:alpha_ell-1}
 \end{equation}
 
 \end_inset
@@ -8434,12 +8627,12 @@ status open
 
 \begin_inset Formula 
 \begin{equation}
-\text{\beta_{n}^{\ell}}=\sqrt{\frac{cdt}{\Lambda}\frac{\mu_{0}\delta U_{R}^{\ell}}{\int\mathrm{d}v\left|\delta\mathbf{B}_{R}\right|^{2}}}\times\text{sgn}\left(\text{Im}\left[\rho_{01}e^{i\phi^{\ell}}\right]\right)\label{eq:beta_ell-1}
+\text{\beta_{n}^{\ell}}=\sqrt{\frac{cdt}{\Lambda}\frac{\mu_{0}\delta U_{R}^{\ell}}{\int\mathrm{d}v\left|\delta\mathbf{B}_{R}\right|^{2}}}\times\text{sgn}\left(\text{Im}\left[\rho_{01}e^{i\phi^{\ell}}\right]\right).\label{eq:beta_ell-1}
 \end{equation}
 
 \end_inset
 
-where the sign is chosen according to the +R relaxation rate 
+Here the sign is chosen according to the +R relaxation rate 
 \begin_inset Formula $k_{R}$
 \end_inset
 
@@ -8454,18 +8647,13 @@ reference "eq:k_R"
 
 \end_inset
 
-.
- Here, the choice ensure phase cancellation between different trajectories
- (i.e.
+, and this choice of random phase ensures phase cancellation between different
+ trajectories (i.e.
  
-\begin_inset Formula $\left\langle \alpha_{n}^{\ell}\right\rangle =\left\langle \beta_{n}^{\ell}\right\rangle =0$
+\begin_inset Formula $\sum_{\ell\neq\ell^{\prime}}\alpha_{n}^{\ell}\alpha_{n}^{\ell^{\prime}}=\sum_{\ell\neq\ell^{\prime}}\beta_{n}^{\ell}\beta_{n}^{\ell^{\prime}}=0$
 \end_inset
 
-) due to the random phase 
-\begin_inset Formula $\phi^{\ell}$
-\end_inset
-
-.
+).
  
 \begin_inset Note Note
 status open
@@ -8476,14 +8664,12 @@ des and cons interference
 
 \end_inset
 
-Note that Ehrenfest+R trajectories has a random phase shift from the Ehrenfest
- EM field which oscillating together with 
-\begin_inset Formula $\mathrm{Im}\left[\rho_{01}\right]$
+This random phase shift can lead to destructive or constructive interference
+ between 
+\begin_inset Formula $\delta\mathbf{E}_{R}$
 \end_inset
 
-.
- Therefore, the rescaling field leads to destructive or constructive interferenc
-e to 
+ and 
 \begin_inset Formula $\mathbf{E}_{Eh}$
 \end_inset
 
@@ -8492,67 +8678,31 @@ e to
 \end_inset
 
 .
+ We have now justified Eqs.
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:alpha_ell-sic"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:beta_ell-sic"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) in the main body of the text.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename source-1d.test_precompute.fig.pdf
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-The electric field produced for spontaneous emission in 1D as a function
- of 
-\begin_inset Formula $x$
-\end_inset
-
- at 
-\begin_inset Formula $t=1.1\text{ fs}$
-\end_inset
-
- by Ehrenfest+R method enforcing energy conservation.
- The phases of the rescaling field are chosen to be (a) 
-\begin_inset Formula $\phi=0$
-\end_inset
-
-, (b) 
-\begin_inset Formula $\phi=0.5\pi$
-\end_inset
-
-, and (c) 
-\begin_inset Formula $\phi=\pi$
-\end_inset
-
-.
- The initial condition is 
-\begin_inset Formula $\rho_{11}=0.9$
-\end_inset
-
-.
- While the EM field looks physical in (a), inverting the electric field
- out of phase in (b) and (c) leads to extremely unphysical pulses of the
- EM field.
- Also note that the electric field in (c) is completely inverted to (a).
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \begin_inset Note Note
 status open
 
