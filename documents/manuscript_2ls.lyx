@@ -8492,6 +8492,67 @@ e to
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename source-1d.test_precompute.fig.pdf
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The electric field produced for spontaneous emission in 1D as a function
+ of 
+\begin_inset Formula $x$
+\end_inset
+
+ at 
+\begin_inset Formula $t=1.1\text{ fs}$
+\end_inset
+
+ by Ehrenfest+R method enforcing energy conservation.
+ The phases of the rescaling field are chosen to be (a) 
+\begin_inset Formula $\phi=0$
+\end_inset
+
+, (b) 
+\begin_inset Formula $\phi=0.5\pi$
+\end_inset
+
+, and (c) 
+\begin_inset Formula $\phi=\pi$
+\end_inset
+
+.
+ The initial condition is 
+\begin_inset Formula $\rho_{11}=0.9$
+\end_inset
+
+.
+ While the EM field looks physical in (a), inverting the electric field
+ out of phase in (b) and (c) leads to extremely unphysical pulses of the
+ EM field.
+ Also note that the electric field in (c) is completely inverted to (a).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \begin_inset Note Note
 status open
 
