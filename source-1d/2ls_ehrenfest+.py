@@ -130,6 +130,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     EMP.update_TETB(TEx,TEy,TBx,TBy)
     EMP.applyAbsorptionBoundaryCondition()
 
+    #normalized
+    TEx = TEx/np.sqrt(EMP.TE2)
+    TBy = TBy/np.sqrt(EMP.TB2)
+    EMP.update_TETB(TEx,TEy,TBx,TBy)
+
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
