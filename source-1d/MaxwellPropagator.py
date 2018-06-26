@@ -7,7 +7,7 @@ AU = AtomicUnit()
 
 class MaxwellPropagator_1D(object):
     """
-    EM field propagator for 1D grid
+    EM field propagator using Ehrenfest+REB in 1-D grid (z)
     """
     def __init__(self, param):
         self.param = param
@@ -26,9 +26,43 @@ class MaxwellPropagator_1D(object):
         # a long vector [Ex,Ey,Bx,By]
         self.EB = np.zeros(4*self.NZgrid)
 
-        # vector potential
-        self.Ax = np.zeros(self.NZgrid)
-        self.Ay = np.zeros(self.NZgrid)
+        # unit constats:
+        self.unit = AU
+
+        # total alpha and beta
+        self.ALPHA = 0.0
+        self.BETA = 0.0
+
+        # default velocity is c
+        self.velocity = np.ones(self.NZgrid)*self.unit.C
+
+    def setAbsorptionBoundaryCondition(self,Z0,Z1):
+        # absoprtion boundary condition
+        self.ABC = np.zeros(self.NZgrid)
+
+        for iz in range(self.NZgrid):
+            Z = np.abs(self.Zgrid[iz])
+            S = 1*(Z<Z0) + \
+                (Z<=Z1 and Z>=Z0)/(1.0+np.exp(-(Z0-Z1)/(Z0-Z)-(Z1-Z0)/(Z-Z1))) + \
+                0*(Z>Z1)
+            self.ABC[iz] = S
+        #for i in range(i_min+1):
+            #print self.S[i],self.S[-1-i]
+        #print self.S[:i_min+1]
+        #print self.S[i_max:]
+        #print self.S[i_min-1],self.S[i_min]
+        #print self.S[i_max],self.S[i_max+1]
+
+    def setCavityBoundaryCondition(self,Zb0,Zb1,refract):
+        # velocity distribution
+        self.velocity = np.ones(self.NZgrid)*self.unit.C
+        R = 1.0/refract
+        for iz in range(self.NZgrid):
+            Z = np.abs(self.Zgrid[iz])
+            S = 1*(Z<Zb0) + \
+                (Z<=Zb1 and Z>=Zb0)/(1.0+np.exp(-(Zb0-Zb1)/(Zb0-Z)-(Zb1-Zb0)/(Z-Zb1))) + \
+                0*(Z>Zb1)
+            self.velocity[iz] *= S*(1.0-R)+R
 
     def initializeODEsolver(self,EB,T0):
         # EM ode solver
@@ -38,21 +72,24 @@ class MaxwellPropagator_1D(object):
         self.EB = self.solver.y
 
     def f(self,t,vec):
+        """
+        dvdt function with variable media velocity
+        """
         dvdt = np.zeros(4*self.NZgrid)
-        dvdt[self._Ex+1:self._Ex+self.NZgrid-1] = -( vec[self._By+2:self._By+self.NZgrid] - vec[self._By:self._By+self.NZgrid-2] )/self.dZ/2 * self.unit.C**2 \
+        dvdt[self._Ex+1:self._Ex+self.NZgrid-1] = -( vec[self._By+2:self._By+self.NZgrid] - vec[self._By:self._By+self.NZgrid-2] )/self.dZ/2 * self.velocity[1:self.NZgrid-1]**2 \
                                                   - self.Jx[1:self.NZgrid-1]/self.unit.E0
-        dvdt[self._Ey+1:self._Ey+self.NZgrid-1] =  ( vec[self._Bx+2:self._Bx+self.NZgrid] - vec[self._Bx:self._Bx+self.NZgrid-2] )/self.dZ/2 * self.unit.C**2 \
+        dvdt[self._Ey+1:self._Ey+self.NZgrid-1] =  ( vec[self._Bx+2:self._Bx+self.NZgrid] - vec[self._Bx:self._Bx+self.NZgrid-2] )/self.dZ/2 * self.velocity[1:self.NZgrid-1]**2 \
                                                   - self.Jy[1:self.NZgrid-1]/self.unit.E0
         dvdt[self._Bx+1:self._Bx+self.NZgrid-1] =  ( vec[self._Ey+2:self._Ey+self.NZgrid] - vec[self._Ey:self._Ey+self.NZgrid-2] )/self.dZ/2
         dvdt[self._By+1:self._By+self.NZgrid-1] = -( vec[self._Ex+2:self._Ex+self.NZgrid] - vec[self._Ex:self._Ex+self.NZgrid-2] )/self.dZ/2
 
-        dvdt[self._Ex] = -( vec[self._By+1] - vec[self._By+0] )/self.dZ * self.unit.C**2  - self.Jx[0]/self.unit.E0
-        dvdt[self._Ey] =  ( vec[self._Bx+1] - vec[self._Bx+0] )/self.dZ * self.unit.C**2  - self.Jx[0]/self.unit.E0
+        dvdt[self._Ex] = -( vec[self._By+1] - vec[self._By+0] )/self.dZ * self.velocity[0]**2  - self.Jx[0]/self.unit.E0
+        dvdt[self._Ey] =  ( vec[self._Bx+1] - vec[self._Bx+0] )/self.dZ * self.velocity[0]**2  - self.Jy[0]/self.unit.E0
         dvdt[self._Bx] =  ( vec[self._Ey+1] - vec[self._Ey+0] )/self.dZ
         dvdt[self._By] = -( vec[self._Ex+1] - vec[self._Ex+0] )/self.dZ
 
-        dvdt[self._Ex+self.NZgrid-1] = -( vec[self._By+self.NZgrid-1] - vec[self._By+self.NZgrid-2] )/self.dZ * self.unit.C**2 - self.Jx[self.NZgrid-1]/self.unit.E0
-        dvdt[self._Ey+self.NZgrid-1] =  ( vec[self._Bx+self.NZgrid-1] - vec[self._Bx+self.NZgrid-2] )/self.dZ * self.unit.C**2 - self.Jy[self.NZgrid-1]/self.unit.E0
+        dvdt[self._Ex+self.NZgrid-1] = -( vec[self._By+self.NZgrid-1] - vec[self._By+self.NZgrid-2] )/self.dZ * self.velocity[-1]**2 - self.Jx[self.NZgrid-1]/self.unit.E0
+        dvdt[self._Ey+self.NZgrid-1] =  ( vec[self._Bx+self.NZgrid-1] - vec[self._Bx+self.NZgrid-2] )/self.dZ * self.velocity[-1]**2 - self.Jy[self.NZgrid-1]/self.unit.E0
         dvdt[self._Bx+self.NZgrid-1] =  ( vec[self._Ey+self.NZgrid-1] - vec[self._Ey+self.NZgrid-2] )/self.dZ
         dvdt[self._By+self.NZgrid-1] = -( vec[self._Ex+self.NZgrid-1] - vec[self._Ex+self.NZgrid-2] )/self.dZ
 
@@ -62,21 +99,29 @@ class MaxwellPropagator_1D(object):
         self.Jx = Jx
         self.Jy = Jy
 
-    def update_AxAy(self,dt):
-        self.Ax = self.Ax - dt*np.array(self.EB[self._Ex:self._Ex+self.NZgrid])
-        self.Ay = self.Ay - dt*np.array(self.EB[self._Ey:self._Ey+self.NZgrid])
-
-        # Just for checking if B = curl A
-        self.dAxdZ = np.zeros(self.NZgrid)
-        self.dAydZ = np.zeros(self.NZgrid)
-        for n in range(1,self.NZgrid-1):
-            self.dAxdZ[n] = (self.Ax[n+1]-self.Ax[n-1])/self.dZ/2
-            self.dAydZ[n] = (self.Ay[n+1]-self.Ay[n-1])/self.dZ/2
-        self.dAxdZ[0] = (self.Ax[1]-self.Ax[0])/self.dZ
-        self.dAydZ[0] = (self.Ay[1]-self.Ay[0])/self.dZ
-        self.dAxdZ[self.NZgrid-1] = (self.Ax[self.NZgrid-1]-self.Ax[self.NZgrid-2])/self.dZ
-        self.dAydZ[self.NZgrid-1] = (self.Ay[self.NZgrid-1]-self.Ay[self.NZgrid-2])/self.dZ
-
+    def propagate_free(self,dt):
+        fEx = interp1d(self.Zgrid, self.EB[self._Ex:self._Ex + self.NZgrid])
+        fEy = interp1d(self.Zgrid, self.EB[self._Ey:self._Ey + self.NZgrid])
+        fBx = interp1d(self.Zgrid, self.EB[self._Bx:self._Bx + self.NZgrid])
+        fBy = interp1d(self.Zgrid, self.EB[self._By:self._By + self.NZgrid])
+        fAx = interp1d(self.Zgrid, self.Ax)
+        fAy = interp1d(self.Zgrid, self.Ay)
+        for iz in range(self.NZgrid):
+            Z = self.Zgrid[iz] - AU.C*dt
+            if Z < max(self.Zgrid) and Z>min(self.Zgrid):
+                self.EB[self._Ex + iz] = fEx(Z)
+                self.EB[self._Ey + iz] = fEy(Z)
+                self.EB[self._Bx + iz] = fBx(Z)
+                self.EB[self._By + iz] = fBy(Z)
+                self.Ax[iz] = fAx(Z)
+                self.Ay[iz] = fAy(Z)
+            else:
+                self.EB[self._Ex + iz] = 0.0
+                self.EB[self._Ey + iz] = 0.0
+                self.EB[self._Bx + iz] = 0.0
+                self.EB[self._By + iz] = 0.0
+                self.Ax[iz] = 0.0
+                self.Ay[iz] = 0.0
 
     def propagate(self,dt):
         self.solver.integrate(self.solver.t+dt)
@@ -89,19 +134,126 @@ class MaxwellPropagator_1D(object):
                  + 0.5/AU.M0*( self.EB[self._Bx + n]**2 + self.EB[self._By + n]**2 )
         return U
 
-    def applyAbsorptionBoundaryCondition(self):
+    def getPartialEnergy(self,Zmin=0.0,Zmax=0.0):
+        U = 0.0
         for iz in range(self.NZgrid):
             Z = np.abs(self.Zgrid[iz])
-            S = 1*(Z<self.param.Z0) + \
-                (Z<=self.param.Z1 and Z>=self.param.Z0)/(1.0+np.exp(-(self.param.Z0-self.param.Z1)/(self.param.Z0-Z)-(self.param.Z1-self.param.Z0)/(Z-self.param.Z1))) + \
-                0*(Z>self.param.Z1)
+            if Z>Zmin and Z<Zmax:
+                U += 0.5*AU.E0*( self.EB[self._Ex + iz]**2 + self.EB[self._Ey + iz]**2 ) \
+                   + 0.5/AU.M0*( self.EB[self._Bx + iz]**2 + self.EB[self._By + iz]**2 )
+        return U*self.dZ
 
-            self.EB[self._Ex+iz] = self.EB[self._Ex+iz]*S
-            self.EB[self._Ey+iz] = self.EB[self._Ey+iz]*S
-            self.EB[self._Bx+iz] = self.EB[self._Bx+iz]*S
-            self.EB[self._By+iz] = self.EB[self._By+iz]*S
-            self.Ax[iz] = self.Ax[iz]*S
-            self.Ay[iz] = self.Ay[iz]*S
+    def getTotalEnergy(self,dt):
+        i_min,i_max = np.argmin(np.abs(self.Zgrid+self.param.Z0)),np.argmin(np.abs(self.Zgrid-self.param.Z0))
+        U =( np.sum(np.array(self.Es)**2)+np.sum(np.array(self.Bs)**2) )*dt/2 *2 #*2 is because we only save one side
+        for iz in range(i_min,i_max+1):
+            U += (self.EB[self._Ex+iz]**2 + self.EB[self._By+iz]**2)*self.dZ/2
+        return U
+
+    def applyAbsorptionBoundaryCondition(self):
+        i_min = np.argmin(np.abs(self.Zgrid+self.param.Z0))
+        for iz in range(i_min+1):
+            S = self.ABC[iz]
+            self.EB[self._Ex+iz] *= S
+            self.EB[self._Ey+iz] *= S #self.EB[self._Ey+iz]*self.S[iz]
+            self.EB[self._Bx+iz] *= S #self.EB[self._Bx+iz]*self.S[iz]
+            self.EB[self._By+iz] *= S #self.EB[self._By+iz]*self.S[iz]
+
+            self.EB[self._Ex+self.NZgrid-1-iz] *= S #= self.EB[self._Ex+self.NZgrid-1-iz]*self.S[-1-iz]
+            self.EB[self._Ey+self.NZgrid-1-iz] *= S #= self.EB[self._Ey+self.NZgrid-1-iz]*self.S[-1-iz]
+            self.EB[self._Bx+self.NZgrid-1-iz] *= S #= self.EB[self._Bx+self.NZgrid-1-iz]*self.S[-1-iz]
+            self.EB[self._By+self.NZgrid-1-iz] *= S #= self.EB[self._By+self.NZgrid-1-iz]*self.S[-1-iz]
+            #print self.S[i],self.S[-1-i]
+
+    def saveFarField(self,time,Tmax,Z_save):
+        """
+        assume EM field propagate freely after after Z_save
+        """
+        i_save = np.argmin(np.abs(self.Zgrid-Z_save))
+
+        Ex_save = self.EB[self._Ex+i_save]
+        Ey_save = self.EB[self._Ey+i_save]
+        Bx_save = self.EB[self._Bx+i_save]
+        By_save = self.EB[self._By+i_save]
+        Z_save = Z_save + self.unit.C*(Tmax-time)
+
+        return Z_save,Ex_save,Ey_save,Bx_save,By_save
+
+    def update_TETB(self,TEx,TEy,TBx,TBy):
+		self.TEx = TEx
+		self.TEy = TEy
+		self.TBx = TBx
+		self.TBy = TBy
+		self.TE2 = self.dZ*(np.dot(TEx, TEx) + np.dot(TEy, TEy))
+		self.TB2 = self.dZ*(np.dot(TBx, TBx) + np.dot(TBy, TBy))
+
+    def MakeTransition_sign(self,deltaE,sign,UseRandomEB=True,UseEnergyConserve=False):
+        if UseRandomEB:
+            dU_E = np.random.rand()*deltaE
+            dU_B = deltaE - dU_E
+        else:
+            dU_E = 0.5 * deltaE
+            dU_B = 0.5 * deltaE
+
+        if UseEnergyConserve:
+            # calculate int(E*TE) and int(B*TB)
+            intETE = self.dZ*np.dot(self.TEx, np.array(self.EB[self._Ex:self._Ex+self.NZgrid])) \
+    	           + self.dZ*np.dot(self.TEy, np.array(self.EB[self._Ey:self._Ey+self.NZgrid]))
+            intBTB = self.dZ*np.dot(self.TBx, np.array(self.EB[self._Bx:self._Bx+self.NZgrid])) \
+            	   + self.dZ*np.dot(self.TBy, np.array(self.EB[self._By:self._By+self.NZgrid]))
+
+        def choose_small(list):
+            if np.abs(list[0]) <np.abs(list[1]):
+            # if np.abs(alphas[0]+self.ALPHA) <np.abs(alphas[1]+self.ALPHA):
+            # if alphas[0] < 0.0:
+            # if np.abs(alphas[0]) <np.abs(alphas[1]):
+                return list[0]
+            else:
+                return list[1]
+        def choose_sign(list,sign):
+            new_list = filter(lambda x: x*sign >0, list)
+            if len(new_list)==1:
+                return new_list[0]
+            else:
+                print "something wrong"
+                exit()
+        # if intETE==0.0 or sign==0.0:
+        if sign==0.0:
+            # alpha = choose_sign([1, -1],sign)
+            alpha = np.random.choice([1, -1])* np.sqrt(2*dU_E/self.TE2)
+            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx[:]
+        else:
+            if UseEnergyConserve:
+                # maintain energy conservation
+                alphas = [(-intETE - np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2, \
+                     	  (-intETE + np.sqrt(intETE**2+2*self.TE2*dU_E) )/self.TE2]
+                alpha = choose_sign(alphas,sign)
+                # if np.abs(alpha)>1E-3: alpha = choose_sign(alphas,-sign)
+            else:
+                # drop the cross term, i.e. dump the energy into a separated EM field
+                alphas = [np.sqrt(2*dU_E/self.TE2),-np.sqrt(2*dU_E/self.TE2)]
+                alpha = choose_sign(alphas,sign)
+            self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha* self.TEx[:]
+            # print 'alpha=',alpha, alphas
+        # if intBTB==0.0 or sign==0.0:
+        if sign==0.0:
+            # beta = choose_sign([1, -1],sign)
+            beta = np.random.choice([1, -1])* np.sqrt(2*dU_B/self.TB2)
+            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBy[:]
+        else:
+            if UseEnergyConserve:
+                # maintain energy conservation
+                betas = [(-intBTB - np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2, \
+                         (-intBTB + np.sqrt(intBTB**2+2*self.TB2*dU_B) )/self.TB2]
+                beta = choose_sign(betas,sign)
+                # if np.abs(beta)>1E-3: beta = choose_sign(betas,-sign)
+            else:
+                # drop the cross term, i.e. dump the energy into a separated EM field
+                betas = [np.sqrt(2*dU_B/self.TB2),-np.sqrt(2*dU_B/self.TB2)]
+                beta = choose_sign(betas,sign)
+            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] + beta* self.TBy[:]
+            # print 'beta=',beta, betas
+        return alpha,beta
 
 class SurfaceHoppingMaxwellPropagator_1D(object):
     """
