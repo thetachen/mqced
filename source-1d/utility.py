@@ -25,7 +25,7 @@ def exp_fit(x,Fx,C0):
 def step(x):
     return (np.sign(x)+1)*0.5
 
-def moving_average(a, n=500):
+def moving_average(a, n=1200):
     ret = np.cumsum(a, dtype=float)
     ret[n:] = ret[n:] - ret[:-n]
     return ret[n - 1:] / n

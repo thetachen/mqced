@@ -94,19 +94,15 @@ class PureStatePropagator(object):
 
     def rescale_kRdt(self,ii,jj,kRdt):
         """
-        rescale the state vector from ii to jj by drho
+        rescale the state vector from ii to jj by exp(-kRdt)
         """
         if self.C[ii,0] == 0.0:
             pass
         elif self.C[jj,0] == 0.0:
-            self.C[jj,0] = np.sqrt(drho)
-			#TODO: there should be a random phase here!!!
-            self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0])*np.sqrt(np.abs(self.C[ii,0])**2-drho)
+            self.C[jj,0] = np.sqrt(1.0-np.exp(-kRdt))
+            self.C[ii,0] = self.C[ii,0]*np.exp(-kRdt/2)
             self.C[ii,0] *= np.exp(1j*2*np.pi*random())
-			#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
-			#TLSP.C[0,0] = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
         else:
-            kRdt = drho/np.abs(self.C[ii,0])**2
             self.C[jj,0] = self.C[jj,0]*np.sqrt(1.0+(np.abs(self.C[ii,0])**2/np.abs(self.C[jj,0])**2)*(1.0-np.exp(-kRdt)))
             self.C[ii,0] = self.C[ii,0]*np.exp(-kRdt/2)
         self.getrho()
