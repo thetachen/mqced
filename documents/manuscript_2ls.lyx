@@ -8,7 +8,7 @@
 \begin_preamble
 \usepackage{enumitem}
 \end_preamble
-\options reprint,aip,jcp,onecolumn
+\options reprint,aip,jcp
 \use_default_options false
 \maintain_unincluded_children false
 \language english
@@ -82,7 +82,7 @@
 \begin_body
 
 \begin_layout Title
-Ehrenfest+R Dynamics: A Mixed Quantum-Classical Electrodynamics Simulation
+Ehrenfest+R Dynamics I: A Mixed Quantum-Classical Electrodynamics Simulation
  of Spontaneous Emission
 \end_layout
 
@@ -91,6 +91,7 @@ Hsing-Ta Chen
 \end_layout
 
 \begin_layout Author Email
+
 hsingc@sas.upenn.edu
 \end_layout
 
@@ -267,8 +268,8 @@ status open
 \end_inset
 
 As another example, for systems composed of many quantum emitters, collective
- effects from light–matter interactions lead to very different phenomena
- from linear response theory, such as coupled exciton–plasma optics
+ effects from light–matter interactions lead to phenomena incompatible with
+ linear response theory, such as coupled exciton–plasma optics
 \begin_inset CommandInset citation
 LatexCommand citep
 key "torma_strong_2015,puthumpally-joseph_dipole-induced_2014,puthumpally-joseph_theoretical_2015,sukharev_optics_2017,vasa_strong_2018"
@@ -372,7 +373,7 @@ literal "true"
  symmetrical quantum-classical dynamics,
 \begin_inset CommandInset citation
 LatexCommand citep
-key "miller_classical/semiclassical_1978,li_mixed_2018"
+key "miller_classical/semiclassical_1978,li_mixed_2018,provazza_communication:_2018"
 literal "true"
 
 \end_inset
@@ -683,7 +684,7 @@ PZW Hamiltonian
 
 Before studying spontaneous emission in detail, one must choose a Hamiltonian
  and a gauge for QED calculations.
- We will work with the Power-Zienau-Woolley Hamiltonian
+ We will work with the Power-Zienau-Woolley (PZW) Hamiltonian
 \begin_inset CommandInset citation
 LatexCommand cite
 key "power_coulomb_1959,atkins_interaction_1970,cohen-tannoudji_photons_1997"
@@ -699,26 +700,43 @@ literal "true"
 \begin_inset Formula $\mathbf{A}=\mathbf{A}_{\perp}$
 \end_inset
 
-) because we believe the method naturally offers a semiclassical interpretation:
+) because we believe this combination naturally offers a semiclassical interpret
+ation.
+\begin_inset CommandInset citation
+LatexCommand citep
+key "cohen-tannoudji_photons_1997"
+literal "false"
+
+\end_inset
+
+ Here, the total Hamiltonian is:
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}_{\text{PZW}}=\widehat{H}_{s}+\widehat{H}_{R}+\widehat{H}_{\text{int}},\label{eq:Power-Zienau-Woolley}
+\widehat{H}_{\text{PZW}}=\widehat{H}_{P}+\widehat{H}_{R}+\widehat{H}_{I},\label{eq:Power-Zienau-Woolley}
 \end{equation}
 
 \end_inset
 
-where
+where the particle Hamiltonian is 
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}_{R}=\int\mathrm{d}v\left\{ \frac{1}{2\epsilon_{0}}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\left(\mathbf{\nabla}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)\right)^{2}\right\} ,
+\widehat{H}_{P}=\widehat{H}_{s}+\frac{1}{2\epsilon_{0}}\int\mathrm{d}v\left|\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)\right|^{2},
 \end{equation}
 
 \end_inset
 
-
+the transverse radiation field Hamiltonian is
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}_{\text{int}}=-\frac{1}{\epsilon_{0}}\int\mathrm{d}v\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)\cdot\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)+\frac{1}{2\epsilon_{0}}\int\mathrm{d}v\left|\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)\right|^{2}.\label{eq:PZW_int}
+\widehat{H}_{R}=\int\mathrm{d}v\left\{ \frac{1}{2\epsilon_{0}}\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\left(\mathbf{\boldsymbol{\nabla}}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)\right)^{2}\right\} ,
+\end{equation}
+
+\end_inset
+
+and the light-matter interaction is 
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}_{I}=-\frac{1}{\epsilon_{0}}\int\mathrm{d}v\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)\cdot\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right).\label{eq:PZW_int}
 \end{equation}
 
 \end_inset
@@ -750,21 +768,51 @@ Here
 \end_inset
 
  is the transverse field displacement, 
-\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)=\epsilon_{0}\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right)+\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)$
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)=-\frac{\epsilon_{0}}{c}\frac{\partial}{\partial t}\widehat{\mathbf{A}}\left(\mathbf{r}\right)+\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)$
 \end_inset
 
 .
+ Note that the displacement 
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)$
+\end_inset
+
+ is the momentum conjugate to the vector potential 
+\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)$
+\end_inset
+
+, satisfying the canonical commutation relation, 
+\begin_inset Formula $[\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right),\widehat{\mathbf{A}}\left(\mathbf{r}^{\prime}\right)]=i\hbar\delta^{\perp}\left(\mathbf{r}-\mathbf{r}^{\prime}\right)$
+\end_inset
+
+.
+ We denote the polarization operator of the subsystem as 
+\begin_inset Formula $\widehat{\mathbf{P}}$
+\end_inset
+
+ and use the Helmholtz decomposition expression (
+\begin_inset Formula $\widehat{\mathbf{P}}=\widehat{\mathbf{P}}_{\perp}+\widehat{\mathbf{P}}_{\parallel}$
+\end_inset
+
+) to separate the the transverse polarization (satisfying 
+\begin_inset Formula $\boldsymbol{\nabla}\cdot\widehat{\mathbf{P}}_{\perp}=0$
+\end_inset
+
+) and the longitudinal polarization (satisfying 
+\begin_inset Formula $\boldsymbol{\nabla}\times\widehat{\mathbf{P}}_{\parallel}=0$
+\end_inset
+
+).
  
 \begin_inset Formula $\widehat{H}_{s}$
 \end_inset
 
  is the Hamiltonian of the matter system and will be specified below.
  Note that the Power-Zienau-Woolley Hamiltonian is rigorously equivalent
- to the more standard 
+ to the more standard Coulomb (
 \begin_inset Formula $\widehat{\mathbf{P}}\cdot\widehat{\mathbf{A}}$
 \end_inset
 
- description of QED, but the matter field is now conveniently decomposed
+) representation of QED, but the matter field is now conveniently decomposed
  into a multipolar form.
  That being said, in Eq.
 \begin_inset space ~
@@ -780,8 +828,9 @@ noprefix "false"
 
 \end_inset
 
- we have ignored the multipolar magnetization coupling; we are also assuming
- we may ignore any relativistic dynamics of the matter field.
+ we have ignored all magnetic couplings and an infinite Coulomb self energy;
+ we are also assuming we may ignore any relativistic dynamics of the matter
+ field.
 \begin_inset Note Note
 status collapsed
 
@@ -823,21 +872,37 @@ on to the EM field,
 status open
 
 \begin_layout Plain Layout
-A, B, E in second quantization
+A, D in second quantization
 \end_layout
 
 \end_inset
 
-For QED in the Coulomb gauge, the operator associated with the vector potential
- can be written in the formalism of second quantization:
+For QED in the Coulomb gauge, we choose the vector potential and the displacemen
+t following the standard canonical quantization approach:
+\begin_inset CommandInset citation
+LatexCommand citep
+key "cohen-tannoudji_photons_1997"
+literal "false"
+
+\end_inset
+
+
 \begin_inset Formula 
 \begin{equation}
-\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}\frac{{\cal E}_{\mathbf{k}}}{\omega_{\mathbf{k}}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}+\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right)
+\widehat{\mathbf{A}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}\frac{{\cal E}_{\mathbf{k}}}{\omega_{\mathbf{k}}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}+\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:A-operator}
 \end{equation}
 
 \end_inset
 
-where the matrix element 
+
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)=i\epsilon_{0}\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right).\label{eq:D_operator}
+\end{equation}
+
+\end_inset
+
+Here, the matrix element 
 \begin_inset Formula ${\cal E}_{\mathbf{k}}=\sqrt{\frac{\hbar\omega_{\mathbf{k}}}{2\epsilon_{0}L^{n}}}$
 \end_inset
 
@@ -853,7 +918,7 @@ where the matrix element
 \begin_inset Formula $n$
 \end_inset
 
--dimensonal space.
+-dimensional space.
  
 \begin_inset Formula $\widehat{a}_{\mathbf{k}}$
 \end_inset
@@ -868,20 +933,51 @@ where the matrix element
 \end_inset
 
 .
- The electric and magnetic fields can be obtained according to 
+ In terms of 
+\begin_inset Formula $\widehat{a}_{\mathbf{k}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{a}_{\mathbf{k}}^{\dagger}$
+\end_inset
+
+, the transverse Hamiltonian of the EM field can be represented equivalently
+ as 
 \begin_inset Formula 
-\begin{eqnarray}
-\widehat{\mathbf{B}}\left(\mathbf{r}\right) & = & \mathbf{\boldsymbol{\nabla}}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right)\nonumber \\
- & = & i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\frac{\mathbf{k}\times\mathbf{e}_{\mathbf{k}}}{c}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:B_operator}
-\end{eqnarray}
+\begin{equation}
+\widehat{H}_{R}=\sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right).
+\end{equation}
 
 \end_inset
 
+Note that 
+\begin_inset Formula $\widehat{\mathbf{A}}$
+\end_inset
 
+ and 
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}$
+\end_inset
+
+ are pure EM field operators in the PZW representation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+For the same mathematical operator, the physical meaning depends in representati
+on.
+\end_layout
+
+\end_inset
+
+Finally, within the Coulomb gauge, the electric and magnetic fields can
+ be obtained from the vector potential:
 \begin_inset Formula 
 \begin{eqnarray}
-\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right) & = & -\frac{1}{c}\frac{\partial}{\partial t}\widehat{\mathbf{A}}\left(\mathbf{r}\right)\nonumber \\
- & = & i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:E_operator}
+\widehat{\mathbf{B}}\left(\mathbf{r}\right) & = & \mathbf{\boldsymbol{\nabla}}\times\widehat{\mathbf{A}}\left(\mathbf{r}\right),\\
+\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right) & = & -\frac{1}{c}\frac{\partial}{\partial t}\widehat{\mathbf{A}}\left(\mathbf{r}\right)=-\frac{i}{\hbar c}\left[\widehat{H}_{R}+\widehat{H}_{I},\widehat{\mathbf{A}}\left(\mathbf{r}\right)\right],
 \end{eqnarray}
 
 \end_inset
@@ -891,22 +987,201 @@ recalling that
 \end_inset
 
  in the Coulomb gauge.
- In term of 
+ The transverse electric field is related to the displacement and the polarizati
+on by 
+\begin_inset Formula $\epsilon_{0}\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right)=\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)-\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)$
+\end_inset
+
+.
+ Thus, these physical observables can also be expressed in terms of 
+\begin_inset Formula $\widehat{a}_{\mathbf{k}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{a}_{\mathbf{k}}^{\dagger}$
+\end_inset
+
+,
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{B}}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\frac{\mathbf{k}\times\mathbf{e}_{\mathbf{k}}}{c}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right),\label{eq:B_operator}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right)=i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}e^{i\mathbf{k}\cdot\mathbf{r}}-\widehat{a}_{\mathbf{k}}^{\dagger}e^{-i\mathbf{k}\cdot\mathbf{r}}\right)-\frac{1}{\epsilon_{0}}\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right).\label{eq:E_operator}
+\end{equation}
+
+\end_inset
+
+Here, we note that 
+\begin_inset Formula $\widehat{\mathbf{E}}_{\perp}$
+\end_inset
+
+ is 
+\emph on
+not
+\emph default
+ a pure EM field operator in the PZW representation.
+ 
+\end_layout
+
+\begin_layout Standard
+Before proceeding, for readers more familiar with QED using the normal coupling
+ by 
+\begin_inset Formula $\widehat{\mathbf{P}}\cdot\widehat{\mathbf{A}}$
+\end_inset
+
+ Hamiltonian, a few more words are appropriate regarding Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:D_operator"
+
+\end_inset
+
+.
+ Here, one may recall that, within the 
+\begin_inset Formula $\widehat{\mathbf{P}}\cdot\widehat{\mathbf{A}}$
+\end_inset
+
+ Hamiltonian, the same operator is associated with the transverse electric
+ field 
+\begin_inset Formula $\epsilon_{0}\widehat{\mathbf{E}}_{\perp}$
+\end_inset
+
+ (rather than 
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}$
+\end_inset
+
+).
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cohen-tannoudji_photons_1997"
+literal "true"
+
+\end_inset
+
+ With this apparent difference in mind, we stress that, when gaining intuition
+ for the PZW approach, one must never forget that the assignment of mathematical
+ operators for physical quantities can depend strongly on the choice of
+ representation and Hamiltonian.
+ Luckily, for us in many cases, one need not always distinguish between
+ 
 \begin_inset Formula $\widehat{\mathbf{E}}_{\perp}$
 \end_inset
 
  and 
-\begin_inset Formula $\widehat{\mathbf{B}}$
+\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}$
 \end_inset
 
-, the transverse Hamiltonian of the EM field can be represented equivalently
- as 
+ because the transverse displacement and electric field are the same up
+ to a factor of 
+\begin_inset Formula $\epsilon_{0}$
+\end_inset
+
+ (
+\begin_inset Formula $\epsilon_{0}\widehat{\mathbf{E}}_{\perp}=\widehat{\mathbf{D}}_{\perp}$
+\end_inset
+
+) in regions of space far away from the polarization of the subsystem (where
+ 
+\begin_inset Formula $\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)=0$
+\end_inset
+
+).
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Are you sure that we have not redefined the creation and annihilation operatorsr
+ for E and D? Is Eq.
+ 3 compatible with Esq.
+ 5,7, and 8? Am I missing something?
+\end_layout
+
+\begin_layout Plain Layout
+Eq.(5–7) are the same as Eq.(III.A.3)–(III.A.6) in Cohen
+\end_layout
+
+\begin_layout Plain Layout
+In PZW
+\end_layout
+
+\begin_layout Plain Layout
+The transverse conjugate momentum of A is -D_
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\backslash
+perp
+\end_layout
+
+\begin_layout Plain Layout
+A and D can be expressed in term of creation and annihilation operators
+ Eq.
+ (IV.C.52)
+\end_layout
+
+\begin_layout Plain Layout
+The physical meaning of the same mathematical operator depends on representation
+s.
+ In standard Coulomb representation, the operator in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:D_operator"
+
+\end_inset
+
+ is associated with the transverse electric field 
+\begin_inset Formula $\epsilon_{0}\widehat{\mathbf{E}}_{\perp}$
+\end_inset
+
+.
+ In PZW representation 
 \begin_inset Formula 
-\begin{equation}
-\begin{split}\widehat{H}_{R}= & \int\mathrm{d}v\left\{ \frac{\epsilon_{0}}{2}\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right)^{2}+\frac{1}{2\mu_{0}}\widehat{\mathbf{B}}\left(\mathbf{r}\right)^{2}\right\} \\
-= & \sum_{\mathbf{k}}\hbar\omega_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}^{\dagger}\widehat{a}_{\mathbf{k}}+\frac{1}{2}\right).
-\end{split}
-\end{equation}
+\[
+\epsilon_{0}\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}\right)=\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)-\widehat{\mathbf{P}}_{\perp}\left(\mathbf{r}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The operator given by Eq.
+ (IV.C.52) is (1) -
+\backslash
+epsilon_0 E or (2) -D_
+\backslash
+perp [Eq.(IV.C.56)] 
+\end_layout
+
+\begin_layout Plain Layout
+The same thing can be shown in Eq.
+ (31) page 310
+\end_layout
 
 \end_inset
 
@@ -914,6 +1189,10 @@ recalling that
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
 As mentioned above, Eq.
 \begin_inset space ~
 \end_inset
@@ -940,35 +1219,12 @@ literal "true"
 
 \end_inset
 
- Second, according to Eq.
-\begin_inset space ~
-\end_inset
 
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Power-Zienau-Woolley"
-plural "false"
-caps "false"
-noprefix "false"
+\end_layout
 
 \end_inset
 
-, the displacement 
-\begin_inset Formula $\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right)$
-\end_inset
 
- is the momentum conjugate to the vector potential 
-\begin_inset Formula $\widehat{\mathbf{A}}\left(\mathbf{r}\right)$
-\end_inset
-
-, satisfying the canonical commutation relation, 
-\begin_inset Formula $[\widehat{\mathbf{D}}_{\perp}\left(\mathbf{r}\right),\widehat{\mathbf{A}}\left(\mathbf{r}^{\prime}\right)]=i\hbar\delta^{\perp}\left(\mathbf{r}-\mathbf{r}^{\prime}\right)$
-\end_inset
-
-.
- This correspondence will allow us below to use a classical interpretation
- for propagating the classical EM field.
 \end_layout
 
 \begin_layout Subsection
@@ -981,7 +1237,7 @@ In practice, for atomic problems, we often consider an electronic system
  an EM field which has a wavelength much larger than the size of the system.
  In this case, we can exploit the long-wavelength approximation and recover
  the standard electric dipole Hamiltonian (i.e.
- a generalized Göppert-Mayer transformation
+ a Göppert-Mayer transformation
 \begin_inset CommandInset citation
 LatexCommand cite
 key "cohen-tannoudji_photons_1997"
@@ -1004,7 +1260,7 @@ c.f.
 ):
 \begin_inset Formula 
 \begin{equation}
-\widehat{H}_{\text{int}}\approx-\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}=0\right).
+\widehat{H}_{I}\approx-i\sum_{\mathbf{k}}{\cal E}_{\mathbf{k}}\widehat{\mathbf{d}}\cdot\mathbf{e}_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}-\widehat{a}_{\mathbf{k}}^{\dagger}\right).
 \end{equation}
 
 \end_inset
@@ -1146,13 +1402,13 @@ noprefix "false"
  and the photon field can be expressed as 
 \begin_inset Formula 
 \begin{equation}
--\widehat{\mathbf{d}}\cdot\widehat{\mathbf{E}}_{\perp}\left(\mathbf{r}=0\right)=\sum_{\mathbf{k}}V_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}-\widehat{a}_{\mathbf{k}}^{\dagger}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\label{eq:ED-interaction}
+\widehat{H}_{I}=\sum_{\mathbf{k}}V_{\mathbf{k}}\left(\widehat{a}_{\mathbf{k}}-\widehat{a}_{\mathbf{k}}^{\dagger}\right)\left(\left|0\right\rangle \left\langle 1\right|+\left|1\right\rangle \left\langle 0\right|\right)\label{eq:ED-interaction}
 \end{equation}
 
 \end_inset
 
 where the matrix element is given by 
-\begin_inset Formula $V_{\mathbf{k}}=i{\cal E}_{\mathbf{k}}\mathbf{e}_{\mathbf{k}}\cdot\boldsymbol{\mu}_{01}$
+\begin_inset Formula $V_{\mathbf{k}}=i{\cal E}_{\mathbf{k}}\boldsymbol{\mu}_{01}\cdot\mathbf{e}_{\mathbf{k}}$
 \end_inset
 
 .
@@ -1203,7 +1459,7 @@ in a coarse-grained sense (meaning that we average over a time scale
 \begin_inset Formula $\tau$
 \end_inset
 
- satisfyting 
+ satisfying 
 \begin_inset Formula $2\pi/\Omega\ll\tau\ll1/\kappa$
 \end_inset
 
@@ -1261,7 +1517,7 @@ Similarly, for an effectively one-dimensional system, we imagine a uniform
 
 \end_inset
 
-Eqs
+Eqs.
 \begin_inset space ~
 \end_inset
 
@@ -1439,7 +1695,7 @@ The expectation value of the intensity distribution can be obtained as
 
 \end_inset
 
-which conserves energy of the total system.
+which conserves the energy of the total system.
  Note that the variance of the observed electric field (i.e.
  the fact that 
 \begin_inset Formula $\overline{\left\langle \mathbf{E}_{\perp}^{2}\right\rangle }\neq\overline{\left\langle \mathbf{E}_{\perp}\right\rangle ^{2}}$
@@ -1555,138 +1811,6 @@ literal "true"
 \end_layout
 
 \begin_layout Subsection
-Semiclassical Hamiltonian
-\end_layout
-
-\begin_layout Standard
-According to Ehrenfest dynamics, we define a semiclassical Hamiltonian,
- 
-\begin_inset Formula $\widehat{H}_{\text{SC}}$
-\end_inset
-
- that approximates Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:Power-Zienau-Woolley"
-
-\end_inset
-
-:
-\begin_inset CommandInset citation
-LatexCommand cite
-key "mukamel_principles_1999"
-literal "true"
-
-\end_inset
-
-
-\begin_inset Formula 
-\begin{equation}
-\begin{split}\widehat{H}_{\text{SC}}= & \widehat{H}_{s}-\int\mathrm{d}v\mathbf{E}_{\perp}\left(\mathbf{r},t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\\
- & +\int\mathrm{d}v\left\{ \frac{\epsilon_{0}}{2}\mathbf{E}_{\perp}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right\} .
-\end{split}
-\end{equation}
-
-\end_inset
-
-Here, we treat the EM field operators as classical electrodynamics parameters
- 
-\begin_inset Formula $\widehat{\mathbf{D}}\rightarrow\mathbf{D}\left(\mathbf{r},t\right)=\epsilon_{0}\mathbf{E}_{\perp}\left(\mathbf{r},t\right)+\mathbf{P}_{\perp}\left(\mathbf{r},t\right)$
-\end_inset
-
- and 
-\begin_inset Formula $\mathbf{\nabla}\times\widehat{\mathbf{A}}\rightarrow\mathbf{B}\left(\mathbf{r},t\right)$
-\end_inset
-
-, so that we can commute 
-\begin_inset Formula $\mathbf{E}_{\perp}$
-\end_inset
-
- with 
-\begin_inset Formula $\widehat{\mathbf{P}}$
-\end_inset
-
- in the coupling term.
- Note that the average polarization is defined as 
-\begin_inset Formula $\mathbf{P}\left(\mathbf{r},t\right)=\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} $
-\end_inset
-
-.
- From the semiclassical Hamiltonian, we identify an electronic Hamiltonian
-\begin_inset Formula 
-\begin{equation}
-\widehat{H}^{\text{el}}=\widehat{H}_{s}-\int\mathrm{d}v\mathbf{E}_{\perp}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electronic_Hamiltonian}
-\end{equation}
-
-\end_inset
-
-which depends only parametrically on the EM field.
- As a sidenote, we mention that, in Eqs.
-\begin_inset space ~
-\end_inset
-
-(
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:Power-Zienau-Woolley"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-–
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:PZW_int"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-), we have neglected a formally infinite self-interaction energy.
- If we include such a term, we can argue that, for a single charge center,
- one can write a slightly different electronic Hamiltonian namely
-\begin_inset Formula 
-\begin{equation}
-\widehat{H}^{\text{el}}=\widehat{H}_{s}-\int\mathrm{d}v\mathbf{E}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electric_Hamiltonian_noperp}
-\end{equation}
-
-\end_inset
-
-All numerical results presented below are nearly identical using either
- Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:electronic_Hamiltonian"
-
-\end_inset
-
- or Eq.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand eqref
-reference "eq:electric_Hamiltonian_noperp"
-
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Subsection
 Ehrenfest dynamics 
 \end_layout
 
@@ -1727,12 +1851,18 @@ density matrix - Liouville
 The electronic density matrix evolves according to the Liouville equation,
 \begin_inset Formula 
 \begin{equation}
-\frac{\partial}{\partial t}\widehat{\rho}\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}^{\mathrm{el}}\left(\mathbf{E}\right),\widehat{\rho}\left(t\right)\right].\label{eq:liouville_rho}
+\frac{\partial}{\partial t}\widehat{\rho}\left(t\right)=-\frac{i}{\hbar}\left[\widehat{H}_{\mathrm{SC}},\widehat{\rho}\left(t\right)\right],\label{eq:liouville_rho}
 \end{equation}
 
 \end_inset
 
+where 
+\begin_inset Formula $\widehat{H}_{\mathrm{SC}}=\widehat{H}_{\mathrm{SC}}\left(\mathbf{E},\mathbf{B}\right)$
+\end_inset
 
+ is a semiclassical Hamiltonian for the quantum subsystem which depends
+ only parametrically on the EM fields.
+ 
 \begin_inset Note Note
 status open
 
@@ -1746,8 +1876,8 @@ The EM field is governed by Maxwell's equations for classical electrodynamics
  
 \begin_inset Formula 
 \begin{eqnarray}
-\frac{\partial}{\partial t}\mathbf{B}\left(\mathbf{r},t\right) & = & -\boldsymbol{\nabla}\times\mathbf{E}_{\perp}\left(\mathbf{r},t\right),\label{eq:maxwell_BE}\\
-\frac{\partial}{\partial t}\mathbf{E}_{\perp}\left(\mathbf{r},t\right) & = & c^{2}\boldsymbol{\nabla}\times\mathbf{B}\left(\mathbf{r},t\right)-\frac{1}{\epsilon_{0}}\mathbf{J}\left(\mathbf{r},t\right),\label{eq:maxwell_EB}
+\frac{\partial}{\partial t}\mathbf{B}\left(\mathbf{r},t\right) & = & -\boldsymbol{\nabla}\times\mathbf{E}\left(\mathbf{r},t\right),\label{eq:maxwell_BE}\\
+\frac{\partial}{\partial t}\mathbf{E}\left(\mathbf{r},t\right) & = & c^{2}\boldsymbol{\nabla}\times\mathbf{B}\left(\mathbf{r},t\right)-\frac{1}{\epsilon_{0}}\mathbf{J}\left(\mathbf{r},t\right),\label{eq:maxwell_EB}
 \end{eqnarray}
 
 \end_inset
@@ -1756,12 +1886,49 @@ where the average current is generated by the average polarization of the
  electronic system
 \begin_inset Formula 
 \begin{equation}
-\mathbf{J}\left(\mathbf{r},t\right)=\frac{\partial}{\partial t}\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} .\label{eq:polarization_mean}
+\mathbf{J}\left(\mathbf{r},t\right)=\frac{\partial}{\partial t}\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} \equiv\frac{\partial}{\partial t}\mathbf{P}\left(\mathbf{r},t\right).\label{eq:polarization_mean}
 \end{equation}
 
 \end_inset
 
+Here we define the average polarization (without hat) 
+\begin_inset Formula $\mathbf{P}\left(\mathbf{r},t\right)=\text{Tr}_{s}\left\{ \widehat{\rho}\left(t\right)\widehat{\mathbf{P}}\left(\mathbf{r}\right)\right\} $
+\end_inset
 
+.
+ Note that Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_EB"
+
+\end_inset
+
+ suggests that the longitudinal component of the classical electric field
+ is 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{E}_{\parallel}\left(\mathbf{r},t\right)=-\frac{1}{\epsilon_{0}}\mathbf{P}_{\parallel}\left(\mathbf{r},t\right),\label{eq:maxwell_EB_para}
+\end{equation}
+
+\end_inset
+
+and the transverse component satisfies
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial}{\partial t}\mathbf{E}_{\perp}\left(\mathbf{r},t\right)=c^{2}\boldsymbol{\nabla}\times\mathbf{B}\left(\mathbf{r},t\right)-\frac{1}{\epsilon_{0}}\mathbf{J}_{\perp}\left(\mathbf{r},t\right)\label{eq:maxwell_EB_perp}
+\end{equation}
+
+\end_inset
+
+with 
+\begin_inset Formula $\mathbf{J}_{\perp}\left(\mathbf{r},t\right)=\frac{\partial}{\partial t}\mathbf{P}_{\perp}\left(\mathbf{r},t\right)$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1775,10 +1942,243 @@ energy conservation
 \end_inset
 
 The total energy of the electronic system and the classical EM field is
+ 
+\begin_inset Formula 
+\begin{equation}
+\begin{split}U_{\mathrm{tot}}\left(\widehat{\rho},\mathbf{E},\mathbf{B}\right) & =\mathrm{Tr}_{s}\left(\widehat{\rho}\left(t\right)\widehat{H}_{s}\right)+\\
+ & \int\mathrm{d}v\left(\frac{\epsilon_{0}}{2}\mathbf{E}_{\perp}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right).
+\end{split}
+\label{eq:total_energy}
+\end{equation}
+
+\end_inset
+
+In Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:total_energy"
+
+\end_inset
+
+, we have replaced all quantum mechanical operators for the EM field by
+ their classical expectation values, i.e.
+ 
+\begin_inset Formula $\mathbf{\nabla}\times\widehat{\mathbf{A}}\rightarrow\mathbf{B}$
+\end_inset
+
+ and 
+\begin_inset Formula $\widehat{\mathbf{D}}\rightarrow\mathbf{D}_{\perp}=\epsilon_{0}\mathbf{E}_{\perp}+\mathbf{P}_{\perp}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{P}_{\perp}=\text{Tr}_{s}\left\{ \widehat{\rho}\widehat{\mathbf{P}}_{\perp}\right\} $
+\end_inset
+
+.
+ One of the most important strengths of Ehrenfest dynamics is that the total
+ energy (
+\begin_inset Formula $U_{\mathrm{tot}}$
+\end_inset
+
+) is conserved (as can be shown easily).
+ Altogether, Ehrenfest dynamics is a self-consistent, computationally inexpensiv
+e approach for propagating the electronic states and EM field dynamics simultane
+ously.
+\end_layout
+
+\begin_layout Subsection
+Semiclassical Hamiltonian
+\end_layout
+
+\begin_layout Standard
+We define a semiclassical electronic Hamiltonian 
+\begin_inset Formula $\widehat{H}^{\mathrm{el}}$
+\end_inset
+
+ in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:liouville_rho"
+
+\end_inset
+
+ that approximates 
+\begin_inset Formula $H_{P}+H_{I}$
+\end_inset
+
+ in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Power-Zienau-Woolley"
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\widehat{H}^{\mathrm{el}}=\widehat{H}_{s}-\int\mathrm{d}v\mathbf{E}_{\perp}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electronic_Hamiltonian}
+\end{equation}
+
+\end_inset
+
+This electronic Hamiltonian is widely used as a semiclassical Hamiltonian
+ for light-matter interactions, i.e.
+ 
+\begin_inset Formula $\widehat{H}_{\mathrm{SC}}=\widehat{H}^{\mathrm{el}}$
+\end_inset
+
+.
+\begin_inset CommandInset citation
+LatexCommand citep
+key "mukamel_principles_1999,sukharev_numerical_2011"
+literal "true"
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+how to derive it?
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+energy conservation
+\end_layout
+
+\end_inset
+
+As a sidenote, we mention that, in Eqs.
+\begin_inset space ~
+\end_inset
+
+(
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Power-Zienau-Woolley"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+–
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:PZW_int"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), we have neglected a formally infinite self-interaction energy.
+ If we include such a term, we can argue that, for a single charge center,
+ one can write a slightly different electronic Hamiltonian namely
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
+In QED, the Coulomb interaction between particles 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ can be expressed as
+\begin_inset CommandInset citation
+LatexCommand citep
+key "cohen-tannoudji_photons_1997"
+literal "false"
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\hat{V}_{\mathrm{Coul}}=\frac{1}{\epsilon_{0}}\int\mathrm{d}v\hat{\mathbf{P}}_{\parallel}^{\left(\alpha\right)}\left(\mathbf{r}\right)\cdot\hat{\mathbf{P}}_{\parallel}^{\left(\beta\right)}\left(\mathbf{r}\right).
+\]
+
+\end_inset
+
+Consider a single electron system within semiclassical approximation, we
+ can approximate the Coulomb self-interaction energy in Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Power-Zienau-Woolley"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula 
+\[
+\hat{V}_{\mathrm{self}}=\frac{1}{\epsilon_{0}}\int\mathrm{d}v\mathbf{P}_{\parallel}\left(\mathbf{r},t\right)\cdot\mathbf{\hat{P}}_{\parallel}\left(\mathbf{r}\right).
+\]
+
+\end_inset
+
+If we include this term and substitute 
+\begin_inset Formula $\mathbf{E}_{\perp}=\mathbf{E}+\frac{1}{\epsilon_{0}}\mathbf{P}_{\parallel}$
+\end_inset
+
+ into Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:electronic_Hamiltonian"
+
+\end_inset
+
+ using Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:maxwell_EB_para"
+
+\end_inset
+
+, we find the Coulomb self energy is canceled and yield
+\begin_inset Formula 
+\[
+\hat{H}^{\mathrm{el}}+\hat{V}_{\mathrm{self}}=\hat{H}_{s}-\int\mathrm{d}v\mathbf{E}\left(\mathbf{r},t\right)\cdot\mathbf{\hat{P}}\left(\mathbf{r}\right).
+\]
+
+\end_inset
+
 If we substitute Eq.
 \begin_inset space ~
 \end_inset
@@ -1797,11 +2197,11 @@ reference "eq:electronic_Hamiltonian"
 
 \begin_inset CommandInset ref
 LatexCommand eqref
-reference "eq:electric_Hamiltonian_noperp"
+reference "eq:electric_Hamiltonian_withself"
 
 \end_inset
 
-, the conserved energy is
+ for semiclassical electronic Hamiltonian, the conserved energy becomes
 \begin_inset Formula 
 \[
 \begin{split}U_{\mathrm{tot}} & =\mathrm{Tr}_{s}\left(\hat{\rho}\left(t\right)H_{s}\right)+\\
@@ -1811,30 +2211,43 @@ reference "eq:electric_Hamiltonian_noperp"
 
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
 
- 
+
 \begin_inset Formula 
 \begin{equation}
-\begin{split}U_{\mathrm{tot}}\left(\widehat{\rho},\mathbf{E},\mathbf{B}\right) & =\mathrm{Tr}_{s}\left(\widehat{\rho}\left(t\right)\widehat{H}_{s}\right)+\\
- & \int\mathrm{d}v\left(\frac{\epsilon_{0}}{2}\mathbf{E}_{\perp}\left(\mathbf{r},t\right)^{2}+\frac{1}{2\mu_{0}}\mathbf{B}\left(\mathbf{r},t\right)^{2}\right).
-\end{split}
+\widehat{H}^{\mathrm{el}}=\widehat{H}_{s}-\int\mathrm{d}v\mathbf{E}\left(\mathbf{r},t\right)\cdot\widehat{\mathbf{P}}\left(\mathbf{r}\right).\label{eq:electric_Hamiltonian_withself}
 \end{equation}
 
 \end_inset
 
-One of the most important strengths of Ehrenfest dynamics is that the total
- energy (
-\begin_inset Formula $U_{\mathrm{tot}}$
+All numerical results presented below are nearly identical using either
+ Eq.
+\begin_inset space ~
 \end_inset
 
-) is conserved (as can be shown easily).
- Altogether, Ehrenfest dynamics is a self-consistent, computationally inexpensiv
-e approach for propagating the electronic states and EM field dynamics simultane
-ously.
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:electronic_Hamiltonian"
+
+\end_inset
+
+ or Eq.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:electric_Hamiltonian_withself"
+
+\end_inset
+
+ for a semiclassical Hamiltonian.
 \end_layout
 
 \begin_layout Subsection
@@ -2637,7 +3050,7 @@ noprefix "false"
 
 \end_inset
 
-) should recover the true FGR rate and correct Ehrenfest dynamics.
+) should recover the true FGR rate by correcting Ehrenfest dynamics.
  
 \end_layout
 
@@ -3913,6 +4326,96 @@ name "sec:Results"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide true
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_1.pdf
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_4.pdf
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+(a) Population of the excited state as a function of time.
+ The initial state is 
+\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\frac{1}{2}}\left|0\right\rangle +\sqrt{\frac{1}{2}}\left|1\right\rangle $
+\end_inset
+
+.
+ The black dashed line indicates the FGR decay.
+ The red solid line is the standard Ehrenfest dynamics and the red dashed
+ line is an exponential fit of the data.
+ The blue solid line is Ehrenfest+R dynamics with 
+\begin_inset Formula $N_{\text{traj}}=40$
+\end_inset
+
+.
+ (b) Spontaneous decay rates extracted from excited state population dynamics
+ for different initial states.
+ As a function of the initial ground state population 
+\begin_inset Formula $\rho_{00}$
+\end_inset
+
+, the exponential decay rates are obtained by the standard Ehrenfest method
+ (red) and Ehrenfest+R method (blue).
+ The black dashed line indicates the FGR rate.
+ Note that, for all cases, Ehrenfest+R dynamics recover the true FGR spontaneous
+ emission rate.
+ (c) Energy as a function of time for the same initial state as (a).
+ The average energy of the two level system is plotted in blue lines and
+ the average energy of the EM field is plotted in green lines.
+ The dim lines are data from individual trajectories.
+ The solid black line is the average total energy (which is effectively
+ a constant).
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:population-dynamics-and"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 As a test for our proposed Ehrenfest+R ansatz, we study spontaneous emission
  of a two-level system in vacuum for 1D and 3D systems.
  We assume the system lies in the FGR regime and the polarization distribution
@@ -4333,275 +4836,11 @@ Our simulation is propagated using Cartesian coordinates with
  
 \end_layout
 
-\begin_layout Subsection
-Spontaneous decay rate
-\end_layout
-
 \begin_layout Standard
 \begin_inset Float figure
 wide true
 sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_1.pdf
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename runs-diabatical.ehrenfest-1d-2ls_SpontaneousEmission_phase-averaged.fig_4.pdf
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-(a) Population of the excited state as a function of time.
- The initial state is 
-\begin_inset Formula $\left|\psi\right\rangle =\sqrt{\frac{1}{2}}\left|0\right\rangle +\sqrt{\frac{1}{2}}\left|1\right\rangle $
-\end_inset
-
-.
- The black dashed line indicates the FGR decay.
- The red solid line is the standard Ehrenfest dynamics and the red dashed
- line is an exponential fit of the data.
- The blue solid line is Ehrenfest+R dynamics with 
-\begin_inset Formula $N_{\text{traj}}=40$
-\end_inset
-
-.
- (b) Spontaneous decay rates extracted from excited state population dynamics
- for different initial states.
- As a function of the initial ground state population 
-\begin_inset Formula $\rho_{00}$
-\end_inset
-
-, the exponential decay rates are obtained by the standard Ehrenfest method
- (red) and Ehrenfest+R method (blue).
- The black dashed line indicates the FGR rate.
- Note that, for all cases, Ehrenfest+R dynamics recover the true FGR spontaneous
- emission rate.
- (c) Energy as a function of time for the same initial state as (a).
- The average energy of the two level system is plotted in blue lines and
- the average energy of the EM field is plotted in green lines.
- The dim lines are data from individual trajectories.
- The solid black line is the average total energy (which is effectively
- a constant).
-\begin_inset CommandInset label
-LatexCommand label
-name "fig:population-dynamics-and"
-
-\end_inset
-
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-standard Ehrenfest
-\end_layout
-
-\end_inset
-
-Our first focus is an initially coherent state with 
-\begin_inset Formula $\rho_{00}\left(0\right)=\rho_{11}\left(0\right)=0.5$
-\end_inset
-
- above.
- We plot the upper state population and the decay rate of a 1D system in
- Fig
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:population-dynamics-and"
-
-\end_inset
-
-(a).
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-population dynamics
-\end_layout
-
-\end_inset
-
-As shown in Ref.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-onlinecite{li_mixed_2018}
-\end_layout
-
-\end_inset
-
- and summarized in Sec.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Ehrenfest-Dynamics"
-
-\end_inset
-
- above, standard Ehrenfest dynamics does not agree with the FGR decay and
- cannot be fit to an exponential decay.
- With Ehrenfest+R dynamics, however, we can quantitatively correct the errors
- of Ehrenfest dynamics and recover the full spontaneous decay rate accurately.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-rate
-\end_layout
-
-\end_inset
-
-Furthermore, in Fig.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:population-dynamics-and"
-
-\end_inset
-
-(b) we prove that, even though Ehren
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-fest dynamics fails to predict the correct decay rate as a function of initial
- condition, 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
-the decay rate extracted from Ehrenfest+R dynamics agrees very well with
- the FGR decay rate for all initial conditions.
- 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\strikeout off
-\uuline off
-\uwave off
-\noun off
-\color none
-Note that, for the extreme case 
-\begin_inset Formula $\rho_{00}\left(0\right)=0$
-\end_inset
-
-, Ehrenfest dynamics does not predict any population decay.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-energy conservation
-\end_layout
-
-\end_inset
-
-Regarding energy conservation, individual Ehrenfest+R trajectories do not
- conserve energy by design.
- While the energy loss of the quantum system is roughly the same for every
- trajectory, the emitted EM energy fluctuates and is not equal to the correspond
-ing quantum energy loss (see Fig.
-\begin_inset space ~
-\end_inset
-
-
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "fig:population-dynamics-and"
-
-\end_inset
-
-(c)).
- However, an ensemble of trajectories does converse energy on average.
-\end_layout
-
-\begin_layout Subsection
-Emission Fields in 1D
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide true
-sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -4775,6 +5014,180 @@ name "fig:Radiation-field-intensity"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Spontaneous decay rate
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+standard Ehrenfest
+\end_layout
+
+\end_inset
+
+Our first focus is an initially coherent state with 
+\begin_inset Formula $\rho_{00}\left(0\right)=\rho_{11}\left(0\right)=0.5$
+\end_inset
+
+ above.
+ We plot the upper state population and the decay rate of a 1D system in
+ Fig
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:population-dynamics-and"
+
+\end_inset
+
+(a).
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+population dynamics
+\end_layout
+
+\end_inset
+
+As shown in Ref.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+onlinecite{li_mixed_2018}
+\end_layout
+
+\end_inset
+
+ and summarized in Sec.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Ehrenfest-Dynamics"
+
+\end_inset
+
+ above, standard Ehrenfest dynamics does not agree with the FGR decay and
+ cannot be fit to an exponential decay.
+ With Ehrenfest+R dynamics, however, we can quantitatively correct the errors
+ of Ehrenfest dynamics and recover the full spontaneous decay rate accurately.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+rate
+\end_layout
+
+\end_inset
+
+Furthermore, in Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:population-dynamics-and"
+
+\end_inset
+
+(b) we prove that, even though Ehren
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+fest dynamics fails to predict the correct decay rate as a function of initial
+ condition, 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+the decay rate extracted from Ehrenfest+R dynamics agrees very well with
+ the FGR decay rate for all initial conditions.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Note that, for the extreme case 
+\begin_inset Formula $\rho_{00}\left(0\right)=0$
+\end_inset
+
+, Ehrenfest dynamics does not predict any population decay.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+energy conservation
+\end_layout
+
+\end_inset
+
+Regarding energy conservation, individual Ehrenfest+R trajectories do not
+ conserve energy by design.
+ While the energy loss of the quantum system is roughly the same for every
+ trajectory, the emitted EM energy fluctuates and is not equal to the correspond
+ing quantum energy loss (see Fig.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:population-dynamics-and"
+
+\end_inset
+
+(c)).
+ However, an ensemble of trajectories does converse energy on average.
+\end_layout
+
+\begin_layout Subsection
+Emission Fields in 1D
 \end_layout
 
 \begin_layout Standard
@@ -5523,12 +5936,21 @@ Acknowledgment
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-We thank Kirk McDonald for very interesting discussions related to the calculati
-on in Appendix
+This material is based upon work supported by the (U.S.) Air Force Office
+ of Scientific Research (USAFOSR) PECASE award under AFOSR Grant No.
+ FA9950-13-1-0157 (H.T.C., T.L., J.E.S.).
+ The research of AN is supported by the Israel-U.S.
+ Binational Science Foundation, the German Research Foundation (DFG TH 820/11-1)
+, the U.S.
+ National Science Foundation (Grant No.
+ CHE1665291), and the University of Pennsylvania.
+ M.S.
+ would also like to acknowledge financial support by the Air Force Office
+ of Scientific Research under Grant No.
+ FA9550-15-1-0189 and Binational Science Foundation under Grant No.
+ 2014113.
+ We thank Kirk McDonald for very interesting discussions related to the
+ calculation in Appendix
 \begin_inset space ~
 \end_inset
 
@@ -5543,21 +5965,7 @@ noprefix "false"
 \end_inset
 
 .
- The research of AN is supported by the Israel-U.S.
- Binational Science Foundation, the German Research Foundation (DFG TH 820/11-1)
-, the U.S.
- National Science Foundation (Grant No.
- CHE1665291), and the University of Pennsylvania.
- M.S.
- would also like to acknowledge financial support by the Air Force Office
- of Scientific Research under Grant No.
- FA9550-15-1-0189 and Binational Science Foundation under Grant No.
- 2014113.
-\end_layout
-
-\end_inset
-
-
+ 
 \end_layout
 
 \begin_layout Section
@@ -8085,7 +8493,7 @@ Now, if
 \end_inset
 
  are chosen to have well-defined signs (e.g.
- in Tully's FFSH model, the sign for velocity rescaling is chosen to minimize
+ in Tully's FSSH model, the sign for velocity rescaling is chosen to minimize
  the change of momentum), we will necessarily find that 
 \begin_inset Formula $\left\langle \mathbf{E}^{2}\right\rangle =\left\langle \mathbf{E}\right\rangle ^{2}$
 \end_inset

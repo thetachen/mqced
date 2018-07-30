@@ -1,0 +1,499 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrlttr2
+\begin_preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Here you can modify the layout of your letter
+%% Have a look at the KOMA script documentation
+%% for details. Most commands are commented out
+%% here (i.e. we use default settings)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{engord}
+\usepackage{xcolor}
+
+%% Load an *.lco style file (see KOMA documentation)
+\LoadLetterOption{DINmtext}%
+
+%% THE CLASS OPTIONS
+%% Remove preceeding '%' to uncomment an item
+\KOMAoptions{%
+,headsepline=true%            separate the header with a line on page >1
+,footsepline=true%             separate the footer with a line on page >1
+%pagenumber=botcenter%   position of the page number (see docu)
+%,parskip=false%          Use indent instead of skip (more options cf. docu)
+,fromalign=right%        alignment of the address
+,fromrule=aftername%    separate the address with a line?
+%,fromphone=true%         print sender phone number
+%,fromfax=true%          print sender fax number
+%,fromemail=true%           print sender e-mail address
+%,fromurl=true%               print sender URL
+%,fromlogo=true%         print a logo (position depends on fromalign)
+%,addrfield=false%        print an address field?
+,backaddress=false%  print the back address?
+%,subject=titled% alternative subject layout and position
+%,locfield=narrow%      width of the (extra) location field
+,foldmarks=false%      print foldmarks?
+%,numericaldate=true%  date layout
+%,refline=wide%             layout of the refline
+}
+\@setplength{refaftervskip}{-2 cm}% or even more negative spac
+\@setplength{toaddrvpos}{1 cm}
+
+%% Customize Separators
+%\setkomavar{placeseparator}{ -- }
+\setkomavar{backaddressseparator}{ $\cdot$ }
+%\setkomavar{emailseparator}{ --> }
+%\setkomavar{enclseparator}{ > }
+%\setkomavar{faxseparator}{ --> }
+%\setkomavar{phoneseparator}{ --> }
+%\setkomavar{subjectseparator}{ >>> }
+
+%% Customize fonts
+%% Use LaTeX's standard font commands
+%% Modify with \setkomafont or \addtokomafont
+%% (see KOMA documentation)
+\setkomafont{backaddress}{\rmfamily}
+%\setkomafont{descriptionlabel}{}
+\setkomafont{fromaddress}{\small}
+\setkomafont{fromname}{\scshape}
+%\setkomafont{pagefoot}{}
+%\setkomafont{pagehead}{}
+%\setkomafont{pagenumber}{}
+%\setkomafont{subject}{}
+%\setkomafont{title}{}
+
+%Columbia:
+\definecolor{columbiablue}{rgb}{0.098,0.36,0.576}
+\setkomafont{fromrule}{\color{columbiablue}}
+%Penn:
+\definecolor{pennblue}{rgb}{0.004,0.137,0.404}
+\setkomafont{fromrule}{\color{pennblue}}
+%\cefoot{TheCompanyName Inc.}
+
+% === footer settings
+\firstfoot{
+\noindent\makebox[\linewidth]{\rule{\columnwidth}{0.5pt}} 
+\centering{
+\footnotesize{
+%\color{columbiablue}{Professor David R. Reichman · Columbia University · drr2103@columbia.edu}}
+%\footnotesize{
+\color{pennblue}{Joseph Subotnik · University of Pennsylvania · subotnik@sas.upenn.edu}}
+}
+}
+\end_preamble
+\options enlargefirstpage
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "palatino" "default"
+\font_sans "lmss" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 1
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing other 1.15
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 0
+\use_package amssymb 0
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 1cm
+\rightmargin 2cm
+\bottommargin 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Name
+\begin_inset Graphics
+	filename penn-logo.jpg
+	lyxscale 1
+	height 1cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Hsing-Ta Chen
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout SenderAddress
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}Joseph Subotnik
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}Professor of Chemistry
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}215-746-7078
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}subotnik@sas.upenn.edu
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Telephone
++9084894996
+\end_layout
+
+\begin_layout E-Mail
+hsingc@sas.upenn.edu
+\end_layout
+
+\begin_layout Address
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}Department of Chemistry
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}231 South 34th Street
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+color{pennblue}Philadelphia, PA 19104-6323
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subject
+
+\series bold
+Re: Submission of “A Semiclassical Simulation of Raman Scattering with Ehrenfest
++R Dynamics
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Opening
+Dear Editor,
+\end_layout
+
+\begin_layout Standard
+We are pleased to submit our manuscript entitled 
+\begin_inset Quotes eld
+\end_inset
+
+A Semiclassical Simulation of Raman Scattering with Ehrenfest+R Dynamics
+\begin_inset Quotes erd
+\end_inset
+
+ to 
+\shape italic
+XXX
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Ehrenfest (mean-field) dynamics have proven extremely advantageous for semiclass
+ical simulations in the study of light–matter interactions.
+ However, the Ehrenfest approach is sadly limited by the inability to capture
+ spontaneous emission.
+ To overcome this issue, a mixed quantum-classical theory for electron–radiation
+ dynamics is clearly warranted.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this paper, we propose an 
+\begin_inset Quotes eld
+\end_inset
+
+Ehrenfest+R
+\begin_inset Quotes erd
+\end_inset
+
+ method for recovering spontaneous emission.
+ We formulate the method in terms of a two-level system in a 1D and 3D space.
+ Our results suggest that this new approach can indeed recover the correct
+ spontaneous emission rate, as well as accurately capture both intensity
+ and coherent emission using an ensemble of classical trajectories that
+ simulate the statistical variations of a quantum electrodynamics field.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We believe our manuscript is of general interest to readers interested in
+ quantum optics, semiclassical simulation, and light-matter interactions,
+ and clearly belongs in 
+\shape italic
+The Journal of Chemical Physics
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+We suggest the following experts as referees:
+\end_layout
+
+\begin_layout Standard
+David F.
+ Coker (Boston University), 
+\end_layout
+
+\begin_layout Standard
+Craig C.
+ Martens (University of California, Irvine),
+\end_layout
+
+\begin_layout Standard
+Raymond Kapral (University of Toronto),
+\end_layout
+
+\begin_layout Standard
+Eitan Geva (University of Michigan)
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\noindent
+and request that the following scientists be excluded:
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 0.6cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quote
+\noindent
+Sincerely,
+\end_layout
+
+\begin_layout Standard
+Hsing-Ta Chen (Department of Chemistry, University of Pennsylvania),
+\end_layout
+
+\begin_layout Standard
+\noindent
+Tao E.
+ Li (Department of Chemistry, University of Pennsylvania), 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Maxim Sukharev (Department of Physics, Arizona State University),
+\end_layout
+
+\begin_layout Standard
+\noindent
+Abraham Nitzan (Department of Chemistry, University of Pennsylvania),
+\end_layout
+
+\begin_layout Standard
+\noindent
+Joseph E.
+ Subotnik (Department of Chemistry, University of Pennsylvania)
+\end_layout
+
+\end_body
+\end_document
