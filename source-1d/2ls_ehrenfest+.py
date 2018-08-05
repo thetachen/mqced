@@ -138,8 +138,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
-    TLSP = PureStatePropagator(param_TLS)
-    #TLSP = DensityMatrixPropagator(param_TLS)
+    # TLSP = PureStatePropagator(param_TLS)
+    TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
     """
@@ -193,8 +193,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         if UsePlusEmission:
             #4. Implement additional population relaxation (1->0)
             # drho, dE = TLSP.getComplement(1,0,dt)
-            drho, dE = TLSP.getComplement_angle(1,0,dt,angle)
-            TLSP.rescale(1,0,drho)
+            # drho, dE = TLSP.getComplement_angle(1,0,dt,angle)
+            # TLSP.rescale(1,0,drho)
+            kRdt,kDdt,drho,dE = TLSP.getComplement_angle(1,0,dt,angle)
+            TLSP.relaxation(1,0,kRdt)
+            TLSP.dephasing(1,0,kDdt)
             # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
             # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
             EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
@@ -253,7 +256,15 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             for n in range(param_TLS.nstates):
                 ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
             ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
-            ax[2].set_xlim([0,Tmax*AU.fs])
+            # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
+            # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
+            ax[2].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
+            # rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]))*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
+            rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2)*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
+            ax[2].plot(times[:it]*AU.fs,rho12,'--k',lw=2,label='WW')
+            # ax[2].plot(times[:it]*AU.fs,np.cos(0.25*times[:it]-(1.9)*np.pi)*rho12,'--b',lw=2,label='WW')
+            # ax[2].plot(times[:it]*AU.fs,np.sin(0.25*times[:it]-(1.9)*np.pi)*rho12,'--g',lw=2,label='WW')
+            # ax[2].set_xlim([0,Tmax*AU.fs])
             ax[2].set_xlabel('t')
             ax[2].legend(loc='best')
 
@@ -267,10 +278,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[3].plot(times[:it]*AU.fs,(-np.log(dEnergy[1,:it])+np.log(dEnergy[1,0]))/times[:it], lw=2, label='incoherent')
             #ax[3].axhline(y=TLSP.FGR[1,0]*2, color='k', linestyle='--', lw=2)
             #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it]-Ut[1,0],lw=2,label='energy diff')
-            # ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
-            # ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
-            ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1,label='$E^2$')
-            ax[3].plot(EMP.Xs,np.array(EMP.Bs)**2,lw=1,label='$B^2$')
+            ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
+            ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1,label='$E^2$')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Bs)**2,lw=1,label='$B^2$')
             ax[3].legend(loc='best')
             # ax[3].set_xlim([0,Tmax*AU.fs])
             # ax[3].set_ylim([-max(EMP.Es),max(EMP.Es)])

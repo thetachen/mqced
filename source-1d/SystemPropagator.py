@@ -175,6 +175,13 @@ class DensityMatrixPropagator(object):
         #Set up Polarization Operator
         self.VP = param.VP
 
+        # generate FGR rate
+        self.FGR = np.zeros((self.nstates,self.nstates))
+        for i in range(self.nstates):
+            for j in range(self.nstates):
+                self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
+
+
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
 
@@ -186,11 +193,51 @@ class DensityMatrixPropagator(object):
         expiHt = np.dot(U,np.dot(np.diag(np.exp(1j*W*dt)),np.conj(U).T))
         self.rho = np.dot(np.conj(expiHt).T,np.dot(self.rho,expiHt))
 
-    def rescale(self,K,dt):
-		self.rho[0,0] = self.rho[0,0]+K*dt*self.rho[1,1]
-		self.rho[1,1] = self.rho[1,1]-K*dt*self.rho[1,1]
-		self.rho[0,1] = self.rho[0,1]-K*dt/2*self.rho[0,1]
-		self.rho[1,0] = self.rho[1,0]-K*dt/2*self.rho[1,0]
+    def relaxation(self,ii,jj,kRdt):
+        """
+        make a population relaxation of the density matrix from ii to jj by drho
+        """
+        drho = self.rho[ii,ii]*(1.0-np.exp(-kRdt))
+        self.rho[ii,ii] = self.rho[ii,ii]-drho
+        self.rho[jj,jj] = self.rho[jj,jj]+drho
+
+
+    def dephasing(self,ii,jj,kDdt):
+        """
+        make a dephasing of the density matrix of ii,jj element by e^-kDdt
+        """
+        self.rho[ii,jj] = self.rho[ii,jj]*(np.exp(-kDdt))
+        self.rho[jj,ii] = self.rho[jj,ii]*(np.exp(-kDdt))
+
+    def getComplement_angle(self,ii,ff,dt,angle):
+        """
+        calcualte complementary from ii to ff state
+        """
+
+        if np.abs(self.rho[ii,ii])!=0.0:
+            kR = self.FGR[ii,ff] * ( 1.0 - (np.abs(self.rho[ii,ff])**2)/np.abs(self.rho[ii,ii]) )
+        else:
+            kR = 0.0
+
+        if np.abs(self.rho[ff,ii])!=0.0:
+            kRdt = kR *dt * 2*(np.sin(angle))**2
+        else:
+            kRdt = kR *dt
+        drho = self.rho[ii,ii]*(1.0-np.exp(-kRdt))
+
+        if np.abs(self.rho[ff,ii])!=0.0:
+            # kD = self.FGR[ii,ff] * (  1.0 - 2.0*(np.imag(self.rho[ii,ff])**2)/(np.abs(self.rho[ii,ff])**2) \
+                                           # *( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) )  )
+            kD = self.FGR[ii,ff] * (  1.0 - ( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) )  )
+        else:
+            kD = 0.0
+
+        kDdt = np.abs(kD)*dt/2
+        # print kDdt
+
+        dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+
+        return kRdt,kDdt,drho,dE
 
     def getEnergy(self):
         Esys = 0.0
