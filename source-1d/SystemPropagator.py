@@ -209,6 +209,11 @@ class DensityMatrixPropagator(object):
         self.rho[ii,jj] = self.rho[ii,jj]*(np.exp(-kDdt))
         self.rho[jj,ii] = self.rho[jj,ii]*(np.exp(-kDdt))
 
+        if np.abs(self.rho[ii,ii])==0.0 or np.abs(self.rho[jj,jj])==0.0:
+            random_phase = 2*np.pi*random()
+            self.rho[ii,jj] = self.rho[ii,jj]*np.exp( 1j*random_phase )
+            self.rho[jj,ii] = self.rho[jj,ii]*np.exp(-1j*random_phase )
+            
     def getComplement_angle(self,ii,ff,dt,angle):
         """
         calcualte complementary from ii to ff state
