@@ -11,6 +11,7 @@ AU = AtomicUnit()
 
 from MaxwellPropagator import *
 from SystemPropagator import *
+from ThermalSampler import *
 
 
 #Default Options:
@@ -142,6 +143,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
+    # create Thermal Light source
+    BZL = BoltzmannLight_1D(param_EM.beta,num_k=param_EM.num_k)
+    BZL.sample()
+
     """
     Start Time Evolution
     """
@@ -162,6 +167,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
                + EMP.dZ*np.dot(Py,ECWy)
         intdPdzB += EMP.dZ*np.dot(-dPydz, BCWx ) \
                   + EMP.dZ*np.dot( dPxdz, BCWy )
+
+        # polarization interact with Thermal light
+        ETHx = BZL.getEr(param_EM.Zgrid,it*dt)
+        intPE += EMP.dZ*np.dot(Px,ETHx)
 
         Imrho12 = np.imag(TLSP.rho[0,1])
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\

@@ -41,7 +41,7 @@ class TestThermalLight_1D(unittest.TestCase):
         self.beta = 1.0
 
     def test_sample(self):
-        TLbeta = ThermalLight_1D(self.beta,num_k=1)
+        TLbeta = BoltzmannLight_1D(self.beta,num_k=1)
 
         num_sample = 100000
         X2, P2 = 0, 0
@@ -54,7 +54,7 @@ class TestThermalLight_1D(unittest.TestCase):
         energy_Direct = 1.0/(np.abs(TLbeta.Ks[0])*TLbeta.beta)
         self.assertAlmostEqual(energy, energy_Direct, places=3)
     def test_getEr(self):
-        TLbeta = ThermalLight_1D(self.beta)
+        TLbeta = BoltzmannLight_1D(self.beta)
         TLbeta.sample()
 
     	fig, ax= plt.subplots(1,figsize=(5.0,5.0))

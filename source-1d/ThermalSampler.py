@@ -5,7 +5,7 @@ from scipy.interpolate import interp1d
 from units import AtomicUnit
 AU = AtomicUnit()
 
-class ThermalLight_1D(object):
+class BoltzmannLight_1D(object):
     """
     Sample Thermal Light
     """
@@ -36,6 +36,10 @@ class ThermalLight_1D(object):
         self.Eks = Eks
 
         return Xk,Pk
+
+
+    def useEks(self,Eks):
+        self.Eks = Eks
 
     def getEr(self,Rgrid,time):
         dK = self.Ks[1]-self.Ks[0]
