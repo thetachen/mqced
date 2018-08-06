@@ -707,7 +707,7 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             if len(new_list)==1:
                 return new_list[0]
             else:
-                return random.choice(list)
+                return np.random.choice([1, -1])
                 # print "something wrong"
                 # exit()
         # if intETE==0.0 or sign==0.0:
