@@ -221,7 +221,7 @@ class MaxwellPropagator_1D(object):
         if sign==0.0:
             # alpha = choose_sign([1, -1],sign)
             alpha = np.random.choice([1, -1])* np.sqrt(2*dU_E/self.TE2)
-            self.EB[self._Ex:self._Ex+self.NZgrid] = alpha*self.TEx[:]
+            self.EB[self._Ex:self._Ex+self.NZgrid] = self.EB[self._Ex:self._Ex+self.NZgrid] + alpha*self.TEx[:]
         else:
             if UseEnergyConserve:
                 # maintain energy conservation
@@ -239,7 +239,7 @@ class MaxwellPropagator_1D(object):
         if sign==0.0:
             # beta = choose_sign([1, -1],sign)
             beta = np.random.choice([1, -1])* np.sqrt(2*dU_B/self.TB2)
-            self.EB[self._By:self._By+self.NZgrid] = beta*self.TBy[:]
+            self.EB[self._By:self._By+self.NZgrid] = self.EB[self._By:self._By+self.NZgrid] +  beta*self.TBy[:]
         else:
             if UseEnergyConserve:
                 # maintain energy conservation
@@ -707,8 +707,9 @@ class EhrenfestPlusREB_MaxwellPropagator_1D(object):
             if len(new_list)==1:
                 return new_list[0]
             else:
-                print "something wrong"
-                exit()
+                return random.choice(list)
+                # print "something wrong"
+                # exit()
         # if intETE==0.0 or sign==0.0:
         if sign==0.0:
             # alpha = choose_sign([1, -1],sign)
