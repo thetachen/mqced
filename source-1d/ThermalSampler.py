@@ -34,7 +34,8 @@ class BoltzmannLight_1D(object):
         Eks = np.sqrt(np.abs(self.Ks)/4)*1j*((Xk-Xk[::-1]) + 1j*(Pk+Pk[::-1]))
 
         self.Eks = Eks
-
+        self.phase = np.random.random()*2*np.pi
+        
         return Xk,Pk
 
 
@@ -45,6 +46,6 @@ class BoltzmannLight_1D(object):
         dK = self.Ks[1]-self.Ks[0]
         Egrid = np.zeros(len(Rgrid))
         for K,Ek in zip(self.Ks,self.Eks):
-            Egrid =  Egrid+ Ek*np.exp(1j*K*Rgrid) *np.exp(-1j*K*time)*dK
+            Egrid =  Egrid+ Ek*np.exp(1j*K*Rgrid) *np.exp(-1j*K*time+1j*self.phase)*dK
 
         return np.real(Egrid)
