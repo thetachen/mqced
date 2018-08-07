@@ -189,9 +189,14 @@ class DensityMatrixPropagator(object):
         """
         propagate density matrix by Ht for dt
         """
+        if np.abs(self.rho[0,1])==0.0: kill=True
+        else:   kill = False
         W, U = np.linalg.eig(self.Ht)
         expiHt = np.dot(U,np.dot(np.diag(np.exp(1j*W*dt)),np.conj(U).T))
         self.rho = np.dot(np.conj(expiHt).T,np.dot(self.rho,expiHt))
+        if kill:
+            self.rho[0,1]=0.0*1j
+            self.rho[1,0]=0.0*1j
 
     def relaxation(self,ii,jj,kRdt):
         """
@@ -220,27 +225,29 @@ class DensityMatrixPropagator(object):
         """
 
         if np.abs(self.rho[ii,ii])!=0.0:
-            kR = self.FGR[ii,ff] * ( 1.0 - (np.abs(self.rho[ii,ff])**2)/np.abs(self.rho[ii,ii]) )
+            kR = self.FGR[ii,ff] * np.real( 1.0 - (np.abs(self.rho[ii,ff])**2)/np.abs(self.rho[ii,ii]) )* 2*(np.sin(angle))**2
+            # kR = self.FGR[ii,ff] * ( 1.0 - (np.abs(self.rho[ii,ff])**2)/np.abs(self.rho[ii,ii]) )
         else:
             kR = 0.0
 
-        if np.abs(self.rho[ff,ii])!=0.0:
-            kRdt = kR *dt * 2*(np.sin(angle))**2
-        else:
-            kRdt = kR *dt
-        drho = self.rho[ii,ii]*(1.0-np.exp(-kRdt))
-
+        # if np.abs(self.rho[ff,ii])!=0.0:
+        #     kRdt = kR *dt * 2*(np.sin(angle))**2
+        # else:
+        #     kRdt = kR *dt
+        kRdt = kR *dt
+        drho = np.real(self.rho[ii,ii])*(1.0-np.exp(-kRdt))
+        # print drho
         if np.abs(self.rho[ff,ii])!=0.0:
             # kD = self.FGR[ii,ff] * (  1.0 - 2.0*(np.imag(self.rho[ii,ff])**2)/(np.abs(self.rho[ii,ff])**2) \
                                            # *( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) )  )
-            kD = self.FGR[ii,ff] * (  1.0 - ( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) )  )
+            kD = self.FGR[ii,ff]/2 * np.real(  1.0 - ( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) ) )
         else:
             kD = 0.0
 
-        kDdt = np.abs(kD)*dt/2
+        kDdt = np.abs(kD)*dt
         # print kDdt
 
-        dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+        dE = np.real(self.H0[ii,ii]-self.H0[ff,ff])*drho
 
         return kRdt,kDdt,drho,dE
 
