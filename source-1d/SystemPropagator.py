@@ -155,7 +155,7 @@ class DensityMatrixPropagator(object):
     """
     def __init__(self, param):
         self.param = param
-        self.nstates = 2
+        self.nstates = self.param.nstates
         self.Ht = np.zeros((self.nstates,self.nstates))
         self.rho = np.zeros((self.nstates,self.nstates),complex)
 
@@ -213,7 +213,7 @@ class DensityMatrixPropagator(object):
             random_phase = 2*np.pi*random()
             self.rho[ii,jj] = self.rho[ii,jj]*np.exp( 1j*random_phase )
             self.rho[jj,ii] = self.rho[jj,ii]*np.exp(-1j*random_phase )
-            
+
     def getComplement_angle(self,ii,ff,dt,angle):
         """
         calcualte complementary from ii to ff state
