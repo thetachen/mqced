@@ -189,14 +189,14 @@ class DensityMatrixPropagator(object):
         """
         propagate density matrix by Ht for dt
         """
-        if np.abs(self.rho[0,1])==0.0: kill=True
-        else:   kill = False
+        # if np.abs(self.rho[0,1])==0.0: kill=True
+        # else:   kill = False
         W, U = np.linalg.eig(self.Ht)
         expiHt = np.dot(U,np.dot(np.diag(np.exp(1j*W*dt)),np.conj(U).T))
         self.rho = np.dot(np.conj(expiHt).T,np.dot(self.rho,expiHt))
-        if kill:
-            self.rho[0,1]=0.0*1j
-            self.rho[1,0]=0.0*1j
+        # if kill:
+            # self.rho[0,1]=0.0*1j
+            # self.rho[1,0]=0.0*1j
 
     def relaxation(self,ii,jj,kRdt):
         """
