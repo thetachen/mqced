@@ -138,8 +138,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
-    # TLSP = PureStatePropagator(param_TLS)
-    TLSP = DensityMatrixPropagator(param_TLS)
+    if Describer == 'vector':
+        TLSP = PureStatePropagator(param_TLS)
+    if Describer == 'density':
+        TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
     """
