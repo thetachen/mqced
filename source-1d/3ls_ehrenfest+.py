@@ -103,8 +103,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 	# create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[0,0] = param_TLS.C0[0,0]*np.exp(1j*2*np.pi*random())
-    # TLSP = PureStatePropagator(param_TLS)
-    TLSP = DensityMatrixPropagator(param_TLS)
+    if Describer == 'vector':
+        TLSP = PureStatePropagator(param_TLS)
+    if Describer == 'density':
+        TLSP = DensityMatrixPropagator(param_TLS)
 
     """
 	Start Time Evolution
@@ -156,7 +158,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             # TLSP.rescale(2,0,drho20)
             kRdt,kDdt,drho20,dE20 = TLSP.getComplement_angle(2,0,dt,angle)
             TLSP.relaxation(2,0,kRdt)
-            # TLSP.dephasing(2,0,kDdt)
+            TLSP.dephasing(2,0,kDdt)
             EMP.MakeTransition_sign(dE20*dt/Lambda,sign,UseRandomEB=UseRandomEB)
 
     	    #(2->1)
@@ -170,7 +172,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             # TLSP.rescale(2,1,drho21)
             kRdt,kDdt,drho21,dE21 = TLSP.getComplement_angle(2,1,dt,angle)
             TLSP.relaxation(2,1,kRdt)
-            # TLSP.dephasing(2,1,kDdt)
+            TLSP.dephasing(2,1,kDdt)
             EMP.MakeTransition_sign(dE21*dt/Lambda,sign,UseRandomEB=UseRandomEB)
 
             # print dE20, dE21
@@ -181,9 +183,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #4.5. Apply non-radiative thermal equlibration
             #(1->0)
             # transition=[0,1] --> only downward transistion
-            # TLSP.equilibrate(0,1,dt,transition=[0,1])
-            kRdt = TLSP.param.gamma_vib*dt
-            TLSP.relaxation(1,0,kRdt)
+            TLSP.equilibrate(0,1,dt,transition=[0,1])
+            # kRdt = TLSP.param.gamma_vib*dt
+            # TLSP.relaxation(1,0,kRdt)
 
         #5. Apply absorption boundary condition
         EMP.applyAbsorptionBoundaryCondition()
