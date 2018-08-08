@@ -23,8 +23,8 @@ class TestPureStatePropagator(unittest.TestCase):
         param_TLS={
 		    'nstates':  2,
 		    # Hamiltoniam
-		    'H0':       np.array([[-0.5,0.0],\
-        		                  [0.0,0.5]]),
+		    'H0':       np.array([[-1,0.0],\
+        		                  [0.0,1]]),
     		# Coupling
     		'VP':       np.array([[0.0,1.0],\
             		              [1.0,0.0]]),
@@ -82,7 +82,41 @@ class TestPureStatePropagator(unittest.TestCase):
         ax.legend()
         # plt.show()
 
-    # def test_getComplement_angle(self):
+    def test_getComplement_angle(self):
+        ii = 1
+        ff = 0
+        dt = 1.0
+        angle = 0.5*np.pi
+
+
+        param = self.param
+        param.C0=np.sqrt(np.array([[0.1],[0.9]],complex))
+        TLDMP = DensityMatrixPropagator(param)
+        kRdt1,kDdt1,drho1,dE1  = TLDMP.getComplement_angle(ii,ff,dt,angle)
+
+
+        TLSP = PureStatePropagator(param)
+        kRdt2,kDdt2,drho2,dE2  = TLSP.getComplement_angle(ii,ff,dt,angle)
+
+        KFGR = TLSP.FGR[ii,ff]
+        kRdt_Direct = KFGR * (1.0-np.abs(TLSP.rho[ff,ff])) * 2*np.sin(angle)**2 *dt
+        kDdt_Direct = KFGR * np.abs(TLSP.rho[ii,ii])
+        drho_Direct = np.abs(TLSP.rho[ii,ii])*(1.0-np.exp(-kRdt_Direct))
+        dE_Direct = drho_Direct * (param.H0[ii,ii]-param.H0[ff,ff])
+
+        self.assertAlmostEqual(kRdt1, kRdt_Direct)
+        self.assertAlmostEqual(kRdt2, kRdt_Direct)
+
+        self.assertAlmostEqual(kDdt1, kDdt_Direct)
+        self.assertAlmostEqual(kDdt2, kDdt_Direct)
+
+        self.assertAlmostEqual(drho1, drho_Direct)
+        self.assertAlmostEqual(drho2, drho_Direct)
+
+        self.assertAlmostEqual(dE1, dE_Direct)
+        self.assertAlmostEqual(dE2, dE_Direct)
+
+
     # def test_getEnergy(self):
     # def test_getrho(self):
     def test_rescale(self):
@@ -103,7 +137,7 @@ class TestPureStatePropagator(unittest.TestCase):
         self.assertAlmostEqual(np.abs(TLSP.C[jj,0])**2, Pjj_Direct)
 
         TLSP = PureStatePropagator(param)
-        TLSP.rescale_kRdt(ii,jj,kRdt)
+        TLSP.relaxation(ii,jj,kRdt)
         self.assertAlmostEqual(np.abs(TLSP.C[ii,0])**2, Pii_Direct)
         self.assertAlmostEqual(np.abs(TLSP.C[jj,0])**2, Pjj_Direct)
 
@@ -130,6 +164,17 @@ class TestPureStatePropagator(unittest.TestCase):
 
         self.assertAlmostEqual(np.abs(TLDMP.rho[0,1]), np.abs(rho01_Direct))
         self.assertAlmostEqual(np.angle(TLDMP.rho[0,1]), np.angle(rho01_Direct))
+
+        print np.abs(TLDMP.rho[0,1])
+        rho_all = []
+        for i in range(1000):
+            TLSP = PureStatePropagator(param)
+            TLSP.dephasing(ii,jj,kDdt)
+            rho_all.append(TLSP.rho)
+
+        rho_average = np.average(rho_all,axis=0)
+        print np.abs(rho_average[0,1])
+
 
     # def test_equilibrate(self):
 

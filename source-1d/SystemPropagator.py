@@ -92,7 +92,7 @@ class PureStatePropagator(object):
         	#TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
         self.getrho()
 
-    def rescale_kRdt(self,ii,jj,kRdt):
+    def relaxation(self,ii,jj,kRdt):
         """
         rescale the state vector from ii to jj by exp(-kRdt)
         """
@@ -105,6 +105,18 @@ class PureStatePropagator(object):
         else:
             self.C[jj,0] = self.C[jj,0]*np.sqrt(1.0+(np.abs(self.C[ii,0])**2/np.abs(self.C[jj,0])**2)*(1.0-np.exp(-kRdt)))
             self.C[ii,0] = self.C[ii,0]*np.exp(-kRdt/2)
+        self.getrho()
+
+    def dephasing(self,ii,jj,kDdt):
+        """
+        make a dephasing with probailtity kDdt
+        """
+        test = random()
+        if test < kDdt:
+            # collapse
+            self.C[ii,0] = np.abs(self.C[ii,0])
+            self.C[jj,0] = np.abs(self.C[jj,0])
+
         self.getrho()
 
     def equilibrate(self,ii,jj,dt,transition=[1,1]):
@@ -139,13 +151,26 @@ class PureStatePropagator(object):
         """
         calcualte complementary from ii --> ff state
         """
-        gamma = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
-        drho = gamma*dt * np.abs(self.rho[ii,ii])
+        kR = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
         if np.abs(self.rho[ff,ii])!=0.0:
-            drho *= 2*(np.sin(angle))**2
+            kR *= 2*(np.sin(angle))**2
 
+        kRdt = kR*dt
+        drho = np.abs(self.rho[ii,ii])*(1.0-np.exp(-kRdt))
         dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
-        return drho, dE
+
+        kD = self.FGR[ii,ff]/2 * (  1.0 - ( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) ) )
+        kDdt = np.abs(kD)*dt
+
+        return kRdt,kDdt,drho,dE
+
+        # gamma = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
+        # drho = gamma*dt * np.abs(self.rho[ii,ii])
+        # if np.abs(self.rho[ff,ii])!=0.0:
+        #     drho *= 2*(np.sin(angle))**2
+        #
+        # dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+        # return drho, dE
 
 class DensityMatrixPropagator(object):
     """
