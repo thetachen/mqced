@@ -38,10 +38,16 @@ def find_peak(x,y,x0,dx):
     return x_max,y_max
 
 def window_fft(t,ft,tmin,tmax):
+    #dt = t[1]-t[0]
+    #itmin, itmax = np.argmin(np.abs(t-tmin)),np.argmin(np.abs(t-tmax))
+    #fftw = np.fft.rfft(ft[itmin:itmax])/(t[itmax]-t[itmin])
+    #freq = np.array(range(len(fftw))) * 2*np.pi/(t[itmax]-t[itmin])
+    
     dt = t[1]-t[0]
     itmin, itmax = np.argmin(np.abs(t-tmin)),np.argmin(np.abs(t-tmax))
-    fftw = np.fft.rfft(ft[itmin:itmax])/(t[itmax]-t[itmin])
-    freq = np.array(range(len(fftw))) * 2*np.pi/(t[itmax]-t[itmin])
+    fftw = np.fft.rfft(ft[:itmax],n=len(ft))/(t[itmax]-t[0])
+    freq = np.array(range(len(fftw))) * 2*np.pi/(t[-1]-t[0])
+    #print len(fftw)
     #fft_Ex = np.fft.rfft(Es)
     #fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(Xs[-1]-Xs[0])
 
