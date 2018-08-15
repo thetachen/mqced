@@ -115,7 +115,7 @@ class PureStatePropagator(object):
         if test < kDdt:
             # collapse
             self.C[ii,0] = np.abs(self.C[ii,0])
-            self.C[jj,0] = np.abs(self.C[jj,0])
+            self.C[jj,0] = np.abs(self.C[jj,0])*np.exp(1j*2*np.pi*random())
 
         self.getrho()
 
@@ -160,6 +160,7 @@ class PureStatePropagator(object):
         dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
 
         kD = self.FGR[ii,ff]/2 * (  1.0 - ( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) ) )
+        #kD = self.FGR[ii,ff] * np.abs(self.rho[ii,ii])
         kDdt = np.abs(kD)*dt
 
         return kRdt,kDdt,drho,dE
