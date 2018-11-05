@@ -114,7 +114,7 @@ class PureStatePropagator(object):
         test = random()
         if test < kDdt:
             # collapse
-            self.C[ii,0] = np.abs(self.C[ii,0])
+            #self.C[ii,0] = np.abs(self.C[ii,0])*np.exp(1j*2*np.pi*random())
             self.C[jj,0] = np.abs(self.C[jj,0])*np.exp(1j*2*np.pi*random())
 
         self.getrho()
