@@ -139,8 +139,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
-    # TLSP = PureStatePropagator(param_TLS)
-    TLSP = DensityMatrixPropagator(param_TLS)
+    if Describer == 'vector':
+        TLSP = PureStatePropagator(param_TLS)
+    if Describer == 'density':
+        TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
     # create Thermal Light source
@@ -176,7 +178,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
               # 'Imrho/absrho=',(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))
         if np.abs(TLSP.rho[0,1])==0.0:
-            angle = phase_shift
+            # angle = phase_shift
+            angle = (TLSP.H0[1,1]-TLSP.H0[0,0])*it*dt + phase_shift
         else:
             angle = np.angle(TLSP.rho[0,1]/np.abs(TLSP.rho[0,1])) + phase_shift
         sign = np.sin(angle)
@@ -343,9 +346,18 @@ if ShowAnimation:
 	plt.ion()
 	fig, ax= plt.subplots(5,figsize=(10.0,12.0))
 
-data = []
-for i in range(NumberTrajectories):
-    output = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
-    data.append(output)
-with open(outfile, 'wb') as f:
-    pickle.dump(data,f)
+# data = []
+# for i in range(NumberTrajectories):
+    # output = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
+    # data.append(output)
+# with open(outfile, 'wb') as f:
+    # pickle.dump(data,f)
+
+data = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
+np.savetxt("Es.dat",zip(np.array(data['Xs'][::-1]),np.array(data['Es'][::-1])))
+rhot={
+    'times':    data['times'],
+    'rhot':     data['rhot'],
+}
+with open("rhot.pkl", 'wb') as f:
+    pickle.dump(rhot,f)

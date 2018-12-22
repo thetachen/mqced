@@ -337,9 +337,18 @@ if ShowAnimation:
 	plt.ion()
 	fig, ax= plt.subplots(5,figsize=(10.0,12.0))
 
-data = []
-for i in range(NumberTrajectories):
-    output = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
-    data.append(output)
-with open(outfile, 'wb') as f:
-    pickle.dump(data,f)
+# data = []
+# for i in range(NumberTrajectories):
+    # output = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
+    # data.append(output)
+# with open(outfile, 'wb') as f:
+    # pickle.dump(data,f)
+
+data = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
+np.savetxt("Es.dat",zip(np.array(data['Xs'][::-1]),np.array(data['Es'][::-1])))
+rhot={
+    'times':    data['times'],
+    'rhot':     data['rhot'],
+}
+with open("rhot.pkl", 'wb') as f:
+    pickle.dump(rhot,f)
