@@ -126,15 +126,15 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     TBy = -dPxdz - (1.0/6/param_TLS.Sigma)*d3Pxdz
 
     # create EM object
-    EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
-    EMP.initializeODEsolver(EB,T0)
-    EMP.update_TETB(TEx,TEy,TBx,TBy)
-    EMP.applyAbsorptionBoundaryCondition()
-
+    # EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
+    # EMP.initializeODEsolver(EB,T0)
+    # EMP.update_TETB(TEx,TEy,TBx,TBy)
+    # EMP.applyAbsorptionBoundaryCondition()
+#
     #normalized
-    TEx = TEx/np.sqrt(EMP.TE2)
-    TBy = TBy/np.sqrt(EMP.TB2)
-    EMP.update_TETB(TEx,TEy,TBx,TBy)
+    # TEx = TEx/np.sqrt(EMP.TE2)
+    # TBy = TBy/np.sqrt(EMP.TB2)
+    # EMP.update_TETB(TEx,TEy,TBx,TBy)
 
     # create TLS object
     if UseInitialRandomPhase:
@@ -154,25 +154,26 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     """
     for it in range(len(times)):
 
-        #0 Compute All integrals
-        intPE = EMP.dZ*np.dot(Px, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
-              + EMP.dZ*np.dot(Py, np.array(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
-        intdPdzB = EMP.dZ*np.dot(-dPydz, np.array(EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid])) \
-                 + EMP.dZ*np.dot( dPxdz, np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid]))
-
-        #0.5 polarization interact with CW
-        ECWx = param_EM.A_CW*np.cos(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
-        ECWy = np.zeros(len(param_EM.Zgrid))
-        BCWx = np.zeros(len(param_EM.Zgrid))
-        BCWy = param_EM.A_CW*np.sin(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
-        intPE += EMP.dZ*np.dot(Px,ECWx) \
-               + EMP.dZ*np.dot(Py,ECWy)
-        intdPdzB += EMP.dZ*np.dot(-dPydz, BCWx ) \
-                  + EMP.dZ*np.dot( dPxdz, BCWy )
+        # #0 Compute All integrals
+        # intPE = EMP.dZ*np.dot(Px, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
+        #       + EMP.dZ*np.dot(Py, np.array(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
+        # intdPdzB = EMP.dZ*np.dot(-dPydz, np.array(EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid])) \
+        #          + EMP.dZ*np.dot( dPxdz, np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid]))
+        #
+        # #0.5 polarization interact with CW
+        # ECWx = param_EM.A_CW*np.cos(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        # ECWy = np.zeros(len(param_EM.Zgrid))
+        # BCWx = np.zeros(len(param_EM.Zgrid))
+        # BCWy = param_EM.A_CW*np.sin(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        # intPE += EMP.dZ*np.dot(Px,ECWx) \
+        #        + EMP.dZ*np.dot(Py,ECWy)
+        # intdPdzB += EMP.dZ*np.dot(-dPydz, BCWx ) \
+        #           + EMP.dZ*np.dot( dPxdz, BCWy )
 
         # polarization interact with Thermal light
         ETHx = BZL.getEr(param_EM.Zgrid,it*dt)
-        intPE += EMP.dZ*np.dot(Px,ETHx)
+        # intPE += EMP.dZ*np.dot(Px,ETHx)
+        intPE = param_EM.dZ*np.dot(Px,ETHx)
 
         Imrho12 = np.imag(TLSP.rho[0,1])
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
@@ -199,28 +200,23 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Jy = dPdt * Py
 
         #3. Evolve the field
-        EMP.update_JxJy(Jx,Jy)
-        EMP.propagate(dt)
+        # EMP.update_JxJy(Jx,Jy)
+        # EMP.propagate(dt)
         #EB = EMP.EB
         if UsePlusEmission:
             #4. Implement additional population relaxation (1->0)
-            # drho, dE = TLSP.getComplement(1,0,dt)
-            # drho, dE = TLSP.getComplement_angle(1,0,dt,angle)
-            # TLSP.rescale(1,0,drho)
             kRdt,kDdt,drho,dE = TLSP.getComplement_angle(1,0,dt,angle)
             TLSP.relaxation(1,0,kRdt)
             TLSP.dephasing(1,0,kDdt)
-            # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
-            # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
-            EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
+            # EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
 
         #5. Apply absorption boundary condition
-        EMP.applyAbsorptionBoundaryCondition()
+        # EMP.applyAbsorptionBoundaryCondition()
         #EB = EMP.EB
 
         # save far field out of the box
-        EMP.saveFarField(times[it],Tmax)
+        # EMP.saveFarField(times[it],Tmax)
         """
         output:
 
@@ -232,10 +228,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         #energy
         # UEB = EMP.getEnergyDensity()
         # Uemf = np.sum(UEB)*param_EM.dZ
-        Uemf = EMP.getTotalEnergy(dt)
-        Uele = TLSP.getEnergy()
-        Ut[0,it] = Uele
-        Ut[1,it] = Uemf
+        # Uemf = EMP.getTotalEnergy(dt)
+        # Uele = TLSP.getEnergy()
+        # Ut[0,it] = Uele
+        # Ut[1,it] = Uemf
 
         """
         Plot
@@ -243,23 +239,18 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         if it%AveragePeriod==0 and ShowAnimation:
             plt.sca(ax[0])
             plt.cla()
-            ax[0].fill_between(EMP.Zgrid,0.0,EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid],alpha=0.5,color='blue',label='$B_x$')
-            ax[0].fill_between(EMP.Zgrid,0.0,EMP.EB[EMP._By:EMP._By+EMP.NZgrid],alpha=0.5,color='green',label='$B_y$')
-            ax[0].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
-            ax[0].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
-            ax[0].axvline(x=param_TLS.Mu, color='k', linestyle='--')
+            ax[0].fill_between(param_EM.Zgrid,ETHx,alpha=0.5,color='blue',label='$E_{th}$')
+            # ax[0].fill_between(EMP.Zgrid,0.0,EMP.EB[EMP._By:EMP._By+EMP.NZgrid],alpha=0.5,color='green',label='$B_y$')
+            # ax[0].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
+            # ax[0].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
+            # ax[0].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[0].legend()
 
             plt.sca(ax[1])
             plt.cla()
-            #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]),alpha=0.5,color='red',label='$E_x$')
-            #ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]),alpha=0.5,color='orange',label='$E_y$')
-            # ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
-            # ax[1].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
-            # ax[1].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
-            ax[1].plot(times[:it]*AU.fs,Ut[0,:it]+Ut[1,:it],lw=2,label='Uele+Uemf')
+            ax[1].fill_between(param_EM.Zgrid,0.0,Px,color='blue',label='$Px$')
             # ax[1].set_ylim([0,0.0001])
-            ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
+            # ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[1].legend()
 
             plt.sca(ax[2])
@@ -270,7 +261,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
-            ax[2].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
+            # ax[2].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
             # rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]))*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
             rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2)*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
             ax[2].plot(times[:it]*AU.fs,rho12,'--k',lw=2,label='WW')
@@ -290,8 +281,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[3].plot(times[:it]*AU.fs,(-np.log(dEnergy[1,:it])+np.log(dEnergy[1,0]))/times[:it], lw=2, label='incoherent')
             #ax[3].axhline(y=TLSP.FGR[1,0]*2, color='k', linestyle='--', lw=2)
             #ax[3].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0]+Ut[1,:it]-Ut[1,0],lw=2,label='energy diff')
-            ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
-            ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Es),label='$E_x$ (far)')
+            # ax[3].plot(EMP.Xs,np.array(EMP.Bs),label='$B_y$ (far)')
             # ax[3].plot(EMP.Xs,np.array(EMP.Es)**2,lw=1,label='$E^2$')
             # ax[3].plot(EMP.Xs,np.array(EMP.Bs)**2,lw=1,label='$B^2$')
             ax[3].legend(loc='best')
@@ -307,9 +298,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
             ax[4].set_xlim([0.0,1.0])
             #ax[4].set_xlabel('$ck$')
-            fft_Ex = np.fft.rfft(EMP.Es[::-1])
-            fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
-            ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b',label='fft($E$)')
+            # fft_Ex = np.fft.rfft(EMP.Es[::-1])
+            # fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
+            # ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b',label='fft($E$)')
             ax[4].set_xlabel('$\omega$')
             ax[4].legend()
             # fig.savefig('test_plot.pdf')
@@ -319,13 +310,13 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         #data dictionaray
         if it%AveragePeriod==0 or it==len(times)-1:
             output={
-                'Zgrid':EMP.Zgrid,
+                # 'Zgrid':EMP.Zgrid,
                 'times':times,
-                'Ex':   EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
-                'By':   EMP.EB[EMP._By:EMP._By+EMP.NZgrid],
-                'Es':   EMP.Es,
-                'Bs':   EMP.Bs,
-                'Xs':   EMP.Xs,
+                # 'Ex':   EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
+                # 'By':   EMP.EB[EMP._By:EMP._By+EMP.NZgrid],
+                # 'Es':   EMP.Es,
+                # 'Bs':   EMP.Bs,
+                # 'Xs':   EMP.Xs,
                 'Ut':   Ut,
                 'dE':   dEnergy,
                 'rhot':   rhot,
@@ -354,7 +345,7 @@ if ShowAnimation:
     # pickle.dump(data,f)
 
 data = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
-np.savetxt("Es.dat",zip(np.array(data['Xs'][::-1]),np.array(data['Es'][::-1])))
+# np.savetxt("Es.dat",zip(np.array(data['Xs'][::-1]),np.array(data['Es'][::-1])))
 rhot={
     'times':    data['times'],
     'rhot':     data['rhot'],
