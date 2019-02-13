@@ -12,9 +12,15 @@ class BoltzmannLight_1D(object):
     def __init__(self,beta,num_k=1000):
 
         # Set up k grid according to beta
-        max_k = 5.0/beta
+        max_k = 10.0/beta
         self.beta = beta
         self.Ks = np.linspace(-max_k,max_k,num=num_k)
+        self.Ws = np.abs(self.Ks) #*c
+        self.Planck = self.Ws**3/(np.pi**2)/(np.exp(self.beta*self.Ws)-1)
+        if len(self.Ws)==1:
+            self.dW = 1.0
+        else:
+            self.dW = np.abs(self.Ws[1]-self.Ws[0])
         # print Ks
 
         # Boltzmann Distribution
@@ -31,11 +37,12 @@ class BoltzmannLight_1D(object):
         Pk = XPs[1]
 
         # Calculate Ek from Xk Pk
-        Eks = np.sqrt(np.abs(self.Ks)/4)*1j*((Xk-Xk[::-1]) + 1j*(Pk+Pk[::-1]))
+        # Eks = np.sqrt(np.abs(self.Ks)/4)*1j*((Xk-Xk[::-1]) + 1j*(Pk+Pk[::-1]))
+        Eks = np.sqrt(np.abs(self.Ks)/4)*1j*((Xk-Xk[::-1]) + 1j*(Pk+Pk[::-1])) * self.Planck*self.dW
 
         self.Eks = Eks
         self.phase = np.random.random()*2*np.pi
-        
+
         return Xk,Pk
 
 
@@ -49,3 +56,28 @@ class BoltzmannLight_1D(object):
             Egrid =  Egrid+ Ek*np.exp(1j*K*Rgrid) *np.exp(-1j*K*time+1j*self.phase)*dK
 
         return np.real(Egrid)
+
+
+class BoltzmannLight_1mode(object):
+    """
+    Sample Thermal Light
+    """
+    def __init__(self,beta,KCW):
+
+        # Set up k grid according to beta
+        self.KCW = KCW
+        self.beta = beta
+
+    def sample_ACW(self):
+        mean = 0.0
+        std = 1.0/np.sqrt(self.beta)
+        self.ACW = np.random.normal(mean, std)
+
+        return self.ACW
+
+
+    def calculate_ECW(self,Rgrid,time):
+        self.ECWx = self.ACW*np.cos(self.KCW*(Rgrid-time))
+        self.ECWy = np.zeros(len(Rgrid))
+        self.BCWx = np.zeros(len(Rgrid))
+        self.BCWy = self.ACW*np.sin(self.KCW*(Rgrid-time))

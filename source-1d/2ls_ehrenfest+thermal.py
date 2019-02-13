@@ -146,8 +146,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
     # create Thermal Light source
-    BZL = BoltzmannLight_1D(param_EM.beta,num_k=param_EM.num_k)
-    BZL.sample()
+    # BZL = BoltzmannLight_1D(param_EM.beta,num_k=param_EM.num_k)
+    # BZL.sample()
+    BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
+    BZL.sample_ACW()
+    print BZL.ACW
 
     """
     Start Time Evolution
@@ -171,9 +174,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         #           + EMP.dZ*np.dot( dPxdz, BCWy )
 
         # polarization interact with Thermal light
-        ETHx = BZL.getEr(param_EM.Zgrid,it*dt)
+        # ETHx = BZL.getEr(param_EM.Zgrid,it*dt)
         # intPE += EMP.dZ*np.dot(Px,ETHx)
-        intPE = param_EM.dZ*np.dot(Px,ETHx)
+
+        BZL.calculate_ECW(param_EM.Zgrid,it*dt)
+        intPE = param_EM.dZ*np.dot(Px,BZL.ECWx)
 
         Imrho12 = np.imag(TLSP.rho[0,1])
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
@@ -258,7 +263,6 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             KFGR = TLSP.FGR[1,0]
             for n in range(param_TLS.nstates):
                 ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
-            ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
@@ -317,8 +321,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
                 # 'Es':   EMP.Es,
                 # 'Bs':   EMP.Bs,
                 # 'Xs':   EMP.Xs,
-                'Ut':   Ut,
-                'dE':   dEnergy,
+                # 'Ut':   Ut,
+                # 'dE':   dEnergy,
                 'rhot':   rhot,
             }
 
@@ -337,18 +341,42 @@ if ShowAnimation:
 	plt.ion()
 	fig, ax= plt.subplots(5,figsize=(10.0,12.0))
 
-# data = []
-# for i in range(NumberTrajectories):
-    # output = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
-    # data.append(output)
-# with open(outfile, 'wb') as f:
-    # pickle.dump(data,f)
+rhot11_all=[]
+rhot01_all=[]
+for i in range(NumberTrajectories):
+    data = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
+    rhot11_all.append(data['rhot'][1,1])
+    rhot01_all.append(data['rhot'][0,1])
+    # print i
 
-data = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
-# np.savetxt("Es.dat",zip(np.array(data['Xs'][::-1]),np.array(data['Es'][::-1])))
+rhot11_average = np.average(rhot11_all, axis=0)
+rhot01_average = np.average(rhot01_all, axis=0)
+rhot11_deviate = np.std(rhot11_all, axis=0)
+rhot01_deviate = np.std(rhot01_all, axis=0)
+
+# from matplotlib import pyplot as plt
+# fig1, ax1= plt.subplots(1,figsize=(8.0,4.0))
+# ax1.plot(data['times']*AU.fs,np.abs(rhot11_average),'--k',lw=2)
+# ax1.fill_between(data['times']*AU.fs,np.abs(rhot11_average)-rhot11_deviate,np.abs(rhot11_average)+rhot11_deviate)
+# plt.show()
 rhot={
     'times':    data['times'],
-    'rhot':     data['rhot'],
+    'rhot11':   rhot11_average,
+    'rhot01':   rhot01_average,
+    'rhot11':   rhot11_deviate,
+    'rhot01':   rhot01_deviate,
 }
 with open("rhot.pkl", 'wb') as f:
     pickle.dump(rhot,f)
+
+# with open(outfile, 'wb') as f:
+    # pickle.dump(data,f)
+#
+# data = execute(param_EM,param_TLS,ShowAnimation=ShowAnimation)
+# # np.savetxt("Es.dat",zip(np.array(data['Xs'][::-1]),np.array(data['Es'][::-1])))
+# rhot={
+#     'times':    data['times'],
+#     'rhot':     data['rhot'],
+# }
+# with open("rhot.pkl", 'wb') as f:
+#     pickle.dump(rhot,f)

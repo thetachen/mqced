@@ -38,39 +38,81 @@ class TestThermalLight_1D(unittest.TestCase):
         param_EM=Struct(**param_EM)
 
         self.param = param_EM
-        self.beta = 1.0
+        self.beta = 0.5
+        self.KCW = 0.25
 
-    def test_sample(self):
-        TLbeta = BoltzmannLight_1D(self.beta,num_k=1)
+    # def test_k_distribution(self):
+    #     TLbeta = BoltzmannLight_1D(self.beta,num_k=100)
+    #     fig, ax= plt.subplots(1,figsize=(5.0,5.0))
+    #     ax.plot(TLbeta.Ws, TLbeta.Planck,'-o')
+    #     plt.show()
 
-        num_sample = 100000
-        X2, P2 = 0, 0
+    #     # TLbeta.Ks
+    # def test_sample(self):
+    #     TLbeta = BoltzmannLight_1D(self.beta,num_k=1)
+    #
+    #     num_sample = 100000
+    #     X2, P2 = 0, 0
+    #     for i in range(num_sample):
+    #         Xk,Pk = TLbeta.sample()
+    #         X2 += Xk**2
+    #         P2 += Pk**2
+    #     energy = (X2+P2)/num_sample/2
+    #
+    #     energy_Direct = 1.0/(np.abs(TLbeta.Ks[0])*TLbeta.beta)
+    #     self.assertAlmostEqual(energy, energy_Direct, places=3)
+    #
+    # def test_getEr(self):
+    #     TLbeta = BoltzmannLight_1D(self.beta)
+    #     TLbeta.sample()
+    #
+    # 	fig, ax= plt.subplots(1,figsize=(5.0,5.0))
+    #
+    #     t = 0.0
+    #     ECW = TLbeta.getEr(self.param.Zgrid,t)
+    #     ax.plot(self.param.Zgrid,ECW)
+    #     t = 1.0
+    #     ECW = TLbeta.getEr(self.param.Zgrid,t)
+    #     ax.plot(self.param.Zgrid,ECW)
+    #     t = 2.0
+    #     ECW = TLbeta.getEr(self.param.Zgrid,t)
+    #     ax.plot(self.param.Zgrid,ECW)
+    #
+    #     plt.show(block=False)
+
+
+    def test_BoltzmannLight_1mode_sample_ACW(self):
+        TLbeta = BoltzmannLight_1mode(self.beta,self.KCW)
+
+        num_sample = 1000000
+        ACW_all, ACW2_all = 0, 0
         for i in range(num_sample):
-            Xk,Pk = TLbeta.sample()
-            X2 += Xk**2
-            P2 += Pk**2
-        energy = (X2+P2)/num_sample/2
+            ACW = TLbeta.sample_ACW()
+            ACW_all += ACW
+            ACW2_all += ACW**2
+        mean = ACW_all/num_sample
+        energy = ACW2_all/num_sample
 
-        energy_Direct = 1.0/(np.abs(TLbeta.Ks[0])*TLbeta.beta)
-        self.assertAlmostEqual(energy, energy_Direct, places=3)
-    def test_getEr(self):
-        TLbeta = BoltzmannLight_1D(self.beta)
-        TLbeta.sample()
+        energy_Direct = 1.0/TLbeta.beta
+        self.assertAlmostEqual(mean, 0.0, places=2)
+        self.assertAlmostEqual(energy, energy_Direct, places=2)
+
+    def test_BoltzmannLight_1mode_calculate_ECW(self):
+        TLbeta = BoltzmannLight_1mode(self.beta,self.KCW)
+        TLbeta.sample_ACW()
 
     	fig, ax= plt.subplots(1,figsize=(5.0,5.0))
 
         t = 0.0
-        ECW = TLbeta.getEr(self.param.Zgrid,t)
-        ax.plot(self.param.Zgrid,ECW)
-        t = 1.0
-        ECW = TLbeta.getEr(self.param.Zgrid,t)
-        ax.plot(self.param.Zgrid,ECW)
-        t = 2.0
-        ECW = TLbeta.getEr(self.param.Zgrid,t)
-        ax.plot(self.param.Zgrid,ECW)
+        TLbeta.calculate_ECW(self.param.Zgrid,t)
+        ax.plot(self.param.Zgrid,TLbeta.ECWx)
+        t = 10.0
+        TLbeta.calculate_ECW(self.param.Zgrid,t)
+        ax.plot(self.param.Zgrid,TLbeta.ECWx)
+        t = 20.0
+        TLbeta.calculate_ECW(self.param.Zgrid,t)
+        ax.plot(self.param.Zgrid,TLbeta.ECWx)
 
-        plt.show(block=False)
-
-
+        plt.show()
 if __name__ == '__main__':
     unittest.main()
