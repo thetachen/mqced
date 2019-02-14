@@ -144,7 +144,6 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create Thermal Light source
     BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
     BZL.sample_ACW()
-    BZL.ACW = 0.01
 
     """
     Start Time Evolution
