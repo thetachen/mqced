@@ -293,6 +293,14 @@ class DensityMatrixPropagator(object):
         self.rho[0,1] = self.rho[0,1]-drho12
         self.rho[1,0] = self.rho[1,0]-np.conj(drho12)
 
+    def Lindblad(self,dt):
+        """
+        propagate the density matrix by a Lindblad operator
+        """
+        self.rho[1,1] = self.rho[1,1]*np.exp(-self.FGR[1,0]*dt)
+        self.rho[0,0] = 1.0 - self.rho[1,1]
+        self.rho[0,1] = self.rho[0,1]*np.exp(-self.FGR[1,0]*dt/2)
+        self.rho[1,0] = self.rho[1,0]*np.exp(-self.FGR[1,0]*dt/2)
 
     def _rescale(self,ii,jj,drho):
         """

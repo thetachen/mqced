@@ -139,17 +139,12 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
-    if Describer == 'vector':
-        TLSP = PureStatePropagator(param_TLS)
-    if Describer == 'density':
-        TLSP = DensityMatrixPropagator(param_TLS)
-    #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
+    TLSP = DensityMatrixPropagator(param_TLS)
 
     # create Thermal Light source
-    # BZL = BoltzmannLight_1D(param_EM.beta,num_k=param_EM.num_k)
-    # BZL.sample()
     BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
     BZL.sample_ACW()
+    BZL.ACW = 0.01
 
     """
     Start Time Evolution
@@ -182,8 +177,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Imrho12 = np.imag(TLSP.rho[0,1])
         # analytical self-interaction
         intPE += Imrho12*TLSP.FGR[1,0]
-        # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
-              # 'Imrho/absrho=',(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))
+
         if np.abs(TLSP.rho[0,1])==0.0:
             # angle = phase_shift
             angle = (TLSP.H0[1,1]-TLSP.H0[0,0])*it*dt + phase_shift
@@ -193,9 +187,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         # sign = np.imag(np.exp(1j*shift))
         dEnergy[0,it] = TLSP.getEnergy()
         #1. Propagate the wave function
+
         TLSP.update_coupling(intPE)
         TLSP.propagate(dt)
-        dEnergy[0,it] = dEnergy[0,it]-TLSP.getEnergy()
 
         #2. Compute Current: J
         dPdt = 0.0
@@ -205,18 +199,9 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         Jx = dPdt * Px
         Jy = dPdt * Py
 
-        #3. Evolve the field
-        # EMP.update_JxJy(Jx,Jy)
-        # EMP.propagate(dt)
-        #EB = EMP.EB
-        if UsePlusEmission:
-            #4. Implement additional population relaxation (1->0)
-            kRdt,kDdt,drho,dE = TLSP.getComplement_angle(1,0,dt,angle)
-            TLSP.relaxation(1,0,kRdt)
-            TLSP.dephasing(1,0,kDdt)
-            # EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
-            dEnergy[1,it] = dE
 
+        #3. LindbladDecay
+        TLSP.Lindblad(dt)
         #5. Apply absorption boundary condition
         # EMP.applyAbsorptionBoundaryCondition()
         #EB = EMP.EB
@@ -267,9 +252,10 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
+            rho22 = (np.abs(param_TLS.C0[1,0])**2)*np.exp(-KFGR*times[:it])
             # rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]))*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
             rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2)*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
-            ax[2].plot(times[:it]*AU.fs,rho12,'--k',lw=2,label='WW')
+            ax[2].plot(times[:it]*AU.fs,rho22,'--k',lw=2,label='WW')
             # ax[2].plot(times[:it]*AU.fs,np.cos(0.25*times[:it]-(1.9)*np.pi)*rho12,'--b',lw=2,label='WW')
             # ax[2].plot(times[:it]*AU.fs,np.sin(0.25*times[:it]-(1.9)*np.pi)*rho12,'--g',lw=2,label='WW')
             # ax[2].set_xlim([0,Tmax*AU.fs])
