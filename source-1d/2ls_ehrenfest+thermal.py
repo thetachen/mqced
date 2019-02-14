@@ -150,7 +150,6 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # BZL.sample()
     BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
     BZL.sample_ACW()
-    print BZL.ACW
 
     """
     Start Time Evolution
@@ -181,6 +180,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
         intPE = param_EM.dZ*np.dot(Px,BZL.ECWx)
 
         Imrho12 = np.imag(TLSP.rho[0,1])
+        # analytical self-interaction
+        intPE += Imrho12*TLSP.FGR[1,0]
         # print 'Rerho/absrho=',(np.real(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1])),\
               # 'Imrho/absrho=',(np.imag(TLSP.rho[0,1])/np.abs(TLSP.rho[0,1]))
         if np.abs(TLSP.rho[0,1])==0.0:
@@ -361,10 +362,10 @@ rhot01_deviate = np.std(rhot01_all, axis=0)
 # plt.show()
 rhot={
     'times':    data['times'],
-    'rhot11':   rhot11_average,
-    'rhot01':   rhot01_average,
-    'rhot11':   rhot11_deviate,
-    'rhot01':   rhot01_deviate,
+    'rhot11_average':   rhot11_average,
+    'rhot01_average':   rhot01_average,
+    'rhot11_deviate':   rhot11_deviate,
+    'rhot01_deviate':   rhot01_deviate,
 }
 with open("rhot.pkl", 'wb') as f:
     pickle.dump(rhot,f)
