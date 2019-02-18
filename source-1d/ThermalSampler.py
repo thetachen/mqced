@@ -70,7 +70,7 @@ class BoltzmannLight_1mode(object):
 
     def sample_ACW(self):
         mean = 0.0
-        std = 1.0/self.beta
+        std = 1.0/np.sqrt(self.beta)
         self.ACW = np.random.normal(mean, std)
 
         return self.ACW
