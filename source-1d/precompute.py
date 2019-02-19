@@ -119,7 +119,7 @@ def precompute_showoverlap(param_EM,param_TLS,rescaling_time,ShowAnimation=False
     """
     for it in range(len(times)+1):
 
-        print it
+        # print it
         dE = 1E-2
         sign = 1.0
         if it == rescaling_time:
@@ -243,6 +243,7 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
 
     # energy change
     Overlap = np.zeros((2,len(times)))
+    Lambdas = np.zeros((2,len(times)))
 
     # initialize Px,Py,dPxdz, dPydz, d2Pxdz, d2Pydz
     for iz in range(param_EM.NZgrid):
@@ -301,10 +302,18 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
     EMP.applyAbsorptionBoundaryCondition()
 
     #normalized
+    # TEx = np.abs(TBy)/np.sqrt(EMP.TB2)
     TEx = TEx/np.sqrt(EMP.TE2)
     TBy = TBy/np.sqrt(EMP.TB2)
     EMP.update_TETB(TEx,TEy,TBx,TBy)
 
+    TEx_k0 = np.sum(EMP.TEx)*EMP.dZ
+    TBy_k0 = np.sum(np.abs(EMP.TBy))*EMP.dZ
+
+    print 'LambdaE:',(TEx_k0**2)/2
+    print 'LambdaB:',(TBy_k0**2)/2
+    print 'average:',((TEx_k0**2)/2 + (TBy_k0**2)/2)/2
+    print 'times:',(TEx_k0*TBy_k0)/2
     #print 'EMP.TE2', EMP.TE2, 'EMP.TB2', EMP.TB2
     """
     Start Time Evolution
@@ -326,10 +335,12 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
         # save far field out of the box
         EMP.saveFarField(times[it],Tmax)
 
-        overlap_E = EMP.dZ*np.dot( alpha*EMP.TEx, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]))
-        overlap_B = EMP.dZ*np.dot( beta*EMP.TBy, np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid]))
+        overlap_E = EMP.dZ*np.dot( alpha*TEx, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid]))
+        overlap_B = EMP.dZ*np.dot( beta*TBy, np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid]))
         Overlap[0,it] = overlap_E
         Overlap[1,it] = overlap_B
+        Lambdas[0,it] = overlap_E/EMP.TE2/alpha**2 *dt
+        Lambdas[1,it] = overlap_B/EMP.TB2/beta**2  *dt
         """
         output:
         """
@@ -337,11 +348,13 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
         # Lambda = 2*Overlap[0]/EMP.TE2/alpha**2 *dt
         # Lambda = Overlap[0]/EMP.TE2/alpha**2 *dt + Overlap[1]/EMP.TB2/beta**2  *dt
         Lambda = (Overlap[0]/EMP.TE2/alpha**2 +0.5)*dt + (Overlap[1]/EMP.TB2/beta**2 +0.5)*dt
-        print Lambda[it],1.0/Lambda[it]
+        # print Lambda[it],1.0/Lambda[it]
+        print (overlap_E/EMP.TE2/alpha**2 +0.5)*dt, (overlap_B/EMP.TB2/beta**2 +0.5)*dt,  Lambda[it]
+        # print (overlap_E/EMP.TE2/alpha**2)*dt, (overlap_B/EMP.TB2/beta**2)*dt,  Lambda[it]
         # print np.abs(Lambda[it]-Lambda[it-1])
-        if (np.abs(Lambda[it]-Lambda[it-1])<1E-10):
-            print width, Lambda[it]/width
-            return Lambda[it]
+        # if (np.abs(Lambda[it]-Lambda[it-1])<1E-10):
+            # print width, Lambda[it]/width
+            # return Lambda[it]
         """
         Plot
         """
@@ -368,8 +381,8 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
 
             plt.sca(ax[2])
             plt.cla()
-            ax[2].plot(times[:it],2*Overlap[0,:it]/EMP.TE2/alpha**2 *dt,lw=2,label='overlap: E')
-            ax[2].plot(times[:it],2*Overlap[1,:it]/EMP.TB2/beta**2  *dt,lw=2,label='overlap: B')
+            ax[2].plot(times[:it],Overlap[0,:it]/EMP.TE2/alpha**2 *dt,lw=2,label='overlap: E')
+            ax[2].plot(times[:it],Overlap[1,:it]/EMP.TB2/beta**2  *dt,lw=2,label='overlap: B')
             ax[2].plot(times[:it],Lambda[:it],lw=2,label='$\lambda$')
             ax[2].legend(loc='best')
 
@@ -403,7 +416,16 @@ def precompute(param_EM,param_TLS,ShowAnimation=False):
     """
     End of Time Evolution
     """
-
+    output={
+        'Zgrid':EMP.Zgrid,
+        'Ex':   EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
+        'By':   EMP.EB[EMP._By:EMP._By+EMP.NZgrid],
+        'TEx':  EMP.TEx,
+        'TBy':  EMP.TBy,
+        'times':    times,
+        'Overlap':  Overlap,
+        'Lambdas':  Lambdas,
+    }
     return output
 
 if ShowAnimation:
