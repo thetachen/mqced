@@ -142,7 +142,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     TLSP = DensityMatrixPropagator(param_TLS)
 
     # create Thermal Light source
-    BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
+    # BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
+    BZL = BoltzmannLight_Nmode(param_EM.beta,param_EM.K_CW,param_EM.N_mode,param_EM.Kmax)
     BZL.sample_ACW()
 
     """

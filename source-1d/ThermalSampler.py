@@ -81,3 +81,30 @@ class BoltzmannLight_1mode(object):
         self.ECWy = np.zeros(len(Rgrid))
         self.BCWx = np.zeros(len(Rgrid))
         self.BCWy = self.ACW*np.sin(self.KCW*(Rgrid-time))
+
+
+class BoltzmannLight_Nmode(object):
+    """
+    Sample Thermal Light
+    """
+    def __init__(self,beta,KCW,N,Kmax):
+        # Set up k grid according to beta
+        self.KCW = KCW
+        self.beta = beta
+        self.N = N
+        self.KCWs = np.linspace(-Kmax,Kmax,num=N) + KCW
+
+    def sample_ACW(self):
+        mean = 0.0
+        std = 1.0/np.sqrt(self.beta)
+        self.ACWs = np.random.normal(mean, std, self.N )
+
+        return self.ACWs
+
+
+    def calculate_ECW(self,Rgrid,time):
+        self.ECWx = np.zeros(len(Rgrid))
+        # equally weighted
+        for i in range(self.N):
+            W = 1.0/self.N
+            self.ECWx += W*self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time))
