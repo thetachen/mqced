@@ -104,7 +104,15 @@ class BoltzmannLight_Nmode(object):
 
     def calculate_ECW(self,Rgrid,time):
         self.ECWx = np.zeros(len(Rgrid))
-        # equally weighted
+        # # equally weighted
+        # for i in range(self.N):
+        #     W = 1.0/self.N
+        #     self.ECWx += W*self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time))
+
+        # Planck formula
+        Wall = 0.0
         for i in range(self.N):
-            W = 1.0/self.N
+            W = self.KCWs[i]**3*(np.exp(self.beta*self.KCWs[i])+1.0)
+            Wall += W
             self.ECWx += W*self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time))
+        self.ECWx = self.ECWx/Wall
