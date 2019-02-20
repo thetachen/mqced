@@ -116,3 +116,28 @@ class BoltzmannLight_Nmode(object):
             Wall += W
             self.ECWx += W*self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time))
         self.ECWx = self.ECWx/Wall
+
+
+class PlanckLight_Nmode(object):
+    """
+    Sample Thermal Light
+    """
+    def __init__(self,beta,KCW,N,Kmax):
+        # Set up k grid according to beta
+        self.KCW = KCW
+        self.beta = beta
+        self.N = N
+        self.KCWs = np.linspace(-Kmax,Kmax,num=N) + KCW
+
+
+    def sample_ACW(self):
+        dK = self.KCWs[1]-self.KCWs[0]
+        self.ACWs = np.sqrt(self.KCWs)*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.5) *dK
+        self.phases = np.random.random(self.N)*2*np.pi
+        return self.ACWs
+
+
+    def calculate_ECW(self,Rgrid,time):
+        self.ECWx = np.zeros(len(Rgrid))
+        for i in range(self.N):
+            self.ECWx += self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time)+self.phases[i])
