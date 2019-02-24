@@ -10,7 +10,7 @@ class PureStatePropagator(object):
     """
     system propagator in terms of pure state wavefunction
     """
-    def __init__(self, param):
+    def __init__(self, param,KFGR_dimension="1D"):
         self.param = param
         self.nstates = param.nstates
         self.Ht = np.zeros((self.nstates,self.nstates),complex)
@@ -33,7 +33,10 @@ class PureStatePropagator(object):
         self.FGR = np.zeros((self.nstates,self.nstates))
         for i in range(self.nstates):
             for j in range(self.nstates):
-                self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
+                if KFGR_dimension=="3D":
+                    self.FGR[i,j] = ((self.H0[i,i]-self.H0[j,j])**3)*(param.Pmax**2)/3/np.pi
+                else:
+                    self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
 
         self.getrho()
 
@@ -179,7 +182,7 @@ class DensityMatrixPropagator(object):
 	can involve population relaxation and dephasing
 	Gamma_r and Gamma_d
     """
-    def __init__(self, param):
+    def __init__(self, param,KFGR_dimension="1D"):
         self.param = param
         self.nstates = self.param.nstates
         self.Ht = np.zeros((self.nstates,self.nstates))
@@ -205,8 +208,10 @@ class DensityMatrixPropagator(object):
         self.FGR = np.zeros((self.nstates,self.nstates))
         for i in range(self.nstates):
             for j in range(self.nstates):
-                #self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
-                self.FGR[i,j] = ((self.H0[i,i]-self.H0[j,j])**3)*(param.Pmax**2)/3/np.pi
+                if KFGR_dimension=="3D":
+                    self.FGR[i,j] = ((self.H0[i,i]-self.H0[j,j])**3)*(param.Pmax**2)/3/np.pi
+                else:
+                    self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
 
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
