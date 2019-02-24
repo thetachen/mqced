@@ -21,6 +21,7 @@ UseInitialRandomPhase = True
 NumberTrajectories = 1
 UsePlusEmission = True
 UseRandomEB = False
+UseSelfInteraction = False
 
 if (len(argv) == 1):
     execfile('param.in')
@@ -139,7 +140,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create TLS object
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
-    TLSP = DensityMatrixPropagator(param_TLS)
+    TLSP = DensityMatrixPropagator(param_TLS,KFGR_dimension="3D")
 
     # create Thermal Light source
     # BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
@@ -177,7 +178,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
         Imrho12 = np.imag(TLSP.rho[0,1])
         # analytical self-interaction
-        #intPE += Imrho12*TLSP.FGR[1,0]
+        if UseSelfInteraction:
+            intPE += Imrho12*TLSP.FGR[1,0]
 
         if np.abs(TLSP.rho[0,1])==0.0:
             # angle = phase_shift

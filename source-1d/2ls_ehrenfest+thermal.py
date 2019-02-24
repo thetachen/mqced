@@ -140,15 +140,15 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
     if Describer == 'vector':
-        TLSP = PureStatePropagator(param_TLS)
+        TLSP = PureStatePropagator(param_TLS,KFGR_dimension="3D")
     if Describer == 'density':
-        TLSP = DensityMatrixPropagator(param_TLS)
+        TLSP = DensityMatrixPropagator(param_TLS,KFGR_dimension="3D")
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
 
     # create Thermal Light source
     # BZL = BoltzmannLight_1D(param_EM.beta,num_k=param_EM.num_k)
     # BZL.sample()
-    BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
+    BZL = PlanckLight_Nmode(param_EM.beta,param_EM.dK,param_EM.Kmax)
     BZL.sample_ACW()
 
     """
