@@ -143,7 +143,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
     # create Thermal Light source
     # BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
-    BZL = BoltzmannLight_Nmode(param_EM.beta,param_EM.K_CW,param_EM.N_mode,param_EM.Kmax)
+    #BZL = BoltzmannLight_Nmode(param_EM.beta,param_EM.K_CW,param_EM.N_mode,param_EM.Kmax)
+    BZL = PlanckLight_Nmode(param_EM.beta,param_EM.dK,param_EM.Kmax)
     BZL.sample_ACW()
 
     """
@@ -176,7 +177,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
 
         Imrho12 = np.imag(TLSP.rho[0,1])
         # analytical self-interaction
-        intPE += Imrho12*TLSP.FGR[1,0]
+        #intPE += Imrho12*TLSP.FGR[1,0]
 
         if np.abs(TLSP.rho[0,1])==0.0:
             # angle = phase_shift

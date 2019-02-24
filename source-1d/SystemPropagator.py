@@ -205,8 +205,8 @@ class DensityMatrixPropagator(object):
         self.FGR = np.zeros((self.nstates,self.nstates))
         for i in range(self.nstates):
             for j in range(self.nstates):
-                self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
-
+                #self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
+                self.FGR[i,j] = ((self.H0[i,i]-self.H0[j,j])**3)*(param.Pmax**2)/3/np.pi
 
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE

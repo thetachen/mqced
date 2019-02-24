@@ -131,7 +131,8 @@ class PlanckLight_Nmode(object):
 
 
     def sample_ACW(self):
-        self.ACWs = np.sqrt(self.KCWs)*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0) *self.dK
+        self.ACWs = np.sqrt(self.KCWs*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0)) *self.dK
+        self.ACWs = self.ACWs/(2*np.pi)
         self.phases = np.random.random(self.N)*2*np.pi
         return self.ACWs
 
