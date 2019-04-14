@@ -126,14 +126,20 @@ class PlanckLight_Nmode(object):
         # Set up k grid according to beta
         self.beta = beta
         self.dK = dK
-        self.KCWs = np.arange(dK,Kmax,dK)
+        #self.KCWs = np.arange(dK,Kmax,dK)
+        self.KCWs = np.arange(0.25-Kmax*dK,0.25+Kmax*dK,dK)
+        if Kmax==0:
+            self.KCWs = np.array([0.25])
         self.N = len(self.KCWs)
 
 
     def sample_ACW(self):
-        self.ACWs = np.sqrt(self.KCWs*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0)) *self.dK
-        self.ACWs = self.ACWs/(2*np.pi)
+        self.ACWs = np.sqrt(self.KCWs*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0)*self.dK)*self.KCWs
+        #self.ACWs = np.sqrt(self.KCWs*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0)*0.0001)*self.KCWs
+        self.ACWs = self.ACWs*np.sqrt(2.0/3.0)/np.pi
+        #self.ACWs = self.ACWs/4.0
         self.phases = np.random.random(self.N)*2*np.pi
+        #self.phases2 = np.random.random(self.N)*2*np.pi
         return self.ACWs
 
 
@@ -141,3 +147,4 @@ class PlanckLight_Nmode(object):
         self.ECWx = np.zeros(len(Rgrid))
         for i in range(self.N):
             self.ECWx += self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time)+self.phases[i])
+            #self.ECWx += self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time)+self.phases[i])*np.cos(self.phases2[i])
