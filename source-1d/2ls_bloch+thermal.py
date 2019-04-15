@@ -145,7 +145,8 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
     # create Thermal Light source
     # BZL = BoltzmannLight_1mode(param_EM.beta,param_EM.K_CW)
     #BZL = BoltzmannLight_Nmode(param_EM.beta,param_EM.K_CW,param_EM.N_mode,param_EM.Kmax)
-    BZL = PlanckLight_Nmode(param_EM.beta,param_EM.dK,param_EM.Kmax)
+    W0 = param_TLS.H0[1,1]-param_TLS.H0[0,0]
+    BZL = PlanckLight_Nmode(param_EM.beta,W0,param_EM.dK,param_EM.Kmax)
     BZL.sample_ACW()
 
     """

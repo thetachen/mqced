@@ -122,14 +122,14 @@ class PlanckLight_Nmode(object):
     """
     Sample Thermal Light
     """
-    def __init__(self,beta,dK,Kmax):
+    def __init__(self,beta,K0,dK,Kmax):
         # Set up k grid according to beta
         self.beta = beta
         self.dK = dK
         #self.KCWs = np.arange(dK,Kmax,dK)
-        self.KCWs = np.arange(0.25-Kmax*dK,0.25+Kmax*dK,dK)
+        self.KCWs = np.arange(K0-Kmax*dK,K0+Kmax*dK,dK)
         if Kmax==0:
-            self.KCWs = np.array([0.25])
+            self.KCWs = np.array([K0])
         self.N = len(self.KCWs)
 
 
