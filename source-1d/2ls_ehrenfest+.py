@@ -201,6 +201,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             kRdt,kDdt,drho,dE = TLSP.getComplement_angle(1,0,dt,angle)
             TLSP.relaxation(1,0,kRdt)
             TLSP.dephasing(1,0,kDdt)
+            TLSP.resetting(1,0,TLSP.FGR[1,0]*dt) # only work if the TLS is density matrix
             # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
             # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
             EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
@@ -261,7 +262,7 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
-            ax[2].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
+            ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
             # rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]))*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
             rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2)*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
             ax[2].plot(times[:it]*AU.fs,rho12,'--k',lw=2,label='WW')
@@ -298,8 +299,11 @@ def execute(param_EM,param_TLS,ShowAnimation=False):
             #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
             ax[4].set_xlim([0.0,1.0])
             #ax[4].set_xlabel('$ck$')
-            fft_Ex = np.fft.rfft(EMP.Es[::-1])
-            fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[0]-EMP.Xs[-1])
+            truncate = 10000
+            if len(EMP.Es)<truncate:
+                truncate = len(EMP.Es)
+            fft_Ex = np.fft.rfft(EMP.Es[::-1][:truncate])
+            fft_Freq = np.array(range(len(fft_Ex))) * 2*np.pi /(EMP.Xs[::-1][truncate-1]-EMP.Xs[-1])
             ax[4].plot(fft_Freq,np.abs(fft_Ex)**2,lw=1,color='b',label='fft($E$)')
             ax[4].set_xlabel('$\omega$')
             ax[4].legend()

@@ -119,8 +119,13 @@ class PureStatePropagator(object):
             # collapse
             #self.C[ii,0] = np.abs(self.C[ii,0])*np.exp(1j*2*np.pi*random())
             self.C[jj,0] = np.abs(self.C[jj,0])*np.exp(1j*2*np.pi*random())
-
         self.getrho()
+
+    def resetting(self,ii,jj,kDdt):
+        """
+        dummy function doing nothing
+        """
+        return
 
     def equilibrate(self,ii,jj,dt,transition=[1,1]):
         """
@@ -249,6 +254,24 @@ class DensityMatrixPropagator(object):
             random_phase = 2*np.pi*random()
             self.rho[ii,jj] = self.rho[ii,jj]*np.exp( 1j*random_phase )
             self.rho[jj,ii] = self.rho[jj,ii]*np.exp(-1j*random_phase )
+
+
+    def resetting(self,ii,jj,kDdt):
+        """
+        make a dephasing of the density matrix of ii,jj element by e^-kDdt
+        """
+        test = random()
+        if test < kDdt:
+            # reset (with a random phase )
+            random_phase = 2*np.pi*random()
+            self.rho[ii,jj] = self.rho[ii,jj]*np.exp( 1j*random_phase )
+            self.rho[jj,ii] = self.rho[jj,ii]*np.exp(-1j*random_phase )
+            print "reset"
+            # # rescale (but keep phase )
+            # new_coherence = np.sqrt( self.rho[ii,ii]*self.rho[jj,jj] )
+            # self.rho[ii,jj] = self.rho[ii,jj]/np.abs(self.rho[ii,jj]) * new_coherence
+            # self.rho[jj,ii] = self.rho[jj,ii]/np.abs(self.rho[jj,ii]) * new_coherence
+            # print "reset"
 
     def getComplement_angle(self,ii,ff,dt,angle):
         """
