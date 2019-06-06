@@ -43,14 +43,8 @@ class PureStatePropagator(object):
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
 
-    def update_coupling_byA(self,intAD):
-        for n in range(self.nstates):
-            self.Ht[n,n] = self.H0[n,n]
-        for i in range(self.nstates):
-            for j in range(i+1,self.nstates):
-                self.Ht[i,j] = self.VP[i,j] * 1j*(self.H0[j,j]-self.H0[i,i])*intAD
-                #self.Ht[i,j] = self.VP[i,j]*(self.H0[j,j]-self.H0[i,i])*intAD
-                self.Ht[j,i] = np.conj(self.Ht[i,j])
+    def update_static_dipole(self,intSE):
+        self.Ht = self.Ht - self.VS*intSE
 
     def propagate(self,dt):
         """
@@ -62,10 +56,12 @@ class PureStatePropagator(object):
         self.getrho()
 
     def getEnergy(self):
-        Esys = 0.0
-        for n in range(self.nstates):
-            Esys += self.H0[n,n]*np.abs(self.C[n,0])**2
-        return Esys
+        # Esys = 0.0
+        # for n in range(self.nstates):
+            # Esys += self.H0[n,n]*np.abs(self.C[n,0])**2
+        # return Esys
+        Esys = np.dot(np.conj(self.C).T,np.dot(self.H0,self.C))
+        return np.real(Esys[0,0])
 
     def getrho(self):
         for i in range(self.nstates):
@@ -221,6 +217,9 @@ class DensityMatrixPropagator(object):
     def update_coupling(self,intPE):
         self.Ht = self.H0 - self.VP*intPE
 
+    def update_static_dipole(self,intSE):
+        self.Ht = self.Ht - self.VS*intSE
+
     def propagate(self,dt):
         """
         propagate density matrix by Ht for dt
@@ -306,9 +305,11 @@ class DensityMatrixPropagator(object):
         return kRdt,kDdt,drho,dE
 
     def getEnergy(self):
-        Esys = 0.0
-        for n in range(self.nstates):
-            Esys += self.H0[n,n]*np.real(self.rho[n,n])
+        # Esys = 0.0
+        # for n in range(self.nstates):
+        #     Esys += self.H0[n,n]*np.real(self.rho[n,n])
+        # return Esys
+        Esys = np.trace(np.dot(self.H0,self.rho))
         return Esys
 
     def LindbladDecay(self,ii,jj,drho):

@@ -9,7 +9,7 @@ AU = AtomicUnit()
 ShowAnimation = True
 AveragePeriod = 1000
 UseInitialRandomPhase = False
-#UsePlusEmission = True
+# UsePlusEmission = True
 UsePlusEmission = False
 UseRandomEB = False
 
@@ -49,20 +49,27 @@ param_EM=Struct(**param_EM)
 param_TLS={
     'nstates':  2,
     # Hamiltoniam
-    'H0':		np.array([[0.0,0.0],\
-                          [0.0,0.25]]),
-	# Coupling
+    'H0':		np.array([[0.0,0.125],\
+                          [0.125,0.25]]),
+	# Coupling (Transition Dipole Moment)
     'VP':       np.array([[0.0,1.0],\
                           [1.0,0.0]]),
+	# Coupling (Static Dipole Moment)
+    'VS':       np.array([[1.0, 0.0],\
+                          [0.0,-1.0]]),
     # initial diabatic state vector
-    #'C0':				np.sqrt(np.array([[0.0],[1.0]],complex)),#*np.exp(1j*np.pi*-0.5),
-    'C0':              np.sqrt(np.array([[0.5],[0.5]],complex)),#*np.exp(1j*np.pi*0.5),
+    # 'C0':				np.sqrt(np.array([[0.0],[1.0]],complex)),#*np.exp(1j*np.pi*-0.5),
+    'C0':              np.sqrt(np.array([[0.853553390593],[0.146446609407]],complex)),#*np.exp(1j*np.pi*0.5),
+    # 'C0':              np.sqrt(np.array([[0.146446609407],[0.853553390593]],complex)),#*np.exp(1j*np.pi*0.5),
     # polarization
     'Mu':       0.0,
     #'Sigma':    0.0556*(AU.nm**2),
     #'Pmax':     33824.0/AU.Cnmmol,
     'Sigma':    0.5, #0.0556 nm-2
     'Pmax':     0.025*np.sqrt(2.0),
+    # static diple
+    'Mu_S':     0.0,
+    'Smax':     0.025*np.sqrt(2.0)*0,
 }
 param_TLS=Struct(**param_TLS)
 

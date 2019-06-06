@@ -35,6 +35,10 @@ def initialize(param_EM,param_TLS):
     """
     Initialize
     """
+    # static dipole moment of two sites (Mu_S): Sx, Sy
+    Sx = np.zeros(param_EM.NZgrid)
+    Sy = np.zeros(param_EM.NZgrid)
+
     # dipole moment (Xi): Px, Py
     Px = np.zeros(param_EM.NZgrid)
     Py = np.zeros(param_EM.NZgrid)
@@ -61,7 +65,7 @@ def initialize(param_EM,param_TLS):
     # a long vector [Ex,Ey,Bx,By]
     EB = np.zeros(4*param_EM.NZgrid)
 
-    # initialize Px,Py,dPxdz, dPydz, d2Pxdz, d2Pydz
+    # initialize Px,Py,dPxdz, dPydz, d2Pxdz, d2Pydz, Sx, Sy
     for iz in range(param_EM.NZgrid):
         Z = param_EM.Zgrid[iz]
         Px[iz] = param_TLS.Pmax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu)**2 )
@@ -91,6 +95,9 @@ def initialize(param_EM,param_TLS):
 					  (12*(param_TLS.Sigma**2) -48*(param_TLS.Sigma**3)*Z**2 +16*(param_TLS.Sigma**4)*Z**4)
         d4Pydz[iz] = 0.0
 
+        Sx[iz] = param_TLS.Smax * np.sqrt(param_TLS.Sigma/np.pi) * np.exp( -param_TLS.Sigma * (Z-param_TLS.Mu_S)**2 )
+        Sy[iz] = 0.0
+
     # Just rescale on Px
 	# TEx =-Px
     # Transverse
@@ -114,6 +121,8 @@ def initialize(param_EM,param_TLS):
     EMP = EhrenfestPlusREB_MaxwellPropagator_1D(param_EM)
     EMP.initializeODEsolver(EB,T0)
     EMP.update_TETB(TEx,TEy,TBx,TBy)
+    EMP.Sx = Sx
+    EMP.Sy = Sy
     EMP.Px = Px
     EMP.Py = Py
     EMP.dPxdz = dPxdz
@@ -133,6 +142,8 @@ def initialize(param_EM,param_TLS):
     if Describer == 'density':
         TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
+
+    TLSP.VS = param_TLS.VS
     return EMP, TLSP
 
 def execute(EMP,TLSP,ShowAnimation=False):
@@ -143,6 +154,9 @@ def execute(EMP,TLSP,ShowAnimation=False):
 
     # density matrix
     rhot = np.zeros((param_TLS.nstates,param_TLS.nstates,len(times)),complex)
+
+    # density matrix
+    rhot_trans = np.zeros((param_TLS.nstates,param_TLS.nstates,len(times)),complex)
 
     # total energy
     Ut = np.zeros((2,len(times)))
@@ -155,6 +169,8 @@ def execute(EMP,TLSP,ShowAnimation=False):
     for it in range(len(times)):
 
         #0 Compute All integrals
+        intSE = EMP.dZ*np.dot(EMP.Sx, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
+              + EMP.dZ*np.dot(EMP.Sy, np.array(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
         intPE = EMP.dZ*np.dot(EMP.Px, np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])) \
               + EMP.dZ*np.dot(EMP.Py, np.array(EMP.EB[EMP._Ey:EMP._Ey+EMP.NZgrid]))
         intdPdzB = EMP.dZ*np.dot(-EMP.dPydz, np.array(EMP.EB[EMP._Bx:EMP._Bx+EMP.NZgrid])) \
@@ -165,6 +181,8 @@ def execute(EMP,TLSP,ShowAnimation=False):
         ECWy = np.zeros(len(param_EM.Zgrid))
         BCWx = np.zeros(len(param_EM.Zgrid))
         BCWy = param_EM.A_CW*np.sin(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        intSE += EMP.dZ*np.dot(EMP.Sx,ECWx) \
+               + EMP.dZ*np.dot(EMP.Sy,ECWy)
         intPE += EMP.dZ*np.dot(EMP.Px,ECWx) \
                + EMP.dZ*np.dot(EMP.Py,ECWy)
         intdPdzB += EMP.dZ*np.dot(-EMP.dPydz, BCWx ) \
@@ -181,18 +199,23 @@ def execute(EMP,TLSP,ShowAnimation=False):
         sign = np.sin(angle)
         # sign = np.imag(np.exp(1j*shift))
         dEnergy[0,it] = TLSP.getEnergy()
+
         #1. Propagate the wave function
         TLSP.update_coupling(intPE)
+        TLSP.update_static_dipole(intSE)
         TLSP.propagate(dt)
         dEnergy[0,it] = dEnergy[0,it]-TLSP.getEnergy()
 
         #2. Compute Current: J
         dPdt = 0.0
-        for i in range(param_TLS.nstates):
-            for j in range(i+1,param_TLS.nstates):
-                dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.rho[i,j]) * TLSP.VP[i,j]
-        Jx = dPdt * EMP.Px
-        Jy = dPdt * EMP.Py
+        # for i in range(param_TLS.nstates):
+        #     for j in range(i+1,param_TLS.nstates):
+        #         dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.rho[i,j]) * TLSP.VP[i,j]
+        dPdt = 2*(TLSP.H0[0,0]-TLSP.H0[1,1])*np.imag(TLSP.rho[0,1]) * TLSP.VP[0,1]
+        dSdt = 4*TLSP.H0[0,1]*np.imag(TLSP.rho[0,1])*TLSP.VS[0,0]
+
+        Jx = dPdt * EMP.Px - dSdt * EMP.Sx
+        Jy = dPdt * EMP.Py - dSdt * EMP.Sy
 
         #3. Evolve the field
         EMP.update_JxJy(Jx,Jy)
@@ -207,8 +230,7 @@ def execute(EMP,TLSP,ShowAnimation=False):
             TLSP.relaxation(1,0,kRdt)
             TLSP.dephasing(1,0,kDdt)
             TLSP.resetting(1,0,TLSP.FGR[1,0]*dt) # only work if the TLS is density matrix
-            # EMP.MakeTransition(dE,UseRandomEB=UseRandomEB)
-            # EMP.MakeTransition_sign(dE,-Imrho12,UseRandomEB=UseRandomEB)
+
             EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
 
@@ -222,10 +244,18 @@ def execute(EMP,TLSP,ShowAnimation=False):
         output:
 
         """
+        # get unitary transformation
+        sin2 = param_TLS.H0[0,1]/np.sqrt( 0.25*(param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(param_TLS.H0[0,1])**2 )
+        cos2 = 0.5*(param_TLS.H0[1,1]-param_TLS.H0[0,0])/np.sqrt( 0.25*(param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(param_TLS.H0[0,1])**2 )
+        cos = np.sqrt((1+cos2)/2)
+        sin = np.sqrt((1-cos2)/2)
+        trans = np.array([[cos,-sin],[sin,cos]])
+        TLSP.rho_trans =np.dot(trans,np.dot(TLSP.rho,trans.T))
         # density matrix
         for i in range(param_TLS.nstates):
             for j in range(param_TLS.nstates):
                 rhot[i,j,it]=TLSP.rho[i,j]
+                rhot_trans[i,j,it]=TLSP.rho_trans[i,j]
         #energy
         # UEB = EMP.getEnergyDensity()
         # Uemf = np.sum(UEB)*param_EM.dZ
@@ -261,16 +291,17 @@ def execute(EMP,TLSP,ShowAnimation=False):
 
             plt.sca(ax[2])
             plt.cla()
-            KFGR = TLSP.FGR[1,0]
             for n in range(param_TLS.nstates):
                 ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
-            ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
+                ax[2].plot(times[:it]*AU.fs,np.abs(rhot_trans[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
+            # ax[2].plot(times[:it]*AU.fs,0.5*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
+            # ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
-            ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
+            # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label=r'$|\rho_{01}|$')
             # rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]))*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
-            rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2)*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
-            ax[2].plot(times[:it]*AU.fs,rho12,'--k',lw=2,label='WW')
+            # rho12 = np.sqrt(1.0-np.abs(param_TLS.C0[1,0])**2)*np.abs(param_TLS.C0[1,0])*np.exp(-KFGR*times[:it]/2)
+            # ax[2].plot(times[:it]*AU.fs,rho12,'--k',lw=2,label='WW')
             # ax[2].plot(times[:it]*AU.fs,np.cos(0.25*times[:it]-(1.9)*np.pi)*rho12,'--b',lw=2,label='WW')
             # ax[2].plot(times[:it]*AU.fs,np.sin(0.25*times[:it]-(1.9)*np.pi)*rho12,'--g',lw=2,label='WW')
             # ax[2].set_xlim([0,Tmax*AU.fs])
@@ -300,7 +331,8 @@ def execute(EMP,TLSP,ShowAnimation=False):
             plt.sca(ax[4])
             plt.cla()
             #ax[4].plot(fft_Freq*AU.C,np.abs(fft_Ex)**2,lw=2,color='b')
-            ax[4].axvline(x=param_TLS.H0[1,1]-param_TLS.H0[0,0], color='k', linestyle='--')
+            normal = np.sqrt( (param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(2*param_TLS.H0[0,1])**2 )
+            ax[4].axvline(x=normal, color='k', linestyle='--')
             #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
             ax[4].set_xlim([0.0,1.0])
             #ax[4].set_xlabel('$ck$')
