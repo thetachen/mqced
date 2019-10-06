@@ -358,6 +358,207 @@ class DensityMatrixPropagator(object):
             #rho(0,1) = rho(0,1) / abs(rho(0,1)) * sqrt(rho(0,0) * rho(1,1));
             #rho(1,0) = rho(1,0) / abs(rho(1,0)) * sqrt(rho(0,0) * rho(1,1));
 
+class PureStatePropagator_Transform(object):
+    """
+    system propagator in terms of pure state wavefunction
+    This object is for electron transfer study.
+    """
+    def __init__(self, param,KFGR_dimension="1D",Transform=True):
+        self.param = param
+        self.nstates = param.nstates
+        self.Ht = np.zeros((self.nstates,self.nstates),complex)
+        self.C = np.zeros((self.nstates,1),complex)
+        self.rho = np.zeros((self.nstates,self.nstates),complex)
+
+        #Set up wave vector
+        self.C = copy.copy(param.C0)
+
+        #Set up Hamiltonian
+        #self.H0 = np.diag(param.levels)
+        self.H0 = param.H0
+        for n in range(self.nstates):
+            self.Ht[n,n] = self.H0[n,n]
+
+        #Set up Polarization Operator
+        self.VP = param.VP
+        self.VS = param.VS
+        self.Pmax = param.Pmax
+        self.Smax = param.Smax
+        self.coupling = self.VP*self.Pmax + self.VS*self.Smax
+
+        # generate FGR rate
+        self.FGR = np.zeros((self.nstates,self.nstates))
+        for i in range(self.nstates):
+            for j in range(self.nstates):
+                if KFGR_dimension=="3D":
+                    self.FGR[i,j] = ((self.H0[i,i]-self.H0[j,j])**3)*(param.Pmax**2)/3/np.pi
+                else:
+                    self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*param.Pmax**2 #/AU.C/AU.E0 / AU.fs
+
+        if Transform:
+            # generate unitary transformation
+            sin2 = self.H0[0,1]/np.sqrt( 0.25*(self.H0[1,1]-self.H0[0,0])**2+(self.H0[0,1])**2 )
+            cos2 = 0.5*(self.H0[1,1]-self.H0[0,0])/np.sqrt( 0.25*(self.H0[1,1]-self.H0[0,0])**2+(self.H0[0,1])**2 )
+            cos = np.sqrt((1+cos2)/2)
+            sin = np.sqrt((1-cos2)/2)
+            # self.trans = np.array([[cos,sin],[-sin,cos]])
+            self.H0_trans, self.trans = np.linalg.eig(self.H0)
+            self.H0 = np.diag(self.H0_trans)
+            self.VP = np.dot(self.trans.T,np.dot(self.VP,self.trans))
+            self.VS = np.dot(self.trans.T,np.dot(self.VS,self.trans))
+            self.coupling = np.dot(self.trans.T,np.dot(self.coupling,self.trans))
+            # self.C = np.dot(self.trans.T, self.C)  #initial wavefunction
+
+            print self.H0
+            print self.coupling
+            print self.Smax*cos2 - self.Pmax*sin2
+            print self.Smax*sin2 + self.Pmax*cos2
+            # generate new FGR rate
+            self.FGR = np.zeros((self.nstates,self.nstates))
+            for i in range(self.nstates):
+                for j in range(self.nstates):
+                    if KFGR_dimension=="3D":
+                        self.FGR[i,j] = ((self.H0[i,i]-self.H0[j,j])**3)*(param.Pmax**2)/3/np.pi
+                    else:
+                        self.FGR[i,j] = (self.H0[i,i]-self.H0[j,j])*self.coupling[i,j]**2 #/AU.C/AU.E0 / AU.fs
+        else:
+            self.trans = np.diag([1.0,1.0])
+        self.getrho()
+
+    def update_coupling(self,intPE,intSE):
+        self.coupling = self.VP*intPE + self.VS*intSE
+        self.Ht = self.H0 - self.coupling
+
+    def propagate(self,dt):
+        """
+        propagate wave vector C by Ht
+        """
+        W, U = np.linalg.eig(self.Ht)
+        expiHt = np.dot(U,np.dot(np.diag(np.exp(-1j*W*dt)),np.conj(U).T))
+        self.C = np.dot(expiHt,self.C)
+        self.getrho()
+
+    def getEnergy(self):
+        # Esys = 0.0
+        # for n in range(self.nstates):
+            # Esys += self.H0[n,n]*np.abs(self.C[n,0])**2
+        # return Esys
+        Esys = np.dot(np.conj(self.C).T,np.dot(self.H0,self.C))
+        return np.real(Esys[0,0])
+
+    def getrho(self):
+        for i in range(self.nstates):
+            for j in range(self.nstates):
+                self.rho[i,j] = self.C[i,0]*np.conj(self.C[j,0])
+        return self.rho
+
+    def rescale(self,ii,jj,drho):
+        """
+        rescale the state vector from ii to jj by drho
+        """
+        if self.C[ii,0] == 0.0:
+            pass
+        elif self.C[jj,0] == 0.0:
+            self.C[jj,0] = np.sqrt(drho)
+			#TODO: there should be a random phase here!!!
+            self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0])*np.sqrt(np.abs(self.C[ii,0])**2-drho)
+            self.C[ii,0] *= np.exp(1j*2*np.pi*random())
+			#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
+			#TLSP.C[0,0] = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
+        # else:
+        elif np.abs(self.C[ii,0])**2 - drho > 0.0:
+            self.C[jj,0] = self.C[jj,0]/np.abs(self.C[jj,0]) * np.sqrt(np.abs(self.C[jj,0])**2 + drho)
+            self.C[ii,0] = self.C[ii,0]/np.abs(self.C[ii,0]) * np.sqrt(np.abs(self.C[ii,0])**2 - drho)
+        	#TLSP.C[1,0] = TLSP.C[1,0]*np.exp(-dt*(gamma/2))
+        	#C0 = np.sqrt(1.0-np.abs(TLSP.C[1,0])**2)
+        	#TLSP.C[0,0] = TLSP.C[0,0]/np.abs(TLSP.C[0,0]) * C0
+        self.getrho()
+
+    def relaxation(self,ii,jj,kRdt):
+        """
+        rescale the state vector from ii to jj by exp(-kRdt)
+        """
+        if self.C[ii,0] == 0.0:
+            pass
+        elif self.C[jj,0] == 0.0:
+            self.C[jj,0] = np.sqrt(1.0-np.exp(-kRdt))
+            self.C[ii,0] = self.C[ii,0]*np.exp(-kRdt/2)
+            self.C[ii,0] *= np.exp(1j*2*np.pi*random())
+        else:
+            self.C[jj,0] = self.C[jj,0]*np.sqrt(1.0+(np.abs(self.C[ii,0])**2/np.abs(self.C[jj,0])**2)*(1.0-np.exp(-kRdt)))
+            self.C[ii,0] = self.C[ii,0]*np.exp(-kRdt/2)
+        self.getrho()
+
+    def dephasing(self,ii,jj,kDdt):
+        """
+        make a dephasing with probailtity kDdt
+        """
+        test = random()
+        if test < kDdt:
+            # collapse
+            #self.C[ii,0] = np.abs(self.C[ii,0])*np.exp(1j*2*np.pi*random())
+            self.C[jj,0] = np.abs(self.C[jj,0])*np.exp(1j*2*np.pi*random())
+        self.getrho()
+
+    def resetting(self,ii,jj,kDdt):
+        """
+        dummy function doing nothing
+        """
+        return
+
+    def equilibrate(self,ii,jj,dt,transition=[1,1]):
+        """
+        equilibrate state ii and jj according to Boltzmann distribution
+        transition = [up, down]
+        """
+        drho = self.param.gamma_vib*dt *( np.abs(self.C[ii,0])**2 * np.exp(-self.param.beta*self.H0[jj,jj]) \
+                              -np.abs(self.C[jj,0])**2 * np.exp(-self.param.beta*self.H0[ii,ii]) )
+        if drho > 0.0:
+            # ii->jj
+            self.rescale(ii,jj,np.abs(drho)*transition[0])
+        elif drho < 0.0:
+            # jj->ii
+            self.rescale(jj,ii,np.abs(drho)*transition[1])
+        else:
+            pass
+
+    def getComplement(self,ii,ff,dt):
+        """
+        calcualte complementary from ii --> ff state
+        """
+        gamma = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
+        drho = gamma*dt * np.abs(self.rho[ii,ii])
+        if np.abs(self.rho[ff,ii])!=0.0:
+            drho *= 2*(np.imag(self.rho[ff,ii])/np.abs(self.rho[ff,ii]))**2
+
+        dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+        return drho, dE
+
+    def getComplement_angle(self,ii,ff,dt,angle):
+        """
+        calcualte complementary from ii --> ff state
+        """
+        kR = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
+        if np.abs(self.rho[ff,ii])!=0.0:
+            kR *= 2*(np.sin(angle))**2
+
+        kRdt = kR*dt
+        drho = np.abs(self.rho[ii,ii])*(1.0-np.exp(-kRdt))
+        dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+
+        kD = self.FGR[ii,ff]/2 * (  1.0 - ( np.abs(self.rho[ff,ff]) - np.abs(self.rho[ii,ii]) ) )
+        #kD = self.FGR[ii,ff] * np.abs(self.rho[ii,ii])
+        kDdt = np.abs(kD)*dt
+
+        return kRdt,kDdt,drho,dE
+
+        # gamma = self.FGR[ii,ff] * (1.0 - np.abs(self.rho[ff,ff]))
+        # drho = gamma*dt * np.abs(self.rho[ii,ii])
+        # if np.abs(self.rho[ff,ii])!=0.0:
+        #     drho *= 2*(np.sin(angle))**2
+        #
+        # dE = (self.H0[ii,ii]-self.H0[ff,ff])*drho
+        # return drho, dE
 
 class FloquetStatePropagator(object):
     """

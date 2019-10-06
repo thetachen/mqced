@@ -138,7 +138,8 @@ def initialize(param_EM,param_TLS):
     if UseInitialRandomPhase:
         param_TLS.C0[1,0] = param_TLS.C0[1,0]*np.exp(1j*2*np.pi*random())
     if Describer == 'vector':
-        TLSP = PureStatePropagator(param_TLS)
+        # TLSP = PureStatePropagator(param_TLS)
+        TLSP = PureStatePropagator_Transform(param_TLS)
     if Describer == 'density':
         TLSP = DensityMatrixPropagator(param_TLS)
     #TLSP = FloquetStatePropagator(param_TLS,param_EM,dt)
@@ -161,6 +162,9 @@ def execute(EMP,TLSP,ShowAnimation=False):
     # total energy
     Ut = np.zeros((2,len(times)))
 
+    # average current
+    Jt = np.zeros(len(times))
+
     # energy change
     dEnergy = np.zeros((2,len(times)))
     """
@@ -177,10 +181,17 @@ def execute(EMP,TLSP,ShowAnimation=False):
                  + EMP.dZ*np.dot( EMP.dPxdz, np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid]))
 
         #0.5 polarization interact with CW
-        ECWx = param_EM.A_CW*np.cos(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        # ECWx = param_EM.A_CW*np.cos(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        # ECWy = np.zeros(len(param_EM.Zgrid))
+        # BCWx = np.zeros(len(param_EM.Zgrid))
+        # BCWy = param_EM.A_CW*np.sin(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        #0.5 polarization interact with CW
+        ECWx = param_In.AIN*np.exp(-(param_EM.Zgrid-(param_In.start+AU.C*it*dt))**2/param_In.width)*\
+               np.cos(param_In.KIN*(param_EM.Zgrid-AU.C*it*dt))
         ECWy = np.zeros(len(param_EM.Zgrid))
         BCWx = np.zeros(len(param_EM.Zgrid))
-        BCWy = param_EM.A_CW*np.sin(param_EM.K_CW*(param_EM.Zgrid-AU.C*it*dt))
+        BCWy = param_In.AIN*np.exp(-(param_EM.Zgrid-(param_In.start+AU.C*it*dt))**2/param_In.width)*\
+               np.sin(param_In.KIN*(param_EM.Zgrid-AU.C*it*dt))
         intSE += EMP.dZ*np.dot(EMP.Sx,ECWx) \
                + EMP.dZ*np.dot(EMP.Sy,ECWy)
         intPE += EMP.dZ*np.dot(EMP.Px,ECWx) \
@@ -201,21 +212,26 @@ def execute(EMP,TLSP,ShowAnimation=False):
         dEnergy[0,it] = TLSP.getEnergy()
 
         #1. Propagate the wave function
-        TLSP.update_coupling(intPE)
-        TLSP.update_static_dipole(intSE)
+        # TLSP.update_coupling(intPE)
+        # TLSP.update_static_dipole(intSE)
+        TLSP.update_coupling(intPE,intSE)
         TLSP.propagate(dt)
         dEnergy[0,it] = dEnergy[0,it]-TLSP.getEnergy()
 
         #2. Compute Current: J
-        dPdt = 0.0
+        # dPdt = 0.0
         # for i in range(param_TLS.nstates):
         #     for j in range(i+1,param_TLS.nstates):
         #         dPdt = dPdt + 2*(TLSP.H0[i,i]-TLSP.H0[j,j])*np.imag(TLSP.rho[i,j]) * TLSP.VP[i,j]
-        dPdt = 2*(TLSP.H0[0,0]-TLSP.H0[1,1])*np.imag(TLSP.rho[0,1]) * TLSP.VP[0,1]
-        dSdt = 4*TLSP.H0[0,1]*np.imag(TLSP.rho[0,1])*TLSP.VS[0,0]
+        # dPdt = 2*(TLSP.H0[0,0]-TLSP.H0[1,1])*np.imag(TLSP.rho[0,1]) * TLSP.VP[0,1]
+        # dSdt = 4*TLSP.H0[0,1]*np.imag(TLSP.rho[0,1])*TLSP.VS[0,0]
+        #
+        # Jx = dPdt * EMP.Px - dSdt * EMP.Sx
+        # Jy = dPdt * EMP.Py - dSdt * EMP.Sy
 
-        Jx = dPdt * EMP.Px - dSdt * EMP.Sx
-        Jy = dPdt * EMP.Py - dSdt * EMP.Sy
+        dXdt = -2*(TLSP.H0[1,1]-TLSP.H0[0,0])*np.imag(TLSP.rho[0,1])
+        Jx = dXdt * (TLSP.VP[0,1]*EMP.Px +TLSP.VS[0,1]*EMP.Sx)
+        Jy = dXdt * (TLSP.VP[0,1]*EMP.Py +TLSP.VS[0,1]*EMP.Sy)
 
         #3. Evolve the field
         EMP.update_JxJy(Jx,Jy)
@@ -228,8 +244,8 @@ def execute(EMP,TLSP,ShowAnimation=False):
             # TLSP.rescale(1,0,drho)
             kRdt,kDdt,drho,dE = TLSP.getComplement_angle(1,0,dt,angle)
             TLSP.relaxation(1,0,kRdt)
-            TLSP.dephasing(1,0,kDdt)
-            TLSP.resetting(1,0,TLSP.FGR[1,0]*dt) # only work if the TLS is density matrix
+            # TLSP.dephasing(1,0,kDdt)
+            # TLSP.resetting(1,0,TLSP.FGR[1,0]*dt) # only work if the TLS is density matrix
 
             EMP.MakeTransition_sign(dE*dt/Lambda,sign,UseRandomEB=UseRandomEB)
             dEnergy[1,it] = dE
@@ -245,12 +261,12 @@ def execute(EMP,TLSP,ShowAnimation=False):
 
         """
         # get unitary transformation
-        sin2 = param_TLS.H0[0,1]/np.sqrt( 0.25*(param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(param_TLS.H0[0,1])**2 )
-        cos2 = 0.5*(param_TLS.H0[1,1]-param_TLS.H0[0,0])/np.sqrt( 0.25*(param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(param_TLS.H0[0,1])**2 )
-        cos = np.sqrt((1+cos2)/2)
-        sin = np.sqrt((1-cos2)/2)
-        trans = np.array([[cos,-sin],[sin,cos]])
-        TLSP.rho_trans =np.dot(trans,np.dot(TLSP.rho,trans.T))
+        # sin2 = param_TLS.H0[0,1]/np.sqrt( 0.25*(param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(param_TLS.H0[0,1])**2 )
+        # cos2 = 0.5*(param_TLS.H0[1,1]-param_TLS.H0[0,0])/np.sqrt( 0.25*(param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(param_TLS.H0[0,1])**2 )
+        # cos = np.sqrt((1+cos2)/2)
+        # sin = np.sqrt((1-cos2)/2)
+        # trans = np.array([[cos,-sin],[sin,cos]])
+        TLSP.rho_trans =np.dot(TLSP.trans,np.dot(TLSP.rho,TLSP.trans.T))
         # density matrix
         for i in range(param_TLS.nstates):
             for j in range(param_TLS.nstates):
@@ -263,7 +279,7 @@ def execute(EMP,TLSP,ShowAnimation=False):
         Uele = TLSP.getEnergy()
         Ut[0,it] = Uele
         Ut[1,it] = Uemf
-
+        Jt[it] = dXdt
         """
         Plot
         """
@@ -284,17 +300,19 @@ def execute(EMP,TLSP,ShowAnimation=False):
             # ax[1].fill_between(EMP.Zgrid,0.0,np.sqrt(AU.E0)*(np.array(EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid])**2+np.array(EMP.EB[EMP._By:EMP._By+EMP.NZgrid])**2),alpha=0.5,color='black',label='$E_x^2+B_y^2$')
             # ax[1].plot(times[:it]*AU.fs,Ut[0,:it]-Ut[0,0],lw=2,label='ele energy')
             # ax[1].plot(times[:it]*AU.fs,-(Ut[1,:it]-Ut[1,0]),lw=2,label='EM energy')
-            ax[1].plot(times[:it]*AU.fs,Ut[0,:it]+Ut[1,:it],lw=2,label='Uele+Uemf')
+            # ax[1].plot(times[:it]*AU.fs,Ut[0,:it]+Ut[1,:it]-(Ut[0,0]+Ut[1,0]),lw=2,label='Uele+Uemf')
+            ax[1].plot(times[:it]*AU.fs,Jt[:it],lw=2,label='Jt')
             # ax[1].set_ylim([0,0.0001])
-            ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
+            # ax[1].axvline(x=param_TLS.Mu, color='k', linestyle='--')
             ax[1].legend()
 
             plt.sca(ax[2])
             plt.cla()
-            for n in range(param_TLS.nstates):
+            # for n in range(param_TLS.nstates):
+            for n in [1]:
                 ax[2].plot(times[:it]*AU.fs,np.abs(rhot[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
                 ax[2].plot(times[:it]*AU.fs,np.abs(rhot_trans[n,n,:it]),'-',lw=2,label='$P_{'+str(n)+'}$')
-            # ax[2].plot(times[:it]*AU.fs,0.5*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
+            ax[2].plot(times[:it]*AU.fs,rhot[1,1,0]*np.exp(-TLSP.FGR[1,0]*times[:it]),'--k',lw=2,label='FGR')
             # ax[2].plot(times[:it]*AU.fs,np.abs(param_TLS.C0[1,0])**2*np.exp(-KFGR*times[:it]),'--k',lw=2,label='FGR')
             # ax[2].plot(times[:it]*AU.fs,np.real(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Re}\rho_{01}$')
             # ax[2].plot(times[:it]*AU.fs,np.imag(rhot[0,1,:it]),'-',lw=2,label='$\mathrm{Im}\rho_{01}$')
