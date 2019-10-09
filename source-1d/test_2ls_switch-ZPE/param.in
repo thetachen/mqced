@@ -1,0 +1,81 @@
+#!/usr/bin/python
+from units import AtomicUnit
+from utility import *
+AU = AtomicUnit()
+
+
+#Options:
+#ShowAnimation = False
+ShowAnimation = True
+AveragePeriod =  1000
+UseInitialRandomPhase = False
+#UsePlusEmission = True
+UsePlusEmission = False
+UseRandomEB = False
+
+Describer = 'vector'
+#Describer = 'density'
+NumberTrajectories = 1
+
+# Set up time steps
+T0 = 0.0
+Tmax = 2.0/AU.fs
+dt = np.pi/5000
+# Tmax = 1.0/AU.fs * 100
+# dt = 0.05
+times = np.arange(T0, Tmax, dt)
+
+param_EM={
+    # Z coordinate grid parameters:
+    'Zlim':     [-np.pi,np.pi],
+    'NZgrid':   5000+1,
+    # ABC pararmeters
+    'Zo':       0.0/AU.nm,
+    'Z0':       np.pi*0.8,
+    'Z1':       np.pi*0.9,
+    # Continuous Wave parameters
+    'A_CW':     0.0,
+    'K_CW':     0.25,
+}
+param_EM['Zgrid'] = np.linspace(param_EM['Zlim'][0],param_EM['Zlim'][1], num=param_EM['NZgrid'])
+param_EM['dZ'] = param_EM['Zgrid'][1]-param_EM['Zgrid'][0]
+# start index for [Ex,Ey,Bx,By]
+param_EM['_Ex'] = 0*param_EM['NZgrid']
+param_EM['_Ey'] = 1*param_EM['NZgrid']
+param_EM['_Bx'] = 2*param_EM['NZgrid']
+param_EM['_By'] = 3*param_EM['NZgrid']
+param_EM=Struct(**param_EM)
+
+
+param_In={
+    # Incoming Field parameters
+    'AIN':     0.0,
+    'KIN':     0.25,
+    'width':    2000,
+    'start':    -400,
+}
+param_In=Struct(**param_In)
+
+
+param_TLS={
+    'nstates':  2,
+    # Hamiltoniam
+    'H0':       np.array([[0.0,0.0],\
+                          [0.0,100.0]]),
+	# Coupling
+    'VP':       np.array([[0.0,1.0],\
+                          [1.0,0.0]]),
+    # initial diabatic state vector
+    #'C0':	np.sqrt(np.array([[0.1],[0.9]],complex)),#*np.exp(1j*np.pi*-0.5),
+    'C0':       np.sqrt(np.array([[0.5],[0.5]],complex)),#*np.exp(1j*np.pi*0.5),
+    # polarization
+    'Mu':       0.0,
+    #'Sigma':    0.0556*(AU.nm**2),
+    #'Pmax':     33824.0/AU.Cnmmol,
+    'Sigma':    0.001,
+    'Pmax':     0.1*np.sqrt(np.pi),
+}
+param_TLS=Struct(**param_TLS)
+
+phase_shift = 0.0*np.pi
+Lambda = 4.0*np.sqrt(np.pi)*param_TLS.Sigma/3.0
