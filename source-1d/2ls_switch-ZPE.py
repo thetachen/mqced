@@ -20,6 +20,7 @@ UseInitialRandomPhase = True
 NumberTrajectories = 1
 UsePlusEmission = True
 UseRandomEB = False
+gamma_ZPE = 1.0
 
 if (len(argv) == 1):
     execfile('param.in')
@@ -211,7 +212,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         intPE_ZPE = EMP.dZ*np.dot(EMP_ZPE.Px, np.array(EMP_ZPE.EB[EMP_ZPE._Ex:EMP_ZPE._Ex+EMP_ZPE.NZgrid])) \
                   + EMP.dZ*np.dot(EMP_ZPE.Py, np.array(EMP_ZPE.EB[EMP_ZPE._Ey:EMP_ZPE._Ey+EMP_ZPE.NZgrid]))
         Etr,Btr = ZPE.getFields(it*dt,0.0)
-        intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr # approximation
+        intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_ZPE # approximation
         # Etrs,Btrs = ZPE.getFields_range(it*dt,ZPE.Zgrid)
         # intPE_ZPE = intPE_ZPE + EMP.dZ*np.dot(EMP.Px,Etrs)
 
@@ -401,6 +402,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         # save to data dictionaray
         if it%AveragePeriod==0 or it==len(times)-1:
             output={
+                'KFGR':     TLSP.FGR[1,0],
                 'Zgrid':    EMP.Zgrid,
                 'times':    times,
                 # 'Ex':       EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
@@ -408,6 +410,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
                 'UTLSt':    UTLSt,
                 'UEMPt':    UEMPt,
                 'rhot':     rhot,
+                'rhot_ZPE': rhot_ZPE,
             }
 
     """
