@@ -300,11 +300,22 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         if eta < dt/Lambda:
             if dUTLS<0.0:
                 TLSP.C = TLSP_ZPE.C
-                alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
-
-                EMP.EB = alpha*EMP_ZPE.EB
-                EMP.initializeODEsolver(EMP.EB,it*dt)
+                # #Option 1
+                # alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
+                #
+                # EMP.EB = alpha*EMP_ZPE.EB
+                # EMP.initializeODEsolver(EMP.EB,it*dt)
                 # print "switch", alpha, dUTLS
+
+                #Option 2
+                dEB = EMP_ZPE.EB-EMP.EB
+                AA = EMP.dZ*np.dot(dEB,dEB)
+                BB = EMP.dZ*np.dot(dEB,EMP.EB)*2
+                CC = dUTLS*2
+                alpha = [(-BB+np.sqrt(BB**2-4*AA*CC))/2/AA, (-BB-np.sqrt(BB**2-4*AA*CC))/2/AA]
+                alpha = alpha[np.argmin(np.abs(alpha))]
+                EMP.EB = EMP.EB + alpha*dEB
+                EMP.initializeODEsolver(EMP.EB,it*dt)
 
         """
         output:
@@ -408,12 +419,11 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
                 'KFGR':     TLSP.FGR[1,0],
                 'Zgrid':    EMP.Zgrid,
                 'times':    times,
-                # 'Ex':       EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
+                'Ex':       EMP.EB[EMP._Ex:EMP._Ex+EMP.NZgrid],
                 # 'By':       EMP.EB[EMP._By:EMP._By+EMP.NZgrid],
                 'UTLSt':    UTLSt,
                 'UEMPt':    UEMPt,
                 'rhot':     rhot,
-                'rhot_ZPE': rhot_ZPE,
             }
 
     """
