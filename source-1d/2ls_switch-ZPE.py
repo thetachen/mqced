@@ -212,7 +212,10 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         intPE_ZPE = EMP.dZ*np.dot(EMP_ZPE.Px, np.array(EMP_ZPE.EB[EMP_ZPE._Ex:EMP_ZPE._Ex+EMP_ZPE.NZgrid])) \
                   + EMP.dZ*np.dot(EMP_ZPE.Py, np.array(EMP_ZPE.EB[EMP_ZPE._Ey:EMP_ZPE._Ey+EMP_ZPE.NZgrid]))
         Etr,Btr = ZPE.getFields(it*dt,0.0)
-        intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_ZPE # approximation
+        if gamma_ZPE == 'Dynamic':
+            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * np.pi*(4.0*np.abs(TLSP.rho[1,1])-1.0) # approximation
+        else:
+            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_ZPE # approximation
         # Etrs,Btrs = ZPE.getFields_range(it*dt,ZPE.Zgrid)
         # intPE_ZPE = intPE_ZPE + EMP.dZ*np.dot(EMP.Px,Etrs)
 
