@@ -298,7 +298,16 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         eta = np.random.random()
         dUTLS = np.real( UTLS_ZPE - UTLS )
         if eta < dt/Lambda:
-            if dUTLS<0.0:
+            dEB = EMP_ZPE.EB-EMP.EB
+            AA = EMP.dZ*np.dot(dEB,dEB)
+            BB = EMP.dZ*np.dot(dEB,EMP.EB)*2
+            CC = dUTLS*2
+
+
+            #Criteria 1
+            # if dUTLS<0.0:
+            #Criteria 2
+            if BB**2-4*AA*CC>0:
                 TLSP.C = TLSP_ZPE.C
                 # #Option 1
                 # alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
@@ -308,10 +317,6 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
                 # print "switch", alpha, dUTLS
 
                 #Option 2
-                dEB = EMP_ZPE.EB-EMP.EB
-                AA = EMP.dZ*np.dot(dEB,dEB)
-                BB = EMP.dZ*np.dot(dEB,EMP.EB)*2
-                CC = dUTLS*2
                 alpha = [(-BB+np.sqrt(BB**2-4*AA*CC))/2/AA, (-BB-np.sqrt(BB**2-4*AA*CC))/2/AA]
                 alpha = alpha[np.argmin(np.abs(alpha))]
                 EMP.EB = EMP.EB + alpha*dEB
