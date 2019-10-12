@@ -307,7 +307,9 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
             #Criteria 1
             # if dUTLS<0.0:
             #Criteria 2
-            if BB**2-4*AA*CC>0:
+            # if BB**2-4*AA*CC>0:
+            #Criteria 1+2
+            if dUTLS<0.0 and BB**2-4*AA*CC>0.0:            
                 TLSP.C = TLSP_ZPE.C
                 # #Option 1
                 # alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
