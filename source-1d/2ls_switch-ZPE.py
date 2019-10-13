@@ -309,8 +309,10 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
             #Criteria 2
             # if BB**2-4*AA*CC>0:
             #Criteria 1+2
-            if dUTLS<0.0 and BB**2-4*AA*CC>0.0:            
+            if dUTLS<0.0 and BB**2-4*AA*CC>0.0:
                 TLSP.C = TLSP_ZPE.C
+                # Optional Dephasing
+                TLSP_ZPE.C[1,0] = np.abs(TLSP_ZPE.C[1,0])*np.exp(1j*2*np.pi*random())
                 # #Option 1
                 # alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
                 #
@@ -384,8 +386,8 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
 
             plt.sca(ax[3])
             plt.cla()
-            ax[3].plot(times[:it]*AU.fs,UEMPt[0,:it]+UTLSt[0,:it],lw=2,label='UEMP+UTLS')
-            ax[3].plot(times[:it]*AU.fs,UEMPt[1,:it]+UTLSt[1,:it],lw=2,label='UEMP+UTLS(ZPE)')
+            ax[3].plot(times[:it]*AU.fs,np.abs(rhot[0,1,:it]),'-',lw=2,label='$\rho_{01}$, Eh')
+            ax[3].plot(times[:it]*AU.fs,np.abs(rhot_ZPE[0,1,:it]),'-',lw=2,label='$\rho_{01}$, ZPE')
             #ax[3].plot(times[:it]*AU.fs,dEnergy[0,:it], lw=2, label='coherent')
             #ax[3].plot(times[:it]*AU.fs,dEnergy[1,:it], lw=2, label='incoherent')
             #ax[3].plot(times[:it]*AU.fs,(-np.log(dEnergy[1,:it])+np.log(dEnergy[1,0]))/times[:it], lw=2, label='incoherent')
@@ -403,9 +405,11 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
 
             plt.sca(ax[4])
             plt.cla()
+            ax[4].plot(times[:it]*AU.fs,UEMPt[0,:it]+UTLSt[0,:it],lw=2,label='UEMP+UTLS')
+            ax[4].plot(times[:it]*AU.fs,UEMPt[1,:it]+UTLSt[1,:it],lw=2,label='UEMP+UTLS(ZPE)')
             #ax[4].plot(fft_Freq*AU.C,np.abs(fft_Ex)**2,lw=2,color='b')
-            normal = np.sqrt( (param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(2*param_TLS.H0[0,1])**2 )
-            ax[4].axvline(x=normal, color='k', linestyle='--')
+            # normal = np.sqrt( (param_TLS.H0[1,1]-param_TLS.H0[0,0])**2+(2*param_TLS.H0[0,1])**2 )
+            # ax[4].axvline(x=normal, color='k', linestyle='--')
             #ax[4].plot(fft_Freq*AU.C,(ave_fft_Ex/rolling)**2,lw=2,color='r')
             ax[4].set_xlim([0.0,1.0])
             #ax[4].set_xlabel('$ck$')
