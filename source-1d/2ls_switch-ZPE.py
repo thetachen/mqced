@@ -297,34 +297,53 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         # Switch?
         eta = np.random.random()
         dUTLS = np.real( UTLS_ZPE - UTLS )
+        # if eta < dt/Lambda:
+        #     dEB = EMP_ZPE.EB-EMP.EB
+        #     AA = EMP.dZ*np.dot(dEB,dEB)
+        #     BB = EMP.dZ*np.dot(dEB,EMP.EB)*2
+        #     CC = dUTLS*2
+        #
+        #
+        #     #Criteria 1
+        #     # if dUTLS<0.0:
+        #     #Criteria 2
+        #     # if BB**2-4*AA*CC>0:
+        #     #Criteria 1+2
+        #     if dUTLS<0.0 and BB**2-4*AA*CC>0.0:
+        #         TLSP.C = TLSP_ZPE.C
+        #         # Optional Dephasing
+        #         TLSP_ZPE.C[1,0] = np.abs(TLSP_ZPE.C[1,0])*np.exp(1j*2*np.pi*random())
+        #         # #Option 1
+        #         # alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
+        #         #
+        #         # EMP.EB = alpha*EMP_ZPE.EB
+        #         # EMP.initializeODEsolver(EMP.EB,it*dt)
+        #         # print "switch", alpha, dUTLS
+        #
+        #         #Option 2
+        #         alpha = [(-BB+np.sqrt(BB**2-4*AA*CC))/2/AA, (-BB-np.sqrt(BB**2-4*AA*CC))/2/AA]
+        #         alpha = alpha[np.argmin(np.abs(alpha))]
+        #         EMP.EB = EMP.EB + alpha*dEB
+        #         EMP.initializeODEsolver(EMP.EB,it*dt)
+
+        # Resetting EB_ZPE
         if eta < dt/Lambda:
-            dEB = EMP_ZPE.EB-EMP.EB
-            AA = EMP.dZ*np.dot(dEB,dEB)
-            BB = EMP.dZ*np.dot(dEB,EMP.EB)*2
+            AA = EMP.dZ*np.dot(EMP_ZPE.EB,EMP_ZPE.EB)
+            BB = EMP.dZ*np.dot(EMP_ZPE.EB,EMP.EB)*2
             CC = dUTLS*2
 
-
-            #Criteria 1
-            # if dUTLS<0.0:
-            #Criteria 2
-            # if BB**2-4*AA*CC>0:
-            #Criteria 1+2
             if dUTLS<0.0 and BB**2-4*AA*CC>0.0:
                 TLSP.C = TLSP_ZPE.C
                 # Optional Dephasing
-                TLSP_ZPE.C[1,0] = np.abs(TLSP_ZPE.C[1,0])*np.exp(1j*2*np.pi*random())
-                # #Option 1
-                # alpha = np.sqrt((UEMP - dUTLS)/UEMP_ZPE)
-                #
-                # EMP.EB = alpha*EMP_ZPE.EB
-                # EMP.initializeODEsolver(EMP.EB,it*dt)
-                # print "switch", alpha, dUTLS
-
-                #Option 2
+                # TLSP_ZPE.C[1,0] = np.abs(TLSP_ZPE.C[1,0])*np.exp(1j*2*np.pi*random())
                 alpha = [(-BB+np.sqrt(BB**2-4*AA*CC))/2/AA, (-BB-np.sqrt(BB**2-4*AA*CC))/2/AA]
                 alpha = alpha[np.argmin(np.abs(alpha))]
-                EMP.EB = EMP.EB + alpha*dEB
+                EMP.EB = EMP.EB + alpha*EMP_ZPE.EB
                 EMP.initializeODEsolver(EMP.EB,it*dt)
+
+                # Reset EB_ZPE
+                EMP_ZPE.EB = EMP_ZPE.EB*0
+                EMP_ZPE.initializeODEsolver(EMP_ZPE.EB,it*dt)
 
         """
         output:
