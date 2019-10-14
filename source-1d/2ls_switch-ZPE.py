@@ -153,6 +153,8 @@ def initialize(param_EM,param_TLS):
     if Describer == 'vector':
         TLSP = PureStatePropagator(param_TLS)
         TLSP_ZPE = PureStatePropagator(param_TLS)
+        # TLSP_ZPE.C[0,0] = np.abs(TLSP_ZPE.C[0,0])*np.exp(1j*2*np.pi*random())
+        # TLSP_ZPE.C[1,0] = np.abs(TLSP_ZPE.C[1,0])*np.exp(1j*2*np.pi*random())
     if Describer == 'density':
         TLSP = DensityMatrixPropagator(param_TLS)
         TLSP_ZPE = DensityMatrixPropagator(param_TLS)
@@ -213,7 +215,11 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
                   + EMP.dZ*np.dot(EMP_ZPE.Py, np.array(EMP_ZPE.EB[EMP_ZPE._Ey:EMP_ZPE._Ey+EMP_ZPE.NZgrid]))
         Etr,Btr = ZPE.getFields(it*dt,0.0)
         if gamma_ZPE == 'Dynamic':
-            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * np.pi*(4.0*np.abs(TLSP.rho[1,1])-1.0) # approximation
+            Amax = 10.0
+            Cwidth = 5.0
+            gamma_dynamic = Amax/(1.0-np.exp(-Cwidth))*(np.exp(-Cwidth*(np.abs(TLSP.rho[1,1])-1.0)**2)-np.exp(-Cwidth))
+            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_dynamic 
+            # intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * np.pi*(4.0*np.abs(TLSP.rho[1,1])-1.0) # approximation
         else:
             intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_ZPE # approximation
         # Etrs,Btrs = ZPE.getFields_range(it*dt,ZPE.Zgrid)
