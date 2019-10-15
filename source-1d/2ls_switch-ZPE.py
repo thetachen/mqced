@@ -185,6 +185,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
     """
     Start Time Evolution
     """
+    counter = 0
     for it in range(len(times)):
 
         #0 Compute All integrals
@@ -216,9 +217,11 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         Etr,Btr = ZPE.getFields(it*dt,0.0)
         if gamma_ZPE == 'Dynamic':
             Amax = 10.0
+            Amin = 1.0
             Cwidth = 5.0
-            gamma_dynamic = Amax/(1.0-np.exp(-Cwidth))*(np.exp(-Cwidth*(np.abs(TLSP.rho[1,1])-1.0)**2)-np.exp(-Cwidth))
-            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_dynamic 
+            Npower = 2
+            gamma_dynamic = Amin+(Amax-Amin)/(1.0-np.exp(-Cwidth))*(np.exp(-Cwidth*(1.0-np.abs(TLSP.rho[1,1]))**Npower)-np.exp(-Cwidth))
+            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_dynamic
             # intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * np.pi*(4.0*np.abs(TLSP.rho[1,1])-1.0) # approximation
         else:
             intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_ZPE # approximation
@@ -332,6 +335,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         #         EMP.EB = EMP.EB + alpha*dEB
         #         EMP.initializeODEsolver(EMP.EB,it*dt)
 
+        counter+=1
         # Resetting EB_ZPE
         if eta < dt/Lambda:
             AA = EMP.dZ*np.dot(EMP_ZPE.EB,EMP_ZPE.EB)
@@ -350,6 +354,15 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
                 # Reset EB_ZPE
                 EMP_ZPE.EB = EMP_ZPE.EB*0
                 EMP_ZPE.initializeODEsolver(EMP_ZPE.EB,it*dt)
+                counter = 0
+                
+        # ZPE cut-off
+        if counter*dt > 30*param_TLS.Sigma:
+            TLSP_ZPE.C = TLSP.C
+            # Reset EB_ZPE
+            EMP_ZPE.EB = EMP_ZPE.EB*0
+            EMP_ZPE.initializeODEsolver(EMP_ZPE.EB,it*dt)
+            counter = 0
 
         """
         output:
