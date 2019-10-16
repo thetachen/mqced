@@ -32,13 +32,12 @@ class ZeroPointEnergy_1D(object):
             self.P0s[j] = np.random.normal(0.0, np.sqrt(0.5*self.Ws[j]))
             self.Amps[j] = np.sqrt(self.X0s[j]**2+self.P0s[j]**2)
             self.Phis[j] = math.atan2(self.X0s[j],self.P0s[j])
-            self.phase[j] = j*np.pi/2 # j*\pi/2 phase to ensure boundary condition
 
     def getFields(self,t,r):
         Xt = self.Amps*np.sin(self.Ws*t + self.Phis)
         Pt = self.Amps*np.cos(self.Ws*t + self.Phis)
-        Etr = np.sqrt(2.0/self.boxsize) * np.sum(self.Ws*Xt*np.sin(self.Ws*r+self.phase)) / len(self.Ws)
-        Btr = np.sqrt(2.0/self.boxsize) * np.sum(Pt*np.cos(self.Ws*r+self.phase)) / len(self.Ws)
+        Etr = np.sqrt(2.0/self.boxsize) * np.sum(self.Ws*Xt*np.sin(self.Ws*r))# / len(self.Ws)
+        Btr = np.sqrt(2.0/self.boxsize) * np.sum(Pt*np.cos(self.Ws*r))# / len(self.Ws)
 
         return Etr,Btr
 
@@ -49,15 +48,6 @@ class ZeroPointEnergy_1D(object):
             Etrs[ir], Btrs[ir] = self.getFields(t,rs[ir])
 
         return Etrs,Btrs
-
-
-    def getEr(self,Rgrid,time):
-        dK = self.Ks[1]-self.Ks[0]
-        Egrid = np.zeros(len(Rgrid))
-        for K,Ek in zip(self.Ks,self.Eks):
-            Egrid =  Egrid+ Ek*np.exp(1j*K*Rgrid) *np.exp(-1j*K*time+1j*self.phase)*dK
-
-        return np.real(Egrid)
 
 
 class BoltzmannLight_1mode(object):

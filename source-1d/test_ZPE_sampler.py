@@ -54,12 +54,22 @@ class TestZeroPointEnergy_1D(unittest.TestCase):
         np.testing.assert_array_almost_equal(ZPE.X0s,Xt,decimal=6)
         np.testing.assert_array_almost_equal(ZPE.P0s,Pt,decimal=6)
 
+    # def test_stdconverge(self):
+    #     ZPE = ZeroPointEnergy_1D(self.param)
+    #
+    #     T0 = 0
+    #     Xt = ZPE.Amps*np.sin(ZPE.Ws*T0 + ZPE.Phis)
+    #     Pt = ZPE.Amps*np.cos(ZPE.Ws*T0 + ZPE.Phis)
+    #
+    #     # self.assertListEqual(list(ZPE.X0s), list(Xt))
+    #     np.testing.assert_array_almost_equal(ZPE.X0s,Xt,decimal=6)
+    #     np.testing.assert_array_almost_equal(ZPE.P0s,Pt,decimal=6)
 
     def test_getFields(self):
         boxsize = 2*np.pi
         ZPE = ZeroPointEnergy_1D(self.param,boxsize=boxsize)
         t = 0
-        r = 0
+        r = np.pi
         Etr,Btr = ZPE.getFields(t,r)
 
         Xt = ZPE.Amps*np.sin(ZPE.Ws*t + ZPE.Phis)
@@ -68,9 +78,18 @@ class TestZeroPointEnergy_1D(unittest.TestCase):
         Etr_Direct = np.sqrt(2.0/boxsize) * np.sum(ZPE.Ws*Xt*np.sin(ZPE.Ws*r))
         Btr_Direct = np.sqrt(2.0/boxsize) * np.sum(Pt*np.cos(ZPE.Ws*r))
 
-
         self.assertAlmostEqual(Etr,Etr_Direct, places=3)
         self.assertAlmostEqual(Btr,Btr_Direct, places=3)
+
+        t = 0
+        r = 0.0
+        Etr,Btr = ZPE.getFields(t,r)
+        self.assertAlmostEqual(Etr,0.0, places=3)
+        
+        t = 0
+        r = 2*np.pi
+        Etr,Btr = ZPE.getFields(t,r)
+        self.assertAlmostEqual(Etr,0.0, places=3)
 
     #
     # def test_PlanckLight_Nmode(self):
