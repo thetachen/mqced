@@ -10,24 +10,19 @@ class ZeroPointEnergy_1D(object):
     """
     Sample Zero Point Energy
     """
-    def __init__(self,param,boxsize=2*np.pi,Wmax=200.0,num_mode=400):
+    def __init__(self,param):
         self.param = param
-        self.boxsize = boxsize
-        self.NZgrid = self.param.NZgrid
-        self.Zgrid = self.param.Zgrid
-        self.Ezpe = np.zeros(self.NZgrid)
-        self.Bzpe = np.zeros(self.NZgrid)
 
         # Sample the photon modes
-        dW = Wmax/num_mode
-        self.Ws = np.linspace(0.0, Wmax, num=num_mode, endpoint=False) + dW
-        self.X0s = np.zeros(num_mode)
-        self.P0s = np.zeros(num_mode)
-        self.Amps = np.zeros(num_mode)
-        self.Phis = np.zeros(num_mode)
-        self.phase = np.zeros(num_mode)
+        self.dW = np.pi/self.param.boxsize
+        if self.param.Wmin == 0.0: self.param.Wmin=self.dW
+        self.Ws = np.arange(self.param.Wmin,self.param.Wmax,self.dW)
+        self.X0s = np.zeros(len(self.Ws))
+        self.P0s = np.zeros(len(self.Ws))
+        self.Amps = np.zeros(len(self.Ws))
+        self.Phis = np.zeros(len(self.Ws))
 
-        for j in range(num_mode):
+        for j in range(len(self.Ws)):
             self.X0s[j] = np.random.normal(0.0, np.sqrt(0.5/self.Ws[j]))
             self.P0s[j] = np.random.normal(0.0, np.sqrt(0.5*self.Ws[j]))
             self.Amps[j] = np.sqrt(self.X0s[j]**2+self.P0s[j]**2)
@@ -36,8 +31,8 @@ class ZeroPointEnergy_1D(object):
     def getFields(self,t,r):
         Xt = self.Amps*np.sin(self.Ws*t + self.Phis)
         Pt = self.Amps*np.cos(self.Ws*t + self.Phis)
-        Etr = np.sqrt(2.0/self.boxsize) * np.sum(self.Ws*Xt*np.sin(self.Ws*r))# / len(self.Ws)
-        Btr = np.sqrt(2.0/self.boxsize) * np.sum(Pt*np.cos(self.Ws*r))# / len(self.Ws)
+        Etr = np.sqrt(2.0/self.param.boxsize) * np.sum(self.Ws*Xt*np.sin(self.Ws*r))# / len(self.Ws)
+        Btr = np.sqrt(2.0/self.param.boxsize) * np.sum(Pt*np.cos(self.Ws*r))# / len(self.Ws)
 
         return Etr,Btr
 

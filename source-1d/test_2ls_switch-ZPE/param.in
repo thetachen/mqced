@@ -7,7 +7,7 @@ AU = AtomicUnit()
 #Options:
 #ShowAnimation = False
 ShowAnimation = True
-AveragePeriod =  1000
+AveragePeriod =  100
 UseInitialRandomPhase = False
 #UsePlusEmission = True
 UsePlusEmission = False
@@ -20,19 +20,19 @@ NumberTrajectories = 1
 # Set up time steps
 T0 = 0.0
 Tmax = 2.0/AU.fs
-dt = np.pi/5000
+dt = np.pi/50000
 # Tmax = 1.0/AU.fs * 100
 # dt = 0.05
 times = np.arange(T0, Tmax, dt)
 
 param_EM={
     # Z coordinate grid parameters:
-    'Zlim':     [-np.pi,np.pi],
-    'NZgrid':   5000+1,
+    'Zlim':     [-np.pi/2,np.pi/2],
+    'NZgrid':   5000/2+1,
     # ABC pararmeters
     'Zo':       0.0/AU.nm,
-    'Z0':       np.pi*0.8,
-    'Z1':       np.pi*0.9,
+    'Z0':       np.pi/2*0.8,
+    'Z1':       np.pi/2*0.9,
     # Continuous Wave parameters
     'A_CW':     0.0,
     'K_CW':     0.25,
@@ -76,6 +76,16 @@ param_TLS={
     'Pmax':     0.1*np.sqrt(np.pi),
 }
 param_TLS=Struct(**param_TLS)
+
+param_ZPE={
+    # zero point energy parameter
+    'Wmin':     100.0-20.0,
+    'Wmax':     100.0+20.0,
+    'boxsize':  20000*np.pi,
+    'gamma':    1.0,
+}
+param_ZPE=Struct(**param_ZPE)
+
 
 phase_shift = 0.0*np.pi
 Lambda = 4.0*np.sqrt(np.pi)*param_TLS.Sigma/3.0

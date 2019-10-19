@@ -20,7 +20,6 @@ UseInitialRandomPhase = True
 NumberTrajectories = 1
 UsePlusEmission = True
 UseRandomEB = False
-gamma_ZPE = 1.0
 
 if (len(argv) == 1):
     execfile('param.in')
@@ -145,7 +144,7 @@ def initialize(param_EM,param_TLS):
     EMP_ZPE.update_TETB(TEx,TEy,TBx,TBy)
 
     # create EM_ZPE object
-    ZPE = ZeroPointEnergy_1D(param_EM,num_mode=1000)
+    ZPE = ZeroPointEnergy_1D(param_ZPE)
 
     # create TLS object
     if UseInitialRandomPhase:
@@ -214,8 +213,8 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
         # interaction with ZPE
         intPE_ZPE = EMP.dZ*np.dot(EMP_ZPE.Px, np.array(EMP_ZPE.EB[EMP_ZPE._Ex:EMP_ZPE._Ex+EMP_ZPE.NZgrid])) \
                   + EMP.dZ*np.dot(EMP_ZPE.Py, np.array(EMP_ZPE.EB[EMP_ZPE._Ey:EMP_ZPE._Ey+EMP_ZPE.NZgrid]))
-        Etr,Btr = ZPE.getFields(it*dt,0.0)
-        if gamma_ZPE == 'Dynamic':
+        Etr,Btr = ZPE.getFields(it*dt,param_ZPE.boxsize/2)
+        if param_ZPE.gamma == 'Dynamic':
             Amax = 10.0
             Amin = 1.0
             Cwidth = 5.0
@@ -224,7 +223,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
             intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_dynamic
             # intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * np.pi*(4.0*np.abs(TLSP.rho[1,1])-1.0) # approximation
         else:
-            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * gamma_ZPE # approximation
+            intPE_ZPE = intPE_ZPE + TLSP.param.Pmax*Etr * param_ZPE.gamma # approximation
         # Etrs,Btrs = ZPE.getFields_range(it*dt,ZPE.Zgrid)
         # intPE_ZPE = intPE_ZPE + EMP.dZ*np.dot(EMP.Px,Etrs)
 
@@ -342,7 +341,8 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
             BB = EMP.dZ*np.dot(EMP_ZPE.EB,EMP.EB)*2
             CC = dUTLS*2
 
-            if dUTLS<0.0 and BB**2-4*AA*CC>0.0:
+            # if dUTLS<0.0 and BB**2-4*AA*CC>0.0:
+            if BB**2-4*AA*CC>0.0:
                 TLSP.C = TLSP_ZPE.C
                 # Optional Dephasing
                 # TLSP_ZPE.C[1,0] = np.abs(TLSP_ZPE.C[1,0])*np.exp(1j*2*np.pi*random())
@@ -355,7 +355,7 @@ def execute(EMP, EMP_ZPE, TLSP, TLSP_ZPE, ZPE,ShowAnimation=False):
                 EMP_ZPE.EB = EMP_ZPE.EB*0
                 EMP_ZPE.initializeODEsolver(EMP_ZPE.EB,it*dt)
                 counter = 0
-                
+
         # ZPE cut-off
         if counter*dt > 30*param_TLS.Sigma:
             TLSP_ZPE.C = TLSP.C
