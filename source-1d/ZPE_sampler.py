@@ -109,29 +109,24 @@ class PlanckLight_Nmode(object):
     """
     Sample Thermal Light
     """
-    def __init__(self,beta,K0,dK,Kmax):
-        # Set up k grid according to beta
-        self.beta = beta
-        self.dK = dK
-        #self.KCWs = np.arange(dK,Kmax,dK)
-        self.KCWs = np.arange(K0-Kmax*dK,K0+Kmax*dK,dK)
-        if Kmax==0:
-            self.KCWs = np.array([K0])
-        self.N = len(self.KCWs)
+    def __init__(self,param):
+        self.param = param
+
+        # Sample the photon modes
+        self.dW = np.pi/self.param.boxsize
+        if self.param.Wmin == 0.0: self.param.Wmin=self.dW
+        self.Ws = np.arange(self.param.Wmin,self.param.Wmax,self.dW)
+        self.num_modes = len(self.Ws)
 
 
-    def sample_ACW(self):
-        self.ACWs = np.sqrt(self.KCWs*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0)*self.dK)*self.KCWs
+        self.As = np.sqrt(self.Ws*0.5*self.dW)*self.Ws
         #self.ACWs = np.sqrt(self.KCWs*(1.0/(np.exp(self.KCWs*self.beta)-1.0)+0.0)*0.0001)*self.KCWs
-        self.ACWs = self.ACWs*np.sqrt(2.0/3.0)/np.pi
-        #self.ACWs = self.ACWs/4.0
-        self.phases = np.random.random(self.N)*2*np.pi
-        #self.phases2 = np.random.random(self.N)*2*np.pi
-        return self.ACWs
+        self.As = self.As*np.sqrt(2.0/3.0)/np.pi
+        self.phases = np.random.random(self.num_modes)*2*np.pi
 
-
-    def calculate_ECW(self,Rgrid,time):
-        self.ECWx = np.zeros(len(Rgrid))
-        for i in range(self.N):
-            self.ECWx += self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time)+self.phases[i])
-            #self.ECWx += self.ACWs[i]*np.cos(self.KCWs[i]*(Rgrid-time)+self.phases[i])*np.cos(self.phases2[i])
+    def getFields(self,t,r):
+        Etr = 0.0
+        for i in range(self.num_modes):
+            Etr += self.As[i]*np.cos(self.Ws[i]*(r-t)+self.phases[i])
+        Btr = Etr
+        return Etr,Btr
