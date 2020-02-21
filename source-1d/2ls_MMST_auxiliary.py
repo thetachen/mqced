@@ -83,25 +83,25 @@ def execute(param_TLS,ShowAnimation=False):
     # create MMST object
     W0 = param_TLS.H0[1,1]-param_TLS.H0[0,0]
     KFGR = TLSP.FGR[1,0]
-    MMSTP = MMSTlight_Nmode(W0,dW,NWmax)
-    XP0 = np.zeros(2*MMSTP.NW)
-    MMSTP.initializeODEsolver(XP0,T0)
+    MMSTP_Auxiliary = MMSTlight_Nmode(W0,dW,NWmax)
+    XP0 = np.zeros(2*MMSTP_Auxiliary.NW)
+    MMSTP_Auxiliary.initializeODEsolver(XP0,T0)
 
     MMSTP_Ehrenfest = MMSTlight_Nmode(W0,dW,NWmax)
     MMSTP_Ehrenfest.initializeODEsolver(XP0,T0)
 
     # Coupling Strength Per Mode
     # CouplePerMode = param_TLS.Pmax*np.sqrt(2.0*dW/np.pi)*MMSTP.Ws *np.pi*2
-    CouplePerMode = param_TLS.Pmax*MMSTP.Ws*np.sqrt(1.0/np.pi)
+    CouplePerMode = param_TLS.Pmax*MMSTP_Auxiliary.Ws*np.sqrt(1.0/np.pi)
 
     # output observables
     rhot = np.zeros((param_TLS.nstates,param_TLS.nstates,len(times)),complex)
-    TemperaturePerMode = np.zeros((MMSTP.NW,len(times)),complex)
-    Xs = np.zeros((MMSTP.NW,len(times)))
-    Ps = np.zeros((MMSTP.NW,len(times)))
+    TemperaturePerMode = np.zeros((MMSTP_Auxiliary.NW,len(times)),complex)
+    Xs = np.zeros((MMSTP_Auxiliary.NW,len(times)))
+    Ps = np.zeros((MMSTP_Auxiliary.NW,len(times)))
     Action = np.zeros(len(times))
     RadiationEnergy = np.zeros(len(times))
-    RadiationEnergyDistribution = np.zeros(MMSTP.NW)
+    RadiationEnergyDistribution = np.zeros(MMSTP_Auxiliary.NW)
 
     """
     Start Time Evolution
@@ -117,22 +117,22 @@ def execute(param_TLS,ShowAnimation=False):
                 rhot[i,j,it]=TLSP.rho[i,j]
 
         # TemperaturePerMode
-        for i in range(MMSTP.NW):
-            TemperaturePerMode[i,it]= MMSTP.TemperaturePerMode[i]
+        for i in range(MMSTP_Auxiliary.NW):
+            TemperaturePerMode[i,it]= MMSTP_Auxiliary.TemperaturePerMode[i]
 
         # XPs
-        for i in range(MMSTP.NW):
-            Xs[i,it] = MMSTP.XP[i]
-            Ps[i,it] = MMSTP.XP[MMSTP.NW+i]
+        for i in range(MMSTP_Auxiliary.NW):
+            Xs[i,it] = MMSTP_Auxiliary.XP[i]
+            Ps[i,it] = MMSTP_Auxiliary.XP[MMSTP_Auxiliary.NW+i]
 
         # Total Eenergy
-        RadiationEnergy[it] = MMSTP.getEnergy()
+        RadiationEnergy[it] = MMSTP_Auxiliary.getEnergy()
 
         # Energy Distribution
-        RadiationEnergyDistribution = MMSTP.getEnergyDistribution()
+        RadiationEnergyDistribution = MMSTP_Auxiliary.getEnergyDistribution()
 
         # Action
-        Action[it] = MMSTP.Action
+        Action[it] = MMSTP_Auxiliary.Action
 
         """
         MAIN PROPAGATION
@@ -140,46 +140,43 @@ def execute(param_TLS,ShowAnimation=False):
 
 
         # Evaluate the Current Per Mode
-        Current = 0.5*CouplePerMode/(MMSTP.Ws**2) * np.imag(TLSP.rho[0,1])
-        MMSTP.updateCurrent(Current)
+        Current = 0.5*CouplePerMode/(MMSTP_Auxiliary.Ws**2) * np.imag(TLSP.rho[0,1])
+        MMSTP_Auxiliary.updateCurrent(Current)
         MMSTP_Ehrenfest.updateCurrent(Current)
 
         # copy #1: Raditiaon Field in Ehrenfest
         MMSTP_Ehrenfest.propagate(dt)
-        XP1 = MMSTP_Ehrenfest.XP
+        MMSTP_Ehrenfest_XP = MMSTP_Ehrenfest.XP
 
         # copy #2: Radiation Field with Damping
         # Update the Damping
-        MMSTP.updateDamp(KFGR,TLSP.rho[1,1])
+        MMSTP_Auxiliary.updateDamp(KFGR,TLSP.rho[1,1])
 
         # Update the Random Force
-        # EnergyChange = MMSTP.getEnergy() - RadiationEnergy[it-1] + W0*(np.abs(TLSP.rho[1,1])-np.abs(rhot[1,1,it-1]))
-        EnergyChange = MMSTP.getEnergy() - W0*np.abs(rhot[1,1,0])
-        MMSTP.updateRandomForce(EnergyChange,dt)
+        # EnergyChange = MMSTP_Auxiliary.getEnergy() - RadiationEnergy[it-1] + W0*(np.abs(TLSP.rho[1,1])-np.abs(rhot[1,1,it-1]))
+        EnergyChange = MMSTP_Auxiliary.getEnergy() - W0*np.abs(rhot[1,1,0])
+        MMSTP_Auxiliary.updateRandomForce(EnergyChange,dt)
 
         # Evolve the field
-        MMSTP.propagate(dt)
-        XP2 = MMSTP.XP
+        MMSTP_Auxiliary.propagate(dt)
+        MMSTP_Auxiliary_XP = MMSTP_Auxiliary.XP
 
 
-        intPE_diff = np.dot(CouplePerMode, XP2[:MMSTP.NW]-XP1[:MMSTP.NW]) *dW
-        # intPE_diff = np.dot(CouplePerMode, XP2[:MMSTP.NW]) *dW
+        intPE_diff = np.dot(CouplePerMode, MMSTP_Auxiliary_XP[:MMSTP_Auxiliary.NW]-MMSTP_Ehrenfest_XP[:MMSTP_Ehrenfest.NW]) *dW
         PopulationChange = -intPE_diff*np.imag(TLSP.rho[0,1])
 
         if PopulationChange <= 0.0:# and times[it]<1000.0:
         # if False: # Just do Ehrenfest
         # if True:
             # if the populaiton will go down; keep going
-            MMSTP_Ehrenfest.initializeODEsolver(XP2,times[it]+dt)
-            intPE = np.dot(CouplePerMode, XP2[:MMSTP.NW]) *dW
+            MMSTP_Ehrenfest.initializeODEsolver(MMSTP_Auxiliary_XP,times[it]+dt)
+            intPE = np.dot(CouplePerMode, MMSTP_Auxiliary_XP[:MMSTP_Auxiliary.NW]) *dW
         else:
             # if the populaiton will go up; reset
-            MMSTP.initializeODEsolver(XP1,times[it]+dt)
-            intPE = np.dot(CouplePerMode, XP1[:MMSTP.NW]) *dW
+            MMSTP_Auxiliary.initializeODEsolver(MMSTP_Ehrenfest_XP,times[it]+dt)
+            intPE = np.dot(CouplePerMode, MMSTP_Ehrenfest_XP[:MMSTP_Ehrenfest.NW]) *dW
 
-        # intPE = np.dot(CouplePerMode, MMSTP.XP[:MMSTP.NW]) *dW*np.pi
-        # intPE = np.dot(CouplePerMode, MMSTP.XP[:MMSTP.NW]) *dW
-        #1. Propagate the wave function
+        # Propagate the wave function
         TLSP.update_coupling(intPE)
         TLSP.propagate(dt)
 
@@ -227,7 +224,7 @@ def execute(param_TLS,ShowAnimation=False):
 
             plt.sca(ax[4])
             plt.cla()
-            ax[4].plot(MMSTP.Ws,RadiationEnergyDistribution,'-o',label='Radiation Energy Distribution')
+            ax[4].plot(MMSTP_Auxiliary.Ws,RadiationEnergyDistribution,'-o',label='Radiation Energy Distribution')
 
             ax[4].legend(loc='best')
             ax[4].set_xlabel('x')
